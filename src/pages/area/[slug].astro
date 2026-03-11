@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import schools from '../../data/schools.json';
+import towns from '../../data/towns.json';
+import SchoolCard from '../../components/SchoolCard.astro';
+
+export async function getStaticPaths() {
+  return (towns as any[]).map((t: any) => ({
+    params: { slug: t.slug },
+    props: { town: t },
+  }));
+}
+
+const { town } = Astro.props;
+const areaSchools = (schools as any[]).filter((s: any) => s.townSlug === town.slug);
+const primaries = areaSchools.filter((s: any) => s.phase === 'Primary');
+const secondaries = areaSchools.filter((s: any) => s.phase === 'Secondary');
+const others = areaSchools.filter((s: any) => s.phase !== 'Primary' && s.phase !== 'Secondary');
+
+const title = `Schools in ${town.name} — Catchment Areas & Info | catchment.school`;
+const description = `Find all ${areaSchools.length} schools in ${town.name}${town.la ? ', ' + town.la : ''}. View primary and secondary schools with catchment area guidance, capacity and admissions info.`;
+---
+<Base title={title} description={description}>
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center flex-wrap">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <a href={`/council/${town.laSlug}`} class="hover:underline">{town.la}</a>
+    <span>›</span>
+    <span class="text-gray-700">{town.name}</span>
+  </nav>
+
+  <h1 class="text-3xl font-bold mb-2">Schools in {town.name}</h1>
+  <p class="text-gray-600 mb-8">{areaSchools.length} schools · {town.la}</p>
+
+  {primaries.length > 0 && (
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-4">Primary Schools ({primaries.length})</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {primaries.map((s: any) => <SchoolCard {...s} />)}
+      </div>
+    </section>
+  )}
+
+  {secondaries.length > 0 && (
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-4">Secondary Schools ({secondaries.length})</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {secondaries.map((s: any) => <SchoolCard {...s} />)}
+      </div>
+    </section>
+  )}
+
+  {others.length > 0 && (
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold mb-4">Other Schools ({others.length})</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {others.map((s: any) => <SchoolCard {...s} />)}
+      </div>
+    </section>
+  )}
+
+  <div class="mt-8 p-5 bg-amber-50 border border-amber-200 rounded-lg text-sm">
+    <p class="text-gray-700">
+      <strong>Catchment area boundaries</strong> are set by <strong>{town.la}</strong> and updated annually.
+      Always check the official admissions documentation before relying on catchment information.
+    </p>
+    <a
+      href={`https://www.google.com/search?q=${encodeURIComponent(town.la + ' school admissions catchment area')}`}
+      target="_blank"
+      rel="nofollow noopener"
+      class="inline-block mt-3 text-indigo-700 font-medium hover:underline"
+    >
+      Find {town.la} admissions documents →
+    </a>
+  </div>
+</Base>

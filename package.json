@@ -9,9 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "data:fetch": "node scripts/fetch-schools.mjs",
+    "data:parse": "node scripts/parse-schools.mjs && node scripts/gen-geo.mjs",
+    "data:all": "npm run data:fetch && npm run data:parse"
   },
   "dependencies": {
-    "astro": "^6.0.3"
+    "@astrojs/sitemap": "^3.7.1",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^6.0.3",
+    "csv-parse": "^6.1.0",
+    "tailwindcss": "^4.2.1"
   }
 }

@@ -1,17 +1,94 @@
 ---
+import Base from '../layouts/Base.astro';
+import las from '../data/las.json';
 
+const featuredLAs = las.slice(0, 24);
 ---
+<Base
+  title="Catchment Area Checker — Find Schools Near You | catchment.school"
+  description="Search schools by postcode, town or council. View primary and secondary school catchment areas, admissions info and capacity data for England."
+>
+  <!-- Hero -->
+  <section class="text-center py-10">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">Find Schools in Your Catchment Area</h1>
+    <p class="text-lg text-gray-600 max-w-xl mx-auto mb-8">
+      Search by postcode or town to see primary and secondary schools near you — with admissions info and capacity data.
+    </p>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+    <!-- Postcode search -->
+    <form id="postcode-form" class="flex gap-2 max-w-md mx-auto">
+      <input
+        id="postcode-input"
+        type="text"
+        placeholder="Enter postcode e.g. SW1A 1AA"
+        class="flex-1 border-2 border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-indigo-500 uppercase"
+        autocomplete="postal-code"
+        maxlength="8"
+      />
+      <button
+        type="submit"
+        class="bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition-colors"
+      >
+        Search
+      </button>
+    </form>
+    <p id="postcode-error" class="text-red-500 text-sm mt-2 hidden">Please enter a valid UK postcode.</p>
+  </section>
+
+  <!-- How it works -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4 mb-12">
+    <div class="bg-indigo-50 rounded-xl p-6 text-center">
+      <div class="text-3xl mb-2">📍</div>
+      <h2 class="font-semibold mb-1">Search by Postcode</h2>
+      <p class="text-sm text-gray-600">Enter your home postcode to find the nearest primary and secondary schools.</p>
+    </div>
+    <div class="bg-indigo-50 rounded-xl p-6 text-center">
+      <div class="text-3xl mb-2">🏫</div>
+      <h2 class="font-semibold mb-1">View School Profiles</h2>
+      <p class="text-sm text-gray-600">See capacity, pupil numbers, age range, admissions policy and school type.</p>
+    </div>
+    <div class="bg-indigo-50 rounded-xl p-6 text-center">
+      <div class="text-3xl mb-2">🗺️</div>
+      <h2 class="font-semibold mb-1">Check Catchment Docs</h2>
+      <p class="text-sm text-gray-600">Link directly to your council's official catchment area and admissions documents.</p>
+    </div>
+  </section>
+
+  <!-- Browse by council -->
+  <section>
+    <h2 class="text-2xl font-bold mb-4">Browse Schools by Local Authority</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+      {featuredLAs.map(la => (
+        <a href={`/council/${la.slug}`} class="text-sm text-indigo-700 hover:underline border rounded px-3 py-2 hover:border-indigo-300 transition-colors">
+          {la.name} <span class="text-gray-400">({la.count})</span>
+        </a>
+      ))}
+    </div>
+    <a href="/council" class="inline-block mt-4 text-indigo-700 hover:underline text-sm font-medium">View all {las.length} councils →</a>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('postcode-form') as HTMLFormElement;
+  const input = document.getElementById('postcode-input') as HTMLInputElement;
+  const error = document.getElementById('postcode-error') as HTMLElement;
+
+  input.addEventListener('input', () => {
+    input.value = input.value.toUpperCase().replace(/[^A-Z0-9 ]/g, '');
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const raw = input.value.replace(/\s/g, '').toUpperCase();
+    const valid = /^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(raw);
+    if (!valid) {
+      error.classList.remove('hidden');
+      return;
+    }
+    error.classList.add('hidden');
+    const slug = raw.length === 6
+      ? raw.slice(0, 3) + raw.slice(3)
+      : raw.slice(0, 4) + raw.slice(4);
+    window.location.href = `/postcode/${slug.toLowerCase()}`;
+  });
+</script>

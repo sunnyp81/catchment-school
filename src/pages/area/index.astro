@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import towns from '../../data/towns.json';
+---
+<Base
+  title="Schools by Town — All Areas | catchment.school"
+  description="Browse school catchment areas by town in England. Find all primary and secondary schools in your area."
+>
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <span>All Towns</span>
+  </nav>
+
+  <h1 class="text-3xl font-bold mb-2">Schools by Town</h1>
+  <p class="text-gray-600 mb-8">{(towns as any[]).length} towns in England</p>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+    {(towns as any[]).map(t => (
+      <a href={`/area/${t.slug}`} class="flex justify-between items-center border rounded px-3 py-2 hover:border-indigo-300 transition-colors">
+        <span class="text-sm text-indigo-700 hover:underline">{t.name}</span>
+        <span class="text-xs text-gray-400">{t.count}</span>
+      </a>
+    ))}
+  </div>
+</Base>

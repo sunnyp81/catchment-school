@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import las from '../../data/las.json';
+---
+<Base
+  title="Schools by Local Authority — All Councils | catchment.school"
+  description="Browse school catchment area information for every local authority in England. Find primary and secondary schools by council."
+>
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <span>All Councils</span>
+  </nav>
+
+  <h1 class="text-3xl font-bold mb-2">Schools by Local Authority</h1>
+  <p class="text-gray-600 mb-8">{(las as any[]).length} councils in England</p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+    {(las as any[]).map(la => (
+      <a href={`/council/${la.slug}`} class="flex justify-between items-center border rounded-lg px-4 py-3 hover:border-indigo-400 hover:shadow-sm transition-all">
+        <span class="font-medium text-sm text-indigo-700">{la.name}</span>
+        <span class="text-sm text-gray-400">{la.count}</span>
+      </a>
+    ))}
+  </div>
+</Base>

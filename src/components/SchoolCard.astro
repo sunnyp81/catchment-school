@@ -1,0 +1,25 @@
+---
+interface Props {
+  urn: string;
+  slug: string;
+  name: string;
+  phase: string;
+  type: string;
+  postcode: string;
+  town: string;
+  pupils?: number | null;
+  capacity?: number | null;
+  ageRange?: string | null;
+}
+const { slug, name, phase, type, postcode, town, pupils, capacity, ageRange } = Astro.props;
+---
+<a href={`/school/${slug}`} class="block border rounded-lg p-4 hover:border-indigo-400 hover:shadow-sm transition-all">
+  <h3 class="font-semibold text-indigo-700 hover:underline">{name}</h3>
+  <p class="text-sm text-gray-600 mt-1">{phase} · {type}</p>
+  <p class="text-sm text-gray-500 mt-1">{town} · {postcode}</p>
+  <div class="flex gap-4 mt-2 text-xs text-gray-500">
+    {ageRange && <span>Ages {ageRange}</span>}
+    {pupils && <span>{pupils} pupils</span>}
+    {capacity && <span>Capacity {capacity}</span>}
+  </div>
+</a>

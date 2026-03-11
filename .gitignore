@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# raw data downloads (re-fetch with: npm run data:fetch)
+data/schools-raw.csv
+data/ofsted-raw.csv
