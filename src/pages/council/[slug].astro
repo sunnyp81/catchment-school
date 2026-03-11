@@ -1,21 +1,15 @@
 ---
-export const prerender = true;
 import Base from '../../layouts/Base.astro';
 import schools from '../../data/schools.json';
 import las from '../../data/las.json';
 import SchoolCard from '../../components/SchoolCard.astro';
 
-export async function getStaticPaths() {
-  return (las as any[]).map((la: any) => ({
-    params: { slug: la.slug },
-    props: { la },
-  }));
-}
+const { slug } = Astro.params;
+const la = (las as any[]).find((l: any) => l.slug === slug);
+if (!la) return Astro.redirect('/404');
 
-const { la } = Astro.props;
 const laSchools = (schools as any[]).filter((s: any) => s.laSlug === la.slug);
 
-// Group by town
 const byTown: Record<string, any[]> = {};
 for (const s of laSchools) {
   const key = s.town || 'Other';
@@ -46,7 +40,6 @@ const description = `Browse all ${laSchools.length} schools in ${la.name}, inclu
     <span>{secondaries} secondary</span>
   </div>
 
-  <!-- Admissions banner -->
   <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-5 mb-8 flex flex-col sm:flex-row sm:items-center gap-4">
     <div class="flex-1">
       <h2 class="font-semibold mb-1">Official Catchment Area Documents</h2>
@@ -62,7 +55,6 @@ const description = `Browse all ${laSchools.length} schools in ${la.name}, inclu
     </a>
   </div>
 
-  <!-- Schools by town -->
   {towns.map(([townName, townSchools]) => (
     <section class="mb-10">
       <div class="flex items-baseline gap-3 mb-4">

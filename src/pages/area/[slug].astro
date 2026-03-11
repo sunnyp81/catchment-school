@@ -1,18 +1,13 @@
 ---
-export const prerender = true;
 import Base from '../../layouts/Base.astro';
 import schools from '../../data/schools.json';
 import towns from '../../data/towns.json';
 import SchoolCard from '../../components/SchoolCard.astro';
 
-export async function getStaticPaths() {
-  return (towns as any[]).map((t: any) => ({
-    params: { slug: t.slug },
-    props: { town: t },
-  }));
-}
+const { slug } = Astro.params;
+const town = (towns as any[]).find((t: any) => t.slug === slug);
+if (!town) return Astro.redirect('/404');
 
-const { town } = Astro.props;
 const areaSchools = (schools as any[]).filter((s: any) => s.townSlug === town.slug);
 const primaries = areaSchools.filter((s: any) => s.phase === 'Primary');
 const secondaries = areaSchools.filter((s: any) => s.phase === 'Secondary');
