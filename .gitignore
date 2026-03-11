@@ -26,9 +26,3 @@ pnpm-debug.log*
 # raw data downloads (re-fetch with: npm run data:fetch)
 data/schools-raw.csv
 data/ofsted-raw.csv
-
-# Vercel build output (not used)
-.vercel/
-
-# Wrangler
-.wrangler/

@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Privacy Policy | catchment.school"
+  description="Privacy policy for catchment.school. We do not collect personal data. School data is sourced from the Department for Education's GIAS service."
+>
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <span>Privacy Policy</span>
+  </nav>
+
+  <article class="prose prose-lg max-w-3xl">
+    <h1>Privacy Policy</h1>
+    <p class="text-gray-500 text-sm">Last updated: March 2026</p>
+
+    <h2>What data we collect</h2>
+    <p>
+      catchment.school does not collect, store or process any personal data about visitors.
+      We do not use cookies, registration forms or tracking pixels.
+    </p>
+    <p>
+      Postcode searches are processed entirely in your browser using the public
+      <a href="https://postcodes.io" rel="nofollow noopener" target="_blank">postcodes.io API</a>.
+      We do not log or store the postcodes you search for.
+    </p>
+
+    <h2>Third-party services</h2>
+    <ul>
+      <li><strong>postcodes.io</strong> — used to convert postcodes to coordinates for the school search. See their <a href="https://postcodes.io" rel="nofollow noopener" target="_blank">privacy policy</a>.</li>
+      <li><strong>Google AdSense</strong> — we may serve adverts via Google AdSense. Google's privacy policy governs data collected through advertising.</li>
+      <li><strong>Cloudflare</strong> — this site is hosted on Cloudflare Pages. Cloudflare may collect standard server logs.</li>
+    </ul>
+
+    <h2>School data</h2>
+    <p>
+      All school information displayed on this site is sourced from the Department for Education's
+      <a href="https://get-information-about-schools.service.gov.uk" rel="nofollow noopener" target="_blank">GIAS service</a>,
+      which is publicly available under the Open Government Licence.
+    </p>
+
+    <h2>Contact</h2>
+    <p>For any privacy-related queries, please contact us via the details on our <a href="/about">About page</a>.</p>
+  </article>
+</Base>

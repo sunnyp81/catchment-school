@@ -1,0 +1,120 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When should I apply for a primary school place?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Applications for Reception (Year R) places open in September and the deadline is typically 15 January. Offers are made on National Offer Day, which is 16 April (or the next working day)." }
+    },
+    {
+      "@type": "Question",
+      "name": "What age do children start primary school in England?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Children start primary school in the September after their 4th birthday, entering Reception class. Education is compulsory from the term after a child turns 5." }
+    },
+    {
+      "@type": "Question",
+      "name": "How many primary school preferences can I list?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most local authorities allow parents to list 3 preferences, though some allow up to 6. You should always list your genuine first choice as your first preference — listing a school second does not disadvantage you at that school." }
+    }
+  ]
+};
+---
+<Base
+  title="Primary School Catchment Areas Explained | catchment.school"
+  description="How primary school catchment areas work in England — application deadlines, National Offer Day, oversubscription criteria, and tips for maximising your chances."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <a href="/guides" class="hover:underline">Guides</a>
+    <span>›</span>
+    <span>Primary school catchment areas</span>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <article class="lg:col-span-2 prose prose-lg max-w-none">
+      <h1>Primary School Catchment Areas Explained</h1>
+      <p class="lead text-lg text-gray-600">
+        Applying for a primary school place is one of the most important decisions families make.
+        Understanding how catchment areas work — and when to apply — significantly improves your chances of
+        getting your preferred school.
+      </p>
+
+      <h2>When do primary school applications open?</h2>
+      <p>
+        Applications for Reception (Year R) places open in <strong>September</strong> of the year before
+        your child is due to start school. The national closing date is <strong>15 January</strong>.
+        Missing this deadline puts your application at the back of the queue — always apply on time.
+      </p>
+      <p>
+        Offers are made on <strong>National Offer Day: 16 April</strong> (or the next working day if
+        16 April falls on a weekend).
+      </p>
+
+      <h2>How primary catchment areas differ from secondary</h2>
+      <p>
+        Primary school catchment areas are typically <strong>smaller</strong> than secondary catchment areas,
+        reflecting that young children travel shorter distances. In cities, a primary school's effective
+        catchment might be as small as 0.2–0.5 miles. In rural areas, a single primary school may serve
+        several villages with no meaningful distance restriction.
+      </p>
+
+      <h2>What is the standard oversubscription order for primaries?</h2>
+      <ol>
+        <li>Looked-after children and previously looked-after children</li>
+        <li>Children with a sibling already at the school (in most schools)</li>
+        <li>Children of staff at the school (some schools)</li>
+        <li>Children living closest to the school by straight-line distance</li>
+      </ol>
+      <p>
+        Faith schools may add criteria such as regular worship attendance. Always read the specific
+        admissions policy for each school you are considering.
+      </p>
+
+      <h2>Tips for primary school applications</h2>
+      <ul>
+        <li><strong>List three genuine preferences</strong> — not just your top choice. If you don't get your first choice, you'll want a realistic second and third option.</li>
+        <li><strong>Check last-distance-offered data</strong> — your local authority publishes this after every round. Compare your distance carefully.</li>
+        <li><strong>Apply by the deadline</strong> — late applications are processed after all on-time applicants.</li>
+        <li><strong>Register with your council</strong> — you apply through your home local authority, not the school directly, even if the school is in a neighbouring authority's area.</li>
+        <li><strong>Join the waiting list</strong> — if your first choice is full, ask to be added to the waiting list immediately. Places come available as families move or change their mind.</li>
+      </ul>
+
+      <h2>What if I move house during the admissions process?</h2>
+      <p>
+        Your application must reflect your <strong>permanent home address</strong> at the time of application.
+        Using a temporary address (e.g. a relative's address closer to a school) to gain an advantage
+        is considered fraudulent and can result in a place being withdrawn, even after a child has started.
+      </p>
+      <p>
+        If you move genuinely during the process, notify your local authority immediately with evidence of the
+        new address (tenancy agreement or solicitor's letter for a purchase).
+      </p>
+    </article>
+
+    <aside class="space-y-5">
+      <div class="bg-indigo-50 rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Find primary schools near you</h3>
+        <a href="/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors">
+          Search by postcode →
+        </a>
+      </div>
+      <div class="border rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Related guides</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 hover:underline">How catchment areas work</a></li>
+          <li><a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school catchment areas</a></li>
+          <li><a href="/guides/school-admissions-timeline" class="text-indigo-700 hover:underline">School admissions timeline</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Base>

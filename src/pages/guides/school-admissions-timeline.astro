@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="School Admissions Timeline England 2025–2026 | catchment.school"
+  description="Key dates for primary and secondary school applications in England. When applications open, deadlines, National Offer Day dates, and appeal timelines."
+>
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <a href="/guides" class="hover:underline">Guides</a>
+    <span>›</span>
+    <span>School admissions timeline</span>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <article class="lg:col-span-2 prose prose-lg max-w-none">
+      <h1>School Admissions Timeline in England 2025–2026</h1>
+      <p class="lead text-lg text-gray-600">
+        Missing a key admissions date can push your application to the back of the queue. Here are all the
+        critical dates for primary and secondary school applications in England.
+      </p>
+
+      <h2>Secondary school (Year 7) — 2025 entry</h2>
+      <div class="not-prose">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-indigo-50">
+              <th class="text-left p-3 border font-semibold">Date</th>
+              <th class="text-left p-3 border font-semibold">Event</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['May–June 2024', '11+ grammar school registration opens (where applicable)'],
+              ['September–October 2024', '11+ tests take place'],
+              ['1 September 2024', 'Secondary applications open'],
+              ['31 October 2024', 'Application deadline (national closing date)'],
+              ['1 March 2025', 'National Offer Day — Year 7 offers released'],
+              ['15 March 2025', 'Deadline to accept or decline offer'],
+              ['March–April 2025', 'Appeal deadline for refused places'],
+              ['May–June 2025', 'Independent appeal hearings'],
+            ].map(([date, event]) => (
+              <tr class="border-b">
+                <td class="p-3 border font-medium text-indigo-700 w-48">{date}</td>
+                <td class="p-3 border">{event}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Primary school (Reception / Year R) — 2025 entry</h2>
+      <div class="not-prose">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-indigo-50">
+              <th class="text-left p-3 border font-semibold">Date</th>
+              <th class="text-left p-3 border font-semibold">Event</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['September 2024', 'Primary applications open'],
+              ['15 January 2025', 'Application deadline (national closing date)'],
+              ['16 April 2025', 'National Offer Day — Reception offers released'],
+              ['30 April 2025', 'Deadline to accept or decline offer'],
+              ['May 2025', 'Appeal deadline for refused places'],
+              ['June–July 2025', 'Independent appeal hearings'],
+            ].map(([date, event]) => (
+              <tr class="border-b">
+                <td class="p-3 border font-medium text-indigo-700 w-48">{date}</td>
+                <td class="p-3 border">{event}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What happens if you apply late?</h2>
+      <p>
+        Late applications — those received after the national closing date — are processed only after all
+        on-time applications have been considered. This means that even if you live very close to your
+        preferred school, a late application may result in no place being available.
+      </p>
+      <p>
+        Some local authorities do accept late applications with extenuating circumstances (e.g. recent
+        move to the area, serious illness). Contact your local authority as soon as possible if you have
+        missed the deadline.
+      </p>
+
+      <h2>In-year admissions</h2>
+      <p>
+        If you need a school place outside of the normal admissions round — for example because your family
+        has moved to the area mid-year — you apply through the <strong>in-year admissions</strong> process.
+        Contact your local authority admissions team, who will coordinate with schools to find an available place.
+      </p>
+    </article>
+
+    <aside class="space-y-5">
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
+        <h3 class="font-semibold mb-2">Key dates to remember</h3>
+        <ul class="text-sm space-y-2 text-gray-700">
+          <li><strong>31 Oct</strong> — Secondary deadline</li>
+          <li><strong>15 Jan</strong> — Primary deadline</li>
+          <li><strong>1 Mar</strong> — Secondary offers</li>
+          <li><strong>16 Apr</strong> — Primary offers</li>
+        </ul>
+      </div>
+      <div class="bg-indigo-50 rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Find schools near you</h3>
+        <a href="/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors">
+          Search by postcode →
+        </a>
+      </div>
+      <div class="border rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Related guides</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 hover:underline">How catchment areas work</a></li>
+          <li><a href="/guides/primary-school-catchment" class="text-indigo-700 hover:underline">Primary school catchment</a></li>
+          <li><a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school catchment</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Base>

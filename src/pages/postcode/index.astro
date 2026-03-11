@@ -1,0 +1,134 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="Schools near your postcode | catchment.school"
+  description="Find primary and secondary schools near any UK postcode. View catchment area information, admissions guidance and school profiles."
+>
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <span id="breadcrumb">School search</span>
+  </nav>
+
+  <h1 class="text-3xl font-bold mb-2" id="heading">Find Schools by Postcode</h1>
+  <p class="text-gray-600 mb-8" id="subtitle">Enter a postcode to find nearby schools.</p>
+
+  <!-- Inline search -->
+  <form id="postcode-form" class="flex gap-2 max-w-md mb-8">
+    <input
+      id="postcode-input"
+      type="text"
+      placeholder="e.g. SW1A 1AA"
+      class="flex-1 border-2 border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:border-indigo-500 uppercase"
+      autocomplete="postal-code"
+      maxlength="8"
+    />
+    <button type="submit" class="bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-800 transition-colors">
+      Search
+    </button>
+  </form>
+
+  <div id="loading" class="hidden text-gray-500 text-sm mb-4">Finding schools near you…</div>
+  <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  <div id="error" class="hidden text-red-600 bg-red-50 border border-red-200 rounded-lg p-5">
+    <p>Could not find schools for this postcode. Please check and try again. <a href="/" class="underline">Back to search.</a></p>
+  </div>
+</Base>
+
+<script>
+  function postcodeArea(pc: string): string {
+    const m = pc.replace(/\s/g, '').match(/^([A-Z]{1,2})/i);
+    return m ? m[1].toLowerCase() : 'other';
+  }
+
+  function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
+
+  const heading = document.getElementById('heading')!;
+  const subtitle = document.getElementById('subtitle')!;
+  const breadcrumb = document.getElementById('breadcrumb')!;
+  const loading = document.getElementById('loading')!;
+  const results = document.getElementById('results')!;
+  const errorEl = document.getElementById('error')!;
+  const form = document.getElementById('postcode-form') as HTMLFormElement;
+  const input = document.getElementById('postcode-input') as HTMLInputElement;
+
+  input.addEventListener('input', () => {
+    input.value = input.value.toUpperCase().replace(/[^A-Z0-9 ]/g, '');
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const raw = input.value.replace(/\s/g, '').toUpperCase();
+    if (raw.length < 5) return;
+    const formatted = raw.length <= 6
+      ? raw.slice(0, raw.length - 3) + ' ' + raw.slice(-3)
+      : raw.slice(0, raw.length - 3) + ' ' + raw.slice(-3);
+    history.pushState({}, '', `/postcode?pc=${raw}`);
+    search(formatted);
+  });
+
+  async function search(postcode: string) {
+    errorEl.classList.add('hidden');
+    results.innerHTML = '';
+    loading.classList.remove('hidden');
+    heading.textContent = `Schools near ${postcode}`;
+    breadcrumb.textContent = `Schools near ${postcode}`;
+    subtitle.textContent = 'Finding schools…';
+
+    try {
+      const pcRes = await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(postcode)}`);
+      if (!pcRes.ok) throw new Error('Invalid postcode');
+      const { result } = await pcRes.json();
+      const { latitude, longitude } = result;
+
+      const area = postcodeArea(postcode);
+      const geoRes = await fetch(`/data/geo/${area}.json`);
+      if (!geoRes.ok) throw new Error('No data for area');
+      const schools: any[] = await geoRes.json();
+
+      const nearby = schools
+        .map(s => ({ ...s, dist: haversine(latitude, longitude, s.a, s.o) }))
+        .filter(s => s.dist <= 5)
+        .sort((a, b) => a.dist - b.dist)
+        .slice(0, 24);
+
+      loading.classList.add('hidden');
+      subtitle.textContent = `${nearby.length} schools within 5km`;
+
+      if (nearby.length === 0) {
+        errorEl.classList.remove('hidden');
+        return;
+      }
+
+      results.innerHTML = nearby.map(s => `
+        <a href="/school/${s.s}" class="block border rounded-lg p-4 hover:border-indigo-400 hover:shadow-sm transition-all">
+          <h3 class="font-semibold text-indigo-700 text-sm">${s.n}</h3>
+          <p class="text-xs text-gray-600 mt-1">${s.p} · ${s.t}</p>
+          <p class="text-xs text-gray-500 mt-1">${s.w} · ${s.c}</p>
+          <p class="text-xs text-gray-400 mt-2">${s.dist.toFixed(1)} km away</p>
+        </a>
+      `).join('');
+    } catch {
+      loading.classList.add('hidden');
+      errorEl.classList.remove('hidden');
+      subtitle.textContent = '';
+    }
+  }
+
+  // Run on page load if ?pc= param present
+  const pc = new URLSearchParams(window.location.search).get('pc');
+  if (pc) {
+    const fmt = pc.length <= 6
+      ? pc.slice(0, pc.length - 3) + ' ' + pc.slice(-3)
+      : pc.slice(0, pc.length - 3) + ' ' + pc.slice(-3);
+    input.value = fmt;
+    search(fmt);
+  }
+</script>

@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/fix-wrangler.mjs",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "data:fetch": "node scripts/fetch-schools.mjs",
@@ -15,8 +15,8 @@
     "data:all": "npm run data:fetch && npm run data:parse"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.1.0",
     "@astrojs/sitemap": "^3.7.1",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^6.0.3",
     "csv-parse": "^6.1.0",

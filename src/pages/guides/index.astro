@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const guides = [
+  {
+    slug: 'how-school-catchment-areas-work',
+    title: 'How School Catchment Areas Work in England',
+    description: 'A complete guide to catchment areas — how they are set, how distance is measured, and what "last distance offered" means.',
+    time: '5 min read',
+  },
+  {
+    slug: 'primary-school-catchment',
+    title: 'Primary School Catchment Areas Explained',
+    description: 'How primary school catchment areas work, when to apply, and how to maximise your chances of getting your preferred school.',
+    time: '4 min read',
+  },
+  {
+    slug: 'secondary-school-catchment',
+    title: 'Secondary School Catchment Areas Explained',
+    description: 'Everything parents need to know about secondary school catchment areas, including grammar schools and academies.',
+    time: '4 min read',
+  },
+  {
+    slug: 'school-admissions-timeline',
+    title: 'School Admissions Timeline in England',
+    description: 'Key dates for primary and secondary school applications in England — when to apply, when offers are made, and what to do if you miss the deadline.',
+    time: '3 min read',
+  },
+];
+---
+<Base
+  title="School Catchment Area Guides | catchment.school"
+  description="Free guides to understanding school catchment areas, admissions policies and the school application process in England."
+>
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <span>Guides</span>
+  </nav>
+
+  <h1 class="text-3xl font-bold mb-2">School Catchment Area Guides</h1>
+  <p class="text-gray-600 mb-8">Everything parents need to know about school admissions and catchment areas in England.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    {guides.map(g => (
+      <a href={`/guides/${g.slug}`} class="block border rounded-xl p-6 hover:border-indigo-400 hover:shadow-sm transition-all">
+        <p class="text-xs text-indigo-600 font-medium mb-2 uppercase tracking-wide">{g.time}</p>
+        <h2 class="font-semibold text-lg mb-2 text-gray-900">{g.title}</h2>
+        <p class="text-sm text-gray-600">{g.description}</p>
+      </a>
+    ))}
+  </div>
+</Base>

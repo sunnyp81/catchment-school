@@ -86,9 +86,6 @@ const featuredLAs = las.slice(0, 24);
       return;
     }
     error.classList.add('hidden');
-    const slug = raw.length === 6
-      ? raw.slice(0, 3) + raw.slice(3)
-      : raw.slice(0, 4) + raw.slice(4);
-    window.location.href = `/postcode/${slug.toLowerCase()}`;
+    window.location.href = `/postcode?pc=${raw}`;
   });
 </script>

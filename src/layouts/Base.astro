@@ -19,6 +19,7 @@ const url = canonical ?? Astro.url.href;
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <!-- AdSense placeholder -->
   <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <slot name="head" />
 </head>
 <body class="bg-white text-gray-900 font-sans">
   <header class="bg-indigo-700 text-white">
@@ -27,6 +28,7 @@ const url = canonical ?? Astro.url.href;
       <nav class="text-sm flex gap-4 opacity-90">
         <a href="/council" class="hover:underline">By Council</a>
         <a href="/area" class="hover:underline">By Town</a>
+        <a href="/guides" class="hover:underline">Guides</a>
       </nav>
     </div>
   </header>

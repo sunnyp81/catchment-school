@@ -1,0 +1,122 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When do secondary school applications open?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Applications for Year 7 secondary school places open in September and the deadline is 31 October. National Offer Day is 1 March (or the next working day)." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do grammar schools have catchment areas?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Grammar schools select on academic ability via the 11+ exam and do not use standard catchment areas. However, many grammar schools give priority to children from certain feeder schools or postcode areas as a tiebreaker among equally qualified applicants." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a feeder school for secondary admissions?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Some secondary schools give priority to children from named primary feeder schools. This can be as significant as living in a catchment area — check the secondary school's admissions policy to see if your child's primary school is a named feeder." }
+    }
+  ]
+};
+---
+<Base
+  title="Secondary School Catchment Areas Explained | catchment.school"
+  description="How secondary school catchment areas work in England — Year 7 application deadlines, National Offer Day, grammar schools, and oversubscription criteria explained."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <a href="/guides" class="hover:underline">Guides</a>
+    <span>›</span>
+    <span>Secondary school catchment areas</span>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <article class="lg:col-span-2 prose prose-lg max-w-none">
+      <h1>Secondary School Catchment Areas Explained</h1>
+      <p class="lead text-lg text-gray-600">
+        Applying for secondary school is more competitive than primary, with larger catchment areas,
+        multiple school types, and earlier deadlines. Here is everything you need to know.
+      </p>
+
+      <h2>Key dates for secondary school applications</h2>
+      <ul>
+        <li><strong>September</strong> — applications open (your child is in Year 5 or 6)</li>
+        <li><strong>31 October</strong> — national application deadline</li>
+        <li><strong>1 March</strong> — National Offer Day (or next working day)</li>
+        <li><strong>15 March</strong> — deadline to accept or decline the offer</li>
+      </ul>
+      <p>
+        For grammar schools that use the 11+ exam, registration often opens in <strong>May–June</strong>
+        with tests in <strong>September–October</strong> — before the main application deadline.
+      </p>
+
+      <h2>How secondary catchment areas differ from primary</h2>
+      <p>
+        Secondary school catchment areas are <strong>larger</strong> than primary, reflecting that older
+        children travel further. A comprehensive school might draw from a 2–4 mile radius in a city,
+        or cover an entire rural district.
+      </p>
+      <p>
+        Secondary schools are also more likely to have complex oversubscription criteria including
+        <strong>feeder schools</strong>, <strong>faith criteria</strong>, and in some cases
+        <strong>aptitude tests</strong> for specialist schools.
+      </p>
+
+      <h2>Types of secondary school and their admissions</h2>
+      <dl>
+        <dt class="font-semibold">Community schools</dt>
+        <dd class="mb-3">Run by the local authority, using the standard LA oversubscription criteria. Catchment distance is the primary tiebreaker after sibling priority.</dd>
+
+        <dt class="font-semibold">Academies and free schools</dt>
+        <dd class="mb-3">Set their own admissions criteria (within the School Admissions Code). Many use distance, but some use feeder schools, aptitude tests, or lottery systems.</dd>
+
+        <dt class="font-semibold">Voluntary aided schools (faith schools)</dt>
+        <dd class="mb-3">May prioritise applicants based on faith attendance or membership. Catchment distance is typically a lower-priority tiebreaker.</dd>
+
+        <dt class="font-semibold">Grammar schools</dt>
+        <dd class="mb-3">Select on academic ability via the 11+ examination. Do not use distance as a primary criterion, though some use a distance tiebreaker among qualifying applicants.</dd>
+      </dl>
+
+      <h2>Feeder school priority</h2>
+      <p>
+        Many secondary schools give priority to children from named primary feeder schools, which can be
+        as powerful as living in catchment. Check whether your child's primary school is a named feeder
+        for any secondary schools you're considering — this can significantly affect your chances.
+      </p>
+
+      <h2>What to do if you don't get your preferred secondary school</h2>
+      <ol>
+        <li><strong>Accept the offered place</strong> — even if it's not your first choice, securing a place protects you while you explore other options.</li>
+        <li><strong>Join waiting lists</strong> — add your child to the waiting list for all preferred schools immediately. Positions are determined by the oversubscription criteria, not when you joined.</li>
+        <li><strong>Appeal</strong> — you have the right to appeal to an independent appeals panel. For Year 7, appeal deadlines are typically in mid-March to late April.</li>
+        <li><strong>Consider in-year admissions</strong> — if circumstances change during the year, you can apply for a school place through the in-year admissions process.</li>
+      </ol>
+    </article>
+
+    <aside class="space-y-5">
+      <div class="bg-indigo-50 rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Find secondary schools near you</h3>
+        <a href="/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors">
+          Search by postcode →
+        </a>
+      </div>
+      <div class="border rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Related guides</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 hover:underline">How catchment areas work</a></li>
+          <li><a href="/guides/primary-school-catchment" class="text-indigo-700 hover:underline">Primary school catchment areas</a></li>
+          <li><a href="/guides/school-admissions-timeline" class="text-indigo-700 hover:underline">School admissions timeline</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Base>
