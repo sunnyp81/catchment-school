@@ -7,12 +7,12 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://catchment.school',
   output: 'server',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: 'passthrough',
+    platformProxy: { enabled: false },
+  }),
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      external: ['node:fs', 'node:path', 'node:url'],
-    },
   },
 });
