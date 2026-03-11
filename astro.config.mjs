@@ -10,6 +10,7 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: 'passthrough',
     platformProxy: { enabled: false },
+    sessionKVBindingName: 'CS_SESSION',
   }),
   integrations: [sitemap()],
   vite: {
