@@ -26,3 +26,6 @@ pnpm-debug.log*
 # raw data downloads (re-fetch with: npm run data:fetch)
 data/schools-raw.csv
 data/ofsted-raw.csv
+
+# Vercel output (not needed — deploying via Cloudflare Pages)
+.vercel/
