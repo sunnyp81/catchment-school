@@ -29,3 +29,6 @@ data/ofsted-raw.csv
 
 # Vercel output (not needed — deploying via Cloudflare Pages)
 .vercel/
+
+# Wrangler local state
+.wrangler/
