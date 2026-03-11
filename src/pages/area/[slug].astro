@@ -17,10 +17,44 @@ const primaries = areaSchools.filter((s: any) => s.phase === 'Primary');
 const secondaries = areaSchools.filter((s: any) => s.phase === 'Secondary');
 const others = areaSchools.filter((s: any) => s.phase !== 'Primary' && s.phase !== 'Secondary');
 
-const title = `Schools in ${town.name} — Catchment Areas & Info | catchment.school`;
-const description = `Find all ${areaSchools.length} schools in ${town.name}${town.la ? ', ' + town.la : ''}. View primary and secondary schools with catchment area guidance, capacity and admissions info.`;
+// Intent-matched title — target "primary schools in [town]" and "catchment areas [town]"
+const titlePhase = primaries.length > 0 && secondaries.length > 0
+  ? 'Primary & Secondary Schools'
+  : primaries.length > 0 ? 'Primary Schools' : 'Schools';
+const title = `${titlePhase} in ${town.name} — Catchment Areas | catchment.school`;
+const description = `Find ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' and ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} schools in ${town.name}${town.la ? `, ${town.la}` : ''}. View catchment area boundaries, admissions policies and school profiles.`;
+
+// ItemList schema
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": `Schools in ${town.name}`,
+  "description": `Primary and secondary schools in ${town.name}, ${town.la}`,
+  "numberOfItems": areaSchools.length,
+  "itemListElement": areaSchools.slice(0, 10).map((s: any, i: number) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": s.name,
+    "url": `https://catchment.school/school/${s.slug}`
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://catchment.school/" },
+    { "@type": "ListItem", "position": 2, "name": town.la, "item": `https://catchment.school/council/${town.laSlug}` },
+    { "@type": "ListItem", "position": 3, "name": `Schools in ${town.name}`, "item": `https://catchment.school/area/${town.slug}` },
+  ]
+};
 ---
 <Base title={title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
   <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center flex-wrap">
     <a href="/" class="hover:underline">Home</a>
     <span>›</span>
@@ -29,12 +63,26 @@ const description = `Find all ${areaSchools.length} schools in ${town.name}${tow
     <span class="text-gray-700">{town.name}</span>
   </nav>
 
-  <h1 class="text-3xl font-bold mb-2">Schools in {town.name}</h1>
-  <p class="text-gray-600 mb-8">{areaSchools.length} schools · {town.la}</p>
+  <h1 class="text-3xl font-bold mb-3">{titlePhase} in {town.name}</h1>
+
+  <!-- Intro paragraph — unique per town using real counts -->
+  <p class="text-gray-600 mb-8 max-w-2xl">
+    There {areaSchools.length === 1 ? 'is' : 'are'} <strong>{areaSchools.length} school{areaSchools.length !== 1 ? 's' : ''}</strong> in {town.name}
+    {town.la ? `, ${town.la}` : ''}
+    {primaries.length > 0 && secondaries.length > 0
+      ? ` — including ${primaries.length} primary school${primaries.length !== 1 ? 's' : ''} and ${secondaries.length} secondary school${secondaries.length !== 1 ? 's' : ''}.`
+      : primaries.length > 0
+        ? `, all serving primary-age pupils (ages 4–11).`
+        : secondaries.length > 0
+          ? `, all serving secondary-age pupils (ages 11–16+).`
+          : '.'
+    }
+    {' '}Catchment area boundaries are set by {town.la} and reviewed annually — click a school below to view its admissions guidance.
+  </p>
 
   {primaries.length > 0 && (
     <section class="mb-10">
-      <h2 class="text-xl font-semibold mb-4">Primary Schools ({primaries.length})</h2>
+      <h2 class="text-xl font-semibold mb-4">Primary Schools in {town.name} ({primaries.length})</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {primaries.map((s: any) => <SchoolCard {...s} />)}
       </div>
@@ -43,7 +91,7 @@ const description = `Find all ${areaSchools.length} schools in ${town.name}${tow
 
   {secondaries.length > 0 && (
     <section class="mb-10">
-      <h2 class="text-xl font-semibold mb-4">Secondary Schools ({secondaries.length})</h2>
+      <h2 class="text-xl font-semibold mb-4">Secondary Schools in {town.name} ({secondaries.length})</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {secondaries.map((s: any) => <SchoolCard {...s} />)}
       </div>
@@ -52,25 +100,29 @@ const description = `Find all ${areaSchools.length} schools in ${town.name}${tow
 
   {others.length > 0 && (
     <section class="mb-10">
-      <h2 class="text-xl font-semibold mb-4">Other Schools ({others.length})</h2>
+      <h2 class="text-xl font-semibold mb-4">Other Schools in {town.name} ({others.length})</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {others.map((s: any) => <SchoolCard {...s} />)}
       </div>
     </section>
   )}
 
-  <div class="mt-8 p-5 bg-amber-50 border border-amber-200 rounded-lg text-sm">
-    <p class="text-gray-700">
-      <strong>Catchment area boundaries</strong> are set by <strong>{town.la}</strong> and updated annually.
-      Always check the official admissions documentation before relying on catchment information.
+  <!-- Catchment info + CTA -->
+  <div class="mt-4 p-5 bg-amber-50 border border-amber-200 rounded-lg text-sm max-w-2xl">
+    <p class="text-gray-700 mb-3">
+      <strong>Catchment area boundaries</strong> for schools in {town.name} are set by <strong>{town.la}</strong> and updated
+      each year. The "last distance offered" — how far the furthest successful applicant lived — changes annually
+      based on the number of applications received.
     </p>
-    <a
-      href={`https://www.google.com/search?q=${encodeURIComponent(town.la + ' school admissions catchment area')}`}
-      target="_blank"
-      rel="nofollow noopener"
-      class="inline-block mt-3 text-indigo-700 font-medium hover:underline"
-    >
-      Find {town.la} admissions documents →
-    </a>
+    <div class="flex flex-wrap gap-4">
+      <a href={`https://www.google.com/search?q=${encodeURIComponent(town.la + ' school admissions catchment area')}`}
+        target="_blank" rel="nofollow noopener"
+        class="text-indigo-700 font-medium hover:underline">
+        Find {town.la} admissions documents →
+      </a>
+      <a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 font-medium hover:underline">
+        How catchment areas work →
+      </a>
+    </div>
   </div>
 </Base>

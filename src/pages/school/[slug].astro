@@ -22,15 +22,26 @@ const councilAdmissionsUrl = `https://www.google.com/search?q=${encodeURICompone
 const isOversubscribed = s.capacity && s.pupils && s.pupils >= s.capacity;
 const fillRate = s.capacity && s.pupils ? Math.round((s.pupils / s.capacity) * 100) : null;
 
-const title = `${s.name} Catchment Area — ${s.phase} School in ${s.town} | catchment.school`;
-const description = `${s.name} is a ${s.type.toLowerCase()} in ${s.town}, ${s.la}. ${s.capacity ? `Capacity ${s.capacity}` : ''}${s.pupils ? `, ${s.pupils} pupils` : ''}${s.ageRange ? `, ages ${s.ageRange}` : ''}. Find catchment area info and admissions guidance.`;
+// Unique intro facts — pulls from actual school data
+const introFacts = [
+  s.ageRange ? `serving pupils aged ${s.ageRange}` : null,
+  s.pupils ? `with ${s.pupils} pupils` : null,
+  s.capacity ? `and a capacity of ${s.capacity} places` : null,
+].filter(Boolean).join(', ');
 
-// JSON-LD schema
-const schema = {
+const phaseLower = s.phase.toLowerCase();
+const typeDesc = s.type.toLowerCase().replace('school', '').trim();
+
+// Title and meta — intent-matched to "[school name] catchment area" query
+const title = `${s.name} Catchment Area — ${s.phase} School in ${s.town} | catchment.school`;
+const description = `${s.name} is a ${phaseLower} school in ${s.town}, ${s.la}${introFacts ? ` ${introFacts}` : ''}. View catchment area guidance, admissions policy and nearby ${phaseLower} schools.`;
+
+// JSON-LD schemas
+const schoolSchema = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
   "name": s.name,
-  "description": `${s.name} is a ${s.phase.toLowerCase()} school in ${s.town}, ${s.la}, England.`,
+  "description": `${s.name} is a ${phaseLower} school in ${s.town}, ${s.la}, England.`,
   "address": {
     "@type": "PostalAddress",
     "streetAddress": [s.street, s.locality].filter(Boolean).join(', '),
@@ -43,17 +54,29 @@ const schema = {
     "latitude": s.lat,
     "longitude": s.lng
   },
-  "url": s.website ? (s.website.startsWith('http') ? s.website : 'https://' + s.website) : undefined,
-  "numberOfStudents": s.pupils ?? undefined,
-  "foundingDate": undefined,
+  ...(s.website ? { "url": s.website.startsWith('http') ? s.website : 'https://' + s.website } : {}),
+  ...(s.pupils ? { "numberOfStudents": s.pupils } : {}),
   "sameAs": [
-    `https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${s.urn}`
+    `https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${s.urn}`,
+    `https://reports.ofsted.gov.uk/provider/21/${s.urn}`
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://catchment.school/" },
+    { "@type": "ListItem", "position": 2, "name": s.la, "item": `https://catchment.school/council/${s.laSlug}` },
+    ...(s.town ? [{ "@type": "ListItem", "position": 3, "name": s.town, "item": `https://catchment.school/area/${s.townSlug}` }] : []),
+    { "@type": "ListItem", "position": s.town ? 4 : 3, "name": `${s.name} Catchment Area`, "item": `https://catchment.school/school/${s.slug}` },
   ]
 };
 ---
 <Base title={title} description={description}>
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schoolSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
   <!-- Breadcrumb -->
@@ -68,8 +91,21 @@ const schema = {
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
-      <h1 class="text-3xl font-bold mb-1">{s.name}</h1>
-      <p class="text-gray-500 mb-6">{s.phase} school · {s.type}{s.la ? ` · ${s.la}` : ''}</p>
+
+      <!-- H1 matches target query: "[school name] catchment area" -->
+      <h1 class="text-3xl font-bold mb-2">{s.name} Catchment Area</h1>
+
+      <!-- Intro paragraph — unique per school using real data -->
+      <p class="text-gray-600 mb-6">
+        {s.name} is a {typeDesc ? `${typeDesc} ` : ''}{phaseLower} school in {s.town}{s.la ? `, ${s.la}` : ''}
+        {introFacts ? `, ${introFacts}` : ''}.
+        {isOversubscribed
+          ? ` The school is currently at or above capacity, making catchment area proximity important for admissions.`
+          : s.capacity && fillRate && fillRate >= 90
+            ? ` The school is operating close to capacity — catchment area boundaries apply when the school is oversubscribed.`
+            : ` Find catchment area guidance, admissions policy details and nearby ${phaseLower} schools below.`
+        }
+      </p>
 
       <!-- Key stats -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
@@ -99,23 +135,23 @@ const schema = {
         )}
       </div>
 
-      <!-- Catchment area section — semantic anchor -->
+      <!-- Catchment area section -->
       <section id="catchment-area" class="mb-8">
-        <h2 class="text-xl font-semibold mb-3">{s.name} Catchment Area</h2>
+        <h2 class="text-xl font-semibold mb-3">{s.name} Catchment Area Information</h2>
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-5">
           <p class="text-sm text-gray-700 mb-3">
             The catchment area for <strong>{s.name}</strong> is set by <strong>{s.la}</strong> and reviewed annually.
-            Catchment boundaries determine which children receive <em>priority consideration</em> when the school is oversubscribed.
+            Catchment boundaries determine which children receive priority consideration when the school is oversubscribed.
           </p>
           {isOversubscribed && (
             <div class="bg-amber-100 border border-amber-300 rounded p-3 mb-3 text-sm text-amber-800">
-              <strong>Note:</strong> This school is currently at or above capacity ({s.pupils} pupils / {s.capacity} places).
-              Catchment area boundaries are particularly important for oversubscribed schools.
+              <strong>Currently oversubscribed:</strong> {s.pupils} pupils enrolled against a capacity of {s.capacity} places.
+              Living within the catchment area is especially important for this school.
             </div>
           )}
           <p class="text-sm text-gray-700 mb-4">
-            The official admissions policy — including the exact catchment boundary map — is published by {s.la} each year.
-            Always verify your address directly with the council before submitting an application.
+            The official admissions policy — including the catchment boundary map — is published by {s.la} each year.
+            Always verify your address with the council before submitting an application.
           </p>
           <a
             href={councilAdmissionsUrl}
@@ -130,7 +166,7 @@ const schema = {
 
       <!-- School details -->
       <section class="mb-8">
-        <h2 class="text-xl font-semibold mb-4">School Information</h2>
+        <h2 class="text-xl font-semibold mb-4">{s.name} — School Information</h2>
         <dl class="divide-y border rounded-lg overflow-hidden">
           {([
             ['Full address', address],
@@ -142,7 +178,7 @@ const schema = {
             ['Religious character', s.religion && s.religion !== 'Does not apply' && s.religion !== 'None' ? s.religion : null],
             ['Admissions policy', s.admissionsPolicy && s.admissionsPolicy !== 'Not applicable' ? s.admissionsPolicy : null],
             ['Free school meals', s.fsm ? `${s.fsm}% of pupils` : null],
-            ['URN', s.urn],
+            ['DfE URN', s.urn],
           ] as [string, string | null][]).filter(([, v]) => v).map(([label, value]) => (
             <div class="flex px-4 py-3 text-sm">
               <dt class="w-48 font-medium text-gray-500 shrink-0">{label}</dt>
@@ -152,46 +188,34 @@ const schema = {
         </dl>
       </section>
 
-      <!-- How catchment areas work — semantic content for ranking -->
-      <section class="mb-8 border-t pt-8">
-        <h2 class="text-xl font-semibold mb-4">How Catchment Areas Work in {s.la}</h2>
-        <div class="prose prose-sm max-w-none text-gray-700">
-          <p>
-            In England, school catchment areas are not fixed legal boundaries — they are the result of
-            oversubscription criteria applied in descending order. Most schools in {s.la} prioritise:
-          </p>
-          <ol>
-            <li><strong>Children in care</strong> (looked-after children and previously looked-after children)</li>
-            <li><strong>Medical or social need</strong> — where attendance at this specific school is essential</li>
-            <li><strong>Siblings</strong> — children with a brother or sister already at the school</li>
-            <li><strong>Distance</strong> — straight-line distance from home address to school gate</li>
-          </ol>
-          <p>
-            The term "catchment area" typically refers to the distance within which children were offered a place
-            in the most recent admissions round. This distance varies each year based on the number of applicants.
-          </p>
-          <p>
-            To check whether your address is likely to fall within the catchment for {s.name},
-            compare your distance to the school with the last-distance-offered figure published by {s.la}
-            in their annual admissions outcome data.
-          </p>
-        </div>
-      </section>
-
       <!-- Nearby schools -->
       {nearby.length > 0 && (
         <section class="mb-8">
-          <h2 class="text-xl font-semibold mb-4">Other {s.phase} Schools near {s.town}</h2>
+          <h2 class="text-xl font-semibold mb-4">Other {s.phase} Schools in {s.town}</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            If {s.name} is oversubscribed, these {phaseLower} schools in {s.town} are the next closest alternatives.
+          </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {nearby.map((n: any) => (
               <a href={`/school/${n.slug}`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
-                <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name}</p>
+                <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
                 <p class="text-xs text-gray-500 mt-1">{n.type} · {n.postcode}</p>
               </a>
             ))}
           </div>
         </section>
       )}
+
+      <!-- Guide link — topical internal link -->
+      <div class="border rounded-lg p-5 bg-gray-50 text-sm">
+        <p class="font-medium mb-2">Need help understanding catchment areas?</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 hover:underline">How catchment areas work →</a>
+          <a href="/guides/school-admissions-timeline" class="text-indigo-700 hover:underline">Admissions timeline →</a>
+          {s.phase === 'Primary' && <a href="/guides/primary-school-catchment" class="text-indigo-700 hover:underline">Primary school guide →</a>}
+          {s.phase === 'Secondary' && <a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school guide →</a>}
+        </div>
+      </div>
     </div>
 
     <!-- Sidebar -->
@@ -221,17 +245,17 @@ const schema = {
         <a href={`https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${s.urn}`}
           target="_blank" rel="nofollow noopener"
           class="block text-sm text-indigo-700 hover:underline mb-2">
-          View on GIAS (DfE) →
+          DfE Get Information About Schools →
         </a>
         <a href={`https://reports.ofsted.gov.uk/provider/21/${s.urn}`}
           target="_blank" rel="nofollow noopener"
           class="block text-sm text-indigo-700 hover:underline">
-          View Ofsted reports →
+          Ofsted inspection reports →
         </a>
       </div>
 
       <div class="border rounded-lg p-5">
-        <h3 class="font-semibold mb-3">Browse Area</h3>
+        <h3 class="font-semibold mb-3">Browse {s.town}</h3>
         {s.town && <a href={`/area/${s.townSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.town} →</a>}
         <a href={`/council/${s.laSlug}`} class="block text-sm text-indigo-700 hover:underline">All schools in {s.la} →</a>
       </div>
