@@ -1,15 +1,13 @@
 ---
+export const prerender = false;
+
 import Base from '../../layouts/Base.astro';
 import schools from '../../data/schools.json';
 
-export async function getStaticPaths() {
-  return schools.map((s: any) => ({
-    params: { slug: s.slug },
-    props: { school: s },
-  }));
-}
+const { slug } = Astro.params;
+const s = (schools as any[]).find((s: any) => s.slug === slug);
 
-const { school: s } = Astro.props;
+if (!s) return Astro.redirect('/404');
 
 // Build nearby schools (same town, same phase, not this school)
 const nearby = (schools as any[])
