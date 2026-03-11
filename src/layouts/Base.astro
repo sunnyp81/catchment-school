@@ -7,6 +7,30 @@ interface Props {
 }
 const { title, description, canonical } = Astro.props;
 const url = canonical ?? Astro.url.href;
+
+// Site-wide WebSite schema for sitelinks searchbox eligibility
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "catchment.school",
+  "url": "https://catchment.school",
+  "description": "Find school catchment areas, admissions guidance and school profiles for every school in England.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": { "@type": "EntryPoint", "urlTemplate": "https://catchment.school/postcode?pc={search_term_string}" },
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "catchment.school",
+  "url": "https://catchment.school",
+  "logo": "https://catchment.school/favicon.svg",
+  "description": "Free school catchment area checker for England. Data sourced from the Department for Education's GIAS service.",
+  "sameAs": []
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -17,34 +41,125 @@ const url = canonical ?? Astro.url.href;
   <meta name="description" content={description} />
   <link rel="canonical" href={url} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={url} />
+  <meta property="og:site_name" content="catchment.school" />
+  <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
   <!-- AdSense placeholder -->
   <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
   <slot name="head" />
 </head>
 <body class="bg-white text-gray-900 font-sans">
-  <header class="bg-indigo-700 text-white">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="/" class="text-xl font-bold tracking-tight hover:opacity-90">catchment.school</a>
-      <nav class="text-sm flex gap-4 opacity-90">
-        <a href="/council" class="hover:underline">By Council</a>
-        <a href="/area" class="hover:underline">By Town</a>
+
+  <!-- Header -->
+  <header class="bg-indigo-700 text-white shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <!-- Logo mark + wordmark -->
+      <a href="/" class="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-8 h-8 shrink-0" aria-hidden="true">
+          <rect width="64" height="64" rx="10" fill="white" fill-opacity="0.15"/>
+          <polygon points="10,32 32,13 54,32" fill="#e0e7ff"/>
+          <rect x="14" y="30" width="36" height="23" rx="2" fill="white"/>
+          <rect x="27" y="40" width="10" height="13" rx="1" fill="#4338ca"/>
+          <rect x="17" y="34" width="8" height="6" rx="1" fill="#a5b4fc"/>
+          <rect x="39" y="34" width="8" height="6" rx="1" fill="#a5b4fc"/>
+          <circle cx="32" cy="10" r="5" fill="#fbbf24"/>
+          <circle cx="32" cy="10" r="2.5" fill="white"/>
+          <polygon points="29,13 35,13 32,18" fill="#fbbf24"/>
+        </svg>
+        <span class="text-lg font-bold tracking-tight">catchment<span class="font-normal opacity-80">.school</span></span>
+      </a>
+      <nav class="text-sm flex gap-5 opacity-90">
+        <a href="/council" class="hover:underline hidden sm:inline">By Council</a>
+        <a href="/area" class="hover:underline hidden sm:inline">By Town</a>
         <a href="/guides" class="hover:underline">Guides</a>
       </nav>
     </div>
   </header>
 
+  <!-- Trust bar — data source + last updated -->
+  <div class="bg-indigo-50 border-b border-indigo-100">
+    <div class="max-w-5xl mx-auto px-4 py-2 flex flex-wrap gap-4 text-xs text-indigo-700 items-center">
+      <span class="flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        Data from <a href="https://get-information-about-schools.service.gov.uk" rel="nofollow noopener" target="_blank" class="underline ml-1">DfE Get Information About Schools</a>
+      </span>
+      <span class="flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        26,500+ open schools in England
+      </span>
+      <span class="flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        Updated March 2026
+      </span>
+    </div>
+  </div>
+
   <main class="max-w-5xl mx-auto px-4 py-8">
     <slot />
   </main>
 
-  <footer class="border-t mt-16">
-    <div class="max-w-5xl mx-auto px-4 py-8 text-sm text-gray-500 flex flex-wrap gap-4 justify-between">
-      <p>© {new Date().getFullYear()} catchment.school — School data from <a href="https://get-information-about-schools.service.gov.uk" class="underline" rel="nofollow">GIAS</a></p>
-      <nav class="flex gap-4">
-        <a href="/about" class="hover:underline">About</a>
-        <a href="/privacy" class="hover:underline">Privacy</a>
-      </nav>
+  <!-- Footer -->
+  <footer class="border-t mt-16 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-4 py-10">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+        <!-- Brand col -->
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-7 h-7 shrink-0" aria-hidden="true">
+              <rect width="64" height="64" rx="10" fill="#4338ca"/>
+              <polygon points="10,32 32,13 54,32" fill="#e0e7ff"/>
+              <rect x="14" y="30" width="36" height="23" rx="2" fill="white"/>
+              <rect x="27" y="40" width="10" height="13" rx="1" fill="#4338ca"/>
+              <rect x="17" y="34" width="8" height="6" rx="1" fill="#818cf8"/>
+              <rect x="39" y="34" width="8" height="6" rx="1" fill="#818cf8"/>
+              <circle cx="32" cy="10" r="5" fill="#fbbf24"/>
+              <circle cx="32" cy="10" r="2.5" fill="white"/>
+              <polygon points="29,13 35,13 32,18" fill="#fbbf24"/>
+            </svg>
+            <span class="font-bold text-gray-900">catchment.school</span>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Free school catchment area checker for England. Data sourced from the Department for Education.
+            Not affiliated with any school, local authority or government body.
+          </p>
+        </div>
+        <!-- Browse col -->
+        <div>
+          <p class="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3">Browse</p>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li><a href="/council" class="hover:text-indigo-700 hover:underline">Schools by local authority</a></li>
+            <li><a href="/area" class="hover:text-indigo-700 hover:underline">Schools by town</a></li>
+            <li><a href="/postcode" class="hover:text-indigo-700 hover:underline">Search by postcode</a></li>
+          </ul>
+        </div>
+        <!-- Guides col -->
+        <div>
+          <p class="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3">Guides</p>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li><a href="/guides/how-school-catchment-areas-work" class="hover:text-indigo-700 hover:underline">How catchment areas work</a></li>
+            <li><a href="/guides/primary-school-catchment" class="hover:text-indigo-700 hover:underline">Primary school catchment</a></li>
+            <li><a href="/guides/secondary-school-catchment" class="hover:text-indigo-700 hover:underline">Secondary school catchment</a></li>
+            <li><a href="/guides/school-admissions-timeline" class="hover:text-indigo-700 hover:underline">Admissions timeline</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t pt-6 flex flex-wrap gap-4 justify-between items-center text-xs text-gray-400">
+        <p>© {new Date().getFullYear()} catchment.school — School data: <a href="https://get-information-about-schools.service.gov.uk" class="underline hover:text-gray-600" rel="nofollow noopener" target="_blank">GIAS / DfE</a> · Open Government Licence</p>
+        <nav class="flex gap-4">
+          <a href="/about" class="hover:text-gray-600 hover:underline">About</a>
+          <a href="/privacy" class="hover:text-gray-600 hover:underline">Privacy</a>
+          <a href="/guides" class="hover:text-gray-600 hover:underline">Guides</a>
+        </nav>
+      </div>
     </div>
   </footer>
+
 </body>
 </html>
