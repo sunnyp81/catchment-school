@@ -1,19 +1,26 @@
 ---
-import Base from '../../layouts/Base.astro';
-import schools from '../../data/schools.json';
+export const prerender = false;
 
-export async function getStaticPaths() {
-  return schools.map((s: any) => ({
-    params: { slug: s.slug },
-    props: { school: s },
-  }));
+import Base from '../../layouts/Base.astro';
+import { env } from 'cloudflare:workers';
+
+const { slug } = Astro.params;
+
+if (!env?.DB) {
+  return new Response('Service unavailable', { status: 503 });
 }
 
-const { school: s } = Astro.props;
+const s = await env.DB.prepare('SELECT * FROM schools WHERE slug = ?').bind(slug).first();
 
-const nearby = (schools as any[])
-  .filter((n: any) => n.town === s.town && n.urn !== s.urn && n.phase === s.phase)
-  .slice(0, 6);
+if (!s) {
+  return Astro.redirect('/404');
+}
+
+const nearby = (await env.DB
+  .prepare('SELECT slug, name, type, postcode FROM schools WHERE town = ? AND phase = ? AND urn != ? LIMIT 6')
+  .bind(s.town, s.phase, s.urn)
+  .all()
+).results;
 
 const address = [s.street, s.locality, s.town, s.postcode].filter(Boolean).join(', ');
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ' ' + s.postcode)}`;
@@ -22,7 +29,6 @@ const councilAdmissionsUrl = `https://www.google.com/search?q=${encodeURICompone
 const isOversubscribed = s.capacity && s.pupils && s.pupils >= s.capacity;
 const fillRate = s.capacity && s.pupils ? Math.round((s.pupils / s.capacity) * 100) : null;
 
-// Unique intro facts — pulls from actual school data
 const introFacts = [
   s.ageRange ? `serving pupils aged ${s.ageRange}` : null,
   s.pupils ? `with ${s.pupils} pupils` : null,
@@ -32,11 +38,9 @@ const introFacts = [
 const phaseLower = s.phase.toLowerCase();
 const typeDesc = s.type.toLowerCase().replace('school', '').trim();
 
-// Title and meta — intent-matched to "[school name] catchment area" query
 const title = `${s.name} Catchment Area — ${s.phase} School in ${s.town} | catchment.school`;
 const description = `${s.name} is a ${phaseLower} school in ${s.town}, ${s.la}${introFacts ? ` ${introFacts}` : ''}. View catchment area guidance, admissions policy and nearby ${phaseLower} schools.`;
 
-// JSON-LD schemas
 const schoolSchema = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
@@ -92,10 +96,8 @@ const breadcrumbSchema = {
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
 
-      <!-- H1 matches target query: "[school name] catchment area" -->
       <h1 class="text-3xl font-bold mb-2">{s.name} Catchment Area</h1>
 
-      <!-- Intro paragraph — unique per school using real data -->
       <p class="text-gray-600 mb-6">
         {s.name} is a {typeDesc ? `${typeDesc} ` : ''}{phaseLower} school in {s.town}{s.la ? `, ${s.la}` : ''}
         {introFacts ? `, ${introFacts}` : ''}.
@@ -107,7 +109,6 @@ const breadcrumbSchema = {
         }
       </p>
 
-      <!-- Key stats -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         {s.ageRange && (
           <div class="bg-indigo-50 rounded-lg p-4 text-center">
@@ -135,7 +136,6 @@ const breadcrumbSchema = {
         )}
       </div>
 
-      <!-- Catchment area section -->
       <section id="catchment-area" class="mb-8">
         <h2 class="text-xl font-semibold mb-3">{s.name} Catchment Area Information</h2>
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-5">
@@ -164,7 +164,6 @@ const breadcrumbSchema = {
         </div>
       </section>
 
-      <!-- School details -->
       <section class="mb-8">
         <h2 class="text-xl font-semibold mb-4">{s.name} — School Information</h2>
         <dl class="divide-y border rounded-lg overflow-hidden">
@@ -188,7 +187,6 @@ const breadcrumbSchema = {
         </dl>
       </section>
 
-      <!-- Nearby schools -->
       {nearby.length > 0 && (
         <section class="mb-8">
           <h2 class="text-xl font-semibold mb-4">Other {s.phase} Schools in {s.town}</h2>
@@ -206,7 +204,6 @@ const breadcrumbSchema = {
         </section>
       )}
 
-      <!-- Guide link — topical internal link -->
       <div class="border rounded-lg p-5 bg-gray-50 text-sm">
         <p class="font-medium mb-2">Need help understanding catchment areas?</p>
         <div class="flex flex-wrap gap-3">
@@ -218,7 +215,6 @@ const breadcrumbSchema = {
       </div>
     </div>
 
-    <!-- Sidebar -->
     <aside class="space-y-4">
       <div class="border rounded-lg p-5">
         <h3 class="font-semibold mb-3">Location</h3>
