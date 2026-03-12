@@ -2,6 +2,10 @@ name = "catchment-school"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
+[[routes]]
+pattern = "*catchment.school/*"
+zone_name = "catchment.school"
+
 [[kv_namespaces]]
 binding = "SESSION"
 id = "a47c19e9228849c4a8caeb025c69af75"
