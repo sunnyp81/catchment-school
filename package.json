@@ -9,6 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "npm run build && cd dist/server && npx wrangler deploy --config wrangler.json",
+    "test": "curl -s -o /dev/null -w 'homepage: %{http_code}\\nschool:   %{http_code}\\n' https://catchment-school.sunnypat81.workers.dev/ https://catchment-school.sunnypat81.workers.dev/school/ab-kettleby-primary-school-140696",
     "astro": "astro",
     "data:fetch": "node scripts/fetch-schools.mjs",
     "data:parse": "node scripts/parse-schools.mjs && node scripts/gen-geo.mjs",
