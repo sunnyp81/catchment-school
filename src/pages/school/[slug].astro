@@ -38,6 +38,30 @@ const introFacts = [
 const phaseLower = s.phase.toLowerCase();
 const typeDesc = s.type.toLowerCase().replace('school', '').trim();
 
+// Catchment guidance — varies by phase, type, and capacity to avoid boilerplate
+const isGrammar = s.admissionsPolicy === 'Selective';
+const isFaith = s.religion && s.religion !== 'Does not apply' && s.religion !== 'None';
+const isAcademy = s.type?.toLowerCase().includes('academy');
+const isSpecial = s.phase === 'Special';
+
+const catchmentPara1 = isGrammar
+  ? `Entry to <strong>${s.name}</strong> is selective — applicants must pass the relevant admissions test. Among qualifying applicants, <strong>${s.la}</strong> may use distance or catchment area as a tiebreaker when the school is oversubscribed. Check the admissions policy for how the selection and distance criteria interact.`
+  : isSpecial
+  ? `Admission to <strong>${s.name}</strong> follows a different process from mainstream schools. <strong>${s.la}</strong> assesses each child's Education, Health and Care Plan (EHCP) to determine appropriate placement — catchment area does not apply in the same way as mainstream admissions.`
+  : isFaith
+  ? `Admission to <strong>${s.name}</strong> is managed by <strong>${s.la}</strong> and typically includes both faith criteria and catchment area proximity. The weighting given to each criterion depends on the school's published oversubscription policy, which is reviewed annually.`
+  : isAcademy
+  ? `As an academy, <strong>${s.name}</strong> sets its own admissions criteria, agreed with <strong>${s.la}</strong>. The catchment area boundary is defined in the school's annual admissions policy, which may differ from the LA's general school admissions arrangements.`
+  : s.phase === 'Secondary'
+  ? `Secondary school places at <strong>${s.name}</strong> are allocated by <strong>${s.la}</strong> using ranked oversubscription criteria. Catchment area residence is typically among the highest priorities after looked-after children and siblings, and the boundary is reviewed each year.`
+  : `The catchment area for <strong>${s.name}</strong> is set by <strong>${s.la}</strong> and reviewed annually. Children living within the catchment boundary receive priority consideration when applications exceed the number of available places.`;
+
+const catchmentPara2 = isGrammar
+  ? `The full admissions policy — including test registration dates, qualifying scores, and any distance criteria — is published by ${s.la} before each admissions cycle. Verify your child's eligibility and your home address directly with the council.`
+  : isSpecial
+  ? `For more information on how ${s.la} assesses EHCP placements and which schools are named, contact the council's SEND team directly. The council must publish its Local Offer explaining available provision.`
+  : `The official admissions policy — including the catchment boundary map — is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application, as boundaries can change year to year.`;
+
 const title = `${s.name} Catchment Area — ${s.phase} School in ${s.town} | catchment.school`;
 const description = `${s.name} is a ${phaseLower} school in ${s.town}, ${s.la}${introFacts ? ` ${introFacts}` : ''}. View catchment area guidance, admissions policy and nearby ${phaseLower} schools.`;
 
@@ -139,20 +163,19 @@ const breadcrumbSchema = {
       <section id="catchment-area" class="mb-8">
         <h2 class="text-xl font-semibold mb-3">{s.name} Catchment Area Information</h2>
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-5">
-          <p class="text-sm text-gray-700 mb-3">
-            The catchment area for <strong>{s.name}</strong> is set by <strong>{s.la}</strong> and reviewed annually.
-            Catchment boundaries determine which children receive priority consideration when the school is oversubscribed.
-          </p>
+          <p class="text-sm text-gray-700 mb-3" set:html={catchmentPara1} />
           {isOversubscribed && (
             <div class="bg-amber-100 border border-amber-300 rounded p-3 mb-3 text-sm text-amber-800">
               <strong>Currently oversubscribed:</strong> {s.pupils} pupils enrolled against a capacity of {s.capacity} places.
               Living within the catchment area is especially important for this school.
             </div>
           )}
-          <p class="text-sm text-gray-700 mb-4">
-            The official admissions policy — including the catchment boundary map — is published by {s.la} each year.
-            Always verify your address with the council before submitting an application.
-          </p>
+          {!isOversubscribed && fillRate && fillRate >= 90 && (
+            <div class="bg-yellow-50 border border-yellow-200 rounded p-3 mb-3 text-sm text-yellow-800">
+              <strong>Operating near capacity:</strong> {fillRate}% of places are currently filled. Catchment boundaries are likely to apply when the school is oversubscribed at the next intake.
+            </div>
+          )}
+          <p class="text-sm text-gray-700 mb-4">{catchmentPara2}</p>
           <a
             href={councilAdmissionsUrl}
             target="_blank"
