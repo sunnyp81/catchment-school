@@ -38,6 +38,20 @@ const introFacts = [
 const phaseLower = s.phase.toLowerCase();
 const typeDesc = s.type.toLowerCase().replace('school', '').trim();
 
+// Ofsted rating
+const ofstedLabels: Record<string, string> = {
+  '1': 'Outstanding', '2': 'Good', '3': 'Requires improvement', '4': 'Inadequate',
+};
+const ofstedColors: Record<string, string> = {
+  '1': 'bg-green-100 text-green-800 border-green-300',
+  '2': 'bg-blue-100 text-blue-800 border-blue-300',
+  '3': 'bg-amber-100 text-amber-800 border-amber-300',
+  '4': 'bg-red-100 text-red-800 border-red-300',
+};
+const ofstedLabel = s.ofstedRating ? (ofstedLabels[s.ofstedRating] ?? null) : null;
+const ofstedColor = s.ofstedRating ? (ofstedColors[s.ofstedRating] ?? '') : '';
+const ofstedYear = s.ofstedDate ? s.ofstedDate.split('/').pop() : null;
+
 // Catchment guidance — varies by phase, type, and capacity to avoid boilerplate
 const isGrammar = s.admissionsPolicy === 'Selective';
 const isFaith = s.religion && s.religion !== 'Does not apply' && s.religion !== 'None';
@@ -158,6 +172,12 @@ const breadcrumbSchema = {
             <p class="text-xs text-gray-500 mt-1">Fill rate</p>
           </div>
         )}
+        {ofstedLabel && (
+          <div class={`rounded-lg p-4 text-center border ${ofstedColor}`}>
+            <p class="text-sm font-bold leading-tight">{ofstedLabel}</p>
+            <p class="text-xs mt-1 opacity-70">Ofsted{ofstedYear ? ` ${ofstedYear}` : ''}</p>
+          </div>
+        )}
       </div>
 
       <section id="catchment-area" class="mb-8">
@@ -255,6 +275,19 @@ const breadcrumbSchema = {
             target="_blank" rel="nofollow noopener"
             class="text-sm text-indigo-700 hover:underline break-all">
             {s.website}
+          </a>
+        </div>
+      )}
+
+      {ofstedLabel && (
+        <div class={`border rounded-lg p-5 ${ofstedColor}`}>
+          <h3 class="font-semibold mb-1">Ofsted Rating</h3>
+          <p class="text-lg font-bold mb-1">{ofstedLabel}</p>
+          {ofstedYear && <p class="text-xs opacity-70 mb-3">Last inspected {ofstedYear}</p>}
+          <a href={`https://reports.ofsted.gov.uk/provider/21/${s.urn}`}
+            target="_blank" rel="nofollow noopener"
+            class="block text-sm font-medium hover:underline">
+            Read full Ofsted report →
           </a>
         </div>
       )}
