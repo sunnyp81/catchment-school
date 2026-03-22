@@ -9,5 +9,6 @@ jobs:
   trigger-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Cloudflare Pages deploy hook
-        run: curl -X POST "${{ secrets.CF_DEPLOY_HOOK }}"
+      - name: Trigger Cloudflare Pages deployment
+        run: |
+          curl -s -X POST             "https://api.cloudflare.com/client/v4/accounts/aba0a6722a4510842ca473315a8ba13e/pages/projects/catchment-school/deployments"             -H "X-Auth-Email: ${{ secrets.CF_EMAIL }}"             -H "X-Auth-Key: ${{ secrets.CF_API_KEY }}"
