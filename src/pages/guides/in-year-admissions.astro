@@ -1,0 +1,255 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "In-Year Admissions: How to Apply for a School Place Mid-Year",
+  "description": "A complete guide to in-year school admissions in England — how to apply for a place outside the normal round, who manages applications, and what to do if refused.",
+  "author": { "@type": "Organization", "name": "catchment.school" },
+  "publisher": { "@type": "Organization", "name": "catchment.school", "url": "https://catchment.school" },
+  "mainEntityOfPage": "https://catchment.school/guides/in-year-admissions"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is in-year admission?",
+      "acceptedAnswer": { "@type": "Answer", "text": "In-year admission is the process of applying for a school place outside the normal admissions round — for example, when a family moves house during the school year, or when a child needs to change school for another reason. Applications can be made at any point during the academic year." }
+    },
+    {
+      "@type": "Question",
+      "name": "Who do I apply to for an in-year place?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It depends on the school. For community and voluntary controlled schools, you apply to the local authority. For academies, free schools, foundation schools, and voluntary aided schools, you apply directly to the school. Some local authorities operate a coordinated in-year scheme covering all school types — check with your local authority first." }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does an in-year application take?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The admissions authority must notify you of the decision within 15 school days of receiving a completed application. If the place is refused, you have 20 school days to lodge an appeal." }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if no school near me has places?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Your local authority has a legal duty to find you a school place. If you cannot find a place through normal in-year applications, contact your local authority's admissions team and request that they find you a suitable school. They must act within a reasonable time." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I apply in-year for a school that was full during the normal round?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. In-year applications are assessed at the time of application. If a place has become available since the normal round, the school may now have capacity. If the school is still full, you can join the waiting list and appeal." }
+    }
+  ]
+};
+---
+<Base
+  title="In-Year Admissions — How to Apply for a School Place Mid-Year in England"
+  description="How in-year admissions work in England: who to apply to, how long it takes, what to do if refused, and your rights when moving house or changing school mid-year."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2 flex-wrap">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <a href="/guides" class="hover:underline">Guides</a>
+    <span>›</span>
+    <span>In-year admissions</span>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <article class="lg:col-span-2 prose prose-lg max-w-none">
+      <h1>In-Year Admissions in England</h1>
+      <p class="lead text-lg text-gray-600">
+        Moving house, changing schools, or joining the country mid-year all require an
+        <strong>in-year admission</strong> — applying for a school place outside the normal
+        September round. This guide explains who to apply to, how decisions are made, and
+        what you can do if a place is refused.
+      </p>
+
+      <h2>What is in-year admission?</h2>
+      <p>
+        In-year admission is the process of applying for a school place at any point after
+        the start of the academic year. It applies when:
+      </p>
+      <ul>
+        <li>Your family moves house — to a different area or a different part of the same area</li>
+        <li>Your child needs to change school for welfare, medical, or educational reasons</li>
+        <li>You have recently arrived in England from abroad</li>
+        <li>Your child was excluded from their previous school</li>
+        <li>Your child has not been in school and you are seeking re-entry into education</li>
+      </ul>
+      <p>
+        There is no deadline for in-year applications — you can apply at any point during
+        the school year, including during term time and school holidays.
+      </p>
+
+      <h2>Who manages in-year applications?</h2>
+      <p>
+        This depends on the type of school. In England, admissions are managed by the
+        <strong>admissions authority</strong> for each school:
+      </p>
+      <ul>
+        <li><strong>Community schools and voluntary controlled schools:</strong> apply to your <strong>local authority</strong></li>
+        <li><strong>Academies, free schools, foundation schools, and voluntary aided schools:</strong> apply directly to <strong>the school</strong></li>
+      </ul>
+      <p>
+        Some local authorities run a <strong>coordinated in-year admissions scheme</strong> that
+        handles applications for all schools in the area, including academies. Check your local
+        authority website first — if they run a coordinated scheme, you only need to submit one
+        form regardless of school type.
+      </p>
+
+      <h2>How to apply</h2>
+      <ol>
+        <li>
+          <strong>Find the right form.</strong> Go to your local authority's website and look for
+          "in-year application" or "mid-year school transfer". If the school is an academy or
+          free school not covered by a coordinated scheme, contact the school directly for their
+          application form.
+        </li>
+        <li>
+          <strong>Submit with supporting evidence.</strong> If you are moving house, include
+          a signed tenancy agreement or exchange of contracts. If applying for welfare or medical
+          reasons, include a supporting letter from a professional (GP, social worker, etc.).
+        </li>
+        <li>
+          <strong>Wait for the decision.</strong> The admissions authority must notify you of
+          the outcome within <strong>15 school days</strong> of receiving a completed application.
+        </li>
+        <li>
+          <strong>If refused, act immediately.</strong> You have <strong>20 school days</strong>
+          from the refusal letter to lodge an appeal and join the waiting list.
+        </li>
+      </ol>
+
+      <h2>How in-year waiting lists work</h2>
+      <p>
+        If a school is full, you can ask to be added to the waiting list. In-year waiting lists
+        work the same way as normal-round waiting lists: position is determined by the school's
+        oversubscription criteria, not by when you joined.
+      </p>
+      <p>
+        A family with a sibling at the school who applies after you will rank above you on the
+        waiting list. Position can move in both directions at any time.
+      </p>
+      <p>
+        There is no time limit on in-year waiting lists — you can remain on them indefinitely.
+        Schools are required to maintain them and offer places as they become available.
+      </p>
+
+      <h2>What if no local school has a place?</h2>
+      <p>
+        If you cannot find a school place through in-year applications, your <strong>local
+        authority has a statutory duty</strong> to find your child a school place. Under the
+        School Admissions Code, if a child of compulsory school age has no school place, the
+        local authority must identify a suitable school and direct that school to admit the child.
+      </p>
+      <p>
+        Contact your local authority's admissions team and explain the situation. They should
+        act within a reasonable time — in practice, this usually means within a few weeks, though
+        the law does not specify an exact deadline.
+      </p>
+
+      <h2>Fair Access Protocol</h2>
+      <p>
+        Every local authority is required to have a <strong>Fair Access Protocol (FAP)</strong> —
+        a system that places vulnerable children and those who are hard to place in schools, even
+        when those schools are technically full. Schools can be required to admit pupils above
+        their published admission number under the FAP.
+      </p>
+      <p>
+        Children who qualify for Fair Access include:
+      </p>
+      <ul>
+        <li>Children who have been out of school for two months or more</li>
+        <li>Children who have been permanently excluded from two or more schools</li>
+        <li>Children with a history of challenging behaviour or medical needs that make placement difficult</li>
+        <li>Children of Gypsies, Roma, Travellers, refugees, and asylum seekers</li>
+        <li>Children who are homeless or in temporary accommodation</li>
+      </ul>
+      <p>
+        If your child falls into one of these categories and you are struggling to find a place,
+        ask your local authority explicitly about the Fair Access Protocol.
+      </p>
+
+      <h2>In-year admissions and your existing school</h2>
+      <p>
+        You do not need to withdraw your child from their current school before applying
+        in-year. It is generally advisable to keep your child in their current school
+        until a confirmed place is offered elsewhere — children of compulsory school age
+        must be in education.
+      </p>
+      <p>
+        Once you accept an in-year offer, give the new school a start date and notify the
+        current school. The new school will request school records directly.
+      </p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>Can I apply in-year even if we haven't moved yet?</h3>
+      <p>
+        You can apply, but the admissions authority will use your current address to calculate
+        your priority. If distance or catchment area is a criterion, your priority may change
+        once you move. Some admissions authorities allow you to apply using a future address
+        if you have signed contracts or a tenancy agreement — check their policy.
+      </p>
+
+      <h3>Does my child have to attend the school offered in-year?</h3>
+      <p>
+        If you accept the offer, yes. If you are not satisfied with the school offered, you can
+        decline and remain on waiting lists for your preferred schools, but your local authority
+        may still have a duty to find a suitable school if your child has no current place.
+      </p>
+
+      <h3>What if we are moving from abroad?</h3>
+      <p>
+        Children arriving from abroad are entitled to a school place in the same way as any
+        other child. Contact the local authority for the area you are moving to as soon as
+        possible — ideally before you arrive. If you do not yet have a confirmed address,
+        some authorities will work with you on the basis of a rental agreement or a letter
+        from a family member.
+      </p>
+
+      <h3>Can I use in-year admissions to move my child to a better school?</h3>
+      <p>
+        Yes. There is no requirement to have a specific reason to apply in-year. You can
+        apply to any school at any time. However, popular schools are unlikely to have
+        places available, and your child's current school is not obligated to hold their
+        place while you are on a waiting list elsewhere.
+      </p>
+    </article>
+
+    <aside class="space-y-5">
+      <div class="bg-indigo-50 rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Find schools near you</h3>
+        <p class="text-sm text-gray-600 mb-3">Check which schools are near your new address and what their catchment distances are.</p>
+        <a href="/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors">
+          Search by postcode →
+        </a>
+      </div>
+
+      <div class="border rounded-xl p-5 bg-blue-50 border-blue-200">
+        <h3 class="font-semibold mb-2 text-blue-800">Key timescales</h3>
+        <ul class="space-y-2 text-sm text-blue-700">
+          <li><strong>Decision:</strong> within 15 school days of application</li>
+          <li><strong>Appeal deadline:</strong> 20 school days after refusal</li>
+          <li><strong>Waiting lists:</strong> no time limit — maintained indefinitely</li>
+        </ul>
+      </div>
+
+      <div class="border rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Related guides</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/guides/school-waiting-lists" class="text-indigo-700 hover:underline">How school waiting lists work</a></li>
+          <li><a href="/guides/how-to-appeal-a-school-place" class="text-indigo-700 hover:underline">How to appeal a school place</a></li>
+          <li><a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 hover:underline">How catchment areas work</a></li>
+          <li><a href="/guides/school-admissions-timeline" class="text-indigo-700 hover:underline">School admissions timeline</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Base>

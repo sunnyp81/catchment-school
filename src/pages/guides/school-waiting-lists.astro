@@ -1,0 +1,221 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How School Waiting Lists Work in England",
+  "description": "A complete guide to school waiting lists in England — how positions are allocated, how long they last, and what to do while you wait.",
+  "author": { "@type": "Organization", "name": "catchment.school" },
+  "publisher": { "@type": "Organization", "name": "catchment.school", "url": "https://catchment.school" },
+  "mainEntityOfPage": "https://catchment.school/guides/school-waiting-lists"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How are waiting list positions determined?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Waiting list positions are determined by the same oversubscription criteria used in the original admissions round — not by when you joined the list. A child who joins the list later but lives closer to the school may rank above a child who has been waiting longer." }
+    },
+    {
+      "@type": "Question",
+      "name": "How long do school waiting lists last?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Schools must maintain waiting lists for at least the first term of the academic year. Most maintain them for the full school year. In-year waiting lists are usually maintained on a rolling basis." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can my child move up a waiting list?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — and down. Your position changes as other families join or leave the list. A family with higher priority criteria (siblings, closer distance) who joins after you will rank above you." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does appealing affect my waiting list position?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Appealing a school place decision has no effect on your waiting list position. You should appeal and join the waiting list simultaneously." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I be on multiple school waiting lists?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can join the waiting lists for as many schools as you wish. Being on one list does not affect your position or rights regarding any other school." }
+    }
+  ]
+};
+---
+<Base
+  title="How School Waiting Lists Work in England — Complete Guide"
+  description="How school waiting lists work in England: how your position is calculated, how long lists last, whether you can move up, and what to do while waiting for a place."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2 flex-wrap">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <a href="/guides" class="hover:underline">Guides</a>
+    <span>›</span>
+    <span>School waiting lists</span>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <article class="lg:col-span-2 prose prose-lg max-w-none">
+      <h1>How School Waiting Lists Work in England</h1>
+      <p class="lead text-lg text-gray-600">
+        Being placed on a school waiting list can feel uncertain, but understanding how the system
+        works gives you a clearer picture of your chances. This guide explains how waiting lists operate,
+        how your position is determined, and what you can do to improve your situation.
+      </p>
+
+      <h2>What is a school waiting list?</h2>
+      <p>
+        When a school has no places available, children who applied and were refused may be added to
+        a <strong>waiting list</strong>. If a place becomes available — because a family withdraws their
+        acceptance or moves away — it is offered to the child at the top of the waiting list.
+      </p>
+      <p>
+        Schools are legally required to maintain waiting lists for at least the first term of the
+        academic year. Many maintain them for the full year. You should always ask the school or
+        local authority how long the list is kept.
+      </p>
+
+      <h2>How is your waiting list position calculated?</h2>
+      <p>
+        This is the most misunderstood aspect of school waiting lists: <strong>position is not based
+        on when you joined the list</strong>. It is determined using the same oversubscription criteria
+        as the original admissions round.
+      </p>
+      <p>
+        If the school's criteria rank applicants by: (1) looked-after children, (2) siblings,
+        (3) medical need, (4) distance — then every child on the waiting list is ranked in the same order.
+        A child who joins the list in June but lives 0.2 miles from the school may rank above a child
+        who has been waiting since April and lives 0.8 miles away.
+      </p>
+
+      <h2>Can your position change?</h2>
+      <p>
+        Yes — in both directions. Your position on the waiting list is <strong>dynamic</strong>:
+      </p>
+      <ul>
+        <li><strong>You can move up</strong> if families ahead of you withdraw from the list or accept
+        places elsewhere</li>
+        <li><strong>You can move down</strong> if new applicants with higher-priority criteria join the list
+        after you — for example, a family with a sibling at the school who moves into the area</li>
+      </ul>
+      <p>
+        This is why a waiting list position of number 5 in April might become number 8 by June, or
+        number 2 by September. Position is a snapshot, not a fixed state.
+      </p>
+
+      <h2>How many places typically become available?</h2>
+      <p>
+        There is no fixed rule, but movement on waiting lists is common. Families accept multiple
+        offers and later decline some; others move house or choose independent schools. For popular
+        schools in competitive areas, movement is usually limited. For schools with large published
+        admission numbers (PAN), it is more frequent.
+      </p>
+      <p>
+        As a rough guide, if you are within the top 3–5 positions for a school that had similar
+        demand last year, there is a reasonable chance a place will become available before September.
+      </p>
+
+      <h2>Should you join the waiting list and appeal?</h2>
+      <p>
+        Yes — you should do both simultaneously. Joining a waiting list does not affect your right
+        to appeal, and appealing does not affect your waiting list position. Some families receive
+        a waiting list place before their appeal hearing, making the appeal unnecessary.
+      </p>
+      <p>
+        Do not withdraw from a waiting list just because you have lodged an appeal.
+      </p>
+
+      <h2>Can you be on multiple waiting lists?</h2>
+      <p>
+        Yes. There is no limit on the number of school waiting lists you can join. You should request
+        to be added to the waiting list for every school you would consider attending, even if
+        your current position seems low. Circumstances change quickly in the summer term.
+      </p>
+
+      <h2>What happens to the waiting list after the school year starts?</h2>
+      <p>
+        Once the academic year begins, waiting lists typically transition to <strong>in-year admission</strong>
+        arrangements. If you still want a place at a school after your child has started elsewhere,
+        you can submit an in-year application. These are managed either by the school directly or
+        by the local authority, depending on the type of school.
+      </p>
+      <p>
+        In-year applications are placed on a waiting list using the same criteria. There is no deadline —
+        you can apply at any point during the school year.
+      </p>
+
+      <h2>Practical tips while waiting</h2>
+      <ul>
+        <li><strong>Ask for your position in writing</strong> — schools and local authorities should
+        tell you your current waiting list position if you ask</li>
+        <li><strong>Check periodically</strong> — positions change, particularly in April and June
+        when families confirm or decline places</li>
+        <li><strong>Keep your details current</strong> — if you move house, notify the admissions
+        authority immediately as your position may change</li>
+        <li><strong>Don't withdraw early</strong> — some families give up and take other offers just
+        before a place becomes available; stay on the list unless you are certain</li>
+        <li><strong>Accept the offered place</strong> — accepting your allocated school does not
+        remove you from waiting lists or affect your appeal rights</li>
+      </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>How are waiting list positions determined?</h3>
+      <p>
+        By the same oversubscription criteria as the original admissions round — not by when you joined.
+        Distance, siblings, and looked-after status all apply in the same ranked order.
+      </p>
+
+      <h3>Can I find out how many children are on the waiting list ahead of me?</h3>
+      <p>
+        Schools and local authorities are required to tell you your current position on the waiting list
+        if you ask. They do not have to tell you the total number of children on the list, but many will.
+      </p>
+
+      <h3>What if no place becomes available before September?</h3>
+      <p>
+        Accept your allocated place and start your child there. You can remain on the waiting list and
+        continue to pursue an in-year transfer once the academic year begins. Many successful transfers
+        happen in October and November as families settle into their situation.
+      </p>
+
+      <h3>Does moving closer to the school improve my waiting list position?</h3>
+      <p>
+        Yes — if distance is a criterion for the school. If you move to an address closer to the school,
+        your position on the waiting list will be recalculated based on your new address. You must notify
+        the admissions authority of any change of address.
+      </p>
+    </article>
+
+    <aside class="space-y-5">
+      <div class="bg-indigo-50 rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Find schools near you</h3>
+        <p class="text-sm text-gray-600 mb-3">Check catchment distances for schools near your home address.</p>
+        <a href="/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors">
+          Search by postcode →
+        </a>
+      </div>
+
+      <div class="border rounded-xl p-5 bg-amber-50 border-amber-200">
+        <h3 class="font-semibold mb-2 text-amber-800">Key reminder</h3>
+        <p class="text-sm text-amber-700">Waiting list position is based on admissions criteria — not when you joined. New applicants can rank above you at any time.</p>
+      </div>
+
+      <div class="border rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Related guides</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/guides/how-to-appeal-a-school-place" class="text-indigo-700 hover:underline">How to appeal a school place</a></li>
+          <li><a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 hover:underline">How catchment areas work</a></li>
+          <li><a href="/guides/in-year-admissions" class="text-indigo-700 hover:underline">In-year admissions</a></li>
+          <li><a href="/guides/school-admissions-timeline" class="text-indigo-700 hover:underline">School admissions timeline</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Base>

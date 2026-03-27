@@ -1,0 +1,238 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Ofsted Ratings Explained: What the Grades Mean for Your Child's School",
+  "description": "A clear guide to Ofsted inspection grades in England — what Outstanding, Good, Requires Improvement and Inadequate mean, how schools are inspected, and how to read a report.",
+  "author": { "@type": "Organization", "name": "catchment.school" },
+  "publisher": { "@type": "Organization", "name": "catchment.school", "url": "https://catchment.school" },
+  "mainEntityOfPage": "https://catchment.school/guides/ofsted-ratings-explained"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the four Ofsted grades?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The four Ofsted grades for schools are: 1 – Outstanding, 2 – Good, 3 – Requires Improvement, and 4 – Inadequate. Grade 4 schools are placed in special measures or given a notice to improve depending on whether leadership has the capacity to improve." }
+    },
+    {
+      "@type": "Question",
+      "name": "How often are schools inspected by Ofsted?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Schools rated Outstanding are inspected less frequently — roughly every 5 years. Good schools are typically inspected every 4 years. Schools rated Requires Improvement receive a monitoring visit within 30 months. Schools in special measures are re-inspected within 18 months." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it mean if a school has no Ofsted rating?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A school may have no Ofsted rating if it is newly opened, has recently merged, or has not yet been inspected. New schools typically receive their first inspection within 3 years of opening." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is an Outstanding school always better than a Good school?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not necessarily. An Outstanding rating reflects the school at its last inspection, which may have been years ago. A Good school inspected recently may now be better than an Outstanding school last inspected five years ago. Always read the inspection report and consider when the inspection took place." }
+    },
+    {
+      "@type": "Question",
+      "name": "What changed with the new Ofsted inspection framework?",
+      "acceptedAnswer": { "@type": "Answer", "text": "From September 2025, Ofsted introduced a new 'report card' system replacing single headline grades with multiple subject-level and area-level judgements. Schools inspected under the new framework will show ratings across categories like curriculum, behaviour, and leadership rather than a single overall grade." }
+    }
+  ]
+};
+---
+<Base
+  title="Ofsted Ratings Explained — What Outstanding, Good and Requires Improvement Mean"
+  description="What do Ofsted grades mean? This guide explains all four inspection ratings, how often schools are inspected, what to look for in an Ofsted report, and the 2025 framework changes."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2 flex-wrap">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <a href="/guides" class="hover:underline">Guides</a>
+    <span>›</span>
+    <span>Ofsted ratings explained</span>
+  </nav>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <article class="lg:col-span-2 prose prose-lg max-w-none">
+      <h1>Ofsted Ratings Explained</h1>
+      <p class="lead text-lg text-gray-600">
+        Ofsted (the Office for Standards in Education) inspects every state school in England and
+        publishes a public report. Understanding what the grades mean — and their limitations — helps
+        you make a more informed decision about school choices.
+      </p>
+
+      <h2>The four Ofsted grades</h2>
+      <p>Schools inspected under the framework in use before September 2025 receive one of four grades:</p>
+
+      <div class="not-prose space-y-3 my-6">
+        <div class="flex items-start gap-4 p-4 rounded-lg bg-green-50 border border-green-200">
+          <span class="text-2xl font-bold text-green-700 w-8 shrink-0">1</span>
+          <div>
+            <p class="font-semibold text-green-800">Outstanding</p>
+            <p class="text-sm text-green-700 mt-1">The school is highly effective in all areas. Education is of the highest quality and the school serves its pupils exceptionally well. Around 9% of schools hold this rating.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-lg bg-blue-50 border border-blue-200">
+          <span class="text-2xl font-bold text-blue-700 w-8 shrink-0">2</span>
+          <div>
+            <p class="font-semibold text-blue-800">Good</p>
+            <p class="text-sm text-blue-700 mt-1">The school is effective and pupils are well-educated. Performance is strong and the school meets the needs of its pupils well. Around 58% of schools are rated Good — the most common grade.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-lg bg-amber-50 border border-amber-200">
+          <span class="text-2xl font-bold text-amber-700 w-8 shrink-0">3</span>
+          <div>
+            <p class="font-semibold text-amber-800">Requires Improvement</p>
+            <p class="text-sm text-amber-700 mt-1">The school is not yet Good. Inspectors have identified areas that need to improve, and the school will be re-inspected within 30 months. Around 16% of schools hold this rating.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 p-4 rounded-lg bg-red-50 border border-red-200">
+          <span class="text-2xl font-bold text-red-700 w-8 shrink-0">4</span>
+          <div>
+            <p class="font-semibold text-red-800">Inadequate</p>
+            <p class="text-sm text-red-700 mt-1">The school is failing its pupils. Schools in this category are placed in either <em>special measures</em> (leadership cannot improve the school without significant external support) or given a <em>serious weaknesses</em> notice. Around 1% of schools are in this category.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>What Ofsted inspects</h2>
+      <p>Under the Education Inspection Framework (EIF), inspectors assess five key areas:</p>
+      <ul>
+        <li><strong>Quality of education</strong> — the curriculum: what is taught, how it is taught, and what pupils learn and remember</li>
+        <li><strong>Behaviour and attitudes</strong> — pupil conduct, attendance, and the school's culture</li>
+        <li><strong>Personal development</strong> — character, wellbeing, and preparation for life beyond school</li>
+        <li><strong>Leadership and management</strong> — how effectively leaders improve the school and support staff</li>
+        <li><strong>Early years provision</strong> (if applicable) — for schools with a Reception class</li>
+      </ul>
+      <p>
+        Each area receives its own grade. The overall effectiveness grade summarises all areas but
+        cannot be higher than the lowest sub-grade — a school with Inadequate behaviour cannot be
+        rated Good overall.
+      </p>
+
+      <h2>How often are schools inspected?</h2>
+      <p>
+        Inspection frequency is linked to the previous rating:
+      </p>
+      <ul>
+        <li><strong>Outstanding:</strong> exempt from routine inspection (though this changed — all Outstanding schools are now routinely inspected approximately every 5 years)</li>
+        <li><strong>Good:</strong> inspected approximately every 4 years</li>
+        <li><strong>Requires Improvement:</strong> monitoring visits, then re-inspection within 30 months</li>
+        <li><strong>Inadequate / Special Measures:</strong> re-inspected within 18 months; regular monitoring visits in between</li>
+      </ul>
+      <p>
+        This means an Outstanding rating can be up to 5 years old — the school may have changed
+        significantly in that time. Always check the <strong>inspection date</strong>, not just the grade.
+      </p>
+
+      <h2>What the 2025 framework change means</h2>
+      <p>
+        From September 2025, Ofsted replaced the single headline grade system with a new
+        <strong>"report card"</strong> model. Schools inspected under the new framework receive
+        separate judgements across multiple areas rather than a single overall grade.
+      </p>
+      <p>
+        This means schools inspected under the new system will not have an "Outstanding" or "Good"
+        headline grade — they will have a set of subject and area-level assessments. Ratings shown
+        on school profiles on catchment.school reflect the most recent inspection under the previous
+        graded framework (pre-September 2025 for most schools).
+      </p>
+
+      <h2>How to read an Ofsted report</h2>
+      <p>
+        The full inspection report is more informative than the headline grade alone. When reading
+        a report, look for:
+      </p>
+      <ul>
+        <li><strong>The inspection date</strong> — a 2019 report tells you less than a 2023 report</li>
+        <li><strong>What inspectors specifically praised</strong> — and whether those qualities matter to you</li>
+        <li><strong>Areas for improvement</strong> — what the school was asked to work on, and whether subsequent monitoring suggests progress</li>
+        <li><strong>Safeguarding</strong> — this is separately assessed; a school must have effective safeguarding to receive any grade above Inadequate</li>
+        <li><strong>The school's response</strong> — some schools publish action plans following inspection; this shows how seriously leadership takes improvement</li>
+      </ul>
+      <p>
+        You can read the full report for any school on the <a href="https://reports.ofsted.gov.uk" target="_blank" rel="nofollow noopener">Ofsted website</a>.
+        Each school profile on catchment.school links directly to the school's inspection report.
+      </p>
+
+      <h2>Should Ofsted rating affect your school choice?</h2>
+      <p>
+        Ofsted ratings are one data point among many. A Good school that suits your child's learning
+        style, has excellent pastoral care, and is within easy walking distance may serve your family
+        better than an Outstanding school that is oversubscribed and a long commute away.
+      </p>
+      <p>
+        Other factors to consider alongside the Ofsted rating:
+      </p>
+      <ul>
+        <li>How recently the school was inspected</li>
+        <li>Progress data (how much pupils improve relative to their starting points)</li>
+        <li>Attendance figures</li>
+        <li>Whether the school can meet your child's specific needs</li>
+        <li>The feel of the school — visit if you can before applying</li>
+      </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What does it mean if a school has no Ofsted rating?</h3>
+      <p>
+        The school has not yet been inspected, or it is newly opened or recently merged. New schools
+        receive their first inspection within 3 years of opening. No rating does not mean a poor school —
+        it means there is no inspection data yet.
+      </p>
+
+      <h3>Can an Inadequate school improve?</h3>
+      <p>
+        Yes. Many schools move from Inadequate to Good within 2–3 years with the right leadership and support.
+        Schools in special measures receive intensive support from Ofsted and may be converted to academies
+        as part of the improvement process. Re-inspection results are published publicly.
+      </p>
+
+      <h3>What is the difference between special measures and serious weaknesses?</h3>
+      <p>
+        Both are subcategories of Inadequate. <em>Special measures</em> means inspectors judge that
+        the leadership does not have the capacity to improve the school without significant external
+        support. <em>Serious weaknesses</em> means the school is Inadequate in one or more areas but
+        leadership is judged capable of improving without special measures oversight.
+      </p>
+    </article>
+
+    <aside class="space-y-5">
+      <div class="bg-indigo-50 rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Find schools near you</h3>
+        <p class="text-sm text-gray-600 mb-3">Each school profile shows the Ofsted rating and a link to the full report.</p>
+        <a href="/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors">
+          Search by postcode →
+        </a>
+      </div>
+
+      <div class="border rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Ofsted grades at a glance</h3>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span><strong>1</strong> Outstanding (~9% of schools)</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span><strong>2</strong> Good (~58% of schools)</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span><strong>3</strong> Requires Improvement (~16%)</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-500 shrink-0"></span><strong>4</strong> Inadequate (~1%)</li>
+        </ul>
+      </div>
+
+      <div class="border rounded-xl p-5">
+        <h3 class="font-semibold mb-3">Related guides</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 hover:underline">How catchment areas work</a></li>
+          <li><a href="/guides/primary-school-catchment" class="text-indigo-700 hover:underline">Primary school catchment</a></li>
+          <li><a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school catchment</a></li>
+          <li><a href="/guides/how-to-appeal-a-school-place" class="text-indigo-700 hover:underline">How to appeal a school place</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Base>
