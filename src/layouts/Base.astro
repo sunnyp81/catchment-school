@@ -52,7 +52,16 @@ const orgSchema = {
   <!-- AdSense placeholder -->
   <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
   <slot name="head" />
-</head>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E79ZS7MK0H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-E79ZS7MK0H");
+    </script>
+  </head>
 <body class="bg-white text-gray-900 font-sans">
 
   <!-- Header -->
