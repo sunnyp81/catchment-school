@@ -12,6 +12,7 @@ const schoolUrls = schools.map((s) => `https://catchment.school/school/${s.slug}
 
 export default defineConfig({
   site: 'https://catchment.school',
+  trailingSlash: 'always',
   adapter: cloudflare(),
   integrations: [sitemap({ customPages: schoolUrls })],
   vite: {
