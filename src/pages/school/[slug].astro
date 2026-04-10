@@ -119,6 +119,12 @@ const breadcrumbSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schoolSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    {s.lat && s.lng && (
+      <>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      </>
+    )}
   </Fragment>
 
   <!-- Breadcrumb -->
@@ -261,6 +267,9 @@ const breadcrumbSchema = {
     <aside class="space-y-4">
       <div class="border rounded-lg p-5">
         <h3 class="font-semibold mb-3">Location</h3>
+        {s.lat && s.lng && (
+          <div id="school-map" class="w-full h-48 rounded-lg mb-3 bg-gray-100"></div>
+        )}
         <p class="text-sm text-gray-600 mb-3">{address}</p>
         <a href={mapsUrl} target="_blank" rel="nofollow noopener"
           class="block text-center border border-indigo-200 text-indigo-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-50 transition-colors">
@@ -307,14 +316,30 @@ const breadcrumbSchema = {
       </div>
 
       <div class="border rounded-lg p-5">
-        <h3 class="font-semibold mb-3">Browse {s.town}</h3>
+        <h3 class="font-semibold mb-3">Browse</h3>
         {s.town && <a href={`/area/${s.townSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.town} →</a>}
-        <a href={`/council/${s.laSlug}`} class="block text-sm text-indigo-700 hover:underline">All schools in {s.la} →</a>
+        {s.la !== s.town && <a href={`/council/${s.laSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.la} →</a>}
+        <a href="/postcode" class="block text-sm text-indigo-700 hover:underline">Search by postcode →</a>
       </div>
 
-      <div class="border rounded-lg p-5 bg-gray-50 text-center text-xs text-gray-400 min-h-[100px] flex items-center justify-center">
-        Advertisement
-      </div>
+      <!-- Ad slot: uncomment when AdSense is approved -->
+      <!-- <div class="border rounded-lg p-5 bg-gray-50 text-center text-xs text-gray-400 min-h-[100px] flex items-center justify-center">
+        <ins class="adsbygoogle" data-ad-client="ca-pub-XXXX" data-ad-slot="XXXX"></ins>
+      </div> -->
     </aside>
   </div>
+  {s.lat && s.lng && (
+    <script is:inline define:vars={{ lat: s.lat, lng: s.lng, name: s.name }}>
+      document.addEventListener('DOMContentLoaded', function() {
+        var el = document.getElementById('school-map');
+        if (!el || typeof L === 'undefined') return;
+        var map = L.map(el, { scrollWheelZoom: false, attributionControl: true }).setView([lat, lng], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap',
+          maxZoom: 18
+        }).addTo(map);
+        L.marker([lat, lng]).addTo(map).bindPopup(name).openPopup();
+      });
+    </script>
+  )}
 </Base>

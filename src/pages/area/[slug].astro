@@ -65,6 +65,17 @@ const breadcrumbSchema = {
 
   <h1 class="text-3xl font-bold mb-3">{titlePhase} in {town.name}</h1>
 
+  <!-- Filter + search bar -->
+  <div class="flex flex-wrap gap-3 mb-4">
+    <input id="school-search" type="text" placeholder="Search schools..." class="border rounded-lg px-3 py-2 text-sm w-full sm:w-64 focus:outline-none focus:border-indigo-500" />
+    <div class="flex gap-2 text-sm">
+      <button class="school-filter px-3 py-1.5 rounded-full border border-indigo-300 bg-indigo-50 text-indigo-700 font-medium" data-filter="all">All ({areaSchools.length})</button>
+      {primaries.length > 0 && <button class="school-filter px-3 py-1.5 rounded-full border hover:border-indigo-300 hover:bg-indigo-50 text-gray-600" data-filter="Primary">Primary ({primaries.length})</button>}
+      {secondaries.length > 0 && <button class="school-filter px-3 py-1.5 rounded-full border hover:border-indigo-300 hover:bg-indigo-50 text-gray-600" data-filter="Secondary">Secondary ({secondaries.length})</button>}
+      {others.length > 0 && <button class="school-filter px-3 py-1.5 rounded-full border hover:border-indigo-300 hover:bg-indigo-50 text-gray-600" data-filter="Other">Other ({others.length})</button>}
+    </div>
+  </div>
+
   <!-- Intro paragraph — unique per town using real counts -->
   <p class="text-gray-600 mb-8 max-w-2xl">
     There {areaSchools.length === 1 ? 'is' : 'are'} <strong>{areaSchools.length} school{areaSchools.length !== 1 ? 's' : ''}</strong> in {town.name}
@@ -106,6 +117,46 @@ const breadcrumbSchema = {
       </div>
     </section>
   )}
+
+  <script is:inline>
+    (function() {
+      var search = document.getElementById('school-search');
+      var btns = document.querySelectorAll('.school-filter');
+      var cards = document.querySelectorAll('.school-card');
+      var sections = document.querySelectorAll('section.mb-10');
+      var activeFilter = 'all';
+
+      function applyFilters() {
+        var q = (search ? search.value : '').toLowerCase();
+        cards.forEach(function(c) {
+          var phase = c.getAttribute('data-phase') || '';
+          var name = (c.querySelector('h3') || {}).textContent || '';
+          var matchPhase = activeFilter === 'all' ||
+            (activeFilter === 'Other' ? (phase !== 'Primary' && phase !== 'Secondary') : phase === activeFilter);
+          var matchSearch = !q || name.toLowerCase().indexOf(q) !== -1;
+          c.style.display = matchPhase && matchSearch ? '' : 'none';
+        });
+        sections.forEach(function(sec) {
+          var visible = sec.querySelectorAll('.school-card:not([style*="display: none"])');
+          sec.style.display = visible.length ? '' : 'none';
+        });
+      }
+
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          activeFilter = btn.getAttribute('data-filter');
+          btns.forEach(function(b) {
+            b.className = b === btn
+              ? 'school-filter px-3 py-1.5 rounded-full border border-indigo-300 bg-indigo-50 text-indigo-700 font-medium'
+              : 'school-filter px-3 py-1.5 rounded-full border hover:border-indigo-300 hover:bg-indigo-50 text-gray-600';
+          });
+          applyFilters();
+        });
+      });
+
+      if (search) search.addEventListener('input', applyFilters);
+    })();
+  </script>
 
   <!-- Catchment info + CTA -->
   <div class="mt-4 p-5 bg-amber-50 border border-amber-200 rounded-lg text-sm max-w-2xl">
