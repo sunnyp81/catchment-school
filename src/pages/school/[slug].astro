@@ -430,6 +430,38 @@ const breadcrumbSchema = {
         <a href="/postcode" class="block text-sm text-indigo-700 hover:underline">Search by postcode →</a>
       </div>
 
+      <!-- Email capture -->
+      <div class="border-2 border-indigo-200 rounded-lg p-5 bg-indigo-50">
+        <h3 class="font-semibold mb-1 text-indigo-900">Stay updated</h3>
+        <p class="text-sm text-gray-600 mb-3">Get notified when catchment data changes for {s.name}.</p>
+        <form
+          action="https://api.staticforms.xyz/submit"
+          method="POST"
+          class="space-y-2"
+          id="catchment-email-form"
+        >
+          <input type="hidden" name="accessKey" value="sf_9e906eb6c00416b9d3354749" />
+          <input type="hidden" name="subject" value={`Catchment update signup — ${s.name}`} />
+          <input type="hidden" name="school" value={s.name} />
+          <input type="hidden" name="town" value={s.town} />
+          <input type="hidden" name="redirectTo" value={`https://catchment.school/school/${s.slug}?subscribed=1`} />
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="Your email address"
+            class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-indigo-500"
+          />
+          <button
+            type="submit"
+            class="w-full bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors"
+          >
+            Notify me →
+          </button>
+        </form>
+        <p id="subscribed-msg" class="hidden text-sm text-green-700 font-medium mt-2">You're on the list.</p>
+      </div>
+
       <!-- Find homes near this school -->
       <div class="border rounded-lg p-5">
         <h3 class="font-semibold mb-2">Find homes near {s.name}</h3>
@@ -476,6 +508,14 @@ const breadcrumbSchema = {
       </div> -->
     </aside>
   </div>
+  <script is:inline>
+    if (new URLSearchParams(window.location.search).get('subscribed') === '1') {
+      var form = document.getElementById('catchment-email-form');
+      var msg = document.getElementById('subscribed-msg');
+      if (form) form.classList.add('hidden');
+      if (msg) msg.classList.remove('hidden');
+    }
+  </script>
   {s.lat && s.lng && (
     <script is:inline define:vars={{ lat: s.lat, lng: s.lng, name: s.name }}>
       document.addEventListener('DOMContentLoaded', function() {
