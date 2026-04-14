@@ -104,6 +104,56 @@ const schoolSchema = {
   ]
 };
 
+// FAQ schema — school-specific questions for featured snippet eligibility
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `Is ${s.name} oversubscribed?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": isOversubscribed
+          ? `Yes — ${s.name} currently has ${s.pupils} pupils enrolled against a capacity of ${s.capacity} places. Catchment area proximity is an important admissions criterion.`
+          : fillRate && fillRate >= 90
+            ? `${s.name} is operating close to its capacity of ${s.capacity} places (${fillRate}% full). Catchment boundaries are likely to apply when the school is oversubscribed at the next intake.`
+            : `${s.name} has a capacity of ${s.capacity ?? 'unknown'} places${s.pupils ? ` and currently has ${s.pupils} pupils enrolled` : ''}. Check the latest admissions data with ${s.la} for the current year.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `What is the admissions policy for ${s.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": isGrammar
+          ? `${s.name} is a selective school — admission requires passing the relevant admissions test. ${s.la} publishes the full policy including test dates, qualifying scores and any distance tiebreaker each year.`
+          : isFaith
+            ? `${s.name} uses both faith criteria and catchment area proximity in its admissions policy. The weighting varies each year and is published by ${s.la} before each admissions cycle.`
+            : `Admission to ${s.name} is managed by ${s.la}. When oversubscribed, places are allocated using ranked oversubscription criteria — typically looked-after children first, then siblings, then catchment area distance. Always verify with the council before applying.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `What age range does ${s.name} cover?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": s.ageRange
+          ? `${s.name} is a ${phaseLower} school serving pupils aged ${s.ageRange} in ${s.town}, ${s.la}.`
+          : `${s.name} is a ${phaseLower} school in ${s.town}, ${s.la}. Check the school's website or the DfE GIAS service for the current age range.`
+      }
+    },
+    ...(ofstedLabel ? [{
+      "@type": "Question",
+      "name": `What is the Ofsted rating for ${s.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `${s.name} was rated ${ofstedLabel} by Ofsted${ofstedYear ? ` in ${ofstedYear}` : ''}. Full inspection reports are available on the Ofsted website at reports.ofsted.gov.uk.`
+      }
+    }] : []),
+  ]
+};
+
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -119,6 +169,7 @@ const breadcrumbSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schoolSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     {s.lat && s.lng && (
       <>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -262,6 +313,63 @@ const breadcrumbSchema = {
           {s.phase === 'Secondary' && <a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school guide →</a>}
         </div>
       </div>
+
+      <!-- FAQ section -->
+      <section class="mt-8" id="faq">
+        <h2 class="text-xl font-semibold mb-4">Frequently Asked Questions — {s.name}</h2>
+        <div class="space-y-4">
+          <details class="border rounded-lg p-4 group">
+            <summary class="font-medium cursor-pointer list-none flex justify-between items-center">
+              Is {s.name} oversubscribed?
+              <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p class="mt-3 text-sm text-gray-700">
+              {isOversubscribed
+                ? `Yes — ${s.name} currently has ${s.pupils} pupils enrolled against a capacity of ${s.capacity} places. Catchment area proximity is an important admissions criterion when applying.`
+                : fillRate && fillRate >= 90
+                  ? `${s.name} is operating close to its capacity of ${s.capacity} places (${fillRate}% full). Catchment boundaries are likely to apply when the school is oversubscribed at the next intake.`
+                  : `${s.name} has a capacity of ${s.capacity ?? 'N/A'} places${s.pupils ? ` and currently has ${s.pupils} pupils enrolled` : ''}. For the most up-to-date data, check with ${s.la}.`
+              }
+            </p>
+          </details>
+          <details class="border rounded-lg p-4 group">
+            <summary class="font-medium cursor-pointer list-none flex justify-between items-center">
+              What is the admissions policy for {s.name}?
+              <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p class="mt-3 text-sm text-gray-700">
+              {isGrammar
+                ? `${s.name} is a selective school — admission requires passing the relevant admissions test. ${s.la} publishes the full policy each year, including test dates, qualifying scores, and any distance tiebreaker.`
+                : isFaith
+                  ? `${s.name} uses both faith criteria and catchment area proximity in its admissions policy. The weighting is reviewed annually and published by ${s.la} before each admissions cycle.`
+                  : `Admission to ${s.name} is managed by ${s.la}. When oversubscribed, places go to looked-after children first, then siblings, then catchment area distance. Always verify the current policy with the council before applying.`
+              }
+            </p>
+          </details>
+          {s.ageRange && (
+            <details class="border rounded-lg p-4 group">
+              <summary class="font-medium cursor-pointer list-none flex justify-between items-center">
+                What age range does {s.name} cover?
+                <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <p class="mt-3 text-sm text-gray-700">
+                {s.name} is a {phaseLower} school in {s.town}, {s.la}, serving pupils aged {s.ageRange}. For the latest information, visit the school's website or the DfE Get Information About Schools service.
+              </p>
+            </details>
+          )}
+          {ofstedLabel && (
+            <details class="border rounded-lg p-4 group">
+              <summary class="font-medium cursor-pointer list-none flex justify-between items-center">
+                What is the Ofsted rating for {s.name}?
+                <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <p class="mt-3 text-sm text-gray-700">
+                {s.name} was rated <strong>{ofstedLabel}</strong> by Ofsted{ofstedYear ? ` in ${ofstedYear}` : ''}. Full inspection reports are available at <a href={`https://reports.ofsted.gov.uk/provider/21/${s.urn}`} target="_blank" rel="nofollow noopener" class="text-indigo-700 hover:underline">reports.ofsted.gov.uk</a>.
+              </p>
+            </details>
+          )}
+        </div>
+      </section>
     </div>
 
     <aside class="space-y-4">
@@ -321,6 +429,46 @@ const breadcrumbSchema = {
         {s.la !== s.town && <a href={`/council/${s.laSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.la} →</a>}
         <a href="/postcode" class="block text-sm text-indigo-700 hover:underline">Search by postcode →</a>
       </div>
+
+      <!-- Find homes near this school -->
+      <div class="border rounded-lg p-5">
+        <h3 class="font-semibold mb-2">Find homes near {s.name}</h3>
+        <p class="text-sm text-gray-600 mb-3">Search for properties within the catchment area on Rightmove.</p>
+        <a
+          href={`https://www.rightmove.co.uk/property-for-sale/find.html?searchType=SALE&locationIdentifier=POSTCODE%5E${s.postcode?.replace(/\s/g, '')}&radius=0.5&sortType=6`}
+          target="_blank"
+          rel="nofollow noopener"
+          class="block text-center bg-green-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-green-800 transition-colors mb-2"
+        >
+          Search properties on Rightmove →
+        </a>
+        <a
+          href={`https://www.zoopla.co.uk/for-sale/property/${s.town?.toLowerCase().replace(/\s+/g, '-')}/`}
+          target="_blank"
+          rel="nofollow noopener"
+          class="block text-center border border-green-300 text-green-700 text-sm font-medium px-4 py-2 rounded-lg hover:bg-green-50 transition-colors"
+        >
+          Search on Zoopla →
+        </a>
+      </div>
+
+      <!-- TheTutorLink CTA -->
+      {(s.phase === 'Primary' || s.phase === 'Secondary') && (
+        <div class="border border-indigo-200 rounded-lg p-5 bg-indigo-50">
+          <h3 class="font-semibold mb-2 text-indigo-900">Need a tutor in {s.town}?</h3>
+          <p class="text-sm text-gray-700 mb-3">
+            Find qualified {phaseLower} tutors in {s.town} — maths, English, science and more.
+          </p>
+          <a
+            href={`https://thetutor.link/?ref=catchment&town=${encodeURIComponent(s.town)}`}
+            target="_blank"
+            rel="noopener"
+            class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors"
+          >
+            Find a tutor near {s.town} →
+          </a>
+        </div>
+      )}
 
       <!-- Ad slot: uncomment when AdSense is approved -->
       <!-- <div class="border rounded-lg p-5 bg-gray-50 text-center text-xs text-gray-400 min-h-[100px] flex items-center justify-center">
