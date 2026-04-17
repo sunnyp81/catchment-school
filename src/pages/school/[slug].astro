@@ -245,6 +245,9 @@ const breadcrumbSchema = {
             <div class="bg-amber-100 border border-amber-300 rounded p-3 mb-3 text-sm text-amber-800">
               <strong>Currently oversubscribed:</strong> {s.pupils} pupils enrolled against a capacity of {s.capacity} places.
               Living within the catchment area is especially important for this school.
+              <p class="mt-2">
+                Not getting a place? <a href="/guides/how-to-appeal-a-school-place" class="font-semibold text-amber-900 underline hover:no-underline">Learn how to appeal a school place →</a>
+              </p>
             </div>
           )}
           {!isOversubscribed && fillRate && fillRate >= 90 && (
@@ -311,6 +314,8 @@ const breadcrumbSchema = {
           <a href="/guides/school-admissions-timeline" class="text-indigo-700 hover:underline">Admissions timeline →</a>
           {s.phase === 'Primary' && <a href="/guides/primary-school-catchment" class="text-indigo-700 hover:underline">Primary school guide →</a>}
           {s.phase === 'Secondary' && <a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school guide →</a>}
+          <a href="/guides/in-year-admissions" class="text-indigo-700 hover:underline">In-year admissions →</a>
+          <a href="/guides/school-waiting-lists" class="text-indigo-700 hover:underline">School waiting lists →</a>
         </div>
       </div>
 
@@ -405,6 +410,10 @@ const breadcrumbSchema = {
             target="_blank" rel="nofollow noopener"
             class="block text-sm font-medium hover:underline">
             Read full Ofsted report →
+          </a>
+          <a href="/guides/ofsted-ratings-explained"
+            class="block text-sm font-medium hover:underline mt-2">
+            Understand Ofsted ratings →
           </a>
         </div>
       )}
