@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import schools from '../../data/schools.json';
 import las from '../../data/las.json';
 import SchoolCard from '../../components/SchoolCard.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
 
 export async function getStaticPaths() {
   return (las as any[]).map((la: any) => ({
@@ -68,6 +69,8 @@ const breadcrumbSchema = {
   </nav>
 
   <h1 class="text-3xl font-bold mb-3">{la.name} School Catchment Areas</h1>
+
+  <AuthorByline type="hub" />
 
   <!-- Intro paragraph — unique per LA using real counts -->
   <p class="text-gray-600 mb-2 max-w-2xl">

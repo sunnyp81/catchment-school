@@ -29,7 +29,21 @@ const orgSchema = {
   "url": "https://catchment.school",
   "logo": "https://catchment.school/favicon.svg",
   "description": "Free school catchment area checker for England. Data sourced from the Department for Education's GIAS service.",
-  "sameAs": []
+  "areaServed": "GB",
+  "knowsAbout": ["School catchment areas", "School admissions", "Primary schools", "Secondary schools", "Ofsted ratings"],
+  "founder": {
+    "@type": "Person",
+    "name": "Sunny Patel",
+    "jobTitle": "Founder",
+    "url": "https://sunnypatel.co.uk",
+    "sameAs": [
+      "https://sunnypatel.co.uk",
+      "https://www.linkedin.com/in/sunny-patel-seo/"
+    ]
+  },
+  "sameAs": [
+    "https://sunnypatel.co.uk"
+  ]
 };
 ---
 <!doctype html>
@@ -174,6 +188,7 @@ const orgSchema = {
         <p>© {new Date().getFullYear()} catchment.school — School data: <a href="https://get-information-about-schools.service.gov.uk" class="underline hover:text-gray-600" rel="nofollow noopener" target="_blank">GIAS / DfE</a> · Open Government Licence</p>
         <nav class="flex gap-4">
           <a href="/about" class="hover:text-gray-600 hover:underline">About</a>
+          <a href="/editorial-policy/" class="hover:text-gray-600 hover:underline">Editorial Policy</a>
           <a href="/privacy" class="hover:text-gray-600 hover:underline">Privacy</a>
           <a href="/guides" class="hover:text-gray-600 hover:underline">Guides</a>
         </nav>

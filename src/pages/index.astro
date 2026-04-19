@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import las from '../data/las.json';
+import AuthorByline from '../components/AuthorByline.astro';
 
 const featuredLAs = las;
 ---
@@ -66,6 +67,10 @@ const featuredLAs = las;
     </div>
     <a href="/council" class="inline-block mt-4 text-indigo-700 hover:underline text-sm font-medium">View all {las.length} councils →</a>
   </section>
+
+  <div class="mt-12">
+    <AuthorByline type="home" />
+  </div>
 </Base>
 
 <script>

@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+
+const lastUpdated = '15 March 2026';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Editorial Policy — catchment.school',
+  url: 'https://catchment.school/editorial-policy/',
+  description: 'How catchment.school sources, verifies, and presents school catchment area data and editorial content.',
+  publisher: {
+    '@type': 'Organization',
+    name: 'catchment.school',
+    url: 'https://catchment.school',
+  },
+};
+---
+
+<Base
+  title="Editorial Policy — catchment.school"
+  description="How catchment.school sources, verifies, and presents school catchment area data. We are independent and not paid by schools or local authorities."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <span class="text-gray-700">Editorial Policy</span>
+  </nav>
+
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-bold mb-2">Editorial Policy</h1>
+    <p class="text-sm text-gray-500 mb-8">Last updated: {lastUpdated}</p>
+
+    <div class="prose prose-gray max-w-none space-y-6">
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Our independence</h2>
+        <p>catchment.school is an independent information service. We are not paid by schools, multi-academy trusts, local authorities, or any government body to include, promote, or rank any listing. No school can pay to improve its position on this site, and we accept no advertising from individual schools or admissions consultants.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Where our school data comes from</h2>
+        <p>Our school listings — including names, addresses, phase, age range, capacity, pupil numbers, and website URLs — come directly from the Department for Education's <a href="https://get-information-about-schools.service.gov.uk" class="underline" rel="nofollow noopener" target="_blank">Get Information About Schools</a> (GIAS) service. GIAS is the DfE's official register of every open school in England.</p>
+        <p>Ofsted ratings and inspection dates come from <a href="https://reports.ofsted.gov.uk" class="underline" rel="nofollow noopener" target="_blank">Ofsted's public reports</a>. Free school meal percentages and other performance indicators come from the DfE's published statistics. All of this data is used under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" class="underline" rel="nofollow noopener" target="_blank">Open Government Licence v3.0</a>.</p>
+        <p>We refresh the underlying dataset on a monthly cadence. The "Updated" date shown in the trust bar and in the footer of every page tells you when our last refresh ran. For the most current information on any individual school — particularly after a new Ofsted inspection — always check the GIAS and Ofsted websites directly.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">How we derive catchment area information</h2>
+        <p>Catchment areas in England are not a single national dataset. Each local authority and each academy trust sets its own admissions policy, which is reviewed annually and published by the relevant admissions authority. We do not host or re-publish those policy documents.</p>
+        <p>What we do is signpost — for every school and every council we list, we link to the DfE GIAS record, the Ofsted report, and a search that finds the council's current admissions policy and catchment boundary documents. The guidance paragraphs on our school pages describe how admissions work in general terms based on the school's phase, type (academy, community, voluntary-aided), religious character, and whether it is selective. They are not a substitute for reading the official admissions policy for the year your child is applying.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Fill rates and oversubscription signals</h2>
+        <p>Where we describe a school as "oversubscribed" or "operating close to capacity," this is derived from the DfE-published pupil count versus the school's official capacity. It is an indicator — not a guarantee that a given year's catchment was tight. Application numbers and offered-distance vary year to year and are published by the admissions authority, not by us.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Accuracy and corrections</h2>
+        <p>We aim to reflect the DfE and Ofsted source data accurately. If you believe any information on catchment.school is incorrect, out of date, or misleading, please <a href="/about" class="underline">contact us</a> and we will investigate promptly and correct any error we can verify against the source data.</p>
+        <p>If the issue is with the underlying DfE or Ofsted record itself, we can only reflect what those sources publish — you will need to raise the correction with GIAS or Ofsted directly.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Our editorial team</h2>
+        <p>Editorial content — guides, intros, catchment explainers, FAQs — is produced by a small team with experience in UK education research and programmatic SEO. The site is published by Sunny Patel, an independent SEO consultant based in the UK. We do not employ admissions specialists or solicitors, and our guides are for general informational purposes only. For advice on a specific admissions case or appeal, consult your local authority's admissions team or a qualified adviser.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Use of AI in content production</h2>
+        <p>We use AI tooling to help process and format data at scale across tens of thousands of school pages. All AI-assisted output is reviewed against the underlying DfE and Ofsted source data before publication, and the facts on each page — school name, address, URN, capacity, pupil counts, Ofsted rating — are machine-extracted from those official sources rather than generated.</p>
+      </section>
+
+    </div>
+  </div>
+</Base>

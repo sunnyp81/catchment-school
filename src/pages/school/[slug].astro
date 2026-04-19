@@ -2,6 +2,7 @@
 export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
 import { env } from 'cloudflare:workers';
 
 const { slug } = Astro.params;
@@ -192,6 +193,8 @@ const breadcrumbSchema = {
     <div class="lg:col-span-2">
 
       <h1 class="text-3xl font-bold mb-2">{s.name} Catchment Area</h1>
+
+      <AuthorByline type="school" />
 
       <p class="text-gray-600 mb-6">
         {s.name} is a {typeDesc ? `${typeDesc} ` : ''}{phaseLower} school in {s.town}{s.la ? `, ${s.la}` : ''}

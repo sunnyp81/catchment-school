@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import schools from '../../data/schools.json';
 import towns from '../../data/towns.json';
 import SchoolCard from '../../components/SchoolCard.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
 
 export async function getStaticPaths() {
   return (towns as any[]).map((t: any) => ({
@@ -64,6 +65,8 @@ const breadcrumbSchema = {
   </nav>
 
   <h1 class="text-3xl font-bold mb-3">{titlePhase} in {town.name}</h1>
+
+  <AuthorByline type="hub" />
 
   <!-- Filter + search bar -->
   <div class="flex flex-wrap gap-3 mb-4">
