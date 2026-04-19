@@ -4,6 +4,7 @@ import schools from '../../data/schools.json';
 import las from '../../data/las.json';
 import SchoolCard from '../../components/SchoolCard.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
+import councilIntros from '../../data/council-intros.json';
 
 export async function getStaticPaths() {
   return (las as any[]).map((la: any) => ({
@@ -26,6 +27,9 @@ const towns = Object.entries(byTown).sort((a, b) => b[1].length - a[1].length);
 const primaries = laSchools.filter((s: any) => s.phase === 'Primary').length;
 const secondaries = laSchools.filter((s: any) => s.phase === 'Secondary').length;
 const townCount = Object.keys(byTown).length;
+
+// Unique long-form intro (top 20 LAs); fall back to null for remaining councils
+const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[] }>)[la.slug] ?? null;
 
 // Intent-matched title — "[LA] school catchment areas" is the search pattern
 const title = `${la.name} School Catchment Areas — Find Schools Near You | catchment.school`;
@@ -73,11 +77,17 @@ const breadcrumbSchema = {
   <AuthorByline type="hub" />
 
   <!-- Intro paragraph — unique per LA using real counts -->
-  <p class="text-gray-600 mb-2 max-w-2xl">
-    <strong>{la.name}</strong> has <strong>{laSchools.length} schools</strong> across {townCount} area{townCount !== 1 ? 's' : ''} —
-    {primaries} primary school{primaries !== 1 ? 's' : ''} and {secondaries} secondary school{secondaries !== 1 ? 's' : ''}.
-    Catchment area boundaries and admissions policies for all schools in {la.name} are reviewed annually.
-  </p>
+  {uniqueIntro ? (
+    <div class="max-w-2xl mb-2 space-y-3 text-gray-700">
+      {uniqueIntro.paragraphs.map((p: string) => <p>{p}</p>)}
+    </div>
+  ) : (
+    <p class="text-gray-600 mb-2 max-w-2xl">
+      <strong>{la.name}</strong> has <strong>{laSchools.length} schools</strong> across {townCount} area{townCount !== 1 ? 's' : ''} —
+      {primaries} primary school{primaries !== 1 ? 's' : ''} and {secondaries} secondary school{secondaries !== 1 ? 's' : ''}.
+      Catchment area boundaries and admissions policies for all schools in {la.name} are reviewed annually.
+    </p>
+  )}
   <div class="flex gap-6 text-gray-500 mb-8 text-sm">
     <span>{laSchools.length} total</span>
     <span>{primaries} primary</span>

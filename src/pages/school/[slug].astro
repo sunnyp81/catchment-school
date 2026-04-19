@@ -310,6 +310,30 @@ const breadcrumbSchema = {
         </section>
       )}
 
+      <!-- Parent-hub link mesh — always surfaces council + area links in body copy -->
+      <nav class="mb-8 p-4 border border-indigo-100 bg-indigo-50/40 rounded-lg text-sm" aria-label="Related catchment hubs">
+        <p class="font-medium text-gray-700 mb-2">Explore nearby catchment areas</p>
+        <ul class="flex flex-wrap gap-x-5 gap-y-2">
+          {s.town && (
+            <li>
+              <a href={`/area/${s.townSlug}`} class="text-indigo-700 hover:underline">
+                All schools in {s.town} →
+              </a>
+            </li>
+          )}
+          <li>
+            <a href={`/council/${s.laSlug}`} class="text-indigo-700 hover:underline">
+              {s.la} school catchment areas →
+            </a>
+          </li>
+          <li>
+            <a href="/council" class="text-indigo-700 hover:underline">
+              All English councils →
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <div class="border rounded-lg p-5 bg-gray-50 text-sm">
         <p class="font-medium mb-2">Need help understanding catchment areas?</p>
         <div class="flex flex-wrap gap-3">
@@ -438,7 +462,7 @@ const breadcrumbSchema = {
       <div class="border rounded-lg p-5">
         <h3 class="font-semibold mb-3">Browse</h3>
         {s.town && <a href={`/area/${s.townSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.town} →</a>}
-        {s.la !== s.town && <a href={`/council/${s.laSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.la} →</a>}
+        <a href={`/council/${s.laSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.la} council →</a>
         <a href="/postcode" class="block text-sm text-indigo-700 hover:underline">Search by postcode →</a>
       </div>
 

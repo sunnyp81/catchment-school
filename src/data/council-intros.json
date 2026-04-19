@@ -1,0 +1,462 @@
+{
+  "kent": {
+    "paragraphs": [
+      "Kent runs one of the larger school estates in England — 459 primary and 100 secondary schools, spread across market towns, villages and denser urban centres.",
+      "The largest concentrations sit around Maidstone, Canterbury, Ashford, which together account for a meaningful share of the council's pupil places.",
+      "Selective schools are part of the mix in Kent — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Kent school below."
+    ],
+    "meta": {
+      "schoolCount": 711,
+      "primaries": 459,
+      "secondaries": 100,
+      "topTowns": [
+        "Maidstone",
+        "Canterbury",
+        "Ashford",
+        "Gravesend",
+        "Tonbridge"
+      ],
+      "faithPct": 30,
+      "academyPct": 40,
+      "selectiveCount": 40
+    }
+  },
+  "lancashire": {
+    "paragraphs": [
+      "Lancashire runs one of the larger school estates in England — 480 primary and 80 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Expect the tightest competition in and around Preston and Burnley, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
+      "Around 48% of schools in Lancashire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "For the exact catchment map and the previous year's last-distance-offered figure, always check Lancashire's current admissions policy before assuming your postcode is inside a school's boundary."
+    ],
+    "meta": {
+      "schoolCount": 701,
+      "primaries": 480,
+      "secondaries": 80,
+      "topTowns": [
+        "Preston",
+        "Burnley",
+        "Chorley",
+        "Lancaster",
+        "Accrington"
+      ],
+      "faithPct": 48,
+      "academyPct": 18,
+      "selectiveCount": 9
+    }
+  },
+  "hampshire": {
+    "paragraphs": [
+      "Schools in Hampshire split across 424 primaries and 67 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
+      "Expect the tightest competition in and around Southampton and Basingstoke, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
+      "Selective schools are part of the mix in Hampshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "For the exact catchment map and the previous year's last-distance-offered figure, always check Hampshire's current admissions policy before assuming your postcode is inside a school's boundary."
+    ],
+    "meta": {
+      "schoolCount": 616,
+      "primaries": 424,
+      "secondaries": 67,
+      "topTowns": [
+        "Southampton",
+        "Basingstoke",
+        "Fareham",
+        "Andover",
+        "Winchester"
+      ],
+      "faithPct": 23,
+      "academyPct": 13,
+      "selectiveCount": 7
+    }
+  },
+  "essex": {
+    "paragraphs": [
+      "Essex runs one of the larger school estates in England — 444 primary and 78 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Colchester, Chelmsford and Harlow host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Essex — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Essex school below."
+    ],
+    "meta": {
+      "schoolCount": 610,
+      "primaries": 444,
+      "secondaries": 78,
+      "topTowns": [
+        "Colchester",
+        "Chelmsford",
+        "Harlow",
+        "Basildon",
+        "Brentwood"
+      ],
+      "faithPct": 26,
+      "academyPct": 55,
+      "selectiveCount": 10
+    }
+  },
+  "hertfordshire": {
+    "paragraphs": [
+      "Schools in Hertfordshire split across 401 primaries and 77 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
+      "School density is highest in St Albans and Watford — parents in rural parts of Hertfordshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Hertfordshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Hertfordshire school below."
+    ],
+    "meta": {
+      "schoolCount": 590,
+      "primaries": 401,
+      "secondaries": 77,
+      "topTowns": [
+        "St Albans",
+        "Watford",
+        "Hemel Hempstead",
+        "Stevenage",
+        "Hitchin"
+      ],
+      "faithPct": 26,
+      "academyPct": 30,
+      "selectiveCount": 14
+    }
+  },
+  "surrey": {
+    "paragraphs": [
+      "Finding the right catchment in Surrey means weighing 297 primary schools and 56 secondaries against where you can realistically live — distance criteria tend to bite hardest in the council's more popular towns.",
+      "School density is highest in Guildford and Woking — parents in rural parts of Surrey should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Surrey — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Surrey school below."
+    ],
+    "meta": {
+      "schoolCount": 524,
+      "primaries": 297,
+      "secondaries": 56,
+      "topTowns": [
+        "Guildford",
+        "Woking",
+        "Epsom",
+        "Farnham",
+        "Godalming"
+      ],
+      "faithPct": 27,
+      "academyPct": 48,
+      "selectiveCount": 18
+    }
+  },
+  "birmingham": {
+    "paragraphs": [
+      "Birmingham runs one of the larger school estates in England — 292 primary and 82 secondary schools, spread across market towns, villages and denser urban centres.",
+      "School density is highest in Birmingham and Sutton Coldfield — parents in rural parts of Birmingham should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Around 21% of schools in Birmingham have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "Each Birmingham school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
+    ],
+    "meta": {
+      "schoolCount": 512,
+      "primaries": 292,
+      "secondaries": 82,
+      "topTowns": [
+        "Birmingham",
+        "Sutton Coldfield",
+        "BIRMINGHAM",
+        "West Midlands",
+        "SUTTON COLDFIELD"
+      ],
+      "faithPct": 21,
+      "academyPct": 46,
+      "selectiveCount": 18
+    }
+  },
+  "norfolk": {
+    "paragraphs": [
+      "Schools in Norfolk split across 344 primaries and 51 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
+      "Norwich, King's Lynn and Great Yarmouth host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 27% of schools in Norfolk have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Norfolk school below."
+    ],
+    "meta": {
+      "schoolCount": 464,
+      "primaries": 344,
+      "secondaries": 51,
+      "topTowns": [
+        "Norwich",
+        "King's Lynn",
+        "Great Yarmouth",
+        "Thetford",
+        "Dereham"
+      ],
+      "faithPct": 27,
+      "academyPct": 55,
+      "selectiveCount": 9
+    }
+  },
+  "staffordshire": {
+    "paragraphs": [
+      "Finding the right catchment in Staffordshire means weighing 308 primary schools and 56 secondaries against where you can realistically live — distance criteria tend to bite hardest in the council's more popular towns.",
+      "Stafford, Stoke-on-Trent and Tamworth host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Staffordshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "Each Staffordshire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
+    ],
+    "meta": {
+      "schoolCount": 453,
+      "primaries": 308,
+      "secondaries": 56,
+      "topTowns": [
+        "Stafford",
+        "Stoke-on-Trent",
+        "Tamworth",
+        "Burton-on-Trent",
+        "Cannock"
+      ],
+      "faithPct": 32,
+      "academyPct": 66,
+      "selectiveCount": 4
+    }
+  },
+  "derbyshire": {
+    "paragraphs": [
+      "Derbyshire publishes its school admissions policy annually. With 353 primary and 45 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
+      "Chesterfield, Derby and Alfreton host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Derbyshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "Each Derbyshire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
+    ],
+    "meta": {
+      "schoolCount": 450,
+      "primaries": 353,
+      "secondaries": 45,
+      "topTowns": [
+        "Chesterfield",
+        "Derby",
+        "Alfreton",
+        "Matlock",
+        "Ilkeston"
+      ],
+      "faithPct": 29,
+      "academyPct": 40,
+      "selectiveCount": 3
+    }
+  },
+  "devon": {
+    "paragraphs": [
+      "Devon runs one of the larger school estates in England — 308 primary and 38 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Expect the tightest competition in and around Exeter and Newton Abbot, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
+      "Selective schools are part of the mix in Devon — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "For the exact catchment map and the previous year's last-distance-offered figure, always check Devon's current admissions policy before assuming your postcode is inside a school's boundary."
+    ],
+    "meta": {
+      "schoolCount": 424,
+      "primaries": 308,
+      "secondaries": 38,
+      "topTowns": [
+        "Exeter",
+        "Newton Abbot",
+        "Barnstaple",
+        "Tiverton",
+        "Totnes"
+      ],
+      "faithPct": 31,
+      "academyPct": 54,
+      "selectiveCount": 3
+    }
+  },
+  "lincolnshire": {
+    "paragraphs": [
+      "Lincolnshire runs one of the larger school estates in England — 280 primary and 53 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Lincoln, Spalding and Grantham host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Lincolnshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Lincolnshire school below."
+    ],
+    "meta": {
+      "schoolCount": 396,
+      "primaries": 280,
+      "secondaries": 53,
+      "topTowns": [
+        "Lincoln",
+        "Spalding",
+        "Grantham",
+        "Boston",
+        "Gainsborough"
+      ],
+      "faithPct": 33,
+      "academyPct": 48,
+      "selectiveCount": 15
+    }
+  },
+  "north-yorkshire": {
+    "paragraphs": [
+      "North Yorkshire runs one of the larger school estates in England — 292 primary and 41 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Expect the tightest competition in and around Harrogate and York, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
+      "Selective schools are part of the mix in North Yorkshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every North Yorkshire school below."
+    ],
+    "meta": {
+      "schoolCount": 382,
+      "primaries": 292,
+      "secondaries": 41,
+      "topTowns": [
+        "Harrogate",
+        "York",
+        "Scarborough",
+        "Skipton",
+        "Selby"
+      ],
+      "faithPct": 39,
+      "academyPct": 44,
+      "selectiveCount": 8
+    }
+  },
+  "nottinghamshire": {
+    "paragraphs": [
+      "Nottinghamshire runs one of the larger school estates in England — 286 primary and 43 secondary schools, spread across market towns, villages and denser urban centres.",
+      "School density is highest in Nottingham and Mansfield — parents in rural parts of Nottinghamshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Nottinghamshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Nottinghamshire school below."
+    ],
+    "meta": {
+      "schoolCount": 369,
+      "primaries": 286,
+      "secondaries": 43,
+      "topTowns": [
+        "Nottingham",
+        "Mansfield",
+        "Newark",
+        "Worksop",
+        "Retford"
+      ],
+      "faithPct": 22,
+      "academyPct": 55,
+      "selectiveCount": 2
+    }
+  },
+  "oxfordshire": {
+    "paragraphs": [
+      "Oxfordshire publishes its school admissions policy annually. With 242 primary and 39 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
+      "The largest concentrations sit around Oxford, Banbury, Abingdon, which together account for a meaningful share of the council's pupil places.",
+      "Around 43% of schools in Oxfordshire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "Each Oxfordshire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
+    ],
+    "meta": {
+      "schoolCount": 368,
+      "primaries": 242,
+      "secondaries": 39,
+      "topTowns": [
+        "Oxford",
+        "Banbury",
+        "Abingdon",
+        "Witney",
+        "Bicester"
+      ],
+      "faithPct": 43,
+      "academyPct": 47,
+      "selectiveCount": 15
+    }
+  },
+  "suffolk": {
+    "paragraphs": [
+      "Suffolk runs one of the larger school estates in England — 253 primary and 43 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Expect the tightest competition in and around Ipswich and Bury St Edmunds, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
+      "Selective schools are part of the mix in Suffolk — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Suffolk school below."
+    ],
+    "meta": {
+      "schoolCount": 363,
+      "primaries": 253,
+      "secondaries": 43,
+      "topTowns": [
+        "Ipswich",
+        "Bury St Edmunds",
+        "Lowestoft",
+        "Woodbridge",
+        "Stowmarket"
+      ],
+      "faithPct": 29,
+      "academyPct": 64,
+      "selectiveCount": 4
+    }
+  },
+  "gloucestershire": {
+    "paragraphs": [
+      "Gloucestershire runs one of the larger school estates in England — 243 primary and 41 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Expect the tightest competition in and around Gloucester and Cheltenham, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
+      "Selective schools are part of the mix in Gloucestershire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "Each Gloucestershire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
+    ],
+    "meta": {
+      "schoolCount": 341,
+      "primaries": 243,
+      "secondaries": 41,
+      "topTowns": [
+        "Gloucester",
+        "Cheltenham",
+        "Stroud",
+        "Cirencester",
+        "Tewkesbury"
+      ],
+      "faithPct": 37,
+      "academyPct": 38,
+      "selectiveCount": 10
+    }
+  },
+  "west-sussex": {
+    "paragraphs": [
+      "West Sussex publishes its school admissions policy annually. With 226 primary and 37 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
+      "Expect the tightest competition in and around Horsham and Crawley, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
+      "Around 35% of schools in West Sussex have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every West Sussex school below."
+    ],
+    "meta": {
+      "schoolCount": 339,
+      "primaries": 226,
+      "secondaries": 37,
+      "topTowns": [
+        "Horsham",
+        "Crawley",
+        "Chichester",
+        "Worthing",
+        "Haywards Heath"
+      ],
+      "faithPct": 35,
+      "academyPct": 33,
+      "selectiveCount": 9
+    }
+  },
+  "leicestershire": {
+    "paragraphs": [
+      "Schools in Leicestershire split across 231 primaries and 44 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
+      "Leicester, Loughborough and Melton Mowbray host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 34% of schools in Leicestershire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "Each Leicestershire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
+    ],
+    "meta": {
+      "schoolCount": 326,
+      "primaries": 231,
+      "secondaries": 44,
+      "topTowns": [
+        "Leicester",
+        "Loughborough",
+        "Melton Mowbray",
+        "Coalville",
+        "Market Harborough"
+      ],
+      "faithPct": 34,
+      "academyPct": 64,
+      "selectiveCount": 9
+    }
+  },
+  "cambridgeshire": {
+    "paragraphs": [
+      "Cambridgeshire publishes its school admissions policy annually. With 210 primary and 33 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
+      "School density is highest in Cambridge and Huntingdon — parents in rural parts of Cambridgeshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Around 23% of schools in Cambridgeshire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Cambridgeshire school below."
+    ],
+    "meta": {
+      "schoolCount": 311,
+      "primaries": 210,
+      "secondaries": 33,
+      "topTowns": [
+        "Cambridge",
+        "Huntingdon",
+        "Wisbech",
+        "Ely",
+        "St Neots"
+      ],
+      "faithPct": 23,
+      "academyPct": 44,
+      "selectiveCount": 9
+    }
+  }
+}
