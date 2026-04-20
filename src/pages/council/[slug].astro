@@ -57,11 +57,54 @@ const breadcrumbSchema = {
     { "@type": "ListItem", "position": 3, "name": `${la.name} Schools`, "item": `https://catchment.school/council/${la.slug}` },
   ]
 };
+
+// Top town names for the "areas" FAQ answer
+const topTownNames = towns.slice(0, 5).map(([name]: [string, any[]]) => name).join(', ');
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `How many schools are in ${la.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `${la.name} has ${laSchools.length} open schools — ${primaries} primary school${primaries !== 1 ? 's' : ''} and ${secondaries} secondary school${secondaries !== 1 ? 's' : ''} across ${townCount} area${townCount !== 1 ? 's' : ''}. Data sourced from the Department for Education's Get Information About Schools (GIAS) register.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `What areas are covered by ${la.name} school catchment zones?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `${la.name} administers catchment areas across ${townCount} area${townCount !== 1 ? 's' : ''}, including ${topTownNames}${townCount > 5 ? ' and more' : ''}. Each school's catchment boundary is set by the local authority and reviewed annually as part of the admissions process.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `How do school catchment areas work in ${la.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `In ${la.name}, catchment areas define a geographical zone around each school. Children living within the catchment boundary are given priority in oversubscription criteria. The exact boundary — and the "last distance offered" — changes each year based on application volumes. Official catchment maps and admissions policies are published by ${la.name} council each autumn.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `Which schools in ${la.name} are oversubscribed?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Oversubscription varies by school and year in ${la.name}. Popular schools typically receive more applications than available places, meaning the "last distance offered" shrinks annually. To check demand for a specific school, consult the ${la.name} admissions authority's published offer data or the school's own admissions policy.`
+      }
+    }
+  ]
+};
 ---
 <Base title={title} description={description}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
   <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center">

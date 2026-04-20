@@ -49,11 +49,54 @@ const breadcrumbSchema = {
     { "@type": "ListItem", "position": 3, "name": `Schools in ${town.name}`, "item": `https://catchment.school/area/${town.slug}` },
   ]
 };
+
+// Top school names for the "what schools serve this area" FAQ answer
+const topSchoolNames = areaSchools.slice(0, 5).map((s: any) => s.name).join(', ');
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `What schools serve ${town.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `There ${areaSchools.length === 1 ? 'is' : 'are'} ${areaSchools.length} school${areaSchools.length !== 1 ? 's' : ''} in ${town.name}${town.la ? `, ${town.la}` : ''}${areaSchools.length > 0 ? ` — including ${topSchoolNames}${areaSchools.length > 5 ? ' and more' : ''}` : ''}. You can view each school's catchment area guidance and admissions policy on catchment.school.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `How many primary and secondary schools are in ${town.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `${town.name} has ${primaries.length} primary school${primaries.length !== 1 ? 's' : ''} and ${secondaries.length} secondary school${secondaries.length !== 1 ? 's' : ''}. ${others.length > 0 ? `There ${others.length === 1 ? 'is' : 'are'} also ${others.length} other school${others.length !== 1 ? 's' : ''} (such as all-through or special schools) in the area.` : ''} All data is sourced from the Department for Education's GIAS register.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `How do I find out if my address is in a school's catchment area in ${town.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `To check whether your address falls within a school's catchment area in ${town.name}, use the postcode search tool at catchment.school. Catchment area boundaries for ${town.name} schools are set by ${town.la || 'the local authority'} and reviewed each year. You can also consult the school's admissions policy or contact the ${town.la || 'local authority'} admissions team directly for the most up-to-date boundary maps.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `Who sets catchment area boundaries for schools in ${town.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Catchment area boundaries for schools in ${town.name} are set by ${town.la || 'the local authority'} as the admissions authority. Community and voluntary-controlled schools follow the council's published admissions policy, while academies and voluntary-aided schools may set their own. Boundaries are reviewed annually and published each September for the following academic year.`
+      }
+    }
+  ]
+};
 ---
 <Base title={title} description={description}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
   <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center flex-wrap">
