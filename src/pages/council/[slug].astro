@@ -31,9 +31,9 @@ const townCount = Object.keys(byTown).length;
 // Unique long-form intro (top 20 LAs); fall back to null for remaining councils
 const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[] }>)[la.slug] ?? null;
 
-// Intent-matched title — "[LA] school catchment areas" is the search pattern
-const title = `${la.name} School Catchment Areas — Find Schools Near You | catchment.school`;
-const description = `Find all ${laSchools.length} schools in ${la.name}, including ${primaries} primary and ${secondaries} secondary schools across ${townCount} areas. View catchment area guidance and admissions policies.`;
+// CTR-optimised: data signal replaces generic filler, under 60 chars
+const title = `${la.name} School Catchment Areas — Find ${laSchools.length} Schools`;
+const description = `${la.name} has ${laSchools.length} schools across ${townCount} areas — explore catchment boundaries, oversubscription criteria and 2026 admissions policies for every school.`;
 
 const itemListSchema = {
   "@context": "https://schema.org",

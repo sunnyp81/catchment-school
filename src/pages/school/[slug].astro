@@ -77,8 +77,9 @@ const catchmentPara2 = isGrammar
   ? `For more information on how ${s.la} assesses EHCP placements and which schools are named, contact the council's SEND team directly. The council must publish its Local Offer explaining available provision.`
   : `The official admissions policy — including the catchment boundary map — is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application, as boundaries can change year to year.`;
 
-const title = `${s.name} Catchment Area — ${s.phase} School in ${s.town} | catchment.school`;
-const description = `${s.name} is a ${phaseLower} school in ${s.town}, ${s.la}${introFacts ? ` ${introFacts}` : ''}. View catchment area guidance, admissions policy and nearby ${phaseLower} schools.`;
+// CTR-optimised: under 60 chars; URN in description captures Ofsted URN searchers
+const title = `${s.name} Catchment Area & Admissions — ${s.town}`;
+const description = `${s.name} (URN: ${s.urn}) — ${phaseLower} school in ${s.town}${ofstedLabel ? `, ${ofstedLabel}` : ''}. Find the catchment area, 2026 admissions criteria and nearby schools.`;
 
 const schoolSchema = {
   "@context": "https://schema.org",
