@@ -39,6 +39,36 @@ const faqSchema = {
       "@type": "Question",
       "name": "How do I find my school catchment area?",
       "acceptedAnswer": { "@type": "Answer", "text": "Search for your home postcode on catchment.school to find nearby schools, then visit your local authority's admissions page for the official catchment map and last-distance-offered data." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a catchment area and a priority admissions area?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Some schools use a defined geographic boundary (called a priority admissions area or home area) as an explicit admissions criterion — children inside the boundary receive priority over those outside it, regardless of exact distance. A catchment area in the looser sense simply describes the zone from which a school historically drew its intake, based on the last-distance-offered figure." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do grammar schools and faith schools use catchment areas?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Grammar schools select primarily on the basis of the 11+ test result, so distance and catchment are secondary considerations used only as tiebreakers among children who pass the test. Faith schools rank applicants using faith-based criteria first; distance may then be used within each faith category. Neither type is required to use a standard catchment area as their primary criterion." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is distance from home to school measured — is it the front door or the school gate?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most local authorities measure from a fixed point within the child's home (typically the address centroid assigned to the property's postcode or the front door) to a fixed point on the school site (usually the main entrance or a published coordination point). The exact measurement points must be stated in the school's admissions policy." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I appeal if I live in the catchment area but was still refused?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. You have the right to appeal regardless of whether you live in the catchment area. If you live within what you believe to be the catchment and were refused, this may strengthen your appeal — particularly if you can show that your address should have qualified you under the school's published criteria." }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if two children live exactly the same distance from a school?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Where two or more children are tied on every criterion including distance, most local authorities use a random tiebreaker — a lottery draw — to determine who is offered the final place. This is explicitly permitted under the School Admissions Code. The process should be published in the school's admissions policy." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does new housing development affect catchment areas?",
+      "acceptedAnswer": { "@type": "Answer", "text": "New housing developments that increase the local child population can significantly shrink a school's effective catchment area. If a large estate is built close to a popular school, the last-distance-offered figure may drop substantially the following year. Families planning to move should check whether approved planning applications in the area could affect future catchment distances." }
     }
   ]
 };
@@ -65,110 +95,307 @@ const faqSchema = {
       <h1>How School Catchment Areas Work in England</h1>
       <p class="lead text-lg text-gray-600">
         Understanding catchment areas is one of the most important parts of the primary and secondary school
-        admissions process in England. This guide explains what catchment areas are, how they are determined,
-        and how to find out whether your home address falls within one.
+        admissions process in England. This guide explains what catchment areas are, how they are determined
+        in law, how distance is measured, how boundaries shift year to year, and how to assess your
+        realistic chances of a place at any given school.
       </p>
 
       <h2>What is a school catchment area?</h2>
       <p>
         A <strong>school catchment area</strong> is the geographic zone around a school within which
-        applicants receive priority consideration when places are allocated. It is not a fixed legal boundary
-        — it is a consequence of how many children apply and where they live.
+        applicants receive priority consideration when places are allocated. It is not a fixed legal
+        boundary drawn on a map — it is a consequence of how many children apply and where they live.
       </p>
       <p>
-        The term comes from the fact that in any given admissions round, the school "catches" children from
-        a certain radius. That radius shrinks in competitive years when more families apply, and grows in
-        quieter years.
+        The term comes from the fact that in any given admissions round, the school "catches" children
+        from a certain radius. That radius shrinks in competitive years when more families apply, and
+        grows in quieter years when fewer do. Unlike some European countries where school zones are
+        strict administrative boundaries, English catchment areas are better understood as a
+        <em>historical footprint</em> that shifts annually.
+      </p>
+      <p>
+        Some schools do use a formally defined <strong>priority admissions area</strong> — a fixed
+        boundary that appears in their admissions policy and gives children inside it a higher priority
+        tier than those outside. Where this exists, it is a genuine admissions criterion. Where no
+        such formal boundary is defined, "catchment" is simply a way of describing the distances that
+        were last sufficient to secure a place.
+      </p>
+
+      <h2>The legal framework: the School Admissions Code</h2>
+      <p>
+        School admissions in England are governed by the <strong>School Admissions Code 2021</strong>,
+        published by the Department for Education. The Code applies to all state-funded schools,
+        including academies and free schools. Key principles relevant to catchment areas are:
+      </p>
+      <ul>
+        <li>Schools must have clearly published oversubscription criteria that are fair, objective,
+        and measurable</li>
+        <li>Criteria that directly or indirectly discriminate on the grounds of race, religion (except
+        for designated faith schools), sex, disability, or social background are not permitted</li>
+        <li>Schools cannot give priority to children whose parents work at the school, children who
+        have previously attended a school's nursery (unless the nursery is on the same site), or
+        children of donors or governors</li>
+        <li>Distance must be measured consistently and the measurement method must be published in
+        the admissions policy</li>
+      </ul>
+      <p>
+        The Code does not prescribe a fixed catchment area system. Schools and local authorities have
+        discretion over whether to use a formal geographic boundary as a criterion or to rely solely
+        on distance measurement.
       </p>
 
       <h2>How are school places allocated in England?</h2>
       <p>
-        Schools in England use an <strong>oversubscription criteria</strong> system. When more children apply
-        than there are places, the school works through a ranked list of criteria until all places are filled.
-        The standard priority order is:
+        When more children apply for a school than there are places available — that is, when a school
+        is <strong>oversubscribed</strong> — the admission authority works through a ranked list of
+        criteria until all places are filled. The standard priority order for most community and
+        voluntary-controlled schools is:
       </p>
       <ol>
-        <li><strong>Looked-after children</strong> — children in local authority care, and previously looked-after children</li>
-        <li><strong>Medical or social need</strong> — where attendance at that specific school is essential</li>
-        <li><strong>Siblings</strong> — children with a brother or sister already attending the school</li>
-        <li><strong>Distance</strong> — distance from home to school, nearest to furthest</li>
+        <li><strong>Children with an Education, Health and Care Plan (EHCP)</strong> naming the school —
+        these are admitted by right under the Children and Families Act 2014; the school must offer
+        them a place and they do not go through the standard admissions process</li>
+        <li><strong>Looked-after children and previously looked-after children</strong> — children
+        currently in local authority care, and children who were previously in care but are now
+        adopted, living with a special guardian, or in other arrangements</li>
+        <li><strong>Medical or social need</strong> — where a professional (doctor, social worker)
+        has confirmed that attendance at that specific school is essential for the child's wellbeing,
+        not merely preferred</li>
+        <li><strong>Siblings</strong> — children with a brother or sister already attending the school
+        who will still be there when the applicant starts; step-siblings and half-siblings usually
+        qualify, but the policy must define this explicitly</li>
+        <li><strong>Catchment/priority admissions area</strong> — where a formal geographic boundary
+        is used as a criterion, children inside it rank above those outside, within the same tier</li>
+        <li><strong>Distance</strong> — the straight-line or road distance from the child's home to
+        the school; nearest children are offered places before those further away</li>
       </ol>
       <p>
-        Some schools have additional criteria (such as faith attendance or feeder school links), which must
-        be specified in their admissions policy.
+        Academies, free schools, voluntary-aided schools, and foundation schools may have different
+        criteria — for example, a faith criterion or a feeder school link — but they must all publish
+        their full criteria in their admissions policy.
       </p>
 
       <h2>How is catchment area distance measured?</h2>
       <p>
-        The majority of English schools measure distance as a <strong>straight-line (crow-flies) distance</strong>
-        from the child's home address to the school's main entrance or a designated point on the school site.
+        The majority of English schools measure distance as a <strong>straight-line (crow-flies)
+        distance</strong> from the child's home address to a designated point on the school site —
+        usually the main entrance or a published coordinate. This is the most common method because
+        it is objective, easy to verify, and consistent.
       </p>
       <p>
-        A minority use <strong>road-walking distance</strong> — the shortest safe walking route. The method
-        used must be published in the school's admissions policy. When in doubt, check the policy directly.
+        A minority of schools use <strong>road-walking distance</strong> — the shortest safe walking
+        route along public roads and paths. Road distance is more complex to calculate and can
+        produce different rankings than straight-line measurement. If you live on the opposite side
+        of a park or railway line from a school, straight-line and road-walking distances may differ
+        considerably.
+      </p>
+      <p>
+        The measurement method must be published in the school's admissions policy. When comparing
+        your chances at a school, always check which method they use. If it is road distance and
+        there is a significant barrier between your home and the school, your effective distance
+        may be much greater than a map would suggest.
+      </p>
+      <p>
+        <strong>What are the exact measurement points?</strong> Most local authorities measure from
+        a fixed address point within the home — typically the centroid of the address as defined by
+        Ordnance Survey data — to a fixed point on the school site. The policy must state this.
+        If it is ambiguous, contact the admissions authority and ask for written clarification
+        before you apply.
       </p>
 
-      <h2>What is "last distance offered"?</h2>
+      <h2>What is "last distance offered" and how do you use it?</h2>
       <p>
-        After each admissions round, local authorities publish the <strong>last distance offered</strong>
-        for each school — the distance at which the final place was allocated. This is the most useful data
-        point for parents trying to assess their chances.
+        After each admissions round, local authorities and schools publish the <strong>last distance
+        offered</strong> for each school and year group — the distance at which the final place was
+        allocated in that year's round. This is the single most useful data point for parents trying
+        to assess their chances.
       </p>
       <p>
-        If the last distance offered was 0.6 miles and you live 0.4 miles from the school, you were likely
-        to receive a place — assuming no higher-priority criteria blocked you. But this figure changes
-        year to year, so treat it as a guide, not a guarantee.
+        If the last distance offered at a primary school for Reception entry in 2024 was 0.6 miles,
+        and you live 0.4 miles from the school, you were within the catchment in that year — assuming
+        no higher-priority criteria blocked you. But this figure is specific to that year and that
+        particular cohort of applicants.
+      </p>
+      <p>
+        Use the last-distance-offered figure as a guide to competitiveness, not as a guarantee.
+        Three or four years of historical data is more useful than a single year, as it shows the
+        trend. You can find this data on your local authority's admissions pages, and catchment.school
+        aggregates it where available.
       </p>
 
       <h2>Do catchment areas change every year?</h2>
       <p>
-        Yes. Catchment areas are not fixed — they shift each year based on demand. A school that previously
-        offered places to children 1.2 miles away may only reach 0.8 miles in a year when applications surge.
+        Yes — and sometimes significantly. The effective catchment area is recalculated from scratch
+        each admissions round based on who applies and where they live. A school that offered places
+        to children 1.2 miles away in 2022 may only reach 0.7 miles in 2025 if the area's population
+        of school-age children has grown.
       </p>
       <p>
-        New housing developments, demographic changes, and school expansions all affect catchment distances.
-        Never assume last year's boundary applies this year.
+        The main factors that cause catchment distances to change are:
+      </p>
+      <ul>
+        <li><strong>New housing developments</strong> — large estates built near a popular school
+        can generate many additional applicants, significantly shrinking the effective catchment</li>
+        <li><strong>Demographic shifts</strong> — birth rate peaks and troughs move through the
+        system roughly five to six years after they occur; a school may suddenly become far more
+        competitive if the local birth cohort from five years ago was unusually large</li>
+        <li><strong>School closures or expansions nearby</strong> — if a nearby school closes or
+        shrinks its PAN (published admission number), families who would previously have attended
+        that school now apply to yours, increasing competition</li>
+        <li><strong>Changes to sibling patterns</strong> — in areas with large established sibling
+        cohorts, a high proportion of places may be taken by siblings in some years, leaving very
+        few for distance applicants</li>
+      </ul>
+      <p>
+        Never assume last year's catchment boundary will apply to your application year. Always
+        review the most recent two or three years of last-distance-offered data to understand the
+        trajectory.
       </p>
 
       <h2>Does living in catchment guarantee a place?</h2>
       <p>
-        No. Living within what you believe to be the catchment area does not guarantee a place.
-        Higher-priority applicants (looked-after children, siblings) are always placed first, regardless
-        of distance. In a high-demand year, siblings alone may fill all available places.
+        No. This is one of the most common misconceptions in school admissions. Living within what
+        you believe to be the catchment area does not guarantee a place. The reasons a place may
+        still be refused even for a catchment resident are:
+      </p>
+      <ul>
+        <li><strong>Higher-priority applicants fill all places</strong> — if there are more siblings,
+        looked-after children, and medical-need applicants than there are places in the school's PAN,
+        no distance-based applicants receive places at all, regardless of how close they live</li>
+        <li><strong>Increased demand pushes the distance cut-off inward</strong> — if more families
+        apply from within 0.5 miles than there are places available, families living 0.6 miles away
+        will be refused even though they were "in catchment" the previous year</li>
+        <li><strong>Formal catchment boundary changes</strong> — in the rare cases where a school
+        uses a fixed geographic boundary, that boundary may be redrawn through a formal consultation
+        process, which could exclude an address that was previously inside it</li>
+      </ul>
+
+      <h2>Grammar schools and catchment areas</h2>
+      <p>
+        Grammar schools in England — around 163 at the time of writing, concentrated in areas such
+        as Kent, Lincolnshire, Buckinghamshire, and parts of West Yorkshire — select primarily on
+        the basis of the <strong>11+ selective test</strong>. Catchment area and distance only matter
+        as tiebreakers among children who have passed the test to the required standard.
+      </p>
+      <p>
+        Some grammar schools use a geographic preference area: children who pass the 11+ and live
+        within a defined distance or zone receive priority over children who pass but live further
+        away. This is distinct from standard catchment areas but operates on the same geographic
+        logic.
+      </p>
+      <p>
+        There is no waiting list benefit to living close to a grammar school if your child has not
+        passed (or sat) the 11+ test.
       </p>
 
-      <h2>How to find your school's catchment area</h2>
+      <h2>Faith schools and catchment areas</h2>
+      <p>
+        Voluntary-aided (VA) faith schools — Church of England, Roman Catholic, Jewish, Muslim, and
+        others — are permitted to use faith-based oversubscription criteria under the School
+        Admissions Code. This means their priority order typically places children of the relevant
+        faith (or with regular attendance at a relevant place of worship) above those without,
+        before distance is considered.
+      </p>
+      <p>
+        A typical Catholic primary school might rank applicants in this order: baptised Catholics
+        who are practising (evidenced by priest's reference), baptised Catholics who are non-practising,
+        other Christians, other faiths, and then no faith — with distance as the tiebreaker within
+        each category.
+      </p>
+      <p>
+        For non-faith families applying to a heavily oversubscribed faith school, proximity alone
+        will rarely be sufficient. Distance only helps if there are places left after all faith
+        criterion categories have been exhausted.
+      </p>
+
+      <h2>How to find your catchment school</h2>
+      <p>
+        The most reliable approach uses several sources together:
+      </p>
       <ol>
-        <li><strong>Search by postcode</strong> on catchment.school to see schools near your home address</li>
-        <li>Visit the school's profile page and click "Find [council] catchment area documents"</li>
-        <li>Download the school's <strong>admissions policy</strong> from the council or school website</li>
-        <li>Check the <strong>last-distance-offered</strong> data published after the most recent admissions round</li>
-        <li>Contact the school or local authority admissions team directly for the most current information</li>
+        <li><strong>Search by postcode on catchment.school</strong> — see schools near your home
+        address with distance data and historical last-distance-offered figures where available</li>
+        <li><strong>Download the school's admissions policy</strong> — available on the school or
+        local authority website; this tells you the exact criteria, measurement method, and any
+        formal geographic boundary</li>
+        <li><strong>Check the local authority's admissions booklet</strong> — published annually
+        each autumn, it contains the last-distance-offered figure for the previous year for every
+        community school in the area</li>
+        <li><strong>Contact the admissions team directly</strong> — particularly if you are close
+        to the historical last-distance-offered boundary; ask them whether any changes to criteria
+        or school expansion are planned for your entry year</li>
+        <li><strong>Check for upcoming development</strong> — if you are buying property near a
+        school, check the local authority's planning portal for approved residential developments
+        that could increase competition in your application year</li>
       </ol>
 
-      <!-- FAQ Section -->
+      <h2>What "in catchment" means in practice</h2>
+      <p>
+        If a school lists catchment or priority admissions area as an explicit criterion, being
+        confirmed as inside the boundary places you in a higher priority tier than non-catchment
+        families. This is a significant advantage. If, however, the school uses only distance
+        as its distance-based criterion (without a formal boundary), then "in catchment" simply
+        means you live close enough to have received a place in recent years — it carries no formal
+        admissions priority.
+      </p>
+      <p>
+        In competitive urban areas, families sometimes move house specifically to be within the
+        effective catchment distance of a desired school. This is a legitimate strategy provided
+        the move is genuine and the address is the child's actual home at the time of application.
+        Admissions authorities do check for fraudulent address use, and any place offered on
+        the basis of a false address can be withdrawn at any time.
+      </p>
+
       <h2>Frequently asked questions</h2>
 
       <h3>Can I appeal if I don't get a school place?</h3>
       <p>
-        Yes. All parents have the right to appeal a school place decision to an independent appeals panel.
-        You can appeal even if you were outside the catchment area, as long as you applied in the first place.
-        Appeals panels consider whether the admissions process was followed correctly and whether refusing
-        a place causes more prejudice than admitting would.
+        Yes. All parents have the right to appeal a school place decision to an independent appeals
+        panel. You can appeal even if you were outside the catchment area, as long as you applied in
+        the first place. Appeals panels consider whether the admissions process was correctly followed
+        and whether refusing a place causes more prejudice to the child than admitting them would
+        cause to the school.
       </p>
 
       <h3>What happens on the waiting list?</h3>
       <p>
-        If your child does not receive a place, you can request to be placed on the school's waiting list.
-        Waiting lists operate using the same oversubscription criteria — not on a first-come, first-served
-        basis. Your position may improve or worsen as other families join or leave the list.
+        If your child does not receive a place, you can request to be placed on the school's waiting
+        list. Waiting lists operate using the same oversubscription criteria — not on a first-come,
+        first-served basis. Your position may improve or worsen as other families join or leave
+        the list. See our <a href="/guides/school-waiting-lists" class="text-indigo-700 hover:underline">school waiting lists guide</a> for full details.
       </p>
 
       <h3>Are independent schools subject to catchment areas?</h3>
       <p>
-        No. Independent (fee-paying) schools set their own admissions criteria and are not required to use
-        catchment areas. State-funded schools — including academies and free schools — must follow the
-        School Admissions Code, which governs how catchment and oversubscription criteria are applied.
+        No. Independent (fee-paying) schools set their own admissions criteria and are not required
+        to use catchment areas. State-funded schools — including academies and free schools — must
+        follow the School Admissions Code, which governs how oversubscription criteria are applied.
+      </p>
+
+      <h3>What is the difference between a catchment area and a priority admissions area?</h3>
+      <p>
+        A priority admissions area (sometimes called a home area or designated area) is a formally
+        defined geographic boundary used as an explicit admissions criterion. A catchment area in
+        common usage simply describes the zone from which a school historically drew its intake.
+        The distinction matters: if a school uses a priority admissions area as a criterion,
+        you are either inside it or outside it — a yes or no answer that determines your priority
+        tier. If it merely uses distance, there is no boundary, only a distance measurement.
+      </p>
+
+      <h3>Can two children at the same address be treated differently for admissions?</h3>
+      <p>
+        Only if their circumstances differ. A younger sibling applying to a school their older
+        sibling already attends will receive sibling priority. Twins are treated individually
+        and ranked by criteria; most schools will admit both twins if one of them is at the
+        last-distance cut-off, to avoid separating siblings, but this is not legally required.
+      </p>
+
+      <h3>What happens if two children live exactly the same distance from a school?</h3>
+      <p>
+        Where all criteria result in a tie, most local authorities use a random tiebreaker — a
+        supervised lottery draw. This process must be stated in the admissions policy. It is rare
+        but does happen, particularly in highly competitive schools where the last few places are
+        contested by families living in the same street.
       </p>
     </article>
 
@@ -182,6 +409,11 @@ const faqSchema = {
         </a>
       </div>
 
+      <div class="border rounded-xl p-5 bg-amber-50 border-amber-200">
+        <h3 class="font-semibold mb-2 text-amber-800">Key fact</h3>
+        <p class="text-sm text-amber-700">Living "in catchment" does not guarantee a place. Siblings and looked-after children are always prioritised first, and catchment distances shrink in competitive years.</p>
+      </div>
+
       <div class="border rounded-xl p-5">
         <h3 class="font-semibold mb-3">Browse by council</h3>
         <p class="text-sm text-gray-600 mb-3">Find all schools in your local authority area.</p>
@@ -192,6 +424,7 @@ const faqSchema = {
         <h3 class="font-semibold mb-3">More guides</h3>
         <ul class="space-y-2 text-sm">
           <li><a href="/guides/school-admissions-timeline" class="text-indigo-700 hover:underline">School admissions timeline</a></li>
+          <li><a href="/guides/school-waiting-lists" class="text-indigo-700 hover:underline">School waiting lists</a></li>
           <li><a href="/guides/primary-school-catchment" class="text-indigo-700 hover:underline">Primary school catchment areas</a></li>
           <li><a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school catchment areas</a></li>
         </ul>

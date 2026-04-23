@@ -1,10 +1,77 @@
 ---
 import Base from '../../layouts/Base.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "School Admissions Timeline in England 2025–2026",
+  "description": "A complete guide to school admissions dates in England — primary and secondary application deadlines, National Offer Day dates, appeal timelines, and in-year admissions.",
+  "author": { "@type": "Organization", "name": "catchment.school" },
+  "publisher": { "@type": "Organization", "name": "catchment.school", "url": "https://catchment.school" },
+  "mainEntityOfPage": "https://catchment.school/guides/school-admissions-timeline"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When is the deadline to apply for primary school in England?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The national closing date for primary school (Reception / Year R) applications in England is 15 January each year. For September 2026 entry, the deadline is 15 January 2026. Applications received after this date are treated as late and processed only after all on-time applications." }
+    },
+    {
+      "@type": "Question",
+      "name": "When is the deadline to apply for secondary school in England?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The national closing date for secondary school (Year 7) applications in England is 31 October each year. For September 2026 entry, the deadline is 31 October 2025. Late applications are processed after all on-time applications have been considered." }
+    },
+    {
+      "@type": "Question",
+      "name": "When is National Offer Day for primary school?",
+      "acceptedAnswer": { "@type": "Answer", "text": "National Offer Day for primary school (Reception) is 16 April each year. Offers for September 2025 entry were released on 16 April 2025. Families typically have until 30 April to accept or decline the offer." }
+    },
+    {
+      "@type": "Question",
+      "name": "When is National Offer Day for secondary school?",
+      "acceptedAnswer": { "@type": "Answer", "text": "National Offer Day for secondary school (Year 7) is 1 March each year. Offers for September 2025 entry were released on 1 March 2025. Families typically have until 15 March to accept or decline." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the appeal deadline for a refused school place?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For primary school places refused in the normal round, the appeal deadline is typically around 20 school days after the offer letter is sent — usually in May. For secondary school places refused in the normal round, the deadline is usually in late March or April. Local authorities publish their specific appeal deadlines alongside the offer-day results." }
+    },
+    {
+      "@type": "Question",
+      "name": "When do 11+ grammar school tests take place?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Grammar school 11+ tests typically take place in September or October of Year 5 (for some areas) or Year 6, approximately one year before the child would start secondary school. Registration for the test usually opens in May or June of Year 5 or 6. The exact dates vary by school and consortium; check with the individual grammar school or local consortium by April each year." }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I miss the school application deadline?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Late applications — received after the national closing date — are processed only after all on-time applications have been considered. This means you may not receive a place at any of your preferred schools, even if you live close by. Some local authorities accept late applications with evidence of extenuating circumstances such as a recent move to the area or serious illness. Contact your local authority as soon as possible if you have missed or are about to miss the deadline." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does in-year admissions work?",
+      "acceptedAnswer": { "@type": "Answer", "text": "In-year admissions apply when a family needs a school place outside the normal admissions round — for example, after moving to a new area mid-year, or when transferring a child between schools. You apply directly to the school or the local authority (depending on the school type) at any point during the school year. If no place is available, you can request to be placed on the school's waiting list." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the deadline to accept or decline a school offer?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For secondary school offers made on 1 March, families typically have until 15 March to accept or decline. For primary school offers made on 16 April, the deadline is usually 30 April. If you do not respond by the deadline, your offer may be withdrawn. Always respond promptly, even if you plan to appeal or join a waiting list." }
+    }
+  ]
+};
 ---
 <Base
   title="School Admissions Timeline England 2025–2026 | catchment.school"
-  description="Key dates for primary and secondary school applications in England. When applications open, deadlines, National Offer Day dates, and appeal timelines."
+  description="Key dates for primary and secondary school applications in England. When applications open, deadlines, National Offer Day dates, appeal timelines, and in-year admissions explained."
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
   <nav class="text-sm text-gray-500 mb-6 flex gap-2">
     <a href="/" class="hover:underline">Home</a>
     <span>›</span>
@@ -17,11 +84,18 @@ import Base from '../../layouts/Base.astro';
     <article class="lg:col-span-2 prose prose-lg max-w-none">
       <h1>School Admissions Timeline in England 2025–2026</h1>
       <p class="lead text-lg text-gray-600">
-        Missing a key admissions date can push your application to the back of the queue. Here are all the
-        critical dates for primary and secondary school applications in England.
+        Missing a key admissions date can push your application to the back of the queue — or rule
+        it out entirely. This guide covers every stage of the primary and secondary school admissions
+        process in England: when applications open, the national deadlines, National Offer Day,
+        appeal windows, in-year admissions, and what to do at each step.
       </p>
 
       <h2>Secondary school (Year 7) — 2025 entry</h2>
+      <p>
+        Children starting secondary school in September 2025 — those born between 1 September 2013
+        and 31 August 2014 — were in Year 6 during the 2024/25 academic year. Their application
+        round ran as follows:
+      </p>
       <div class="not-prose">
         <table class="w-full text-sm border-collapse">
           <thead>
@@ -34,12 +108,45 @@ import Base from '../../layouts/Base.astro';
             {[
               ['May–June 2024', '11+ grammar school registration opens (where applicable)'],
               ['September–October 2024', '11+ tests take place'],
-              ['1 September 2024', 'Secondary applications open'],
+              ['1 September 2024', 'Secondary applications open via local authority portal'],
               ['31 October 2024', 'Application deadline (national closing date)'],
               ['1 March 2025', 'National Offer Day — Year 7 offers released'],
               ['15 March 2025', 'Deadline to accept or decline offer'],
-              ['March–April 2025', 'Appeal deadline for refused places'],
-              ['May–June 2025', 'Independent appeal hearings'],
+              ['March–April 2025', 'Appeal deadline for refused places (approx. 20 school days after offer)'],
+              ['May–June 2025', 'Independent appeal hearings take place'],
+            ].map(([date, event]) => (
+              <tr class="border-b">
+                <td class="p-3 border font-medium text-indigo-700 w-48">{date}</td>
+                <td class="p-3 border">{event}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Secondary school (Year 7) — 2026 entry</h2>
+      <p>
+        Children starting secondary school in September 2026 are currently in Year 5 or early
+        Year 6. The key dates for their application round are:
+      </p>
+      <div class="not-prose">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-indigo-50">
+              <th class="text-left p-3 border font-semibold">Date</th>
+              <th class="text-left p-3 border font-semibold">Event</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['May–June 2025', '11+ grammar school registration opens (where applicable)'],
+              ['September–October 2025', '11+ tests take place'],
+              ['1 September 2025', 'Secondary applications open'],
+              ['31 October 2025', 'Application deadline (national closing date)'],
+              ['1 March 2026', 'National Offer Day — Year 7 offers released'],
+              ['15 March 2026', 'Deadline to accept or decline offer'],
+              ['March–April 2026', 'Appeal deadline for refused places'],
+              ['May–June 2026', 'Independent appeal hearings take place'],
             ].map(([date, event]) => (
               <tr class="border-b">
                 <td class="p-3 border font-medium text-indigo-700 w-48">{date}</td>
@@ -51,6 +158,10 @@ import Base from '../../layouts/Base.astro';
       </div>
 
       <h2>Primary school (Reception / Year R) — 2025 entry</h2>
+      <p>
+        Children starting Reception in September 2025 — those born between 1 September 2020 and
+        31 August 2021 — applied in the 2024/25 application round. Their timeline was:
+      </p>
       <div class="not-prose">
         <table class="w-full text-sm border-collapse">
           <thead>
@@ -61,12 +172,12 @@ import Base from '../../layouts/Base.astro';
           </thead>
           <tbody>
             {[
-              ['September 2024', 'Primary applications open'],
+              ['September 2024', 'Primary applications open via local authority portal'],
               ['15 January 2025', 'Application deadline (national closing date)'],
               ['16 April 2025', 'National Offer Day — Reception offers released'],
               ['30 April 2025', 'Deadline to accept or decline offer'],
-              ['May 2025', 'Appeal deadline for refused places'],
-              ['June–July 2025', 'Independent appeal hearings'],
+              ['May 2025', 'Appeal deadline for refused places (approx. 20 school days after offer)'],
+              ['June–July 2025', 'Independent appeal hearings take place'],
             ].map(([date, event]) => (
               <tr class="border-b">
                 <td class="p-3 border font-medium text-indigo-700 w-48">{date}</td>
@@ -77,23 +188,262 @@ import Base from '../../layouts/Base.astro';
         </table>
       </div>
 
-      <h2>What happens if you apply late?</h2>
+      <h2>Primary school (Reception / Year R) — 2026 entry</h2>
       <p>
-        Late applications — those received after the national closing date — are processed only after all
-        on-time applications have been considered. This means that even if you live very close to your
-        preferred school, a late application may result in no place being available.
+        Children starting Reception in September 2026 were born between 1 September 2021 and
+        31 August 2022. Their application round opens in autumn 2025:
       </p>
+      <div class="not-prose">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-indigo-50">
+              <th class="text-left p-3 border font-semibold">Date</th>
+              <th class="text-left p-3 border font-semibold">Event</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['September 2025', 'Primary applications open'],
+              ['15 January 2026', 'Application deadline (national closing date)'],
+              ['16 April 2026', 'National Offer Day — Reception offers released'],
+              ['30 April 2026', 'Deadline to accept or decline offer'],
+              ['May 2026', 'Appeal deadline for refused places'],
+              ['June–July 2026', 'Independent appeal hearings take place'],
+            ].map(([date, event]) => (
+              <tr class="border-b">
+                <td class="p-3 border font-medium text-indigo-700 w-48">{date}</td>
+                <td class="p-3 border">{event}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What happens between application and offer day?</h2>
       <p>
-        Some local authorities do accept late applications with extenuating circumstances (e.g. recent
-        move to the area, serious illness). Contact your local authority as soon as possible if you have
-        missed the deadline.
+        Once you submit your application, the process runs behind the scenes through the national
+        co-ordinated admissions scheme. Here is what is happening during that window:
+      </p>
+      <ul>
+        <li><strong>January to February (primary) / November to February (secondary)</strong> —
+        local authorities collect all applications, verify addresses, and share data with schools
+        and neighbouring authorities. Schools check for siblings, faith evidence, medical documentation,
+        and any other supporting information</li>
+        <li><strong>February (primary and secondary)</strong> — the national co-ordinated process
+        runs: each family's preferences are ranked against each school's oversubscription criteria,
+        and the algorithm allocates the highest available preference for each child</li>
+        <li><strong>Late February / early March</strong> — local authorities finalise offers and
+        prepare communication. Information is embargoed until the official offer day</li>
+        <li><strong>Offer day</strong> — results are released simultaneously to all applicants,
+        typically via the online portal used to apply, by email, or by first-class post</li>
+      </ul>
+      <p>
+        You cannot find out your result before the official offer day. Calling the local authority
+        in the week before will not get you an early answer.
       </p>
 
-      <h2>In-year admissions</h2>
+      <h2>How to apply: the local authority portal</h2>
       <p>
-        If you need a school place outside of the normal admissions round — for example because your family
-        has moved to the area mid-year — you apply through the <strong>in-year admissions</strong> process.
-        Contact your local authority admissions team, who will coordinate with schools to find an available place.
+        All state school applications in England go through your <strong>home local authority</strong>
+        — the council for the area where your child lives — even if some of your preferred schools
+        are in a neighbouring authority. Your local authority runs the co-ordinated admissions
+        scheme and submits your preferences to all relevant schools on your behalf.
+      </p>
+      <p>
+        To apply, visit your local authority's website and search for "school admissions" or
+        "apply for a school place." You will need:
+      </p>
+      <ul>
+        <li>Your child's full name, date of birth, and current address</li>
+        <li>Your preferences in ranked order (most local authorities allow three to six preferences)</li>
+        <li>Any supporting evidence required — for example, a baptism certificate for a faith school,
+        a professional letter confirming medical or social need, or sibling details</li>
+      </ul>
+      <p>
+        You can list schools from other local authority areas in your preferences. The co-ordination
+        process will forward your application to those authorities automatically.
+      </p>
+
+      <h2>How many school preferences should you list?</h2>
+      <p>
+        You should use all available preference slots. A common mistake is listing only one or two
+        schools in the belief that this signals stronger commitment to a first choice. It does not.
+        The national co-ordination process is <strong>preference-blind</strong>: schools do not know
+        whether they are your first, third, or fifth preference. Listing only one school means that
+        if you do not receive that place, you may be allocated any school with a remaining place in
+        the area — which could be far from your home or not your preference at all.
+      </p>
+      <p>
+        List your genuine preferences in true priority order. Include at least one school you are
+        confident of receiving a place at — often a school within very close walking distance or
+        one that has historically had lower demand — as a safety preference.
+      </p>
+
+      <h2>The grammar school 11+ timeline in detail</h2>
+      <p>
+        If you are applying for a selective grammar school place, the 11+ testing process runs
+        significantly earlier than the standard admissions round. The typical sequence is:
+      </p>
+      <ol>
+        <li><strong>April to June (Year 5 or 6)</strong> — grammar school and consortium websites
+        publish registration information; some areas (e.g. Kent, Birmingham) require formal
+        registration before the test; others accept walk-ins</li>
+        <li><strong>September (Year 6)</strong> — most 11+ tests take place at the start of Year 6,
+        typically between mid-September and mid-October; some consortiums test in late Year 5</li>
+        <li><strong>October to November (Year 6)</strong> — results are published; children are
+        told whether they have reached the qualifying score (pass mark varies by school and year)</li>
+        <li><strong>31 October (Year 6)</strong> — secondary school application deadline; you include
+        grammar school preferences in your standard secondary application at this stage</li>
+        <li><strong>1 March</strong> — National Offer Day; grammar school offers are released
+        through the same co-ordinated system as all other secondary offers</li>
+      </ol>
+      <p>
+        Missing the 11+ registration window effectively means your child cannot apply to that
+        grammar school for that year. Some grammar schools accept late test registrations in
+        exceptional circumstances, but this is not guaranteed. Check dates with the specific school
+        or consortium by April of Year 5 or early Year 6.
+      </p>
+
+      <h2>Understanding and meeting the appeal deadline</h2>
+      <p>
+        If your child is refused a place at a preferred school, you have the right to appeal to
+        an independent appeals panel. The appeal deadline is set by the local authority or school
+        and is typically <strong>around 20 school days after the offer letter is sent</strong>.
+      </p>
+      <p>
+        For primary school refusals sent on 16 April, the appeal deadline is usually in mid to
+        late May. For secondary refusals sent on 1 March, it is usually in late March or early
+        April. Each local authority publishes its specific appeal deadlines alongside the offer
+        results — check the offer letter or the admissions pages.
+      </p>
+      <p>
+        Late appeals — those submitted after the deadline — may still be considered, but there is
+        no guarantee of a hearing before September. If you need an appeal heard before the start
+        of the school year, submit before the deadline.
+      </p>
+      <p>
+        You can appeal for a school place at the same time as joining the waiting list. The two
+        processes are independent of each other.
+      </p>
+
+      <h2>What happens if you apply late?</h2>
+      <p>
+        Late applications — those received after the national closing date — are processed only
+        after all on-time applications have been considered. This matters because the most
+        desirable school places will typically be allocated to on-time applicants. By the time
+        a late application is processed, very few or no places may remain at popular schools,
+        regardless of how close you live.
+      </p>
+      <p>
+        Some local authorities accept late applications with <strong>extenuating circumstances</strong>
+        — for example, a family that has recently moved to the area and only recently became eligible
+        to apply, or a parent dealing with a serious family emergency. Contact your local authority
+        admissions team as soon as possible and explain the circumstances in writing. There is no
+        guarantee, but authorities do have discretion.
+      </p>
+      <p>
+        If your late application results in no offer from preferred schools, you will receive an
+        allocated place at the nearest school with a vacancy. You can then appeal and join waiting
+        lists in the normal way.
+      </p>
+
+      <h2>In-year admissions timeline</h2>
+      <p>
+        In-year admissions apply when you need a school place outside the main annual round — for
+        example, because your family has moved to a new area during the school year, or because you
+        want to transfer your child to a different school. Unlike the main round, there is no single
+        national timetable for in-year admissions. Each application is handled individually.
+      </p>
+      <p>
+        The general process is:
+      </p>
+      <ol>
+        <li><strong>Contact the local authority</strong> — your home local authority coordinates
+        in-year admissions for community schools; some academies and free schools manage their own
+        in-year admissions directly</li>
+        <li><strong>Submit the in-year application form</strong> — most authorities have a dedicated
+        in-year application form, separate from the main round form; this is available on their
+        website or by telephoning the admissions team</li>
+        <li><strong>Decision within 15 school days</strong> — the School Admissions Code requires
+        admission authorities to notify you of the outcome of an in-year application within 15
+        school days of receiving it</li>
+        <li><strong>Waiting list if no place available</strong> — if the school has no vacancies,
+        you can ask to be placed on the waiting list; in-year waiting lists operate on the same
+        ranked criteria as the main round</li>
+        <li><strong>Appeal right</strong> — you have the right to appeal an in-year refusal;
+        you should also be provided with information about other schools in the area with available
+        places</li>
+      </ol>
+      <p>
+        If you have just moved to England and need a school place urgently, contact your local
+        authority immediately. They have a duty to ensure every child of compulsory school age
+        has a school place. Even if your preferred schools have no vacancies, they will coordinate
+        to find a place at a school within a reasonable distance of your home.
+      </p>
+
+      <h2>Year 7 to Year 7 transfers and mid-year moves</h2>
+      <p>
+        If you want to transfer your child to a different secondary school mid-year — for example,
+        following a move, a change in circumstances, or dissatisfaction with the current school —
+        this is handled as an in-year application to the new school. Your child must continue
+        attending their current school until the in-year transfer is confirmed. Removing a child
+        from school without a confirmed alternative place is not permitted and could result in
+        the child being treated as absent.
+      </p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>When should I apply for primary school?</h3>
+      <p>
+        Applications for Reception entry open in September of the year before your child is due
+        to start. If your child is starting Reception in September 2026, applications open in
+        September 2025. The deadline is 15 January 2026. Apply as soon as the portal opens —
+        submitting early does not give you any admissions advantage, but it removes the risk of
+        missing the deadline due to technical issues or forgotten passwords.
+      </p>
+
+      <h3>When should I apply for secondary school?</h3>
+      <p>
+        Applications for Year 7 entry open on 1 September of the year before your child is due
+        to start. For September 2026 entry, this means applications open 1 September 2025, with
+        a deadline of 31 October 2025. If your child is sitting the 11+ for grammar school entry,
+        registration for that test typically needs to happen earlier — usually by May or June.
+      </p>
+
+      <h3>What is the difference between 15 January and 31 October deadlines?</h3>
+      <p>
+        The 15 January deadline is for <strong>primary school (Reception)</strong>. The 31 October
+        deadline is for <strong>secondary school (Year 7)</strong>. These are national closing
+        dates set by the Department for Education and apply to every local authority in England.
+        Individual local authorities cannot set a later deadline than these dates, though some
+        publish earlier local deadlines.
+      </p>
+
+      <h3>What happens on National Offer Day?</h3>
+      <p>
+        On National Offer Day — 1 March for secondary and 16 April for primary — all local
+        authorities simultaneously release their admissions decisions. You will receive your offer
+        via the online portal you used to apply, or by email, or by post. You must respond by the
+        acceptance deadline (usually 15 March for secondary, 30 April for primary). If you do not
+        respond, your offer may be withdrawn.
+      </p>
+
+      <h3>Can I change my school preferences after submitting my application?</h3>
+      <p>
+        Most local authorities allow you to amend your preferences up to the closing date. After
+        the deadline, changes are typically only accepted in exceptional circumstances — for example,
+        a house move that makes a different school significantly more appropriate. Contact your
+        local authority admissions team immediately if your circumstances change after submitting.
+      </p>
+
+      <h3>What if my child has an Education, Health and Care Plan (EHCP)?</h3>
+      <p>
+        Children with an EHCP that names a specific school are admitted to that school by right,
+        outside the standard co-ordinated admissions process. The EHCP naming process runs
+        separately — typically through the local authority's Special Educational Needs team — and
+        should be resolved before the normal offer day. If your child's EHCP is under review or
+        a school is being named, contact your SEND caseworker rather than following the standard
+        admissions timeline.
       </p>
     </article>
 
@@ -101,22 +451,34 @@ import Base from '../../layouts/Base.astro';
       <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
         <h3 class="font-semibold mb-2">Key dates to remember</h3>
         <ul class="text-sm space-y-2 text-gray-700">
-          <li><strong>31 Oct</strong> — Secondary deadline</li>
-          <li><strong>15 Jan</strong> — Primary deadline</li>
-          <li><strong>1 Mar</strong> — Secondary offers</li>
-          <li><strong>16 Apr</strong> — Primary offers</li>
+          <li><strong>31 Oct</strong> — Secondary application deadline</li>
+          <li><strong>15 Jan</strong> — Primary application deadline</li>
+          <li><strong>1 Mar</strong> — Secondary National Offer Day</li>
+          <li><strong>16 Apr</strong> — Primary National Offer Day</li>
+          <li><strong>~20 school days</strong> — Appeal deadline after offer day</li>
         </ul>
       </div>
       <div class="bg-indigo-50 rounded-xl p-5">
         <h3 class="font-semibold mb-3">Find schools near you</h3>
+        <p class="text-sm text-gray-600 mb-3">Check catchment distances before you apply.</p>
         <a href="/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors">
           Search by postcode →
         </a>
+      </div>
+      <div class="border rounded-xl p-5 bg-gray-50">
+        <h3 class="font-semibold mb-2">Grammar school checklist</h3>
+        <ul class="text-sm space-y-2 text-gray-700">
+          <li>Register for 11+ by June (Year 6)</li>
+          <li>Sit test September–October (Year 6)</li>
+          <li>Receive result by November</li>
+          <li>Include grammar in secondary application by 31 Oct</li>
+        </ul>
       </div>
       <div class="border rounded-xl p-5">
         <h3 class="font-semibold mb-3">Related guides</h3>
         <ul class="space-y-2 text-sm">
           <li><a href="/guides/how-school-catchment-areas-work" class="text-indigo-700 hover:underline">How catchment areas work</a></li>
+          <li><a href="/guides/school-waiting-lists" class="text-indigo-700 hover:underline">School waiting lists</a></li>
           <li><a href="/guides/primary-school-catchment" class="text-indigo-700 hover:underline">Primary school catchment</a></li>
           <li><a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school catchment</a></li>
         </ul>
