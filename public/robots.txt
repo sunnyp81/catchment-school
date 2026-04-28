@@ -1,4 +1,67 @@
+# catchment.school robots.txt
+# Operator preference: allow search, AI input (citation in answer engines), and AI training.
+# Cloudflare may inject managed Content-Signal blocks above this section — those defaults
+# can be turned off in the Cloudflare dashboard under Security → Bots → AI Scrapers and Crawlers.
+
 User-agent: *
+Content-Signal: search=yes,ai-input=yes,ai-train=yes
 Allow: /
+
+# Explicit allows for major AI / answer-engine crawlers
+# (overrides any prior Disallow for the same agent in the same file)
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
 Sitemap: https://catchment.school/sitemap-index.xml
-Sitemap: https://catchment.school/sitemap-schools.xml
