@@ -6,8 +6,8 @@ import AuthorByline from '../components/AuthorByline.astro';
 const featuredLAs = las;
 ---
 <Base
-  title="School Catchment Area Checker — Free Search for England"
-  description="Search schools by postcode, town or council. View primary and secondary school catchment areas, admissions info and capacity data for England."
+  title="School Catchment Area Checker 2026 — Free England Search"
+  description="Check which school catchment area you're in. Search 26,500+ schools by postcode, town or council — with admissions criteria, Ofsted ratings and capacity data."
 >
   <!-- Hero -->
   <section class="text-center py-10">
@@ -60,7 +60,7 @@ const featuredLAs = las;
     <h2 class="text-2xl font-bold mb-4">Browse Schools by Local Authority</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
       {featuredLAs.map(la => (
-        <a href={`/council/${la.slug}`} class="text-sm text-indigo-700 hover:underline border rounded px-3 py-2 hover:border-indigo-300 transition-colors">
+        <a href={`/council/${la.slug}/`} class="text-sm text-indigo-700 hover:underline border rounded px-3 py-2 hover:border-indigo-300 transition-colors">
           {la.name} <span class="text-gray-400">({la.count})</span>
         </a>
       ))}

@@ -17,7 +17,7 @@ import towns from '../../data/towns.json';
 
   <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
     {(towns as any[]).map(t => (
-      <a href={`/area/${t.slug}`} class="flex justify-between items-center border rounded px-3 py-2 hover:border-indigo-300 transition-colors">
+      <a href={`/area/${t.slug}/`} class="flex justify-between items-center border rounded px-3 py-2 hover:border-indigo-300 transition-colors">
         <span class="text-sm text-indigo-700 hover:underline">{t.name}</span>
         <span class="text-xs text-gray-400">{t.count}</span>
       </a>

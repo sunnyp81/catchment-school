@@ -204,11 +204,11 @@ const breadcrumbSchema = {
   <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center flex-wrap">
     <a href="/" class="hover:underline">Home</a>
     <span>›</span>
-    <a href={`/council/${s.laSlug}`} class="hover:underline">{s.la}</a>
+    <a href={`/council/${s.laSlug}/`} class="hover:underline">{s.la}</a>
     {s.town && !townLaSame && (
       <>
         <span>›</span>
-        <a href={`/area/${s.townSlug}`} class="hover:underline">{s.town}</a>
+        <a href={`/area/${s.townSlug}/`} class="hover:underline">{s.town}</a>
       </>
     )}
     <span>›</span>
@@ -327,7 +327,7 @@ const breadcrumbSchema = {
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {nearby.map((n: any) => (
-              <a href={`/school/${n.slug}`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
+              <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
                 <p class="text-xs text-gray-500 mt-1">{n.type} · {n.postcode}</p>
               </a>
@@ -342,13 +342,13 @@ const breadcrumbSchema = {
         <ul class="flex flex-wrap gap-x-5 gap-y-2">
           {s.town && (
             <li>
-              <a href={`/area/${s.townSlug}`} class="text-indigo-700 hover:underline">
+              <a href={`/area/${s.townSlug}/`} class="text-indigo-700 hover:underline">
                 All schools in {s.town} →
               </a>
             </li>
           )}
           <li>
-            <a href={`/council/${s.laSlug}`} class="text-indigo-700 hover:underline">
+            <a href={`/council/${s.laSlug}/`} class="text-indigo-700 hover:underline">
               {s.la} school catchment areas →
             </a>
           </li>
@@ -487,8 +487,8 @@ const breadcrumbSchema = {
 
       <div class="border rounded-lg p-5">
         <h3 class="font-semibold mb-3">Browse</h3>
-        {s.town && <a href={`/area/${s.townSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.town} →</a>}
-        <a href={`/council/${s.laSlug}`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.la} council →</a>
+        {s.town && <a href={`/area/${s.townSlug}/`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.town} →</a>}
+        <a href={`/council/${s.laSlug}/`} class="block text-sm text-indigo-700 hover:underline mb-2">All schools in {s.la} council →</a>
         <a href="/postcode" class="block text-sm text-indigo-700 hover:underline">Search by postcode →</a>
       </div>
 

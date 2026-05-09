@@ -67,7 +67,7 @@ const guides = [
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
     {guides.map(g => (
-      <a href={`/guides/${g.slug}`} class="block border rounded-xl p-6 hover:border-indigo-400 hover:shadow-sm transition-all">
+      <a href={`/guides/${g.slug}/`} class="block border rounded-xl p-6 hover:border-indigo-400 hover:shadow-sm transition-all">
         <p class="text-xs text-indigo-600 font-medium mb-2 uppercase tracking-wide">{g.time}</p>
         <h2 class="font-semibold text-lg mb-2 text-gray-900">{g.title}</h2>
         <p class="text-sm text-gray-600">{g.description}</p>

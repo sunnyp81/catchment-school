@@ -32,3 +32,15 @@ data/ofsted-raw.csv
 
 # Wrangler local state
 .wrangler/
+
+# leak-scan: appended 2026-05-01
+.env.*
+.env.local
+*.pem
+*.key
+credentials.json
+credentials*.json
+secrets.*
+.next/cache/
+wordpress-config.md
+master-builds.md
