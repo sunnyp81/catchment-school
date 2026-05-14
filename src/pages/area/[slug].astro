@@ -18,9 +18,8 @@ const primaries = areaSchools.filter((s: any) => s.phase === 'Primary');
 const secondaries = areaSchools.filter((s: any) => s.phase === 'Secondary');
 const others = areaSchools.filter((s: any) => s.phase !== 'Primary' && s.phase !== 'Secondary');
 
-// CTR-optimised: location first, data signal, under 60 chars
-const title = `${town.name} School Catchment Areas — ${areaSchools.length} Schools`;
-const description = `Find ${primaries.length} primary and ${secondaries.length} secondary schools in ${town.name}${town.la ? `, ${town.la}` : ''}. View catchment boundaries, admissions info and 2026 intake guidance.`;
+const title = `${town.name} School Catchment Areas 2026 | Postcode Checker`;
+const description = `${town.name} school catchment areas — check which schools serve your postcode. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' and ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} schools in ${town.name}${town.la ? `, ${town.la}` : ''}. Maps, Ofsted ratings and admissions criteria.`;
 
 // ItemList schema
 const itemListSchema = {

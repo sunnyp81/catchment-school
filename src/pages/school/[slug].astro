@@ -84,13 +84,8 @@ const catchmentPara2 = isGrammar
   ? `For more information on how ${s.la} assesses EHCP placements and which schools are named, contact the council's SEND team directly. The council must publish its Local Offer explaining available provision.`
   : `The official admissions policy — including the catchment boundary map — is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application, as boundaries can change year to year.`;
 
-// Title: school name leads (matches bare-name queries — 75% of impressions),
-// then town for disambiguation, then Ofsted year as freshness signal (or Admissions fallback).
-// Branded "[name] catchment area" queries still match on "Catchment Area" in title.
-const title = ofstedYear
-  ? `${s.name}, ${s.town} — Catchment Area & Ofsted ${ofstedYear}`
-  : `${s.name}, ${s.town} — Catchment Area & Admissions`;
-const description = `${s.name} (URN: ${s.urn}) — ${phaseLower} school in ${s.town}${ofstedLabel ? `, ${ofstedLabel}` : ''}. Find the catchment area, 2026 admissions criteria and nearby schools.`;
+const title = `${s.name} Catchment Area Map 2026 | ${s.town}`;
+const description = `${s.name} catchment area map and boundary in ${s.town}, ${s.la}. Check if your address is in catchment${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, admissions info and nearby ${phaseLower} schools.`;
 
 const schoolSchema = {
   "@context": "https://schema.org",
