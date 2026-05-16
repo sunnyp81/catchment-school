@@ -155,11 +155,30 @@ const faqSchema = {
     </a>
   </div>
 
+  <!-- Area quick-nav — links council authority to all its area pages -->
+  {towns.length > 1 && (
+    <nav class="mb-8 p-4 border border-indigo-100 bg-indigo-50/40 rounded-lg" aria-label="Areas in this council">
+      <p class="font-medium text-gray-700 mb-2">Areas in {la.name}</p>
+      <p class="text-sm text-gray-600 mb-3">
+        {la.name} administers school catchment areas across {townCount} area{townCount !== 1 ? 's' : ''}. Select an area to see all schools and catchment boundary guidance.
+      </p>
+      <ul class="flex flex-wrap gap-x-4 gap-y-1.5 text-sm">
+        {towns.map(([tName, tSchools]) => (
+          <li>
+            <a href={`/area/${tSchools[0].townSlug}/`} class="text-indigo-700 hover:underline">{tName} ({tSchools.length})</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )}
+
   <!-- Schools by town — H2 includes location -->
   {towns.map(([townName, townSchools]) => (
     <section class="mb-10">
       <div class="flex items-baseline gap-3 mb-4">
-        <h2 class="text-xl font-semibold">Schools in {townName}</h2>
+        <h2 class="text-xl font-semibold">
+          <a href={`/area/${townSchools[0].townSlug}/`} class="hover:text-indigo-700">{`Schools in ${townName}`}</a>
+        </h2>
         <span class="text-sm text-gray-400">{townSchools.length} school{townSchools.length !== 1 ? 's' : ''}</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

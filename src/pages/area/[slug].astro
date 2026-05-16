@@ -18,6 +18,12 @@ const primaries = areaSchools.filter((s: any) => s.phase === 'Primary');
 const secondaries = areaSchools.filter((s: any) => s.phase === 'Secondary');
 const others = areaSchools.filter((s: any) => s.phase !== 'Primary' && s.phase !== 'Secondary');
 
+// Sibling areas — other towns in the same council, sorted by school count descending
+const siblingAreas = (towns as any[])
+  .filter((t: any) => t.laSlug === town.laSlug && t.slug !== town.slug)
+  .sort((a: any, b: any) => b.count - a.count)
+  .slice(0, 12);
+
 const title = `${town.name} School Catchment Areas 2026 | Postcode Checker`;
 const description = `${town.name} school catchment areas — check which schools serve your postcode. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' and ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} schools in ${town.name}${town.la ? `, ${town.la}` : ''}. Maps, Ofsted ratings and admissions criteria.`;
 
@@ -130,7 +136,7 @@ const faqSchema = {
           ? `, all serving secondary-age pupils (ages 11–16+).`
           : '.'
     }
-    {' '}Catchment area boundaries are set by {town.la} and reviewed annually — click a school below to view its admissions guidance.
+    {' '}Catchment area boundaries are set by <a href={`/council/${town.laSlug}/`} class="text-indigo-700 hover:underline font-medium">{town.la}</a> and reviewed annually — click a school below to view its admissions guidance.
   </p>
 
   {primaries.length > 0 && (
@@ -200,10 +206,32 @@ const faqSchema = {
     })();
   </script>
 
+  <!-- Sibling areas in same council — distributes authority between area pages -->
+  {siblingAreas.length > 0 && (
+    <nav class="mt-8 p-4 border border-indigo-100 bg-indigo-50/40 rounded-lg text-sm" aria-label="Other areas in this council">
+      <p class="font-medium text-gray-700 mb-2">Other areas in <a href={`/council/${town.laSlug}/`} class="text-indigo-700 hover:underline">{town.la}</a></p>
+      <p class="text-gray-600 mb-3">
+        Schools in {town.name} fall under <a href={`/council/${town.laSlug}/`} class="text-indigo-700 hover:underline">{town.la}</a> local authority, which also covers these nearby areas:
+      </p>
+      <ul class="flex flex-wrap gap-x-4 gap-y-1.5">
+        {siblingAreas.map((t: any) => (
+          <li>
+            <a href={`/area/${t.slug}/`} class="text-indigo-700 hover:underline">{t.name} ({t.count})</a>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-3">
+        <a href={`/council/${town.laSlug}/`} class="text-indigo-700 font-medium hover:underline">
+          View all schools in {town.la} →
+        </a>
+      </p>
+    </nav>
+  )}
+
   <!-- Catchment info + CTA -->
   <div class="mt-4 p-5 bg-amber-50 border border-amber-200 rounded-lg text-sm max-w-2xl">
     <p class="text-gray-700 mb-3">
-      <strong>Catchment area boundaries</strong> for schools in {town.name} are set by <strong>{town.la}</strong> and updated
+      <strong>Catchment area boundaries</strong> for schools in {town.name} are set by <a href={`/council/${town.laSlug}/`} class="font-bold text-indigo-700 hover:underline">{town.la}</a> and updated
       each year. The "last distance offered" — how far the furthest successful applicant lived — changes annually
       based on the number of applications received.
     </p>
