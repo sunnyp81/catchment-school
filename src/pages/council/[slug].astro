@@ -31,8 +31,8 @@ const townCount = Object.keys(byTown).length;
 // Unique long-form intro (top 20 LAs); fall back to null for remaining councils
 const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[] }>)[la.slug] ?? null;
 
-const title = `${la.name} School Catchment Areas 2026 | Map & Checker`;
-const description = `Find school catchment areas in ${la.name}. Interactive maps, Ofsted ratings, and admissions info for all ${primaries} primary and ${secondaries} secondary schools across ${townCount} areas.`;
+const title = `${la.name} School Catchment Areas 2026 | Check Your Address`;
+const description = `Is your address in catchment for a ${la.name} school? Check ${primaries} primary and ${secondaries} secondary schools across ${townCount} areas. 2026 admissions maps, Ofsted ratings and boundary guidance.`;
 
 const itemListSchema = {
   "@context": "https://schema.org",

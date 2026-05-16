@@ -24,8 +24,8 @@ const siblingAreas = (towns as any[])
   .sort((a: any, b: any) => b.count - a.count)
   .slice(0, 12);
 
-const title = `${town.name} School Catchment Areas 2026 | Postcode Checker`;
-const description = `${town.name} school catchment areas — check which schools serve your postcode. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' and ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} schools in ${town.name}${town.la ? `, ${town.la}` : ''}. Maps, Ofsted ratings and admissions criteria.`;
+const title = `${town.name} School Catchment Areas 2026 | ${town.la ? `${town.la} | ` : ''}Postcode Checker`;
+const description = `Is your address in the ${town.name} school catchment area? ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' and ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} schools in ${town.name}${town.la ? `, ${town.la}` : ''} — free 2026 admissions maps, Ofsted ratings and boundary guidance.`;
 
 // ItemList schema
 const itemListSchema = {
