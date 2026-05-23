@@ -24,11 +24,8 @@ const siblingAreas = (towns as any[])
   .sort((a: any, b: any) => b.count - a.count)
   .slice(0, 12);
 
-const laSuffix = town.la && town.la !== town.name ? `${town.la} | ` : '';
-const laInDesc = town.la && town.la !== town.name ? `, ${town.la}` : '';
-const totalSchools = primaries.length + secondaries.length + others.length;
-const title = `${town.name} School Catchment 2026: ${totalSchools} Schools by Postcode${laSuffix ? ' | ' + (town.la as string) : ''}`;
-const description = `Check ${town.name}${laInDesc} school catchment by postcode. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' + ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} schools, 2026 admissions maps, Ofsted ratings & boundary guidance.`;
+const title = `${town.name} Catchment Area Schools 2026 — Map & List`;
+const description = `All ${areaSchools.length} schools in the ${town.name} catchment area${town.la ? `, ${town.la}` : ''}. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' + ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} — check if your address is in catchment, Ofsted ratings and admissions info.`;
 
 // ItemList schema
 const itemListSchema = {
