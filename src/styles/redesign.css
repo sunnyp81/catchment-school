@@ -1,29 +1,29 @@
-/* catchment.school — redesign system */
+/* catchment.school — redesign system (white / indigo-blue / Inter Tight) */
 
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400;1,6..72,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Palette — "school green" theme (default) */
-  --paper: #F2EDE0;
-  --paper-2: #EAE3D0;
+  /* Palette — white surface, indigo-blue primary */
+  --paper: #FFFFFF;
+  --paper-2: #F4F6FB;
   --surface: #FFFFFF;
-  --ink: #16202B;
-  --ink-2: #3A4750;
-  --muted: #6B7680;
-  --rule: #1620281A;
-  --rule-2: #16202833;
-  --green: #2B5440;
-  --green-deep: #1E3D2E;
-  --green-tint: #DCE6DC;
-  --terracotta: #C8593A;
-  --terracotta-tint: #F3D9CD;
-  --sun: #E2A93C;
+  --ink: #0F172A;
+  --ink-2: #334155;
+  --muted: #64748B;
+  --rule: #E2E8F0;
+  --rule-2: #CBD5E1;
+  --green: #2563EB;          /* repurposed as blue */
+  --green-deep: #1D4ED8;
+  --green-tint: #DBEAFE;
+  --terracotta: #2563EB;     /* accents collapse to brand blue */
+  --terracotta-tint: #DBEAFE;
+  --sun: #F59E0B;
   --primary: var(--green);
   --primary-tint: var(--green-tint);
   --primary-ink: var(--green-deep);
 
-  /* Type */
-  --serif: 'Newsreader', 'Source Serif Pro', Georgia, serif;
+  /* Type — Inter Tight only */
+  --serif: 'Inter Tight', system-ui, -apple-system, sans-serif;
   --sans: 'Inter Tight', system-ui, -apple-system, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 
@@ -220,11 +220,11 @@ img, svg { display: block; max-width: 100%; }
 .action-card .eyebrow .meta { color: rgba(242,237,224,0.55); }
 
 h1, h2, h3, h4 {
-  font-family: var(--serif);
-  font-weight: 600;
+  font-family: var(--sans);
+  font-weight: 700;
   color: var(--ink);
   margin: 0;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.025em;
   line-height: 1.05;
 }
 .serif-italic { font-style: italic; font-weight: 500; }

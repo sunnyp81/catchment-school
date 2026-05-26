@@ -36,18 +36,19 @@ async function fetchTtf(family, weight, italic = false) {
   return Buffer.from(await fr.arrayBuffer());
 }
 
-const [newsreader600, interTight600, interTight400] = await Promise.all([
-  fetchTtf('Newsreader', 600),
+const [interTight800, interTight600, interTight400, interTight500i] = await Promise.all([
+  fetchTtf('Inter+Tight', 800),
   fetchTtf('Inter+Tight', 600),
   fetchTtf('Inter+Tight', 400),
+  fetchTtf('Inter+Tight', 500, true),
 ]);
 
-const PAPER = '#F2EDE0';
-const INK = '#16202B';
-const INK2 = '#3A4750';
-const GREEN = '#2B5440';
-const TERRACOTTA = '#C8593A';
-const RULE = '#16202833';
+const PAPER = '#FFFFFF';
+const INK = '#0F172A';
+const INK2 = '#334155';
+const GREEN = '#2563EB';
+const TERRACOTTA = '#2563EB';
+const RULE = '#CBD5E1';
 
 const node = {
   type: 'div',
@@ -93,7 +94,7 @@ const node = {
             {
               type: 'div',
               props: {
-                style: { fontFamily: 'Newsreader', fontSize: '28px', fontWeight: 600, letterSpacing: '-0.02em', display: 'flex' },
+                style: { fontFamily: 'Inter Tight', fontSize: '28px', fontWeight: 600, letterSpacing: '-0.02em', display: 'flex' },
                 children: [
                   'catchment',
                   { type: 'span', props: { style: { color: TERRACOTTA, fontStyle: 'italic', fontWeight: 500 }, children: '.school' } },
@@ -101,7 +102,7 @@ const node = {
               },
             },
             { type: 'div', props: { style: { flex: 1 } } },
-            { type: 'div', props: { style: { fontFamily: 'Newsreader', fontStyle: 'italic', fontSize: '18px', color: INK2 }, children: 'England & Wales · 2026/27' } },
+            { type: 'div', props: { style: { fontFamily: 'Inter Tight', fontStyle: 'italic', fontSize: '18px', color: INK2 }, children: 'England & Wales · 2026/27' } },
           ],
         },
       },
@@ -110,7 +111,7 @@ const node = {
       {
         type: 'div',
         props: {
-          style: { fontFamily: 'Newsreader', fontStyle: 'italic', fontSize: '24px', color: TERRACOTTA, marginBottom: '18px' },
+          style: { fontFamily: 'Inter Tight', fontStyle: 'italic', fontSize: '24px', color: TERRACOTTA, marginBottom: '18px' },
           children: 'A free, independent guide for parents',
         },
       },
@@ -120,7 +121,7 @@ const node = {
         type: 'div',
         props: {
           style: {
-            fontFamily: 'Newsreader',
+            fontFamily: 'Inter Tight',
             fontSize: '78px',
             fontWeight: 600,
             lineHeight: 1.04,
@@ -169,8 +170,8 @@ const node = {
                 paddingLeft: i === 0 ? '0' : '20px',
               },
               children: [
-                { type: 'div', props: { style: { fontFamily: 'Newsreader', fontSize: '42px', fontWeight: 500, letterSpacing: '-0.025em', color: INK }, children: value } },
-                { type: 'div', props: { style: { fontFamily: 'Newsreader', fontStyle: 'italic', fontSize: '18px', color: INK2, marginTop: '4px' }, children: label } },
+                { type: 'div', props: { style: { fontFamily: 'Inter Tight', fontSize: '42px', fontWeight: 500, letterSpacing: '-0.025em', color: INK }, children: value } },
+                { type: 'div', props: { style: { fontFamily: 'Inter Tight', fontStyle: 'italic', fontSize: '18px', color: INK2, marginTop: '4px' }, children: label } },
               ],
             },
           })),
@@ -184,9 +185,10 @@ const svg = await satori(node, {
   width: 1200,
   height: 630,
   fonts: [
-    { name: 'Newsreader', data: newsreader600, weight: 600, style: 'normal' },
     { name: 'Inter Tight', data: interTight400, weight: 400, style: 'normal' },
+    { name: 'Inter Tight', data: interTight500i, weight: 500, style: 'italic' },
     { name: 'Inter Tight', data: interTight600, weight: 600, style: 'normal' },
+    { name: 'Inter Tight', data: interTight800, weight: 800, style: 'normal' },
   ],
 });
 
