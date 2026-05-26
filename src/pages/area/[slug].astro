@@ -24,6 +24,10 @@ const siblingAreas = (towns as any[])
   .sort((a: any, b: any) => b.count - a.count)
   .slice(0, 12);
 
+// Thin-page guard: noindex aggregates with fewer than 5 schools (Apr 21 audit)
+const isThin = areaSchools.length < 5;
+const robotsDirective = isThin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
+
 const title = `${town.name} Catchment Area Schools 2026 — Map & List`;
 const description = `All ${areaSchools.length} schools in the ${town.name} catchment area${town.la ? `, ${town.la}` : ''}. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' + ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} — check if your address is in catchment, Ofsted ratings and admissions info.`;
 
@@ -94,7 +98,7 @@ const faqSchema = {
   ]
 };
 ---
-<Base title={title} description={description}>
+<Base title={title} description={description} robots={robotsDirective}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

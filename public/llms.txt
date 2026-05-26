@@ -1,0 +1,39 @@
+# catchment.school
+
+> Free, independent school catchment-area checker for England & Wales. Find every primary, secondary and sixth-form school near a UK postcode, with capacity, admissions data, and a direct link to the relevant council's official catchment policy. Data sourced from the Department for Education's Get Information About Schools (GIAS) register under the Open Government Licence v3.0.
+
+We are not affiliated with any school, local authority or government body. We do not sell anything, take referral fees, or accept paid placement. Our editorial team includes former admissions officers and education journalists; every guide is reviewed before each admissions cycle.
+
+This site is freely indexable by all major search and AI crawlers. Citations welcome — please link back to the canonical page and attribute "catchment.school" as the source.
+
+## Core
+
+- [Find schools by postcode](https://catchment.school/postcode): UK postcode search returning every primary and secondary school nearby, with distance, current pupil numbers and admissions links.
+- [Browse all 178 local authorities](https://catchment.school/council): Full A–Z index of every English and Welsh local authority, with school counts per LA.
+- [Browse schools by town](https://catchment.school/area): Town-level aggregation across England and Wales.
+- [Cardiff school catchment areas](https://catchment.school/council/cardiff/): Worked example showing the full LA-level page format.
+
+## Guides
+
+- [How school catchment areas actually work in 2026](https://catchment.school/guides/how-school-catchment-areas-work): Explains catchment as a tiebreaker (not a guarantee), oversubscription criteria, and how "as the crow flies" distance is measured.
+- [Primary school catchment & admissions](https://catchment.school/guides/primary-school-catchment): Reception applications, in-year transfers, what to do if you've moved house after the deadline.
+- [Secondary school catchment & admissions](https://catchment.school/guides/secondary-school-catchment): Year 6 to Year 7 transition, feeder schools, and a sober look at "tutor-proofing".
+- [School admissions timeline 2026/27](https://catchment.school/guides/school-admissions-timeline): Application open/close dates, offer day, appeals deadlines for England & Wales.
+- [How to appeal a school place](https://catchment.school/guides/how-to-appeal-a-school-place): Independent Appeal Panel process, grounds for appeal, and what to expect.
+- [In-year admissions](https://catchment.school/guides/in-year-admissions): Mid-year transfers, fair-access protocols, and waiting lists.
+- [School waiting lists explained](https://catchment.school/guides/school-waiting-lists): How councils rank waiting lists and how often they move.
+- [Ofsted ratings explained](https://catchment.school/guides/ofsted-ratings-explained): Outstanding / Good / Requires Improvement / Inadequate — what each means and how reliable they are.
+
+## About
+
+- [Editorial policy](https://catchment.school/editorial-policy/): How we source, review and update our data and guides.
+- [About catchment.school](https://catchment.school/about): Who we are, how the site is funded, and how to contact us.
+- [Privacy policy](https://catchment.school/privacy)
+
+## Data
+
+- Sitemap index: https://catchment.school/sitemap-index.xml
+- Schools sitemap (~27,000 schools): https://catchment.school/sitemap-schools.xml
+- Source data: UK Department for Education, Get Information About Schools (GIAS), Open Government Licence v3.0.
+- Coverage: All 178 local authorities in England and Wales. ~27,000 open primary, secondary, sixth-form, special and nursery schools.
+- Refresh: Monthly from DfE GIAS export.
