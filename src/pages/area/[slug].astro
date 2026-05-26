@@ -4,6 +4,7 @@ import schools from '../../data/schools.json';
 import towns from '../../data/towns.json';
 import SchoolCard from '../../components/SchoolCard.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
+import areaIntros from '../../data/area-intros.json';
 
 export async function getStaticPaths() {
   return (towns as any[]).map((t: any) => ({
@@ -28,8 +29,9 @@ const siblingAreas = (towns as any[])
 const isThin = areaSchools.length < 5;
 const robotsDirective = isThin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
 
-const title = `${town.name} Catchment Area Schools 2026 — Map & List`;
-const description = `All ${areaSchools.length} schools in the ${town.name} catchment area${town.la ? `, ${town.la}` : ''}. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' + ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} — check if your address is in catchment, Ofsted ratings and admissions info.`;
+const areaOverride = (areaIntros as Record<string, { seoTitle?: string; seoDescription?: string }>)[town.slug] ?? null;
+const title = areaOverride?.seoTitle ?? `${town.name} Catchment Area Schools 2026 — Map & List`;
+const description = areaOverride?.seoDescription ?? `All ${areaSchools.length} schools in the ${town.name} catchment area${town.la ? `, ${town.la}` : ''}. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' + ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} — check if your address is in catchment, Ofsted ratings and admissions info.`;
 
 // ItemList schema
 const itemListSchema = {
