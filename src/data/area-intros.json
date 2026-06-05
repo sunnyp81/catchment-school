@@ -90,5 +90,41 @@
   "derby": {
     "seoTitle": "Derby School Catchment Map 2026 — 107 Primaries by Postcode",
     "seoDescription": "Derby area catchment finder: 107 primary + 17 secondary catchments mapped to your postcode. 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+  },
+  "loughborough": {
+    "seoTitle": "Loughborough School Catchment Areas 2026 — 38 Primary & 8 Secondary",
+    "seoDescription": "Loughborough catchment finder: 55 Leicestershire schools — 38 primary + 8 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+  },
+  "eastleigh": {
+    "seoTitle": "Eastleigh School Catchment Areas 2026 — 22 Primary & 4 Secondary | Hampshire",
+    "seoDescription": "Eastleigh catchment finder: 30 Hampshire schools — 22 primary + 4 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+  },
+  "colchester": {
+    "seoTitle": "Colchester School Catchment Areas 2026 — 73 Primary & 15 Secondary | Essex",
+    "seoDescription": "Colchester catchment finder: 103 Essex schools — 73 primary + 15 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year — free."
+  },
+  "chorley": {
+    "seoTitle": "Chorley School Catchment Areas 2026 — 40 Primary & 5 Secondary | Lancashire",
+    "seoDescription": "Chorley catchment finder: 54 Lancashire schools — 40 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+  },
+  "clitheroe": {
+    "seoTitle": "Clitheroe School Catchment Areas 2026 — Grammar & Comprehensive Guide",
+    "seoDescription": "Clitheroe catchment finder: 23 Lancashire schools including Clitheroe Royal Grammar — 16 primary + 3 secondary catchments mapped to your postcode. 2026 admissions criteria and Ofsted ratings — free."
+  },
+  "eastbourne": {
+    "seoTitle": "Eastbourne School Catchment Areas 2026 — 19 Primary & 5 Secondary | East Sussex",
+    "seoDescription": "Eastbourne catchment finder: 35 East Sussex schools — 19 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+  },
+  "burnley": {
+    "seoTitle": "Burnley School Catchment Areas 2026 — 34 Primary & 5 Secondary | Lancashire",
+    "seoDescription": "Burnley catchment finder: 61 Lancashire schools — 34 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year — free."
+  },
+  "bridlington": {
+    "seoTitle": "Bridlington School Catchment Areas 2026 — 11 Primary & 2 Secondary Schools",
+    "seoDescription": "Bridlington catchment finder: 14 East Riding of Yorkshire schools — 11 primary + 2 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+  },
+  "dukinfield": {
+    "seoTitle": "Dukinfield School Catchment Areas 2026 — Tameside Schools Postcode Map",
+    "seoDescription": "Dukinfield catchment finder: 12 Tameside schools — 6 primary + 2 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
   }
 }
