@@ -29,9 +29,10 @@ const siblingAreas = (towns as any[])
 const isThin = areaSchools.length < 5;
 const robotsDirective = isThin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
 
-const areaOverride = (areaIntros as Record<string, { seoTitle?: string; seoDescription?: string }>)[town.slug] ?? null;
+const areaOverride = (areaIntros as Record<string, { seoTitle?: string; seoDescription?: string; paragraphs?: string[] }>)[town.slug] ?? null;
 const title = areaOverride?.seoTitle ?? `${town.name} Catchment Area Schools 2026 — Map & List`;
 const description = areaOverride?.seoDescription ?? `All ${areaSchools.length} schools in the ${town.name} catchment area${town.la ? `, ${town.la}` : ''}. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' + ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} — check if your address is in catchment, Ofsted ratings and admissions info.`;
+const uniqueIntro = areaOverride?.paragraphs ?? null;
 
 // ItemList schema
 const itemListSchema = {
@@ -131,19 +132,25 @@ const faqSchema = {
   </div>
 
   <!-- Intro paragraph — unique per town using real counts -->
-  <p class="text-gray-600 mb-8 max-w-2xl">
-    There {areaSchools.length === 1 ? 'is' : 'are'} <strong>{areaSchools.length} school{areaSchools.length !== 1 ? 's' : ''}</strong> in {town.name}
-    {town.la ? `, ${town.la}` : ''}
-    {primaries.length > 0 && secondaries.length > 0
-      ? ` — including ${primaries.length} primary school${primaries.length !== 1 ? 's' : ''} and ${secondaries.length} secondary school${secondaries.length !== 1 ? 's' : ''}.`
-      : primaries.length > 0
-        ? `, all serving primary-age pupils (ages 4–11).`
-        : secondaries.length > 0
-          ? `, all serving secondary-age pupils (ages 11–16+).`
-          : '.'
-    }
-    {' '}Catchment area boundaries are set by <a href={`/council/${town.laSlug}/`} class="text-indigo-700 hover:underline font-medium">{town.la}</a> and reviewed annually — click a school below to view its admissions guidance.
-  </p>
+  {uniqueIntro ? (
+    <div class="max-w-2xl mb-8 space-y-3 text-gray-700">
+      {uniqueIntro.map((p: string) => <p>{p}</p>)}
+    </div>
+  ) : (
+    <p class="text-gray-600 mb-8 max-w-2xl">
+      There {areaSchools.length === 1 ? 'is' : 'are'} <strong>{areaSchools.length} school{areaSchools.length !== 1 ? 's' : ''}</strong> in {town.name}
+      {town.la ? `, ${town.la}` : ''}
+      {primaries.length > 0 && secondaries.length > 0
+        ? ` — including ${primaries.length} primary school${primaries.length !== 1 ? 's' : ''} and ${secondaries.length} secondary school${secondaries.length !== 1 ? 's' : ''}.`
+        : primaries.length > 0
+          ? `, all serving primary-age pupils (ages 4–11).`
+          : secondaries.length > 0
+            ? `, all serving secondary-age pupils (ages 11–16+).`
+            : '.'
+      }
+      {' '}Catchment area boundaries are set by <a href={`/council/${town.laSlug}/`} class="text-indigo-700 hover:underline font-medium">{town.la}</a> and reviewed annually — click a school below to view its admissions guidance.
+    </p>
+  )}
 
   {primaries.length > 0 && (
     <section class="mb-10">

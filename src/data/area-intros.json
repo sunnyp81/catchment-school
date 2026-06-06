@@ -1,7 +1,11 @@
 {
   "cardiff": {
     "seoTitle": "Schools in Cardiff Catchment 2026 — Postcode Map & List",
-    "seoDescription": "Cardiff area catchment finder: 124 schools, every catchment boundary mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year — free."
+    "seoDescription": "Cardiff area catchment finder: 124 schools, every catchment boundary mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year — free.",
+    "paragraphs": [
+      "Cardiff's 124 schools span every phase from nursery through to sixth form, making it the largest concentration of state schools in Wales. Admissions are coordinated by Cardiff Council, which publishes catchment boundaries and oversubscription criteria each September for the following academic year.",
+      "Because Cardiff is a bilingual city, many schools offer Welsh-medium education alongside English-medium provision — and catchment areas for Welsh-medium schools are typically wider to reflect lower pupil density. Check each school's admissions policy carefully, as Welsh-medium and English-medium catchments rarely overlap."
+    ]
   },
   "solihull": {
     "seoTitle": "Solihull School Catchment Map 2026 — 43 Primaries by Postcode",
@@ -21,15 +25,27 @@
   },
   "barnet": {
     "seoTitle": "Barnet School Catchment Map 2026 — 14 Primaries by Postcode",
-    "seoDescription": "Barnet area catchment finder: 14 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+    "seoDescription": "Barnet area catchment finder: 14 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free.",
+    "paragraphs": [
+      "Barnet has 25 schools in this area including 14 primaries and 5 secondaries, with Barnet Council co-ordinating admissions for community schools. Four academies and five faith schools apply their own criteria, which typically give priority to children attending specified feeder primaries or of the relevant faith denomination.",
+      "Distance tiebreakers at Barnet community secondaries are measured from home address to the nearest school entrance. With house prices among the highest in North London, competition for places at the most sought-after schools in this part of the borough is intense, and some catchments cover less than 0.5 km."
+    ]
   },
   "rochdale": {
     "seoTitle": "Rochdale School Catchment Map 2026 — 41 Primaries by Postcode",
-    "seoDescription": "Rochdale area catchment finder: 41 primary + 8 secondary catchments mapped to your postcode. Greater Manchester 2026 admissions criteria, Ofsted ratings and distance offered last year."
+    "seoDescription": "Rochdale area catchment finder: 41 primary + 8 secondary catchments mapped to your postcode. Greater Manchester 2026 admissions criteria, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Rochdale has 64 schools including 41 primaries and 8 secondaries, spread across towns such as Heywood, Middleton and Littleborough. Rochdale Council co-ordinates admissions for community schools, but 26 academies and 19 faith schools (primarily Church of England and Roman Catholic) apply their own criteria.",
+      "Oversubscription at popular Rochdale primaries is often settled by straight-line distance, though a number of Roman Catholic schools draw pupils from a much wider parish catchment. The council publishes 'last distance offered' data in its annual admissions booklet, usually released in October."
+    ]
   },
   "bourne": {
     "seoTitle": "Bourne School Catchment Map 2026 — 6 Primaries by Postcode",
-    "seoDescription": "Bourne area catchment finder: 6 primary + 2 secondary catchments mapped to your postcode. Lincolnshire 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+    "seoDescription": "Bourne area catchment finder: 6 primary + 2 secondary catchments mapped to your postcode. Lincolnshire 2026 admissions tiebreakers, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Bourne has 10 schools including 6 primaries and 2 secondaries in Lincolnshire. Nine of the ten schools operate as academies, meaning each sets its own admissions criteria — though in practice most follow the LA's standard distance-based tiebreaker for oversubscription.",
+      "Bourne Grammar School is partially selective and requires the Lincolnshire 11+ transfer test, so parents of children approaching Year 6 should register for the test by the deadline in June. For non-selective secondary places, Bourne Community College allocates via Lincolnshire's co-ordinated scheme."
+    ]
   },
   "abingdon": {
     "seoTitle": "Abingdon School Catchment Map 2026 — 21 Primaries by Postcode",
@@ -69,7 +85,11 @@
   },
   "blaydon-on-tyne": {
     "seoTitle": "Blaydon-on-Tyne School Catchment Map 2026 — 5 Primaries by Postcode",
-    "seoDescription": "Blaydon-on-Tyne catchment finder: 5 primary + 1 secondary school mapped to your postcode. Gateshead 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+    "seoDescription": "Blaydon-on-Tyne catchment finder: 5 primary + 1 secondary school mapped to your postcode. Gateshead 2026 admissions tiebreakers, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Blaydon-on-Tyne has 6 schools — 5 primaries and 1 secondary — with catchment boundaries set by Gateshead Council. Three schools hold faith designations (Roman Catholic) and three operate as academies, so it is worth reading each school's individual admissions policy alongside the council's co-ordinated scheme.",
+      "Catchment areas in Blaydon are relatively stable year-on-year, as this is a less densely populated part of Gateshead. However, the Roman Catholic secondary draws pupils from a significantly wider area than the community alternatives, and siblings are always given priority after children with EHC plans."
+    ]
   },
   "alresford": {
     "seoTitle": "Alresford School Catchment Map 2026 — 4 Primaries by Postcode",
@@ -97,11 +117,19 @@
   },
   "eastleigh": {
     "seoTitle": "Eastleigh School Catchment Areas 2026 — 22 Primary & 4 Secondary | Hampshire",
-    "seoDescription": "Eastleigh catchment finder: 30 Hampshire schools — 22 primary + 4 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+    "seoDescription": "Eastleigh catchment finder: 30 Hampshire schools — 22 primary + 4 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free.",
+    "paragraphs": [
+      "Eastleigh has 30 schools — 22 primaries and 4 secondaries — with catchment boundaries set by Hampshire County Council. The town's rapid residential growth means that catchment boundaries at several popular primaries have contracted in recent years as more families compete for places.",
+      "Hampshire uses a straight-line distance tiebreaker at community schools after siblings, looked-after children and special-needs allocations. For secondary schools, check whether your postcode falls within the published catchment area before the October deadline, as out-of-catchment applicants are rarely successful at the most popular schools."
+    ]
   },
   "colchester": {
     "seoTitle": "Colchester School Catchment Areas 2026 — 73 Primary & 15 Secondary | Essex",
-    "seoDescription": "Colchester catchment finder: 103 Essex schools — 73 primary + 15 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year — free."
+    "seoDescription": "Colchester catchment finder: 103 Essex schools — 73 primary + 15 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year — free.",
+    "paragraphs": [
+      "Colchester is Essex's largest town and has 103 schools including 73 primaries and 15 secondaries. Essex County Council co-ordinates admissions, but 44 academies and 29 faith schools (Church of England, Roman Catholic and Christian) each publish their own oversubscription criteria alongside the LA's annual admissions booklet.",
+      "Demand is particularly acute for secondary places in the Lexden and Stanway areas, where popular schools routinely fill on distance within a mile or less. Colchester's rapid housing development has pushed several primary catchments below 500 metres at their tightest point, so re-checking boundaries annually is essential."
+    ]
   },
   "chorley": {
     "seoTitle": "Chorley School Catchment Areas 2026 — 40 Primary & 5 Secondary | Lancashire",
@@ -109,15 +137,27 @@
   },
   "clitheroe": {
     "seoTitle": "Clitheroe School Catchment Areas 2026 — Grammar & Comprehensive Guide",
-    "seoDescription": "Clitheroe catchment finder: 23 Lancashire schools including Clitheroe Royal Grammar — 16 primary + 3 secondary catchments mapped to your postcode. 2026 admissions criteria and Ofsted ratings — free."
+    "seoDescription": "Clitheroe catchment finder: 23 Lancashire schools including Clitheroe Royal Grammar — 16 primary + 3 secondary catchments mapped to your postcode. 2026 admissions criteria and Ofsted ratings — free.",
+    "paragraphs": [
+      "Clitheroe has 23 schools including 16 primaries and 3 secondaries in Lancashire's Ribble Valley. Fourteen of those schools carry a faith designation — predominantly Church of England — reflecting the area's strong historic ties to Anglican and United Reformed Church congregations.",
+      "Clitheroe Royal Grammar School is a selective grammar, so Year 6 parents must sit Lancashire's 11+ test to be considered. For non-selective secondary places, Lancashire County Council co-ordinates admissions and applies a distance-from-school-gate tiebreaker at oversubscribed community secondaries."
+    ]
   },
   "eastbourne": {
     "seoTitle": "Eastbourne School Catchment Areas 2026 — 19 Primary & 5 Secondary | East Sussex",
-    "seoDescription": "Eastbourne catchment finder: 35 East Sussex schools — 19 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+    "seoDescription": "Eastbourne catchment finder: 35 East Sussex schools — 19 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free.",
+    "paragraphs": [
+      "Eastbourne has 35 schools including 19 primaries and 5 secondaries, administered by East Sussex County Council. The town has a high proportion of academies (22 out of 35) which each set their own admissions policies independently of the local authority.",
+      "For primary places in Eastbourne, the main oversubscription tiebreaker at community schools is straight-line distance after special-needs and looked-after children have been allocated. Secondary applicants should note that all five main secondaries are academies or academy trusts, so parents need to read each school's prospectus individually to understand catchment or feeder-school criteria."
+    ]
   },
   "burnley": {
     "seoTitle": "Burnley School Catchment Areas 2026 — 34 Primary & 5 Secondary | Lancashire",
-    "seoDescription": "Burnley catchment finder: 61 Lancashire schools — 34 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year — free."
+    "seoDescription": "Burnley catchment finder: 61 Lancashire schools — 34 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year — free.",
+    "paragraphs": [
+      "Burnley has 61 schools including 34 primaries and 5 secondaries administered by Lancashire County Council. With 19 faith schools across Church of England and Roman Catholic denominations, Burnley has one of the higher proportions of religiously-designated schools among Lancashire's market towns.",
+      "At oversubscribed Burnley community schools, Lancashire uses distance measured along the nearest available walking route rather than straight-line distance — a distinction that can affect who falls just inside or outside a catchment. Secondary places at the town's grammar-stream schools are allocated nationally through Lancashire's grammar co-ordination process."
+    ]
   },
   "bridlington": {
     "seoTitle": "Bridlington School Catchment Areas 2026 — 11 Primary & 2 Secondary Schools",
@@ -126,5 +166,65 @@
   "dukinfield": {
     "seoTitle": "Dukinfield School Catchment Areas 2026 — Tameside Schools Postcode Map",
     "seoDescription": "Dukinfield catchment finder: 12 Tameside schools — 6 primary + 2 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+  },
+  "kenilworth": {
+    "paragraphs": [
+      "Kenilworth has 10 schools including 7 primaries and 1 secondary, with catchment boundaries administered by Warwickshire County Council. Three schools operate as Church of England or Roman Catholic faith schools with their own admissions criteria that sit alongside the council's published distance-based policy.",
+      "For secondary admissions in Kenilworth, the main oversubscription criterion at community schools is straight-line distance from home to school gate. Parents often find that catchments shift year-on-year depending on application volumes, so checking the previous three years' 'last distance offered' figures is strongly recommended."
+    ]
+  },
+  "enfield": {
+    "paragraphs": [
+      "Enfield has 50 schools — 32 primaries, 10 secondaries and 8 all-through or special schools. Enfield Council administers community school catchments, while the borough's 16 academies and 12 faith schools (Church of England and Roman Catholic) set their own oversubscription criteria.",
+      "Secondary catchment boundaries in Enfield are among the tightest in North London, particularly for schools close to the A10 corridor. Distance to the school gate is the main tiebreaker at community schools; siblings already on roll take priority in round one."
+    ]
+  },
+  "godalming": {
+    "paragraphs": [
+      "Godalming has 24 schools including 13 primaries and 2 secondaries — all falling under Surrey County Council admissions co-ordination. Of those, 10 are academies or free schools and 10 have a faith designation, making Godalming one of the more complex admissions landscapes in Surrey.",
+      "The two main secondary schools in Godalming are Rodborough and Broadwater, both of which use Surrey's standard oversubscription criteria. Demand at both schools means that distance tiebreakers can be decisive; parents living north of the A3100 should check which school's catchment boundary their address falls within."
+    ]
+  },
+  "epsom": {
+    "paragraphs": [
+      "Epsom has 29 schools — 19 primaries and 4 secondaries — with admissions co-ordinated by Surrey County Council. Nineteen of the 29 schools operate as academies, and 5 carry a faith designation (Roman Catholic and Church of England), so parents should check each school's published admissions policy individually.",
+      "Epsom's secondary schools, including Blenheim High School and Rosebery School, allocate oversubscription places primarily by distance. The area is highly sought-after and some popular primaries have seen their last-offered distance fall below 0.6 km — checking the previous year's admissions data before applying is strongly advised."
+    ]
+  },
+  "esher": {
+    "paragraphs": [
+      "Esher has 8 schools including 4 primaries and 2 secondaries, with Surrey County Council co-ordinating admissions. The area has a mix of community schools, Church of England schools and academies, each applying its own oversubscription criteria.",
+      "Demand for places at Esher's two secondary schools is high. Esher Church of England High School prioritises practising Church of England families, while Hinchley Wood School allocates on distance. Parents living near the boundary between the two catchments should verify their closest school before submitting a preference."
+    ]
+  },
+  "fareham": {
+    "paragraphs": [
+      "Fareham has 40 schools including 27 primaries and 5 secondaries, with catchment boundaries set by Hampshire County Council. The borough has grown significantly with new housing in Whiteley and Welborne, which has added pressure to several primary school catchments in recent years.",
+      "Hampshire's secondary admissions use a traditional catchment area model for community schools: pupils living within the designated catchment have priority after siblings and EHC-plan children. For secondary schools in Fareham, published catchment maps are updated every autumn in Hampshire's 'Apply for a School Place' guide."
+    ]
+  },
+  "hyde": {
+    "paragraphs": [
+      "Hyde has 22 schools including 16 primaries and 3 secondaries, administered by Tameside Metropolitan Borough Council. Nineteen schools operate as academies — one of the highest academy proportions among Greater Manchester towns — so parents need to consult each school's admissions policy alongside the council's co-ordinated scheme.",
+      "Oversubscription at Hyde's community schools is resolved by distance from home to school gate. Roman Catholic and Church of England schools in the area use faith-criteria alongside distance, and typically require evidence of regular worship from the relevant parish or diocese."
+    ]
+  },
+  "malvern": {
+    "paragraphs": [
+      "Malvern has 22 schools including 14 primaries and 2 secondaries, with admissions overseen by Herefordshire Council. Eleven schools are academies and 11 carry a faith designation (predominantly Church of England and Roman Catholic), giving Malvern one of the more complex admissions mixes for a mid-sized market town.",
+      "The main secondary schools serving Malvern are Dyson Perrins C of E Academy and The Chase Technology College. Dyson Perrins gives priority to Church of England worshippers before distance, while The Chase uses straight-line distance as its primary tiebreaker. Parents should check the published catchment maps annually as boundary shifts can affect eligibility."
+    ]
+  },
+  "okehampton": {
+    "paragraphs": [
+      "Okehampton has 12 schools including 10 primaries and 1 secondary — Okehampton College — with admissions co-ordinated by Devon County Council. Nine of the twelve schools operate as academies, largely reflecting the national academy conversion trend in Devon's rural areas.",
+      "The primary schools around Okehampton typically serve clearly defined village catchments, meaning most children attend their nearest school without needing to apply through the oversubscription process. Okehampton College, as the sole secondary, admits all children from its defined catchment area before considering distance for out-of-catchment applicants."
+    ]
+  },
+  "olney": {
+    "paragraphs": [
+      "Olney has 3 primary schools with admissions co-ordinated by Milton Keynes Council. All three schools operate as academies. There are no secondary schools within Olney itself; the nearest are in Newport Pagnell and Milton Keynes city, served by Milton Keynes's secondary transfer process.",
+      "Primary places in Olney are competitive during years of high birth cohorts. Milton Keynes Council uses straight-line distance as the tiebreaker for community academies in the town. Parents planning ahead should note that feeder school links to Newport Pagnell's secondary schools may give priority to Year 6 children at Olney primary academies."
+    ]
   }
 }
