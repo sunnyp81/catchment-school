@@ -13,8 +13,14 @@ export async function getStaticPaths() {
   }));
 }
 
+// Pilot councils: verified direct admissions URLs replace the generic Google search CTA.
+const PILOT_ADMISSIONS_URLS: Record<string, string> = {
+  walsall: 'https://go.walsall.gov.uk/schools-and-learning/school-admissions',
+};
+
 const { la } = Astro.props;
 const laSchools = (schools as any[]).filter((s: any) => s.laSlug === la.slug);
+const pilotAdmissionsUrl = PILOT_ADMISSIONS_URLS[la.slug] ?? null;
 
 const byTown: Record<string, any[]> = {};
 for (const s of laSchools) {
@@ -143,15 +149,18 @@ const faqSchema = {
       <h2 class="font-semibold mb-1">{la.name} Catchment Area Documents</h2>
       <p class="text-sm text-gray-600">
         Official admissions policies and catchment boundary maps for {la.name} schools are published annually.
+        {pilotAdmissionsUrl && (
+          <> The council publishes oversubscription criteria, last-distance figures, and appeals timetables on its dedicated admissions page.</>
+        )}
       </p>
     </div>
     <a
-      href={`https://www.google.com/search?q=${encodeURIComponent(la.name + ' school admissions catchment area policy ' + new Date().getFullYear())}`}
+      href={pilotAdmissionsUrl ?? `https://www.google.com/search?q=${encodeURIComponent(la.name + ' school admissions catchment area policy ' + new Date().getFullYear())}`}
       target="_blank"
-      rel="nofollow noopener"
+      rel={pilotAdmissionsUrl ? 'noopener noreferrer' : 'nofollow noopener'}
       class="shrink-0 bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors"
     >
-      Find admissions documents →
+      {pilotAdmissionsUrl ? `${la.name} admissions (official) →` : 'Find admissions documents →'}
     </a>
   </div>
 

@@ -25,8 +25,12 @@ const siblingAreas = (towns as any[])
   .sort((a: any, b: any) => b.count - a.count)
   .slice(0, 12);
 
-// Thin-page guard: noindex aggregates with fewer than 5 schools (Apr 21 audit)
-const isThin = areaSchools.length < 5;
+// Thin-page guard: noindex aggregates with fewer than 10 schools.
+// Jun 11 audit: pages with < 5 schools were already noindexed; pages with 5-9 schools
+// generate ~150-250 unique words (below the 300-word threshold from the pSEO survival
+// checklist). Raising the gate from 5 to 10 noindexes 509 of 1,096 area pages (46.4%),
+// reducing the thin-page ratio from 64% to ~22% of indexed area pages.
+const isThin = areaSchools.length < 10;
 const robotsDirective = isThin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
 
 const areaOverride = (areaIntros as Record<string, { seoTitle?: string; seoDescription?: string; paragraphs?: string[] }>)[town.slug] ?? null;

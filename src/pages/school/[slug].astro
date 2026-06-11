@@ -30,6 +30,51 @@ const councilAdmissionsUrl = `https://www.google.com/search?q=${encodeURICompone
 const isOversubscribed = s.capacity && s.pupils && s.pupils >= s.capacity;
 const fillRate = s.capacity && s.pupils ? Math.round((s.pupils / s.capacity) * 100) : null;
 
+// Pilot councils: enhanced prose template gated by LA slug.
+// These councils get extra data-driven sections derived from every available field.
+// Add more slugs here as pilots are reviewed and approved.
+const PILOT_COUNCILS = new Set(['walsall']);
+const isPilot = PILOT_COUNCILS.has(s.laSlug);
+
+// Pilot-only admissions authority URLs (verified live before commit).
+const PILOT_ADMISSIONS_URLS: Record<string, string> = {
+  walsall: 'https://go.walsall.gov.uk/schools-and-learning/school-admissions',
+};
+const pilotAdmissionsUrl = PILOT_ADMISSIONS_URLS[s.laSlug] ?? null;
+
+// Pilot: data-derived H2 for the capacity/demand section — unique per school.
+const pilotCapacityH2 = fillRate !== null
+  ? fillRate >= 110
+    ? `${s.name}: heavily oversubscribed at ${fillRate}% capacity`
+    : fillRate >= 100
+      ? `${s.name}: at or above its ${s.capacity} place limit`
+      : fillRate >= 90
+        ? `${s.name}: ${s.capacity} places, ${fillRate}% filled — nearing capacity`
+        : `${s.name}: ${s.capacity} places, ${fillRate}% filled — places available`
+  : `${s.name}: admissions capacity`;
+
+// Pilot: FSM context sentence — turns a raw number into a prose signal about the school's community.
+const pilotFsmProse = s.fsm != null
+  ? s.fsm >= 40
+    ? `${s.fsm}% of pupils at ${s.name} are eligible for free school meals — above the national average of around 24% — reflecting the school's role in a higher-deprivation area of ${s.town}.`
+    : s.fsm >= 20
+      ? `${s.fsm}% of pupils at ${s.name} are eligible for free school meals, broadly in line with the national average, reflecting a mixed catchment across ${s.town}.`
+      : `${s.fsm}% of pupils are eligible for free school meals — below the national average — suggesting the school draws from a lower-deprivation part of ${s.town}.`
+  : null;
+
+// Pilot: fill-rate narrative paragraph — unique per school because fillRate, capacity, and pupils differ.
+const pilotDemandProse = fillRate !== null
+  ? `${s.name} has a published admission number of <strong>${s.capacity} places</strong>. In the most recent data, <strong>${s.pupils} pupils</strong> were enrolled — giving a fill rate of <strong>${fillRate}%</strong>. ${
+      fillRate >= 110
+        ? `At ${fillRate}% capacity, the school is heavily oversubscribed. Walsall allocates remaining places using ranked oversubscription criteria: looked-after children first, siblings second, then measured home-to-school distance. Living within the catchment area is a strong but not guaranteed advantage — the <em>last distance offered</em> shrinks each year as applications rise.`
+        : fillRate >= 100
+          ? `At or above its published limit, the school is oversubscribed. Walsall applies its ranked criteria — looked-after children, siblings, catchment distance — to allocate all available places. If demand stays at this level, the last-distance figure is likely to be tight again at the next intake.`
+          : fillRate >= 90
+            ? `The school is operating close to its limit. In years where applications exceed ${s.capacity}, Walsall's admissions team applies distance-based tiebreakers. Families within the school's historical catchment boundary are well placed, but a boundary check with the council is recommended before applying.`
+            : `At ${fillRate}% full, the school currently has headroom below its ${s.capacity} place limit. Catchment distance criteria still apply when the school is oversubscribed, but at current demand levels, places have been available for applicants outside the immediate catchment area.`
+    }`
+  : null;
+
 const introFacts = [
   s.ageRange ? `serving pupils aged ${s.ageRange}` : null,
   s.pupils ? `with ${s.pupils} pupils` : null,
@@ -290,6 +335,29 @@ const breadcrumbSchema = {
           </a>
         </div>
       </section>
+
+      {isPilot && pilotDemandProse && (
+        <section class="mb-8" id="capacity-demand">
+          <h2 class="text-xl font-semibold mb-3">{pilotCapacityH2}</h2>
+          <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3 text-sm text-gray-700">
+            <p set:html={pilotDemandProse} />
+            {pilotFsmProse && <p>{pilotFsmProse}</p>}
+            {s.phase !== 'Nursery' && s.phase !== 'Special' && pilotAdmissionsUrl && (
+              <p>
+                Walsall publishes its full admissions policy — including oversubscription criteria, the previous year's last-distance figures, and appeals timetable — on the council's official admissions page.{' '}
+                <a
+                  href={pilotAdmissionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-indigo-700 underline hover:no-underline font-medium"
+                >
+                  Walsall Council school admissions (official) →
+                </a>
+              </p>
+            )}
+          </div>
+        </section>
+      )}
 
       <section class="mb-8">
         <h2 class="text-xl font-semibold mb-4">{s.name} — School Information</h2>
