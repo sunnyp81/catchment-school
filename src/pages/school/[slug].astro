@@ -49,26 +49,32 @@ const pilotCapacityH2 = fillRate !== null
     : fillRate >= 100
       ? `${s.name}: at or above its ${s.capacity} place limit`
       : fillRate >= 90
-        ? `${s.name}: ${s.capacity} places, ${fillRate}% filled — nearing capacity`
-        : `${s.name}: ${s.capacity} places, ${fillRate}% filled — places available`
+        ? `${s.name}: ${s.capacity} places, ${fillRate}% filled: nearing capacity`
+        : `${s.name}: ${s.capacity} places, ${fillRate}% filled: places available`
   : `${s.name}: admissions capacity`;
 
 // Pilot: FSM context sentence — turns a raw number into a prose signal about the school's community.
+// Two sentences where appropriate (task fix-e): split FSM figure from community context.
 const pilotFsmProse = s.fsm != null
   ? s.fsm >= 40
-    ? `${s.fsm}% of pupils at ${s.name} are eligible for free school meals — above the national average of around 24% — reflecting the school's role in a higher-deprivation area of ${s.town}.`
+    ? `${s.fsm}% of pupils at ${s.name} are eligible for free school meals, above the national average of around 24%. This reflects the school's role in a higher-deprivation area of ${s.town}.`
     : s.fsm >= 20
-      ? `${s.fsm}% of pupils at ${s.name} are eligible for free school meals, broadly in line with the national average, reflecting a mixed catchment across ${s.town}.`
-      : `${s.fsm}% of pupils are eligible for free school meals — below the national average — suggesting the school draws from a lower-deprivation part of ${s.town}.`
+      ? `${s.fsm}% of pupils at ${s.name} are eligible for free school meals, broadly in line with the national average. This reflects a mixed catchment population across ${s.la}.`
+      : `${s.fsm}% of pupils are eligible for free school meals, below the national average. The school draws primarily from a lower-deprivation part of ${s.town}.`
   : null;
 
 // Pilot: fill-rate narrative paragraph — unique per school because fillRate, capacity, and pupils differ.
+// fix-a: reorder "X pupils were enrolled in the most recent data" (not "In the most recent data, X pupils were enrolled")
+// fix-b: "The school is at or above its published limit of {capacity} places."
+// fix-c: "The last-distance figure is likely to remain tight if demand holds at this level."
+// fix-d: "{Council} allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance."
+// fix-i: no em/en dashes in pilot prose
 const pilotDemandProse = fillRate !== null
-  ? `${s.name} has a published admission number of <strong>${s.capacity} places</strong>. In the most recent data, <strong>${s.pupils} pupils</strong> were enrolled — giving a fill rate of <strong>${fillRate}%</strong>. ${
+  ? `${s.name} has a published admission number of <strong>${s.capacity} places</strong>. <strong>${s.pupils} pupils</strong> were enrolled in the most recent data, giving a fill rate of <strong>${fillRate}%</strong>. ${
       fillRate >= 110
-        ? `At ${fillRate}% capacity, the school is heavily oversubscribed. Walsall allocates remaining places using ranked oversubscription criteria: looked-after children first, siblings second, then measured home-to-school distance. Living within the catchment area is a strong but not guaranteed advantage — the <em>last distance offered</em> shrinks each year as applications rise.`
+        ? `At ${fillRate}% capacity, the school is heavily oversubscribed. Walsall allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance. Living within the catchment area is a strong but not guaranteed advantage, as the <em>last distance offered</em> shrinks each year as applications rise.`
         : fillRate >= 100
-          ? `At or above its published limit, the school is oversubscribed. Walsall applies its ranked criteria — looked-after children, siblings, catchment distance — to allocate all available places. If demand stays at this level, the last-distance figure is likely to be tight again at the next intake.`
+          ? `The school is at or above its published limit of ${s.capacity} places. Walsall allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance. The last-distance figure is likely to remain tight if demand holds at this level.`
           : fillRate >= 90
             ? `The school is operating close to its limit. In years where applications exceed ${s.capacity}, Walsall's admissions team applies distance-based tiebreakers. Families within the school's historical catchment boundary are well placed, but a boundary check with the council is recommended before applying.`
             : `At ${fillRate}% full, the school currently has headroom below its ${s.capacity} place limit. Catchment distance criteria still apply when the school is oversubscribed, but at current demand levels, places have been available for applicants outside the immediate catchment area.`
@@ -341,10 +347,22 @@ const breadcrumbSchema = {
           <h2 class="text-xl font-semibold mb-3">{pilotCapacityH2}</h2>
           <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3 text-sm text-gray-700">
             <p set:html={pilotDemandProse} />
-            {pilotFsmProse && <p>{pilotFsmProse}</p>}
+            {/* fix-h: discourse bridge ties FSM to capacity context */}
+            {pilotFsmProse && (
+              <p>
+                The fill-rate figure above reflects overall demand, but the school's intake also varies by community profile.{' '}
+                {pilotFsmProse}
+              </p>
+            )}
+            {/* fix-g: postcode tool callout — pilot only */}
+            <p>
+              To check whether your home address falls within the historical catchment boundary, use the{' '}
+              <a href="/postcode" class="text-indigo-700 underline hover:no-underline font-medium">postcode search tool</a>{' '}
+              on this site.
+            </p>
             {s.phase !== 'Nursery' && s.phase !== 'Special' && pilotAdmissionsUrl && (
               <p>
-                Walsall publishes its full admissions policy — including oversubscription criteria, the previous year's last-distance figures, and appeals timetable — on the council's official admissions page.{' '}
+                Walsall publishes its full admissions policy, including oversubscription criteria, the previous year's last-distance figures, and the appeals timetable, on the council's official admissions page.{' '}
                 <a
                   href={pilotAdmissionsUrl}
                   target="_blank"
