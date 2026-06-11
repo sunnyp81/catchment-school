@@ -17,7 +17,11 @@
   },
   "worthing": {
     "seoTitle": "Worthing School Catchment Map 2026 — 24 Primaries by Postcode",
-    "seoDescription": "Worthing area catchment finder: 24 primary + 6 secondary catchments mapped to your postcode. West Sussex 2026 admissions criteria, Ofsted ratings and distance offered last year."
+    "seoDescription": "Worthing area catchment finder: 24 primary + 6 secondary catchments mapped to your postcode. West Sussex 2026 admissions criteria, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Worthing's 38 schools sit within West Sussex County Council's admissions remit, with catchment boundaries drawn for each of its 24 primary schools based on measured distances from the school gate. Oversubscription at popular primaries such as those near the seafront and in Goring-by-Sea can push offers beyond 1 mile in quieter years, but fell inside 0.8 miles during the 2024 round — so address matters here.",
+      "The town's 6 secondary schools include both comprehensive and faith options, and several have their own supplementary information forms for faith criteria. West Sussex publishes its co-ordinated secondary offer on National Offer Day (1 March) and its primary offer on 16 April — use the catchment.school postcode tool to check each school's last-offered distance before applying."
+    ]
   },
   "ely": {
     "seoTitle": "Ely School Catchment Map 2026 — 19 Primaries by Postcode",
@@ -49,15 +53,27 @@
   },
   "abingdon": {
     "seoTitle": "Abingdon School Catchment Map 2026 — 21 Primaries by Postcode",
-    "seoDescription": "Abingdon area catchment finder: 21 primary + 3 secondary catchments mapped to your postcode. Oxfordshire 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+    "seoDescription": "Abingdon area catchment finder: 21 primary + 3 secondary catchments mapped to your postcode. Oxfordshire 2026 admissions criteria, Ofsted ratings and last distance offered — free.",
+    "paragraphs": [
+      "Abingdon-on-Thames has 32 schools within Oxfordshire County Council's admissions area — 21 primaries and 3 secondaries, with a strong Church of England sector that operates supplementary faith criteria. The town's growth along the A34 corridor has increased pressure on places in the newer residential areas south of the town centre.",
+      "The three secondary schools — Larkmead, John Mason and Fitzharrys — are all comprehensive 11–18 schools and serve distinct parts of the town. Oxfordshire's co-ordinated scheme requires secondary preferences by October and primary preferences by January; families in the Vale of White Horse area closest to Didcot should also compare schools in that town."
+    ]
   },
   "sunbury-on-thames": {
     "seoTitle": "Sunbury-on-Thames School Catchment Map 2026 — 6 Primaries by Postcode",
-    "seoDescription": "Sunbury-on-Thames catchment finder: 6 primary + 3 secondary catchments mapped to your postcode. Surrey 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+    "seoDescription": "Sunbury-on-Thames catchment finder: 6 primary + 3 secondary catchments mapped to your postcode. Surrey 2026 admissions tiebreakers, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Sunbury-on-Thames sits within Surrey County Council's admissions area, with 11 schools covering both the original town centre and the newer Sunbury Cross and Lower Sunbury districts. Surrey uses straight-line distance as the final tiebreaker at all community primaries, and in Sunbury — where primary rolls are capped and new capacity has not kept pace with housing growth — last-offered distances at the most popular schools have historically been under 0.6 miles.",
+      "Three secondary schools primarily serve the area: Sunbury Manor, Halliford and — for families on the Thames-side stretch — Matthew Arnold in Staines. All are comprehensive. Surrey co-ordinates secondary offers through its online application system, with the deadline for secondary preferences in October and primary preferences in November."
+    ]
   },
   "sutton-coldfield": {
     "seoTitle": "Sutton Coldfield School Catchment Map 2026 — 31 Primaries by Postcode",
-    "seoDescription": "Sutton Coldfield area catchment finder: 31 primary + 8 secondary catchments mapped to your postcode. Birmingham 2026 admissions criteria, Ofsted ratings and distance offered last year."
+    "seoDescription": "Sutton Coldfield area catchment finder: 31 primary + 8 secondary catchments mapped to your postcode. Birmingham 2026 admissions criteria, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Sutton Coldfield's 42 schools are administered by Birmingham City Council, whose Primary and Secondary Determined Admission Arrangements set out the oversubscription criteria for each school. The town's 31 primaries span the full spectrum from heavily oversubscribed Church of England schools in the town centre to newer community schools in developments along Mere Green Road and New Hall, where distances offered can be considerably longer.",
+      "Eight secondary schools serve the area, including Plantsbrook, Bishop Vesey's Grammar (selective — 11-plus required) and Sutton Coldfield Grammar School for Girls (also selective). Families in the SK4–B73–B76 postcode corridor should apply to Birmingham's co-ordinated scheme in October for secondary places and in January for primary — late applications drop to a lower priority tier."
+    ]
   },
   "sittingbourne": {
     "seoTitle": "Sittingbourne School Catchment Map 2026 — 26 Primaries by Postcode",
@@ -69,7 +85,11 @@
   },
   "barrow-in-furness": {
     "seoTitle": "Barrow-in-Furness School Catchment Map 2026 — 24 Primaries by Postcode",
-    "seoDescription": "Barrow-in-Furness catchment finder: 24 primary + 3 secondary catchments mapped to your postcode. Westmorland and Furness 2026 admissions criteria, Ofsted ratings and distance offered last year."
+    "seoDescription": "Barrow-in-Furness catchment finder: 24 primary + 3 secondary catchments mapped to your postcode. Westmorland and Furness 2026 admissions criteria, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Barrow-in-Furness has 32 schools administered by Westmorland and Furness Council (formed in April 2023 from the merger of Barrow, Eden and South Lakeland districts). The town's 24 primaries serve distinct residential zones — Walney Island, Ormsgill, Hawcoat and the town centre — and many are undersubscribed, meaning most applicants living reasonably close receive a place at their preferred school.",
+      "Three secondary schools dominate the secondary sector: Barrow Sixth Form College feeds from Thorncliffe and Furness Academy, while St Bernard's Catholic High School draws from across the peninsula on faith criteria. Westmorland and Furness publishes its co-ordinated scheme annually; families are advised to name three preferences in October to maximise choice."
+    ]
   },
   "flintshire": {
     "seoTitle": "Schools in Flintshire Catchment 2026 — Postcode Map & List",
@@ -77,11 +97,19 @@
   },
   "ashbourne": {
     "seoTitle": "Ashbourne School Catchment Map 2026 — 21 Primaries by Postcode",
-    "seoDescription": "Ashbourne area catchment finder: 21 primary + 1 secondary catchments mapped to your postcode. Derbyshire 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+    "seoDescription": "Ashbourne area catchment finder: 21 primary + 1 secondary catchments mapped to your postcode. Derbyshire 2026 admissions criteria, Ofsted ratings and last distance offered — free.",
+    "paragraphs": [
+      "Ashbourne is a Derbyshire market town with 22 schools, the vast majority of which are rural primaries in the surrounding villages of the Dove Valley and Ecclesbourne catchment. Derbyshire County Council is the admissions authority for most community schools, while several Church of England primaries follow their own voluntary-aided criteria.",
+      "Thomas Alleyne's High School is the sole secondary in the town and draws from a wide rural hinterland — including pupils from Staffordshire parishes just across the county border. Parental preference is strong here: the school is typically oversubscribed by local families, so checking the published last-offered distance in the school's admissions policy is important for families moving to the area."
+    ]
   },
   "barton-upon-humber": {
     "seoTitle": "Barton-upon-Humber School Catchment Map 2026 — 4 Primaries by Postcode",
-    "seoDescription": "Barton-upon-Humber catchment finder: 4 primary + 1 secondary school mapped to your postcode. North Lincolnshire 2026 admissions criteria, Ofsted ratings and distance offered last year."
+    "seoDescription": "Barton-upon-Humber catchment finder: 4 primary + 1 secondary school mapped to your postcode. North Lincolnshire 2026 admissions criteria, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Barton-upon-Humber is a small North Lincolnshire market town with 6 schools — 4 primaries and 1 secondary — all administered by North Lincolnshire Council. The town sits on the southern bank of the Humber, connected to Hull by the Humber Bridge, and its schools reflect a settled community with relatively stable rolls.",
+      "Baysgarth School is the main secondary, serving Barton and the surrounding villages. It is non-selective and typically admits all applicants from its defined catchment area. North Lincolnshire co-ordinates its admissions through its published scheme; applications open in September for the following September's intake."
+    ]
   },
   "blaydon-on-tyne": {
     "seoTitle": "Blaydon-on-Tyne School Catchment Map 2026 — 5 Primaries by Postcode",
@@ -93,15 +121,27 @@
   },
   "alresford": {
     "seoTitle": "Alresford School Catchment Map 2026 — 4 Primaries by Postcode",
-    "seoDescription": "Alresford area catchment finder: 4 primary + 1 secondary school mapped to your postcode. Hampshire 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+    "seoDescription": "Alresford area catchment finder: 4 primary + 1 secondary school mapped to your postcode. Hampshire 2026 admissions criteria, Ofsted ratings and last distance offered — free.",
+    "paragraphs": [
+      "Alresford (also known as New Alresford) is a small Hampshire market town with 6 schools — 4 primaries and Perins Multi-Academy Trust secondary. Hampshire County Council co-ordinates admissions for most community schools, and the town's rural location means the secondary catchment extends across a wide swathe of the Mid-Hants watercress-growing valley.",
+      "Perins School is the sole secondary and is consistently well-regarded; it draws pupils from Alresford, Alton, Bishop's Sutton and the surrounding villages. Hampshire's application portal opens in September for secondary preferences (deadline October) and in November for primary preferences (deadline January)."
+    ]
   },
   "beckenham": {
     "seoTitle": "Beckenham School Catchment Map 2026 — 11 Primaries by Postcode",
-    "seoDescription": "Beckenham area catchment finder: 11 primary + 5 secondary catchments mapped to your postcode. Bromley 2026 admissions criteria, Ofsted ratings and distance offered last year."
+    "seoDescription": "Beckenham area catchment finder: 11 primary + 5 secondary catchments mapped to your postcode. Bromley 2026 admissions criteria, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Beckenham's 18 schools are administered by the London Borough of Bromley, one of the few London boroughs to retain a selective secondary tier alongside comprehensive schools. Catchment areas for Bromley's community primaries use straight-line distance from home to school, measured by the council's GIS system — in competitive zones near Eden Park and Clock House, last-offered distances at popular primaries can fall below 0.4 miles.",
+      "Secondary choices include Langley Park Schools for Boys and Girls, which draw from a wide Bromley catchment, and the partially-selective St Joseph's Academy. Bromley coordinates its secondary offer through the Pan-London Admissions Scheme, with preferences submitted via the council's eAdmissions portal by the October deadline."
+    ]
   },
   "norwich": {
     "seoTitle": "Norwich School Catchment Map 2026 — 142 Primaries by Postcode",
-    "seoDescription": "Norwich area catchment finder: 142 primary + 22 secondary catchments mapped to your postcode. Norfolk 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+    "seoDescription": "Norwich area catchment finder: 142 primary + 22 secondary catchments mapped to your postcode. Norfolk 2026 admissions tiebreakers, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Norwich is Norfolk's county city and one of the most complex admissions landscapes in the East of England, with 192 schools spanning 142 primaries and 22 secondaries across the city and its immediate fringe. Norfolk County Council is the admissions authority for most community schools, but Norwich has a high proportion of academy and church schools that set their own criteria — checking each school's individual policy is essential.",
+      "The secondary sector includes three remaining upper schools operating a middle-school system in parts of Norfolk, alongside standard 11–16 and 11–18 comprehensives. Open-access sixth forms and faith schools add further complexity. Norfolk's co-ordinated scheme requires preferences to be submitted by the October secondary deadline and January primary deadline; the council publishes annual data on last-offered distances for each Norwich school."
+    ]
   },
   "preston": {
     "seoTitle": "Preston School Catchment Map 2026 — 122 Primaries by Postcode",
@@ -133,7 +173,11 @@
   },
   "chorley": {
     "seoTitle": "Chorley School Catchment Areas 2026 — 40 Primary & 5 Secondary | Lancashire",
-    "seoDescription": "Chorley catchment finder: 54 Lancashire schools — 40 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free."
+    "seoDescription": "Chorley catchment finder: 54 Lancashire schools — 40 primary + 5 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered — free.",
+    "paragraphs": [
+      "Chorley is a large Lancashire town with 54 schools — 40 primaries and 5 secondaries — making it one of the busiest admissions zones in the county. Lancashire County Council co-ordinates all maintained school admissions in Chorley, with catchment areas for community primaries drawn on historical boundaries that do not always align with current residential development patterns.",
+      "The town's secondary sector includes Southlands High School, Albany Academy and Parklands High School, which together serve most of Chorley's residential zones. Lancashire operates a three-school preference system for secondary admissions, with the deadline in October; primary applications close in mid-January. Oversubscription is most acute at Church of England primaries in the older village areas."
+    ]
   },
   "clitheroe": {
     "seoTitle": "Clitheroe School Catchment Areas 2026 — Grammar & Comprehensive Guide",
@@ -741,6 +785,30 @@
     "paragraphs": [
       "Gloucester has 88 schools across the city and its surrounding parishes, with 64 primary and 12 secondary schools administered by Gloucestershire County Council. The city has seen significant housing growth in Quedgeley, Kingsway, and Innsworth, increasing pressure on popular primary schools. Catchment areas in these growth zones are reviewed annually, and families in new housing developments should confirm their linked school before applying.",
       "Secondary education in Gloucester is non-selective — Gloucestershire retains no grammar schools within the city boundary, though grammar schools in Cheltenham are accessible to some Gloucester postcodes. The Barnwood Park School, Sir Thomas Rich's School (in nearby Longlevens), and Denmark Road High School are among the most sought-after secondaries. Sir Thomas Rich's is a selective school admitting via the Gloucestershire Grammar School test. All secondary applications go through the council's coordinated scheme, with the national deadline of 31 October applying."
+    ]
+  },
+  "barry": {
+    "seoTitle": "Barry School Catchment Map 2026 — Vale of Glamorgan Schools by Postcode",
+    "seoDescription": "Barry area catchment finder: 13 schools mapped to your postcode. Vale of Glamorgan 2026 admissions criteria, Ofsted and Welsh-medium options — free.",
+    "paragraphs": [
+      "Barry is the Vale of Glamorgan's largest town, with 13 schools administered by Vale of Glamorgan Council. Like Cardiff, the Vale operates parallel Welsh-medium and English-medium streams, and Barry has dedicated Welsh-medium provision at both primary and secondary level — Ysgol Gymraeg Barry is the main Welsh-medium primary, while Ysgol Bro Morgannwg secondary serves Welsh-medium learners across the Vale.",
+      "English-medium secondaries in Barry include Barry Comprehensive School and Stanwell School. The Vale publishes its catchment maps and co-ordinated admissions timetable each September; applications are managed through the council's admissions portal. Welsh-medium catchments are typically borough-wide rather than defined by close proximity."
+    ]
+  },
+  "loughton": {
+    "seoTitle": "Loughton School Catchment Map 2026 — Essex Schools by Postcode",
+    "seoDescription": "Loughton area catchment finder: 14 schools mapped to your postcode. Essex 2026 admissions criteria, Ofsted ratings and distance offered last year — free.",
+    "paragraphs": [
+      "Loughton sits in the Epping Forest district of Essex, with 14 schools split between 8 primaries and 3 secondaries. Essex County Council co-ordinates maintained school admissions here, and proximity to the Tube's Central line makes this one of the more commuter-oriented corners of Essex — with school oversubscription tracking closely with housing demand.",
+      "Davenant Foundation School and Roding Valley High School are the main secondary options, both well-regarded and drawing from a catchment that spans Loughton, Buckhurst Hill and the Debden area. Essex sets secondary preferences by the 31 October deadline and primary preferences by mid-January; late applications move to the bottom of the allocation order."
+    ]
+  },
+  "ware": {
+    "seoTitle": "Ware School Catchment Map 2026 — 16 Primary & 2 Secondary Schools",
+    "seoDescription": "Ware area catchment finder: 24 schools mapped to your postcode. Hertfordshire 2026 admissions, Ofsted ratings and distance offered at last allocation round — free.",
+    "paragraphs": [
+      "Ware is a Hertfordshire market town on the River Lea with 24 schools — 16 primaries and 2 secondaries. Hertfordshire County Council co-ordinates admissions, using its home-to-school distance algorithm for community schools. Ware's growth as a commuter settlement has tightened primary competition in some zones, particularly along the A10 corridor.",
+      "The two main secondaries — Presdales (girls, partially selective) and Ware Academy — serve different catchments. Presdales operates a partially-selective entry for girls showing high ability and draws applicants from well beyond Ware itself; Ware Academy is fully comprehensive and caters primarily to the town and immediate villages. Hertfordshire's co-ordinated secondary timetable requires preferences by the October deadline."
     ]
   }
 }
