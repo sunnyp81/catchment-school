@@ -14,6 +14,39 @@ const schema = {
   "mainEntityOfPage": "https://catchment.school/guides/in-year-admissions"
 };
 
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Apply for In-Year School Admission in England",
+  "description": "Step-by-step guide to applying for a mid-year school place in England.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Find the right application form",
+      "text": "Go to your local authority's website and search for 'in-year application' or 'mid-year school transfer'. If the school is an academy or free school not covered by a coordinated scheme, contact the school directly for their application form."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Submit with supporting evidence",
+      "text": "If you are moving house, include a signed tenancy agreement or exchange of contracts. If applying for welfare or medical reasons, include a supporting letter from a professional such as a GP or social worker."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Wait for the decision",
+      "text": "The admissions authority must notify you of the outcome within 15 school days of receiving a completed application."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "If refused, appeal and join the waiting list",
+      "text": "You have 20 school days from the refusal letter to lodge a formal appeal. You can also ask to be added to the school's waiting list, where your position is determined by the school's published oversubscription criteria — not by when you joined the list."
+    }
+  ]
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -52,6 +85,7 @@ const faqSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 

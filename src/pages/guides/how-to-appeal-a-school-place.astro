@@ -14,6 +14,51 @@ const schema = {
   "mainEntityOfPage": "https://catchment.school/guides/how-to-appeal-a-school-place"
 };
 
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Appeal a School Place in England",
+  "description": "Step-by-step guide to appealing a refused school place decision in England.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Confirm your right to appeal",
+      "text": "All parents in England have a legal right under the School Admissions Appeals Code to appeal a refused school place to an independent panel — including for academies, free schools, and faith schools."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Submit your appeal before the deadline",
+      "text": "Lodge your appeal in writing within 20 school days of the refusal letter. For secondary schools this is 20 school days after 1 March; for primary schools 20 school days after 16 April; for in-year admissions 20 school days after receiving the refusal."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Identify your type of appeal",
+      "text": "Determine whether your appeal is a prejudice appeal (most common — the panel weighs the school's case against your child's need) or an infant class size appeal (Years R–2, limited to procedural error grounds)."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Gather specific evidence for your case",
+      "text": "Collect evidence specific to your child: a letter from a GP or consultant for medical needs, proof of sibling attendance, documentation that the allocated school cannot meet your child's educational requirements, or evidence of a procedural error by the admissions authority."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Attend the hearing and present your case",
+      "text": "At the hearing, the admissions authority presents first, then you present your case to the independent panel. You may bring a supporter. Both sides can ask questions before the panel deliberates privately."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "name": "Receive the panel's written decision",
+      "text": "The panel issues a written decision within 5 school days. If upheld, the school must admit your child. If refused, you can remain on the waiting list, appeal for a different school, or request an in-year transfer once your child has started."
+    }
+  ]
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -52,6 +97,7 @@ const faqSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
