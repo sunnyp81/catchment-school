@@ -594,7 +594,8 @@ const breadcrumbSchema = {
           id="catchment-email-form"
         >
           <input type="hidden" name="accessKey" value="sf_9e906eb6c00416b9d3354749" />
-          <input type="hidden" name="subject" value={`Catchment update signup — ${s.name}`} />
+          <input type="hidden" name="_site" value="catchment.school" />
+          <input type="hidden" name="subject" value={`Catchment update signup: ${s.name} (catchment.school)`} />
           <input type="hidden" name="school" value={s.name} />
           <input type="hidden" name="town" value={s.town} />
           <input type="hidden" name="redirectTo" value={`https://catchment.school/school/${s.slug}?subscribed=1`} />
