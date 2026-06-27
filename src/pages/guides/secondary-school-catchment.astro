@@ -22,6 +22,45 @@ const faqSchema = {
     }
   ]
 };
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Apply for a Secondary School Place in England",
+  "description": "Step-by-step guide to applying for a Year 7 secondary school place in England, including grammar schools and academies.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Confirm your child's admissions year and eligibility",
+      "text": "Children start secondary school in Year 7 in the September after their 11th birthday. For September 2026 entry, children born between 1 September 2014 and 31 August 2015 apply in the autumn of 2025."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Register and complete 11+ tests if applying to a grammar school",
+      "text": "If your preferred school is a grammar school, register for the 11+ test — usually by June of Year 5 or 6. Tests typically take place in September or October. Passing the test is required before any catchment or distance criteria are applied."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Research schools' catchment areas, feeder schools, and admissions criteria",
+      "text": "Review the admissions policy for each school. Check whether the school uses a defined catchment area, straight-line distance, or named feeder primary schools as criteria. Compare last-distance-offered data from your local authority."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Submit your application by 31 October",
+      "text": "Apply through your home local authority's admissions portal by the national closing date of 31 October. List up to three preferences in genuine order. Late applications are processed after all on-time applicants."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Accept or decline the offer by 15 March",
+      "text": "Secondary National Offer Day is 1 March. Respond by 15 March. If you did not receive a preferred school, submit an appeal within 20 school days of the refusal and join the waiting list simultaneously."
+    }
+  ]
+};
 ---
 <Base
   title="Secondary School Catchment Areas 2026 — How They Work"
@@ -29,6 +68,7 @@ const faqSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
   </Fragment>
 
   <nav class="text-sm text-gray-500 mb-6 flex gap-2">
