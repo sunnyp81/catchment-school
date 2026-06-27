@@ -37,8 +37,8 @@ const townCount = Object.keys(byTown).length;
 // Unique long-form intro (top 20 LAs); fall back to null for remaining councils
 const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[]; seoTitle?: string; seoDescription?: string }>)[la.slug] ?? null;
 
-const title = uniqueIntro?.seoTitle ?? `${la.name} School Catchment Areas 2026 — Full Map`;
-const description = uniqueIntro?.seoDescription ?? `${la.name} school catchment areas for all ${primaries} primary and ${secondaries} secondary schools across ${townCount} areas. Maps, Ofsted ratings and admissions policies for 2026.`;
+const title = uniqueIntro?.seoTitle ?? `${la.name} School Admissions 2026–2027: Catchment Areas & ${laSchools.length} Schools`;
+const description = uniqueIntro?.seoDescription ?? `Find ${laSchools.length} schools in ${la.name} — ${primaries} primary and ${secondaries} secondary across ${townCount} area${townCount !== 1 ? 's' : ''}. Catchment boundaries, admissions priorities and oversubscription criteria for 2026–27.`;
 
 const itemListSchema = {
   "@context": "https://schema.org",
