@@ -38,6 +38,8 @@ const townCount = Object.keys(byTown).length;
 const oversubCount = laSchools.filter((s: any) => s.capacity && s.pupils && s.pupils >= s.capacity).length;
 const faithCount = laSchools.filter((s: any) => s.religion && s.religion !== 'Does not apply' && s.religion !== 'None').length;
 const selectiveCount = laSchools.filter((s: any) => s.admissionsPolicy === 'Selective').length;
+const ofstedRatedCount = laSchools.filter((s: any) => ['1', '2', '3', '4'].includes(String(s.ofstedRating))).length;
+const ofstedGoodPlusCount = laSchools.filter((s: any) => s.ofstedRating === '1' || s.ofstedRating === '2').length;
 
 // Unique long-form intro (top 20 LAs); fall back to null for remaining councils
 const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[]; seoTitle?: string; seoDescription?: string }>)[la.slug] ?? null;
@@ -157,7 +159,10 @@ const faqSchema = {
         <span>{la.name} has {selectiveCount} selective school{selectiveCount !== 1 ? 's' : ''} that admit by entrance test rather than distance. </span>
       )}
       {faithCount > 0 && (
-        <span>{faithCount} school{faithCount !== 1 ? 's' : ''} {faithCount !== 1 ? 'apply' : 'applies'} faith-based criteria alongside catchment distance.</span>
+        <span>{faithCount} school{faithCount !== 1 ? 's' : ''} {faithCount !== 1 ? 'apply' : 'applies'} faith-based criteria alongside catchment distance. </span>
+      )}
+      {ofstedRatedCount > 0 && (
+        <span>Of the {ofstedRatedCount} {la.name} school{ofstedRatedCount !== 1 ? 's' : ''} with a current Ofsted rating, <strong>{ofstedGoodPlusCount}</strong> {ofstedGoodPlusCount !== 1 ? 'are' : 'is'} rated Good or Outstanding.</span>
       )}
     </p>
   )}

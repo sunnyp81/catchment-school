@@ -39,9 +39,11 @@ const academySchools = areaSchools.filter((s: any) => s.type?.toLowerCase().incl
 const avgFill = withFill.length
   ? Math.round(withFill.reduce((sum: number, s: any) => sum + s.pupils / s.capacity, 0) / withFill.length * 100)
   : null;
+const ofstedRated = areaSchools.filter((s: any) => ['1', '2', '3', '4'].includes(String(s.ofstedRating)));
+const ofstedGoodPlus = ofstedRated.filter((s: any) => s.ofstedRating === '1' || s.ofstedRating === '2').length;
 
 // A page is "thin" if it has few schools OR no computable demand data to differentiate it.
-const hasDemandData = oversubSchools.length > 0 || faithSchools.length > 0 || avgFill !== null;
+const hasDemandData = oversubSchools.length > 0 || faithSchools.length > 0 || avgFill !== null || ofstedRated.length > 0;
 const isThin = areaSchools.length < 10 || (areaSchools.length < 15 && !hasDemandData);
 const robotsDirective = isThin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
 
@@ -193,6 +195,11 @@ const faqSchema = {
         {academySchools.length > 0 && (
           <p>
             {academySchools.length} of the schools in {town.name} {academySchools.length !== 1 ? 'are academies that set their' : 'is an academy that sets its'} own admissions criteria independently of {town.la}, so check each school's policy directly rather than assuming the council default applies.
+          </p>
+        )}
+        {ofstedRated.length > 0 && (
+          <p>
+            {ofstedRated.length} of the schools in {town.name} {ofstedRated.length !== 1 ? 'have' : 'has'} a current Ofsted rating, of which <strong>{ofstedGoodPlus}</strong> {ofstedGoodPlus !== 1 ? 'are' : 'is'} rated Good or Outstanding. Demand and catchment distance tend to be tightest at the highest-rated schools.
           </p>
         )}
       </div>

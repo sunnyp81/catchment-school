@@ -3,6 +3,7 @@ export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
+import ofstedMap from '../../data/ofsted-map.json';
 import { env } from 'cloudflare:workers';
 
 const { slug } = Astro.params;
@@ -23,6 +24,14 @@ if (!s) {
 const deDash = (v: any) => typeof v === 'string' ? v.replace(/[–—�]/g, '-') : v;
 for (const k of ['ageRange', 'name', 'town', 'la', 'street', 'locality', 'type']) {
   if (s[k] != null) s[k] = deDash(s[k]);
+}
+
+// Ofsted ratings are not in D1; join from the bundled GIAS/Ofsted map (real DfE data,
+// "latest inspections as at 31 May 2026"). Only ~37% of schools have a graded inspection.
+const _ofsted = (ofstedMap as Record<string, { ofstedRating: string; ofstedDate: string }>)[String(s.urn)];
+if (_ofsted) {
+  s.ofstedRating = _ofsted.ofstedRating;
+  s.ofstedDate = _ofsted.ofstedDate;
 }
 
 const nearby = (await env.DB
