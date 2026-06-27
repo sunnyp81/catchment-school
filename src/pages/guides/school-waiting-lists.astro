@@ -70,6 +70,45 @@ const faqSchema = {
     }
   ]
 };
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Join and Manage a School Waiting List in England",
+  "description": "Step-by-step guide to getting on a school waiting list and improving your chances of securing a place.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Request waiting list placement immediately after refusal",
+      "text": "Contact the school or local authority admissions team as soon as you receive a refusal. Ask to be added to the waiting list for your preferred school in writing, confirming your child's details and the year group."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Confirm your position and understand how it is calculated",
+      "text": "Ask the admissions authority for your current waiting list position. Positions are determined by the same oversubscription criteria used in the original round — not by when you joined. A later joiner who lives closer will rank above you."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Accept your allocated school place while you wait",
+      "text": "Always accept the school place you were offered, even if it is not your preference. Declining the offer does not improve your waiting list position and leaves your child without a confirmed place."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Notify the admissions authority of any change of address",
+      "text": "If you move to a new address that is closer to the school, notify the admissions authority immediately with proof. Your waiting list position will be recalculated from your new address, which may improve your ranking."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Check your position regularly and consider an appeal",
+      "text": "Ask the admissions team for position updates periodically. Submit an appeal within 20 school days of the refusal letter — appealing does not affect your waiting list position, and the two processes run in parallel."
+    }
+  ]
+};
 ---
 <Base
   title="How School Waiting Lists Work in England — Complete Guide"
@@ -78,6 +117,7 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
   </Fragment>
 
   <nav class="text-sm text-gray-500 mb-6 flex gap-2 flex-wrap">
