@@ -75,6 +75,45 @@ const faqSchema = {
     }
   ]
 };
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Check if Your Address is in a School Catchment Area",
+  "description": "Step-by-step guide to finding out whether your home address falls within a school's catchment area in England.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Search for nearby schools by postcode",
+      "text": "Enter your home postcode on catchment.school to see all schools within your area. This gives you a list of schools with their phase, type, and Ofsted rating."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Read the school's admissions policy",
+      "text": "Open the admissions policy for each school you are interested in. Look for the oversubscription criteria to understand whether a defined catchment area boundary is used, or whether the school admits purely on straight-line distance."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Check the last-distance-offered figure",
+      "text": "Find the most recent last-distance-offered (also called the last distance admitted) for the school on your local authority's website. This tells you how close the furthest successful applicant lived in the previous round — compare it with your measured distance."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Measure your distance from home to school",
+      "text": "Use your local authority's distance calculator or a straight-line measurement tool. Most councils measure from a fixed point at your home address to a fixed point at the school entrance. The method must be stated in the admissions policy."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Verify with the local authority before applying",
+      "text": "Contact your local authority admissions team to confirm whether your address qualifies under the school's current catchment criteria. Boundaries can change year to year, so always verify for the current admissions round before submitting an application."
+    }
+  ]
+};
 ---
 <Base
   title="How School Catchment Areas Work 2026 — Full Guide"
@@ -83,6 +122,7 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
   </Fragment>
 
   <nav class="text-sm text-gray-500 mb-6 flex gap-2">
