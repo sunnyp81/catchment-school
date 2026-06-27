@@ -1,9 +1,9 @@
-/* catchment.school — redesign system (white / indigo-blue / Inter Tight) */
+/* catchment.school - redesign system (white / indigo-blue / Inter Tight) */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Palette — white surface, indigo-blue primary */
+  /* Palette - white surface, indigo-blue primary */
   --paper: #FFFFFF;
   --paper-2: #F4F6FB;
   --surface: #FFFFFF;
@@ -22,7 +22,7 @@
   --primary-tint: var(--green-tint);
   --primary-ink: var(--green-deep);
 
-  /* Type — Inter Tight only */
+  /* Type - Inter Tight only */
   --serif: 'Inter Tight', system-ui, -apple-system, sans-serif;
   --sans: 'Inter Tight', system-ui, -apple-system, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;

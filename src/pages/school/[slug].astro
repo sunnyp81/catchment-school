@@ -17,6 +17,14 @@ if (!s) {
   return Astro.redirect('/404');
 }
 
+// D1 still holds the pre-cleanup data, where ageRange uses en-dashes that the Workers
+// runtime can corrupt to U+FFFD on output. Sanitise displayed string fields to ASCII
+// hyphens at render time so SSR pages match the cleaned static data (no D1 re-import needed).
+const deDash = (v: any) => typeof v === 'string' ? v.replace(/[–—�]/g, '-') : v;
+for (const k of ['ageRange', 'name', 'town', 'la', 'street', 'locality', 'type']) {
+  if (s[k] != null) s[k] = deDash(s[k]);
+}
+
 const nearby = (await env.DB
   .prepare('SELECT slug, name, type, postcode FROM schools WHERE town = ? AND phase = ? AND urn != ? LIMIT 6')
   .bind(s.town, s.phase, s.urn)
@@ -34,16 +42,18 @@ const admissionsYear = new Date().getFullYear() + 1;
 // Pilot councils: enhanced prose template gated by LA slug.
 // These councils get extra data-driven sections derived from every available field.
 // Add more slugs here as pilots are reviewed and approved.
-const PILOT_COUNCILS = new Set(['walsall']);
-const isPilot = PILOT_COUNCILS.has(s.laSlug);
-
-// Pilot-only admissions authority URLs (verified live before commit).
+// Verified admissions-authority URLs (checked live before commit). Used for the "official"
+// citation label; councils without a verified URL fall back to an admissions search link.
 const PILOT_ADMISSIONS_URLS: Record<string, string> = {
   walsall: 'https://go.walsall.gov.uk/schools-and-learning/school-admissions',
 };
 const pilotAdmissionsUrl = PILOT_ADMISSIONS_URLS[s.laSlug] ?? null;
+// Citation URL for the capacity/demand section: prefer a verified council URL, fall back
+// to the council admissions search so every school page carries a named source pointer.
+const admissionsCiteUrl = pilotAdmissionsUrl ?? councilAdmissionsUrl;
+const admissionsCiteVerified = pilotAdmissionsUrl !== null;
 
-// Pilot: data-derived H2 for the capacity/demand section — unique per school.
+// Pilot: data-derived H2 for the capacity/demand section - unique per school.
 const pilotCapacityH2 = fillRate !== null
   ? fillRate >= 110
     ? `${s.name}: heavily oversubscribed at ${fillRate}% capacity`
@@ -54,7 +64,7 @@ const pilotCapacityH2 = fillRate !== null
         : `${s.name}: ${s.capacity} places, ${fillRate}% filled: places available`
   : `${s.name}: admissions capacity`;
 
-// Pilot: FSM context sentence — turns a raw number into a prose signal about the school's community.
+// Pilot: FSM context sentence - turns a raw number into a prose signal about the school's community.
 // Two sentences where appropriate (task fix-e): split FSM figure from community context.
 const pilotFsmProse = s.fsm != null
   ? s.fsm >= 40
@@ -64,7 +74,7 @@ const pilotFsmProse = s.fsm != null
       : `${s.fsm}% of pupils are eligible for free school meals, below the national average. The school draws primarily from a lower-deprivation part of ${s.town}.`
   : null;
 
-// Pilot: fill-rate narrative paragraph — unique per school because fillRate, capacity, and pupils differ.
+// Pilot: fill-rate narrative paragraph - unique per school because fillRate, capacity, and pupils differ.
 // fix-a: reorder "X pupils were enrolled in the most recent data" (not "In the most recent data, X pupils were enrolled")
 // fix-b: "The school is at or above its published limit of {capacity} places."
 // fix-c: "The last-distance figure is likely to remain tight if demand holds at this level."
@@ -73,11 +83,11 @@ const pilotFsmProse = s.fsm != null
 const pilotDemandProse = fillRate !== null
   ? `${s.name} has a published admission number of <strong>${s.capacity} places</strong>. <strong>${s.pupils} pupils</strong> were enrolled in the most recent data, giving a fill rate of <strong>${fillRate}%</strong>. ${
       fillRate >= 110
-        ? `At ${fillRate}% capacity, the school is heavily oversubscribed. Walsall allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance. Living within the catchment area is a strong but not guaranteed advantage, as the <em>last distance offered</em> shrinks each year as applications rise.`
+        ? `At ${fillRate}% capacity, the school is heavily oversubscribed. ${s.la} allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance. Living within the catchment area is a strong but not guaranteed advantage, as the <em>last distance offered</em> shrinks each year as applications rise.`
         : fillRate >= 100
-          ? `The school is at or above its published limit of ${s.capacity} places. Walsall allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance. The last-distance figure is likely to remain tight if demand holds at this level.`
+          ? `The school is at or above its published limit of ${s.capacity} places. ${s.la} allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance. The last-distance figure is likely to remain tight if demand holds at this level.`
           : fillRate >= 90
-            ? `The school is operating close to its limit. In years where applications exceed ${s.capacity}, Walsall's admissions team applies distance-based tiebreakers. Families within the school's historical catchment boundary are well placed, but a boundary check with the council is recommended before applying.`
+            ? `The school is operating close to its limit. In years where applications exceed ${s.capacity}, ${s.la}'s admissions team applies distance-based tiebreakers. Families within the school's historical catchment boundary are well placed, but a boundary check with the council is recommended before applying.`
             : `At ${fillRate}% full, the school currently has headroom below its ${s.capacity} place limit. Catchment distance criteria still apply when the school is oversubscribed, but at current demand levels, places have been available for applicants outside the immediate catchment area.`
     }`
   : null;
@@ -112,16 +122,16 @@ const ofstedLabel = s.ofstedRating ? (ofstedLabels[s.ofstedRating] ?? null) : nu
 const ofstedColor = s.ofstedRating ? (ofstedColors[s.ofstedRating] ?? '') : '';
 const ofstedYear = s.ofstedDate ? s.ofstedDate.split('/').pop() : null;
 
-// Catchment guidance — varies by phase, type, and capacity to avoid boilerplate
+// Catchment guidance - varies by phase, type, and capacity to avoid boilerplate
 const isGrammar = s.admissionsPolicy === 'Selective';
 const isFaith = s.religion && s.religion !== 'Does not apply' && s.religion !== 'None';
 const isAcademy = s.type?.toLowerCase().includes('academy');
 const isSpecial = s.phase === 'Special';
 
 const catchmentPara1 = isGrammar
-  ? `Entry to <strong>${s.name}</strong> is selective — applicants must pass the relevant admissions test. Among qualifying applicants, <strong>${s.la}</strong> may use distance or catchment area as a tiebreaker when the school is oversubscribed. Check the admissions policy for how the selection and distance criteria interact.`
+  ? `Entry to <strong>${s.name}</strong> is selective, and applicants must pass the relevant admissions test. Among qualifying applicants, <strong>${s.la}</strong> may use distance or catchment area as a tiebreaker when the school is oversubscribed. Check the admissions policy for how the selection and distance criteria interact.`
   : isSpecial
-  ? `Admission to <strong>${s.name}</strong> follows a different process from mainstream schools. <strong>${s.la}</strong> assesses each child's Education, Health and Care Plan (EHCP) to determine appropriate placement — catchment area does not apply in the same way as mainstream admissions.`
+  ? `Admission to <strong>${s.name}</strong> follows a different process from mainstream schools. <strong>${s.la}</strong> assesses each child's Education, Health and Care Plan (EHCP) to determine appropriate placement. Catchment area does not apply in the same way as mainstream admissions.`
   : isFaith
   ? `Admission to <strong>${s.name}</strong> is managed by <strong>${s.la}</strong> and typically includes both faith criteria and catchment area proximity. The weighting given to each criterion depends on the school's published oversubscription policy, which is reviewed annually.`
   : isAcademy
@@ -131,13 +141,13 @@ const catchmentPara1 = isGrammar
   : `The catchment area for <strong>${s.name}</strong> is set by <strong>${s.la}</strong> and reviewed annually. Children living within the catchment boundary receive priority consideration when applications exceed the number of available places.`;
 
 const catchmentPara2 = isGrammar
-  ? `The full admissions policy — including test registration dates, qualifying scores, and any distance criteria — is published by ${s.la} before each admissions cycle. Verify your child's eligibility and your home address directly with the council.`
+  ? `The full admissions policy, including test registration dates, qualifying scores, and any distance criteria, is published by ${s.la} before each admissions cycle. Verify your child's eligibility and your home address directly with the council.`
   : isSpecial
   ? `For more information on how ${s.la} assesses EHCP placements and which schools are named, contact the council's SEND team directly. The council must publish its Local Offer explaining available provision.`
-  : `The official admissions policy — including the catchment boundary map — is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application, as boundaries can change year to year.`;
+  : `The official admissions policy, including the catchment boundary map, is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application, as boundaries can change year to year.`;
 
-const title = `${s.name} Catchment Area 2026 — Map & Boundary`;
-const description = `${s.name} catchment area boundary in ${locationLine}. Check if your address is in catchment${ofstedLabel ? ` — Ofsted: ${ofstedLabel}` : ''}, admissions policy and nearby ${phaseLower} schools.`;
+const title = `${s.name} Catchment Area 2026: Map & Boundary`;
+const description = `${s.name} catchment area boundary in ${locationLine}. Check if your address is in catchment${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, admissions policy and nearby ${phaseLower} schools.`;
 
 const schoolSchema = {
   "@context": "https://schema.org",
@@ -174,7 +184,7 @@ const schoolSchema = {
   } : {}),
 };
 
-// FAQ schema — school-specific questions for featured snippet eligibility
+// FAQ schema - school-specific questions for featured snippet eligibility
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -185,7 +195,7 @@ const faqSchema = {
       "acceptedAnswer": {
         "@type": "Answer",
         "text": isOversubscribed
-          ? `Yes — ${s.name} currently has ${s.pupils} pupils enrolled against a capacity of ${s.capacity} places. Catchment area proximity is an important admissions criterion.`
+          ? `Yes, ${s.name} currently has ${s.pupils} pupils enrolled against a capacity of ${s.capacity} places. Catchment area proximity is an important admissions criterion.`
           : fillRate && fillRate >= 90
             ? `${s.name} is operating close to its capacity of ${s.capacity} places (${fillRate}% full). Catchment boundaries are likely to apply when the school is oversubscribed at the next intake.`
             : `${s.name} has a capacity of ${s.capacity ?? 'unknown'} places${s.pupils ? ` and currently has ${s.pupils} pupils enrolled` : ''}. Check the latest admissions data with ${s.la} for the current year.`
@@ -197,10 +207,10 @@ const faqSchema = {
       "acceptedAnswer": {
         "@type": "Answer",
         "text": isGrammar
-          ? `${s.name} is a selective school — admission requires passing the relevant admissions test. ${s.la} publishes the full policy including test dates, qualifying scores and any distance tiebreaker each year.`
+          ? `${s.name} is a selective school: admission requires passing the relevant admissions test. ${s.la} publishes the full policy including test dates, qualifying scores and any distance tiebreaker each year.`
           : isFaith
             ? `${s.name} uses both faith criteria and catchment area proximity in its admissions policy. The weighting varies each year and is published by ${s.la} before each admissions cycle.`
-            : `Admission to ${s.name} is managed by ${s.la}. When oversubscribed, places are allocated using ranked oversubscription criteria — typically looked-after children first, then siblings, then catchment area distance. Always verify with the council before applying.`
+            : `Admission to ${s.name} is managed by ${s.la}. When oversubscribed, places are allocated using ranked oversubscription criteria, typically looked-after children first, then siblings, then catchment area distance. Always verify with the council before applying.`
       }
     },
     {
@@ -285,7 +295,7 @@ const breadcrumbSchema = {
         {isOversubscribed
           ? ` The school is currently at or above capacity, making catchment area proximity important for admissions.`
           : s.capacity && fillRate && fillRate >= 90
-            ? ` The school is operating close to capacity — catchment area boundaries apply when the school is oversubscribed.`
+            ? ` The school is operating close to capacity, and catchment area boundaries apply when the school is oversubscribed.`
             : ` Find catchment area guidance, admissions policy details and nearby ${phaseLower} schools below.`
         }
       </p>
@@ -359,7 +369,7 @@ const breadcrumbSchema = {
         </div>
       </section>
 
-      {isPilot && pilotDemandProse && (
+      {pilotDemandProse && (
         <section class="mb-8" id="capacity-demand">
           <h2 class="text-xl font-semibold mb-3">{pilotCapacityH2}</h2>
           <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3 text-sm text-gray-700">
@@ -371,22 +381,22 @@ const breadcrumbSchema = {
                 {pilotFsmProse}
               </p>
             )}
-            {/* fix-g: postcode tool callout — pilot only */}
+            {/* fix-g: postcode tool callout - pilot only */}
             <p>
               To check whether your home address falls within the historical catchment boundary, use the{' '}
               <a href="/postcode" class="text-indigo-700 underline hover:no-underline font-medium">postcode search tool</a>{' '}
               on this site.
             </p>
-            {s.phase !== 'Nursery' && s.phase !== 'Special' && pilotAdmissionsUrl && (
+            {s.phase !== 'Nursery' && s.phase !== 'Special' && (
               <p>
-                Walsall publishes its full admissions policy, including oversubscription criteria, the previous year's last-distance figures, and the appeals timetable, on the council's official admissions page.{' '}
+                {s.la} publishes its full admissions policy, including oversubscription criteria, the previous year's last-distance figures, and the appeals timetable, on the council's official admissions page.{' '}
                 <a
-                  href={pilotAdmissionsUrl}
+                  href={admissionsCiteUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow noopener noreferrer"
                   class="text-indigo-700 underline hover:no-underline font-medium"
                 >
-                  Walsall Council school admissions (official) →
+                  {admissionsCiteVerified ? `${s.la} Council school admissions (official) →` : `Find ${s.la} school admissions →`}
                 </a>
               </p>
             )}
@@ -395,7 +405,7 @@ const breadcrumbSchema = {
       )}
 
       <section class="mb-8">
-        <h2 class="text-xl font-semibold mb-4">{s.name} — School Information</h2>
+        <h2 class="text-xl font-semibold mb-4">{s.name}: School Information</h2>
         <dl class="divide-y border rounded-lg overflow-hidden">
           {([
             ['Full address', address],
@@ -434,7 +444,7 @@ const breadcrumbSchema = {
         </section>
       )}
 
-      <!-- Parent-hub link mesh — always surfaces council + area links in body copy -->
+      <!-- Parent-hub link mesh - always surfaces council + area links in body copy -->
       <nav class="mb-8 p-4 border border-indigo-100 bg-indigo-50/40 rounded-lg text-sm" aria-label="Related catchment hubs">
         <p class="font-medium text-gray-700 mb-2">Explore nearby catchment areas</p>
         <ul class="flex flex-wrap gap-x-5 gap-y-2">
@@ -472,7 +482,7 @@ const breadcrumbSchema = {
 
       <!-- FAQ section -->
       <section class="mt-8" id="faq">
-        <h2 class="text-xl font-semibold mb-4">Frequently Asked Questions — {s.name}</h2>
+        <h2 class="text-xl font-semibold mb-4">Frequently Asked Questions: {s.name}</h2>
         <div class="space-y-4">
           <details class="border rounded-lg p-4 group">
             <summary class="font-medium cursor-pointer list-none flex justify-between items-center">
@@ -481,7 +491,7 @@ const breadcrumbSchema = {
             </summary>
             <p class="mt-3 text-sm text-gray-700">
               {isOversubscribed
-                ? `Yes — ${s.name} currently has ${s.pupils} pupils enrolled against a capacity of ${s.capacity} places. Catchment area proximity is an important admissions criterion when applying.`
+                ? `Yes, ${s.name} currently has ${s.pupils} pupils enrolled against a capacity of ${s.capacity} places. Catchment area proximity is an important admissions criterion when applying.`
                 : fillRate && fillRate >= 90
                   ? `${s.name} is operating close to its capacity of ${s.capacity} places (${fillRate}% full). Catchment boundaries are likely to apply when the school is oversubscribed at the next intake.`
                   : `${s.name} has a capacity of ${s.capacity ?? 'N/A'} places${s.pupils ? ` and currently has ${s.pupils} pupils enrolled` : ''}. For the most up-to-date data, check with ${s.la}.`
@@ -495,7 +505,7 @@ const breadcrumbSchema = {
             </summary>
             <p class="mt-3 text-sm text-gray-700">
               {isGrammar
-                ? `${s.name} is a selective school — admission requires passing the relevant admissions test. ${s.la} publishes the full policy each year, including test dates, qualifying scores, and any distance tiebreaker.`
+                ? `${s.name} is a selective school: admission requires passing the relevant admissions test. ${s.la} publishes the full policy each year, including test dates, qualifying scores, and any distance tiebreaker.`
                 : isFaith
                   ? `${s.name} uses both faith criteria and catchment area proximity in its admissions policy. The weighting is reviewed annually and published by ${s.la} before each admissions cycle.`
                   : `Admission to ${s.name} is managed by ${s.la}. When oversubscribed, places go to looked-after children first, then siblings, then catchment area distance. Always verify the current policy with the council before applying.`
@@ -594,7 +604,7 @@ const breadcrumbSchema = {
       <div id="alerts" class="border-2 border-indigo-200 rounded-lg p-5 bg-indigo-50 scroll-mt-24">
         <h3 class="font-semibold mb-1 text-indigo-900">Catchment alerts for {s.name}</h3>
         <p class="text-sm text-gray-600 mb-3">
-          Be first to get the {admissionsYear} last-distance-admitted figure and any catchment-boundary change for {s.name}, the moment {s.la} publishes. One email per update — no spam.
+          Be first to get the {admissionsYear} last-distance-admitted figure and any catchment-boundary change for {s.name}, the moment {s.la} publishes. One email per update, no spam.
         </p>
         <form
           action="https://api.staticforms.xyz/submit"
@@ -624,7 +634,7 @@ const breadcrumbSchema = {
             Notify me →
           </button>
         </form>
-        <p id="subscribed-msg" class="hidden text-sm text-green-700 font-medium mt-2">You're on the list — we'll email you when {s.la} updates the {s.name} numbers.</p>
+        <p id="subscribed-msg" class="hidden text-sm text-green-700 font-medium mt-2">You're on the list. We'll email you when {s.la} updates the {s.name} numbers.</p>
       </div>
 
       <!-- Find homes near this school -->
@@ -654,7 +664,7 @@ const breadcrumbSchema = {
         <div class="border border-indigo-200 rounded-lg p-5 bg-indigo-50">
           <h3 class="font-semibold mb-2 text-indigo-900">Need a tutor in {s.town}?</h3>
           <p class="text-sm text-gray-700 mb-3">
-            Find qualified {phaseLower} tutors in {s.town} — maths, English, science and more.
+            Find qualified {phaseLower} tutors in {s.town}: maths, English, science and more.
           </p>
           <a
             href={`https://thetutor.link/?ref=catchment&town=${encodeURIComponent(s.town)}`}

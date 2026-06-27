@@ -1,10 +1,10 @@
 {
   "kent": {
     "paragraphs": [
-      "Kent runs one of the larger school estates in England — 459 primary and 100 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Kent runs one of the larger school estates in England - 459 primary and 100 secondary schools, spread across market towns, villages and denser urban centres.",
       "The largest concentrations sit around Maidstone, Canterbury, Ashford, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Kent — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Kent school below."
+      "Selective schools are part of the mix in Kent - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Kent school below."
     ],
     "meta": {
       "schoolCount": 711,
@@ -24,9 +24,9 @@
   },
   "lancashire": {
     "paragraphs": [
-      "Lancashire runs one of the larger school estates in England — 480 primary and 80 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Lancashire runs one of the larger school estates in England - 480 primary and 80 secondary schools, spread across market towns, villages and denser urban centres.",
       "Expect the tightest competition in and around Preston and Burnley, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Around 48% of schools in Lancashire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "Around 48% of schools in Lancashire have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
       "For the exact catchment map and the previous year's last-distance-offered figure, always check Lancashire's current admissions policy before assuming your postcode is inside a school's boundary."
     ],
     "meta": {
@@ -49,7 +49,7 @@
     "paragraphs": [
       "Schools in Hampshire split across 424 primaries and 67 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Southampton and Basingstoke, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Hampshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "Selective schools are part of the mix in Hampshire - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
       "For the exact catchment map and the previous year's last-distance-offered figure, always check Hampshire's current admissions policy before assuming your postcode is inside a school's boundary."
     ],
     "meta": {
@@ -70,10 +70,10 @@
   },
   "essex": {
     "paragraphs": [
-      "Essex runs one of the larger school estates in England — 444 primary and 78 secondary schools, spread across market towns, villages and denser urban centres.",
-      "Colchester, Chelmsford and Harlow host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Essex — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Essex school below."
+      "Essex runs one of the larger school estates in England - 444 primary and 78 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Colchester, Chelmsford and Harlow host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Essex - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Essex school below."
     ],
     "meta": {
       "schoolCount": 610,
@@ -94,9 +94,9 @@
   "hertfordshire": {
     "paragraphs": [
       "Schools in Hertfordshire split across 401 primaries and 77 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in St Albans and Watford — parents in rural parts of Hertfordshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Hertfordshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Hertfordshire school below."
+      "School density is highest in St Albans and Watford - parents in rural parts of Hertfordshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Hertfordshire - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Hertfordshire school below."
     ],
     "meta": {
       "schoolCount": 590,
@@ -116,10 +116,10 @@
   },
   "surrey": {
     "paragraphs": [
-      "Finding the right catchment in Surrey means weighing 297 primary schools and 56 secondaries against where you can realistically live — distance criteria tend to bite hardest in the council's more popular towns.",
-      "School density is highest in Guildford and Woking — parents in rural parts of Surrey should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Surrey — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Surrey school below."
+      "Finding the right catchment in Surrey means weighing 297 primary schools and 56 secondaries against where you can realistically live - distance criteria tend to bite hardest in the council's more popular towns.",
+      "School density is highest in Guildford and Woking - parents in rural parts of Surrey should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Surrey - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Surrey school below."
     ],
     "meta": {
       "schoolCount": 524,
@@ -139,9 +139,9 @@
   },
   "birmingham": {
     "paragraphs": [
-      "Birmingham runs one of the larger school estates in England — 292 primary and 82 secondary schools, spread across market towns, villages and denser urban centres.",
-      "School density is highest in Birmingham and Sutton Coldfield — parents in rural parts of Birmingham should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Around 21% of schools in Birmingham have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "Birmingham runs one of the larger school estates in England - 292 primary and 82 secondary schools, spread across market towns, villages and denser urban centres.",
+      "School density is highest in Birmingham and Sutton Coldfield - parents in rural parts of Birmingham should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Around 21% of schools in Birmingham have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
       "Each Birmingham school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
     ],
     "meta": {
@@ -163,9 +163,9 @@
   "norfolk": {
     "paragraphs": [
       "Schools in Norfolk split across 344 primaries and 51 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Norwich, King's Lynn and Great Yarmouth host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 27% of schools in Norfolk have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Norfolk school below."
+      "Norwich, King's Lynn and Great Yarmouth host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 27% of schools in Norfolk have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Norfolk school below."
     ],
     "meta": {
       "schoolCount": 464,
@@ -185,9 +185,9 @@
   },
   "staffordshire": {
     "paragraphs": [
-      "Finding the right catchment in Staffordshire means weighing 308 primary schools and 56 secondaries against where you can realistically live — distance criteria tend to bite hardest in the council's more popular towns.",
-      "Stafford, Stoke-on-Trent and Tamworth host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Staffordshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "Finding the right catchment in Staffordshire means weighing 308 primary schools and 56 secondaries against where you can realistically live - distance criteria tend to bite hardest in the council's more popular towns.",
+      "Stafford, Stoke-on-Trent and Tamworth host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Staffordshire - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
       "Each Staffordshire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
     ],
     "meta": {
@@ -208,9 +208,9 @@
   },
   "derbyshire": {
     "paragraphs": [
-      "Derbyshire publishes its school admissions policy annually. With 353 primary and 45 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
-      "Chesterfield, Derby and Alfreton host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Derbyshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "Derbyshire publishes its school admissions policy annually. With 353 primary and 45 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker - usually looked-after children, then siblings, then catchment distance.",
+      "Chesterfield, Derby and Alfreton host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Derbyshire - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
       "Each Derbyshire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
     ],
     "meta": {
@@ -231,9 +231,9 @@
   },
   "devon": {
     "paragraphs": [
-      "Devon runs one of the larger school estates in England — 308 primary and 38 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Devon runs one of the larger school estates in England - 308 primary and 38 secondary schools, spread across market towns, villages and denser urban centres.",
       "Expect the tightest competition in and around Exeter and Newton Abbot, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Devon — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "Selective schools are part of the mix in Devon - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
       "For the exact catchment map and the previous year's last-distance-offered figure, always check Devon's current admissions policy before assuming your postcode is inside a school's boundary."
     ],
     "meta": {
@@ -254,10 +254,10 @@
   },
   "lincolnshire": {
     "paragraphs": [
-      "Lincolnshire runs one of the larger school estates in England — 280 primary and 53 secondary schools, spread across market towns, villages and denser urban centres.",
-      "Lincoln, Spalding and Grantham host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Lincolnshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Lincolnshire school below."
+      "Lincolnshire runs one of the larger school estates in England - 280 primary and 53 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Lincoln, Spalding and Grantham host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Lincolnshire - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Lincolnshire school below."
     ],
     "meta": {
       "schoolCount": 396,
@@ -277,10 +277,10 @@
   },
   "north-yorkshire": {
     "paragraphs": [
-      "North Yorkshire runs one of the larger school estates in England — 292 primary and 41 secondary schools, spread across market towns, villages and denser urban centres.",
+      "North Yorkshire runs one of the larger school estates in England - 292 primary and 41 secondary schools, spread across market towns, villages and denser urban centres.",
       "Expect the tightest competition in and around Harrogate and York, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in North Yorkshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every North Yorkshire school below."
+      "Selective schools are part of the mix in North Yorkshire - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every North Yorkshire school below."
     ],
     "meta": {
       "schoolCount": 382,
@@ -300,10 +300,10 @@
   },
   "nottinghamshire": {
     "paragraphs": [
-      "Nottinghamshire runs one of the larger school estates in England — 286 primary and 43 secondary schools, spread across market towns, villages and denser urban centres.",
-      "School density is highest in Nottingham and Mansfield — parents in rural parts of Nottinghamshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Nottinghamshire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Nottinghamshire school below."
+      "Nottinghamshire runs one of the larger school estates in England - 286 primary and 43 secondary schools, spread across market towns, villages and denser urban centres.",
+      "School density is highest in Nottingham and Mansfield - parents in rural parts of Nottinghamshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Nottinghamshire - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Nottinghamshire school below."
     ],
     "meta": {
       "schoolCount": 369,
@@ -323,13 +323,13 @@
   },
   "oxfordshire": {
     "paragraphs": [
-      "Oxfordshire publishes its school admissions policy annually. With 242 primary and 39 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
+      "Oxfordshire publishes its school admissions policy annually. With 242 primary and 39 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker - usually looked-after children, then siblings, then catchment distance.",
       "The largest concentrations sit around Oxford, Banbury, Abingdon, which together account for a meaningful share of the council's pupil places.",
-      "Around 43% of schools in Oxfordshire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "Around 43% of schools in Oxfordshire have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
       "Each Oxfordshire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
     ],
-    "seoTitle": "Oxfordshire School Catchment Areas 2026 — Find 281 Schools",
-    "seoDescription": "Find Oxfordshire schools by postcode for 2026 admissions. 242 primary + 39 secondary in Oxford, Banbury & Abingdon — 15 grammar schools, Ofsted ratings & catchment maps. Check your address free.",
+    "seoTitle": "Oxfordshire School Catchment Areas 2026 - Find 281 Schools",
+    "seoDescription": "Find Oxfordshire schools by postcode for 2026 admissions. 242 primary + 39 secondary in Oxford, Banbury & Abingdon - 15 grammar schools, Ofsted ratings & catchment maps. Check your address free.",
     "meta": {
       "schoolCount": 368,
       "primaries": 242,
@@ -348,10 +348,10 @@
   },
   "suffolk": {
     "paragraphs": [
-      "Suffolk runs one of the larger school estates in England — 253 primary and 43 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Suffolk runs one of the larger school estates in England - 253 primary and 43 secondary schools, spread across market towns, villages and denser urban centres.",
       "Expect the tightest competition in and around Ipswich and Bury St Edmunds, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Suffolk — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Suffolk school below."
+      "Selective schools are part of the mix in Suffolk - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Suffolk school below."
     ],
     "meta": {
       "schoolCount": 363,
@@ -371,9 +371,9 @@
   },
   "gloucestershire": {
     "paragraphs": [
-      "Gloucestershire runs one of the larger school estates in England — 243 primary and 41 secondary schools, spread across market towns, villages and denser urban centres.",
+      "Gloucestershire runs one of the larger school estates in England - 243 primary and 41 secondary schools, spread across market towns, villages and denser urban centres.",
       "Expect the tightest competition in and around Gloucester and Cheltenham, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Gloucestershire — for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
+      "Selective schools are part of the mix in Gloucestershire - for those, passing the admissions test comes first and catchment distance only applies as a tiebreaker.",
       "Each Gloucestershire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
     ],
     "meta": {
@@ -394,10 +394,10 @@
   },
   "west-sussex": {
     "paragraphs": [
-      "West Sussex publishes its school admissions policy annually. With 226 primary and 37 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
+      "West Sussex publishes its school admissions policy annually. With 226 primary and 37 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker - usually looked-after children, then siblings, then catchment distance.",
       "Expect the tightest competition in and around Horsham and Crawley, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Around 35% of schools in West Sussex have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every West Sussex school below."
+      "Around 35% of schools in West Sussex have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every West Sussex school below."
     ],
     "meta": {
       "schoolCount": 339,
@@ -418,8 +418,8 @@
   "leicestershire": {
     "paragraphs": [
       "Schools in Leicestershire split across 231 primaries and 44 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Leicester, Loughborough and Melton Mowbray host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 34% of schools in Leicestershire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "Leicester, Loughborough and Melton Mowbray host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 34% of schools in Leicestershire have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
       "Each Leicestershire school below links to its official DfE record and Ofsted report so you can verify everything against the source data yourself."
     ],
     "meta": {
@@ -440,10 +440,10 @@
   },
   "cambridgeshire": {
     "paragraphs": [
-      "Cambridgeshire publishes its school admissions policy annually. With 210 primary and 33 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
-      "School density is highest in Cambridge and Huntingdon — parents in rural parts of Cambridgeshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Around 23% of schools in Cambridgeshire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
-      "The catchment boundary for any given school is defined in the council's annual admissions booklet — we link to that search for every Cambridgeshire school below."
+      "Cambridgeshire publishes its school admissions policy annually. With 210 primary and 33 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker - usually looked-after children, then siblings, then catchment distance.",
+      "School density is highest in Cambridge and Huntingdon - parents in rural parts of Cambridgeshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Around 23% of schools in Cambridgeshire have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers.",
+      "The catchment boundary for any given school is defined in the council's annual admissions booklet - we link to that search for every Cambridgeshire school below."
     ],
     "meta": {
       "schoolCount": 311,
@@ -464,1091 +464,1091 @@
   "barking-and-dagenham": {
     "paragraphs": [
       "Schools in Barking and Dagenham split across 44 primaries and 8 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in Dagenham and Barking — parents in other parts of Barking and Dagenham should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Barking and Dagenham — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Dagenham and Barking - parents in other parts of Barking and Dagenham should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Barking and Dagenham - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "barnet": {
     "paragraphs": [
       "Schools in Barnet split across 91 primaries and 25 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in London and Barnet — parents in other parts of Barnet should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Barnet — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in London and Barnet - parents in other parts of Barnet should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Barnet - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "barnsley": {
     "paragraphs": [
-      "Barnsley has 96 schools — 77 primary and 10 secondary — spread across a mix of towns and areas.",
+      "Barnsley has 96 schools - 77 primary and 10 secondary - spread across a mix of towns and areas.",
       "The largest concentrations sit around Barnsley, Rotherham and Sheffield, which together account for a meaningful share of the council's pupil places.",
-      "Around 19% of schools in Barnsley have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 19% of schools in Barnsley have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "bath-and-north-east-somerset": {
     "paragraphs": [
-      "Bath and North East Somerset has 93 schools — 63 primary and 14 secondary — spread across a mix of towns and areas.",
+      "Bath and North East Somerset has 93 schools - 63 primary and 14 secondary - spread across a mix of towns and areas.",
       "Expect the tightest competition in and around Bath and Bristol, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Around 42% of schools in Bath and North East Somerset have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 42% of schools in Bath and North East Somerset have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "bedford": {
     "paragraphs": [
       "Schools in Bedford split across 55 primaries and 14 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Bedford and Huntingdon, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Bedford — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Bedford - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "bexley": {
     "paragraphs": [
       "Bexley coordinates admissions across 60 primary and 15 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Sidcup, Erith and Bexleyheath, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Bexley — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Bexley - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "blackburn-with-darwen": {
     "paragraphs": [
       "Blackburn with Darwen coordinates admissions across 56 primary and 12 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Blackburn and Darwen, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Around 49% of schools in Blackburn with Darwen have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 49% of schools in Blackburn with Darwen have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "blackpool": {
     "paragraphs": [
-      "Blackpool has 51 schools — 30 primary and 6 secondary — spread across its towns and areas.",
+      "Blackpool has 51 schools - 30 primary and 6 secondary - spread across its towns and areas.",
       "The busiest areas for schools are Blackpool and Thornton-Cleveleys, which together account for the majority of pupil places in the authority.",
-      "Around 27% of schools in Blackpool have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 27% of schools in Blackpool have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "bolton": {
     "paragraphs": [
-      "Bolton has 147 schools — 97 primary and 19 secondary — spread across a mix of towns and areas.",
-      "School density is highest in Bolton and BOLTON — parents in other parts of Bolton should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Bolton — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Bolton has 147 schools - 97 primary and 19 secondary - spread across a mix of towns and areas.",
+      "School density is highest in Bolton and BOLTON - parents in other parts of Bolton should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Bolton - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "bournemouth-christchurch-and-poole": {
     "paragraphs": [
-      "Bournemouth, Christchurch and Poole has 117 schools — 67 primary and 22 secondary — spread across a mix of towns and areas.",
+      "Bournemouth, Christchurch and Poole has 117 schools - 67 primary and 22 secondary - spread across a mix of towns and areas.",
       "Expect the tightest competition in and around Bournemouth and Poole, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Bournemouth, Christchurch and Poole — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Bournemouth, Christchurch and Poole - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "bracknell-forest": {
     "paragraphs": [
-      "Bracknell Forest has 45 schools — 29 primary and 6 secondary — spread across its towns and areas.",
+      "Bracknell Forest has 45 schools - 29 primary and 6 secondary - spread across its towns and areas.",
       "Expect the tightest competition in and around Bracknell and Sandhurst, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Bracknell Forest — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Bracknell Forest - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "bradford": {
     "paragraphs": [
-      "Finding the right catchment in Bradford means weighing 157 primary schools and 32 secondaries against where you can realistically live — distance criteria tend to bite hardest in the council's more popular towns.",
-      "School density is highest in Bradford and Keighley — parents in other parts of Bradford should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Bradford — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Finding the right catchment in Bradford means weighing 157 primary schools and 32 secondaries against where you can realistically live - distance criteria tend to bite hardest in the council's more popular towns.",
+      "School density is highest in Bradford and Keighley - parents in other parts of Bradford should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Bradford - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "brent": {
     "paragraphs": [
       "Schools in Brent split across 60 primaries and 14 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in London and Wembley — parents in other parts of Brent should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Brent — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in London and Wembley - parents in other parts of Brent should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Brent - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "brighton-and-hove": {
     "paragraphs": [
-      "Brighton and Hove has 84 schools — 48 primary and 10 secondary — spread across a mix of towns and areas.",
+      "Brighton and Hove has 84 schools - 48 primary and 10 secondary - spread across a mix of towns and areas.",
       "The largest concentrations sit around Brighton, Hove and BRIGHTON, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Brighton and Hove — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Brighton and Hove - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "bristol-city-of": {
     "paragraphs": [
       "Schools in Bristol, City of split across 101 primaries and 22 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around Bristol, Bedminster and Montpelier, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Bristol, City of — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Bristol, City of - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "bromley": {
     "paragraphs": [
-      "Bromley has 120 schools — 76 primary and 19 secondary — spread across a mix of towns and areas.",
+      "Bromley has 120 schools - 76 primary and 19 secondary - spread across a mix of towns and areas.",
       "The largest concentrations sit around Orpington, Bromley and Beckenham, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Bromley — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Bromley - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ],
     "seoTitle": "Bromley School Catchment 2026: 120 Schools by Postcode",
     "seoDescription": "Bromley catchment checker: enter your postcode to see 76 primary, 19 secondary & grammar schools. 2026 admissions maps, Ofsted ratings & catchment boundaries."
   },
   "buckinghamshire": {
     "paragraphs": [
-      "Buckinghamshire has 276 schools — 184 primary and 35 secondary — spread across towns and areas throughout the authority.",
+      "Buckinghamshire has 276 schools - 184 primary and 35 secondary - spread across towns and areas throughout the authority.",
       "The largest concentrations sit around Aylesbury, High Wycombe and Amersham, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Buckinghamshire — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Buckinghamshire - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "bury": {
     "paragraphs": [
-      "Bury has 93 schools — 64 primary and 14 secondary — spread across a mix of towns and areas.",
+      "Bury has 93 schools - 64 primary and 14 secondary - spread across a mix of towns and areas.",
       "Expect the tightest competition in and around Bury and Manchester, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Bury — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Bury - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "calderdale": {
     "paragraphs": [
       "Calderdale coordinates admissions across 82 primary and 11 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Halifax and Brighouse, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Calderdale — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Calderdale - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "camden": {
     "paragraphs": [
-      "Camden has 102 schools — 38 primary and 10 secondary — spread across a mix of towns and areas.",
-      "London, Camden and Newcastle-upon-Tyne host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Camden — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Camden has 102 schools - 38 primary and 10 secondary - spread across a mix of towns and areas.",
+      "London, Camden and Newcastle-upon-Tyne host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Camden - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "central-bedfordshire": {
     "paragraphs": [
       "Central Bedfordshire coordinates admissions across 106 primary and 25 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Dunstable, Bedford and Leighton Buzzard host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 25% of schools in Central Bedfordshire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Dunstable, Bedford and Leighton Buzzard host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 25% of schools in Central Bedfordshire have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "cheshire-east": {
     "paragraphs": [
-      "Cheshire East has 180 schools — 123 primary and 23 secondary — spread across a mix of towns and areas.",
+      "Cheshire East has 180 schools - 123 primary and 23 secondary - spread across a mix of towns and areas.",
       "The largest concentrations sit around Crewe, Macclesfield and Nantwich, which together account for a meaningful share of the council's pupil places.",
-      "Around 24% of schools in Cheshire East have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 24% of schools in Cheshire East have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "cheshire-west-and-chester": {
     "paragraphs": [
       "Cheshire West and Chester coordinates admissions across 128 primary and 20 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "School density is highest in Chester and Northwich — parents in other parts of Cheshire West and Chester should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Cheshire West and Chester — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Chester and Northwich - parents in other parts of Cheshire West and Chester should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Cheshire West and Chester - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "city-of-london": {
     "paragraphs": [
-      "City of London is a compact authority with 9 schools — 1 primary and 0 secondary — meaning most families have a limited number of realistic options within a reasonable distance.",
-      "The vast majority of schools in City of London are concentrated in London — distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
-      "Selective schools are part of the mix in City of London — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "City of London is a compact authority with 9 schools - 1 primary and 0 secondary - meaning most families have a limited number of realistic options within a reasonable distance.",
+      "The vast majority of schools in City of London are concentrated in London - distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
+      "Selective schools are part of the mix in City of London - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "cornwall": {
     "paragraphs": [
       "Schools in Cornwall split across 235 primaries and 31 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Truro and Penzance, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Cornwall — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Cornwall - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "county-durham": {
     "paragraphs": [
-      "County Durham publishes its school admissions policy annually. With 209 primary and 30 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
-      "Durham, Bishop Auckland and Consett host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in County Durham — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "County Durham publishes its school admissions policy annually. With 209 primary and 30 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker - usually looked-after children, then siblings, then catchment distance.",
+      "Durham, Bishop Auckland and Consett host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in County Durham - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "coventry": {
     "paragraphs": [
       "Coventry coordinates admissions across 85 primary and 21 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "The vast majority of schools in Coventry are concentrated in Coventry — distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
-      "Selective schools are part of the mix in Coventry — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "The vast majority of schools in Coventry are concentrated in Coventry - distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
+      "Selective schools are part of the mix in Coventry - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "croydon": {
     "paragraphs": [
       "Croydon coordinates admissions across 87 primary and 23 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "School density is highest in Croydon and London — parents in other parts of Croydon should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Croydon — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Croydon and London - parents in other parts of Croydon should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Croydon - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "cumberland": {
     "paragraphs": [
       "Schools in Cumberland split across 144 primaries and 19 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Carlisle, Workington and Wigton host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 36% of schools in Cumberland have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Carlisle, Workington and Wigton host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 36% of schools in Cumberland have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "darlington": {
     "paragraphs": [
-      "Darlington has 48 schools — 29 primary and 7 secondary — spread across its towns and areas.",
+      "Darlington has 48 schools - 29 primary and 7 secondary - spread across its towns and areas.",
       "The largest concentrations sit around Darlington, Bishopton and Newton Aycliffe, which together account for a meaningful share of the council's pupil places.",
-      "Around 25% of schools in Darlington have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 25% of schools in Darlington have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "derby": {
     "paragraphs": [
       "Schools in Derby split across 74 primaries and 15 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Derby, Derby. and Buxton host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Derby — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Derby, Derby. and Buxton host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Derby - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "doncaster": {
     "paragraphs": [
       "Doncaster coordinates admissions across 98 primary and 20 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "School density is highest in Doncaster and Mexborough — parents in other parts of Doncaster should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Doncaster are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "School density is highest in Doncaster and Mexborough - parents in other parts of Doncaster should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Doncaster are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "dorset": {
     "paragraphs": [
       "Schools in Dorset split across 129 primaries and 28 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around Dorchester, Wimborne and Weymouth, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Dorset — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Dorset - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "dudley": {
     "paragraphs": [
       "Schools in Dudley split across 78 primaries and 19 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Dudley, Stourbridge and Halesowen host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 17% of schools in Dudley have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Dudley, Stourbridge and Halesowen host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 17% of schools in Dudley have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "ealing": {
     "paragraphs": [
       "Schools in Ealing split across 65 primaries and 16 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in London and Southall — parents in other parts of Ealing should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Ealing — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in London and Southall - parents in other parts of Ealing should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Ealing - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "east-riding-of-yorkshire": {
     "paragraphs": [
-      "East Riding of Yorkshire has 159 schools — 123 primary and 17 secondary — spread across a mix of towns and areas.",
-      "School density is highest in Hull and Goole — parents in other parts of East Riding of Yorkshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in East Riding of Yorkshire — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "East Riding of Yorkshire has 159 schools - 123 primary and 17 secondary - spread across a mix of towns and areas.",
+      "School density is highest in Hull and Goole - parents in other parts of East Riding of Yorkshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in East Riding of Yorkshire - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "east-sussex": {
     "paragraphs": [
-      "East Sussex publishes its school admissions policy annually. With 144 primary and 23 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
-      "Eastbourne, Lewes and Uckfield host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in East Sussex — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "East Sussex publishes its school admissions policy annually. With 144 primary and 23 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker - usually looked-after children, then siblings, then catchment distance.",
+      "Eastbourne, Lewes and Uckfield host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in East Sussex - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "enfield": {
     "paragraphs": [
-      "Enfield has 108 schools — 68 primary and 18 secondary — spread across a mix of towns and areas.",
+      "Enfield has 108 schools - 68 primary and 18 secondary - spread across a mix of towns and areas.",
       "The largest concentrations sit around Enfield, London and Barnet, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Enfield — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Enfield - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "gateshead": {
     "paragraphs": [
       "Gateshead coordinates admissions across 66 primary and 9 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Gateshead, Newcastle-upon-Tyne and Ryton, which together account for a meaningful share of the council's pupil places.",
-      "Around 23% of schools in Gateshead have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 23% of schools in Gateshead have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "greenwich": {
     "paragraphs": [
       "Schools in Greenwich split across 62 primaries and 15 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "London, Greenwich and Deptford host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Greenwich — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "London, Greenwich and Deptford host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Greenwich - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "hackney": {
     "paragraphs": [
       "Hackney coordinates admissions across 50 primary and 16 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around London, Hackney and LONDON, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Hackney — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Hackney - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "halton": {
     "paragraphs": [
       "Schools in Halton split across 49 primaries and 7 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Runcorn, Widnes and Warrington host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 33% of schools in Halton have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Runcorn, Widnes and Warrington host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 33% of schools in Halton have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "hammersmith-and-fulham": {
     "paragraphs": [
       "Schools in Hammersmith and Fulham split across 36 primaries and 11 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The busiest areas for schools are London and Fulham, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Hammersmith and Fulham — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Hammersmith and Fulham - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "haringey": {
     "paragraphs": [
       "Haringey coordinates admissions across 60 primary and 11 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "London, Highgate and Wood Green host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Haringey — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "London, Highgate and Wood Green host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Haringey - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "harrow": {
     "paragraphs": [
-      "Harrow has 75 schools — 40 primary and 12 secondary — spread across its towns and areas.",
-      "School density is highest in Harrow and Pinner — parents in other parts of Harrow should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Harrow — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Harrow has 75 schools - 40 primary and 12 secondary - spread across its towns and areas.",
+      "School density is highest in Harrow and Pinner - parents in other parts of Harrow should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Harrow - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "hartlepool": {
     "paragraphs": [
       "Schools in Hartlepool split across 30 primaries and 5 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "The vast majority of schools in Hartlepool are concentrated in Hartlepool — distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
-      "Around 30% of schools in Hartlepool have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "The vast majority of schools in Hartlepool are concentrated in Hartlepool - distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
+      "Around 30% of schools in Hartlepool have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "havering": {
     "paragraphs": [
       "Havering coordinates admissions across 59 primary and 18 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Romford, Hornchurch and Rainham, which together account for a meaningful share of the council's pupil places.",
-      "Around 16% of schools in Havering have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 16% of schools in Havering have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "herefordshire-county-of": {
     "paragraphs": [
-      "Herefordshire, County of has 114 schools — 78 primary and 14 secondary — spread across a mix of towns and areas.",
-      "Hereford, Leominster and Ross-on-Wye host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 37% of schools in Herefordshire, County of have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Herefordshire, County of has 114 schools - 78 primary and 14 secondary - spread across a mix of towns and areas.",
+      "Hereford, Leominster and Ross-on-Wye host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 37% of schools in Herefordshire, County of have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "hillingdon": {
     "paragraphs": [
-      "Hillingdon has 114 schools — 66 primary and 21 secondary — spread across a mix of towns and areas.",
-      "Uxbridge, Hayes and Ruislip host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Hillingdon — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Hillingdon has 114 schools - 66 primary and 21 secondary - spread across a mix of towns and areas.",
+      "Uxbridge, Hayes and Ruislip host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Hillingdon - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ],
-    "seoTitle": "Hillingdon School Catchment Areas 2026 — Find 87 Schools",
-    "seoDescription": "Find Hillingdon schools by postcode for 2026 admissions. 66 primary + 21 secondary in Uxbridge, Hayes & Ruislip — grammar school guide, Ofsted ratings & catchment maps. Check your address free."
+    "seoTitle": "Hillingdon School Catchment Areas 2026 - Find 87 Schools",
+    "seoDescription": "Find Hillingdon schools by postcode for 2026 admissions. 66 primary + 21 secondary in Uxbridge, Hayes & Ruislip - grammar school guide, Ofsted ratings & catchment maps. Check your address free."
   },
   "hounslow": {
     "paragraphs": [
       "Hounslow coordinates admissions across 49 primary and 18 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Hounslow and Feltham, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Hounslow — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Hounslow - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "isle-of-wight": {
     "paragraphs": [
-      "Isle of Wight has 51 schools — 36 primary and 6 secondary — spread across its towns and areas.",
-      "School density is highest in Newport and Ryde — parents in other parts of Isle of Wight should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Isle of Wight — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Isle of Wight has 51 schools - 36 primary and 6 secondary - spread across its towns and areas.",
+      "School density is highest in Newport and Ryde - parents in other parts of Isle of Wight should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Isle of Wight - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "islington": {
     "paragraphs": [
-      "Islington has 72 schools — 40 primary and 9 secondary — spread across its towns and areas.",
+      "Islington has 72 schools - 40 primary and 9 secondary - spread across its towns and areas.",
       "The busiest areas for schools are London and United Kingdom, which together account for the majority of pupil places in the authority.",
-      "Around 19% of schools in Islington have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 19% of schools in Islington have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "kensington-and-chelsea": {
     "paragraphs": [
-      "Kensington and Chelsea has 75 schools — 26 primary and 6 secondary — spread across its towns and areas.",
-      "School density is highest in London and Knightsbridge — parents in other parts of Kensington and Chelsea should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Kensington and Chelsea — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Kensington and Chelsea has 75 schools - 26 primary and 6 secondary - spread across its towns and areas.",
+      "School density is highest in London and Knightsbridge - parents in other parts of Kensington and Chelsea should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Kensington and Chelsea - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "kingston-upon-hull-city-of": {
     "paragraphs": [
       "Kingston upon Hull, City of coordinates admissions across 70 primary and 13 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Hull, Kingston-upon-Hull and HULL, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Kingston upon Hull, City of — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Kingston upon Hull, City of - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "kingston-upon-thames": {
     "paragraphs": [
       "Kingston upon Thames coordinates admissions across 35 primary and 11 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Kingston upon Thames and Surbiton, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Kingston upon Thames — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Kingston upon Thames - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "kirklees": {
     "paragraphs": [
-      "Kirklees publishes its school admissions policy annually. With 146 primary and 26 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
-      "Huddersfield, Dewsbury and Batley host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Kirklees — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Kirklees publishes its school admissions policy annually. With 146 primary and 26 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker - usually looked-after children, then siblings, then catchment distance.",
+      "Huddersfield, Dewsbury and Batley host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Kirklees - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ],
-    "seoTitle": "Kirklees School Catchment Areas 2026 — Find 172 Schools",
-    "seoDescription": "Find Kirklees schools by postcode for 2026 admissions. 146 primary + 26 secondary in Huddersfield, Dewsbury & Batley — Ofsted ratings, grammar school guide & catchment maps. Check your address free."
+    "seoTitle": "Kirklees School Catchment Areas 2026 - Find 172 Schools",
+    "seoDescription": "Find Kirklees schools by postcode for 2026 admissions. 146 primary + 26 secondary in Huddersfield, Dewsbury & Batley - Ofsted ratings, grammar school guide & catchment maps. Check your address free."
   },
   "knowsley": {
     "paragraphs": [
-      "Knowsley has 63 schools — 50 primary and 6 secondary — spread across its towns and areas.",
-      "School density is highest in Liverpool and Prescot — parents in other parts of Knowsley should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Around 49% of schools in Knowsley have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Knowsley has 63 schools - 50 primary and 6 secondary - spread across its towns and areas.",
+      "School density is highest in Liverpool and Prescot - parents in other parts of Knowsley should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Around 49% of schools in Knowsley have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "lambeth": {
     "paragraphs": [
-      "Lambeth has 102 schools — 58 primary and 14 secondary — spread across a mix of towns and areas.",
+      "Lambeth has 102 schools - 58 primary and 14 secondary - spread across a mix of towns and areas.",
       "The busiest areas for schools are London and LONDON, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Lambeth — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Lambeth - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "leeds": {
     "paragraphs": [
-      "Leeds has 308 schools — 221 primary and 41 secondary — spread across towns and areas throughout the authority.",
+      "Leeds has 308 schools - 221 primary and 41 secondary - spread across towns and areas throughout the authority.",
       "The largest concentrations sit around Leeds, Pudsey and Wetherby, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Leeds — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Leeds - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "leicester": {
     "paragraphs": [
       "Schools in Leicester split across 82 primaries and 19 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in Leicester and LEICESTER — parents in other parts of Leicester should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Around 16% of schools in Leicester have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "School density is highest in Leicester and LEICESTER - parents in other parts of Leicester should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Around 16% of schools in Leicester have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "lewisham": {
     "paragraphs": [
       "Schools in Lewisham split across 64 primaries and 10 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around London and Bromley, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Lewisham — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Lewisham - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "liverpool": {
     "paragraphs": [
       "Liverpool coordinates admissions across 115 primary and 31 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Liverpool, Merseyside and Croxteth host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Liverpool — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Liverpool, Merseyside and Croxteth host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Liverpool - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "luton": {
     "paragraphs": [
       "Schools in Luton split across 46 primaries and 13 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in Luton and LUTON — parents in other parts of Luton should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Luton are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "School density is highest in Luton and LUTON - parents in other parts of Luton should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Luton are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "manchester": {
     "paragraphs": [
-      "Finding the right catchment in Manchester means weighing 137 primary schools and 30 secondaries against where you can realistically live — distance criteria tend to bite hardest in the council's more popular towns.",
-      "School density is highest in Manchester and Gorton — parents in other parts of Manchester should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Manchester — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Finding the right catchment in Manchester means weighing 137 primary schools and 30 secondaries against where you can realistically live - distance criteria tend to bite hardest in the council's more popular towns.",
+      "School density is highest in Manchester and Gorton - parents in other parts of Manchester should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Manchester - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "medway": {
     "paragraphs": [
       "Medway coordinates admissions across 76 primary and 19 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Rochester, Gillingham and Chatham, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Medway — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Medway - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "merton": {
     "paragraphs": [
       "Schools in Merton split across 43 primaries and 9 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around London and Mitcham, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Merton — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Merton - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "middlesbrough": {
     "paragraphs": [
-      "Middlesbrough has 63 schools — 41 primary and 8 secondary — spread across its towns and areas.",
+      "Middlesbrough has 63 schools - 41 primary and 8 secondary - spread across its towns and areas.",
       "The busiest areas for schools are Middlesbrough and Marton, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Middlesbrough — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Middlesbrough - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "milton-keynes": {
     "paragraphs": [
-      "Milton Keynes has 123 schools — 89 primary and 12 secondary — spread across a mix of towns and areas.",
-      "School density is highest in Milton Keynes and Newport Pagnell — parents in other parts of Milton Keynes should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Milton Keynes are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Milton Keynes has 123 schools - 89 primary and 12 secondary - spread across a mix of towns and areas.",
+      "School density is highest in Milton Keynes and Newport Pagnell - parents in other parts of Milton Keynes should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Milton Keynes are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "newcastle-upon-tyne": {
     "paragraphs": [
       "Schools in Newcastle upon Tyne split across 76 primaries and 16 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around Newcastle-upon-Tyne, Newcastle upon Tyne and Newcastle Upon Tyne, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Newcastle upon Tyne — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Newcastle upon Tyne - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "newham": {
     "paragraphs": [
-      "Newham has 114 schools — 67 primary and 17 secondary — spread across a mix of towns and areas.",
-      "London, Manor Park and Plaistow host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Admissions to all schools in Newham are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Newham has 114 schools - 67 primary and 17 secondary - spread across a mix of towns and areas.",
+      "London, Manor Park and Plaistow host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Admissions to all schools in Newham are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "north-east-lincolnshire": {
     "paragraphs": [
       "North East Lincolnshire coordinates admissions across 49 primary and 10 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Grimsby, Cleethorpes and Immingham host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Admissions to all schools in North East Lincolnshire are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Grimsby, Cleethorpes and Immingham host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Admissions to all schools in North East Lincolnshire are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "north-lincolnshire": {
     "paragraphs": [
       "Schools in North Lincolnshire split across 62 primaries and 14 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Scunthorpe, Brigg and Doncaster host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 28% of schools in North Lincolnshire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Scunthorpe, Brigg and Doncaster host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 28% of schools in North Lincolnshire have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "north-northamptonshire": {
     "paragraphs": [
-      "North Northamptonshire has 153 schools — 111 primary and 20 secondary — spread across a mix of towns and areas.",
+      "North Northamptonshire has 153 schools - 111 primary and 20 secondary - spread across a mix of towns and areas.",
       "Expect the tightest competition in and around Kettering and Wellingborough, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in North Northamptonshire — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in North Northamptonshire - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "north-somerset": {
     "paragraphs": [
-      "North Somerset has 84 schools — 64 primary and 11 secondary — spread across a mix of towns and areas.",
+      "North Somerset has 84 schools - 64 primary and 11 secondary - spread across a mix of towns and areas.",
       "The largest concentrations sit around Bristol, Weston-Super-Mare and Weston-super-Mare, which together account for a meaningful share of the council's pupil places.",
-      "Around 38% of schools in North Somerset have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 38% of schools in North Somerset have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "north-tyneside": {
     "paragraphs": [
       "North Tyneside coordinates admissions across 57 primary and 14 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around North Shields, Newcastle-upon-Tyne and Whitley Bay, which together account for a meaningful share of the council's pupil places.",
-      "Around 16% of schools in North Tyneside have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 16% of schools in North Tyneside have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "northumberland": {
     "paragraphs": [
       "Schools in Northumberland split across 138 primaries and 26 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in Morpeth and Hexham — parents in other parts of Northumberland should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Northumberland — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Morpeth and Hexham - parents in other parts of Northumberland should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Northumberland - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "nottingham": {
     "paragraphs": [
       "Schools in Nottingham split across 74 primaries and 18 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Nottingham, Bulwell and West Bridgford host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Nottingham — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Nottingham, Bulwell and West Bridgford host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Nottingham - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "oldham": {
     "paragraphs": [
       "Oldham coordinates admissions across 86 primary and 14 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Oldham, Manchester and Greater Manchester, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Oldham — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Oldham - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "peterborough": {
     "paragraphs": [
-      "Peterborough has 90 schools — 60 primary and 12 secondary — spread across a mix of towns and areas.",
+      "Peterborough has 90 schools - 60 primary and 12 secondary - spread across a mix of towns and areas.",
       "The busiest areas for schools are Peterborough and Stamford, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Peterborough — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Peterborough - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "plymouth": {
     "paragraphs": [
       "Plymouth coordinates admissions across 69 primary and 19 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "The vast majority of schools in Plymouth are concentrated in Plymouth — distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
-      "Selective schools are part of the mix in Plymouth — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "The vast majority of schools in Plymouth are concentrated in Plymouth - distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
+      "Selective schools are part of the mix in Plymouth - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "portsmouth": {
     "paragraphs": [
       "Schools in Portsmouth split across 45 primaries and 10 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The busiest areas for schools are Portsmouth and Southsea, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Portsmouth — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Portsmouth - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "reading": {
     "paragraphs": [
       "Schools in Reading split across 40 primaries and 11 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "The vast majority of schools in Reading are concentrated in Reading — distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
-      "Selective schools are part of the mix in Reading — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "The vast majority of schools in Reading are concentrated in Reading - distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
+      "Selective schools are part of the mix in Reading - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "redbridge": {
     "paragraphs": [
       "Redbridge coordinates admissions across 52 primary and 15 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "School density is highest in Ilford and Woodford Green — parents in other parts of Redbridge should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Redbridge — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Ilford and Woodford Green - parents in other parts of Redbridge should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Redbridge - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "redcar-and-cleveland": {
     "paragraphs": [
       "Redcar and Cleveland coordinates admissions across 44 primary and 10 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Redcar and Middlesbrough, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Redcar and Cleveland — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Redcar and Cleveland - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "richmond-upon-thames": {
     "paragraphs": [
       "Richmond upon Thames coordinates admissions across 45 primary and 11 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Twickenham, Richmond and London host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Richmond upon Thames — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Twickenham, Richmond and London host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Richmond upon Thames - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "rochdale": {
     "paragraphs": [
-      "Rochdale has 105 schools — 69 primary and 13 secondary — spread across a mix of towns and areas.",
+      "Rochdale has 105 schools - 69 primary and 13 secondary - spread across a mix of towns and areas.",
       "Expect the tightest competition in and around Rochdale and Manchester, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Around 35% of schools in Rochdale have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 35% of schools in Rochdale have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "rotherham": {
     "paragraphs": [
       "Schools in Rotherham split across 96 primaries and 16 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in Rotherham and Sheffield — parents in other parts of Rotherham should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Rotherham — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Rotherham and Sheffield - parents in other parts of Rotherham should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Rotherham - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "rutland": {
     "paragraphs": [
-      "Rutland is a compact authority with 27 schools — 17 primary and 3 secondary — meaning most families have a limited number of realistic options within a reasonable distance.",
-      "School density is highest in Oakham and Stamford — parents in other parts of Rutland should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Around 52% of schools in Rutland have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Rutland is a compact authority with 27 schools - 17 primary and 3 secondary - meaning most families have a limited number of realistic options within a reasonable distance.",
+      "School density is highest in Oakham and Stamford - parents in other parts of Rutland should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Around 52% of schools in Rutland have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "salford": {
     "paragraphs": [
       "Salford coordinates admissions across 76 primary and 16 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Salford, Manchester and Swinton host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Salford — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Salford, Manchester and Swinton host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Salford - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "sandwell": {
     "paragraphs": [
-      "Sandwell has 132 schools — 92 primary and 22 secondary — spread across a mix of towns and areas.",
+      "Sandwell has 132 schools - 92 primary and 22 secondary - spread across a mix of towns and areas.",
       "The largest concentrations sit around West Bromwich, Oldbury and Smethwick, which together account for a meaningful share of the council's pupil places.",
-      "Admissions to all schools in Sandwell are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Sandwell are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "sefton": {
     "paragraphs": [
       "Schools in Sefton split across 74 primaries and 18 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in Liverpool and Southport — parents in other parts of Sefton should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Sefton — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Liverpool and Southport - parents in other parts of Sefton should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Sefton - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "sheffield": {
     "paragraphs": [
-      "Sheffield has 192 schools — 131 primary and 27 secondary — spread across a mix of towns and areas.",
+      "Sheffield has 192 schools - 131 primary and 27 secondary - spread across a mix of towns and areas.",
       "The busiest areas for schools are Sheffield and South Yorkshire, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Sheffield — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Sheffield - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "shropshire": {
     "paragraphs": [
-      "Shropshire has 186 schools — 127 primary and 19 secondary — spread across a mix of towns and areas.",
-      "Shrewsbury, Oswestry and Bridgnorth host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Shropshire — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Shropshire has 186 schools - 127 primary and 19 secondary - spread across a mix of towns and areas.",
+      "Shrewsbury, Oswestry and Bridgnorth host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Shropshire - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "slough": {
     "paragraphs": [
-      "Slough has 60 schools — 28 primary and 14 secondary — spread across its towns and areas.",
+      "Slough has 60 schools - 28 primary and 14 secondary - spread across its towns and areas.",
       "The largest concentrations sit around Slough, Colnbrook and Langley, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Slough — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Slough - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "solihull": {
     "paragraphs": [
       "Schools in Solihull split across 59 primaries and 15 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in Solihull and Birmingham — parents in other parts of Solihull should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Solihull — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Solihull and Birmingham - parents in other parts of Solihull should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Solihull - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ],
-    "seoTitle": "Solihull School Catchment Areas 2026 — Find 74 Schools",
-    "seoDescription": "Find Solihull schools by postcode for 2026 admissions. 59 primary + 15 secondary catchments mapped — Ofsted ratings, grammar school guide & distance offered. Check your address free."
+    "seoTitle": "Solihull School Catchment Areas 2026 - Find 74 Schools",
+    "seoDescription": "Find Solihull schools by postcode for 2026 admissions. 59 primary + 15 secondary catchments mapped - Ofsted ratings, grammar school guide & distance offered. Check your address free."
   },
   "somerset": {
     "paragraphs": [
       "Schools in Somerset split across 225 primaries and 34 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Taunton and Bridgwater, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Somerset — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Somerset - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "south-gloucestershire": {
     "paragraphs": [
       "South Gloucestershire coordinates admissions across 93 primary and 14 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Bristol and Wotton-Under-Edge, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Around 31% of schools in South Gloucestershire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 31% of schools in South Gloucestershire have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "south-tyneside": {
     "paragraphs": [
       "Schools in South Tyneside split across 45 primaries and 8 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around South Shields, Jarrow and Hebburn, which together account for a meaningful share of the council's pupil places.",
-      "Around 28% of schools in South Tyneside have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 28% of schools in South Tyneside have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "southampton": {
     "paragraphs": [
-      "Southampton has 87 schools — 54 primary and 12 secondary — spread across a mix of towns and areas.",
+      "Southampton has 87 schools - 54 primary and 12 secondary - spread across a mix of towns and areas.",
       "The busiest areas for schools are Southampton and Hampshire, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Southampton — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Southampton - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "southend-on-sea": {
     "paragraphs": [
-      "Southend-on-Sea has 60 schools — 33 primary and 12 secondary — spread across its towns and areas.",
+      "Southend-on-Sea has 60 schools - 33 primary and 12 secondary - spread across its towns and areas.",
       "The largest concentrations sit around Southend-on-Sea, Leigh-on-Sea and Westcliff-on-Sea, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Southend-on-Sea — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Southend-on-Sea - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "southwark": {
     "paragraphs": [
       "Schools in Southwark split across 66 primaries and 19 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around London and Peckham, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Southwark — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Southwark - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "st-helens": {
     "paragraphs": [
       "St. Helens coordinates admissions across 54 primary and 9 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around St Helens, Newton-le-Willows and Prescot, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in St. Helens — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in St. Helens - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "stockport": {
     "paragraphs": [
       "Stockport coordinates admissions across 86 primary and 14 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Stockport and Cheadle, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Stockport — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Stockport - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "stockton-on-tees": {
     "paragraphs": [
-      "Stockton-on-Tees has 87 schools — 60 primary and 13 secondary — spread across a mix of towns and areas.",
-      "School density is highest in Stockton-on-Tees and Billingham — parents in other parts of Stockton-on-Tees should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Around 31% of schools in Stockton-on-Tees have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Stockton-on-Tees has 87 schools - 60 primary and 13 secondary - spread across a mix of towns and areas.",
+      "School density is highest in Stockton-on-Tees and Billingham - parents in other parts of Stockton-on-Tees should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Around 31% of schools in Stockton-on-Tees have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "stoke-on-trent": {
     "paragraphs": [
       "Stoke-on-Trent coordinates admissions across 71 primary and 15 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Stoke-on-Trent, Stoke on Trent and Stoke-on-trent, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Stoke-on-Trent — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Stoke-on-Trent - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "sunderland": {
     "paragraphs": [
       "Schools in Sunderland split across 81 primaries and 16 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around Sunderland, Washington and Houghton le Spring, which together account for a meaningful share of the council's pupil places.",
-      "Around 17% of schools in Sunderland have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 17% of schools in Sunderland have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "sutton": {
     "paragraphs": [
       "Sutton coordinates admissions across 41 primary and 15 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Sutton, Carshalton and Wallington host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Sutton — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Sutton, Carshalton and Wallington host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Sutton - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "swindon": {
     "paragraphs": [
       "Swindon coordinates admissions across 66 primary and 13 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Swindon, SWINDON and Royal Wootton Bassett, which together account for a meaningful share of the council's pupil places.",
-      "Around 18% of schools in Swindon have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 18% of schools in Swindon have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "tameside": {
     "paragraphs": [
       "Schools in Tameside split across 76 primaries and 16 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Manchester and Ashton-under-Lyne, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Around 31% of schools in Tameside have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 31% of schools in Tameside have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "telford-and-wrekin": {
     "paragraphs": [
       "Telford and Wrekin coordinates admissions across 56 primary and 12 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Telford, Newport and Shropshire host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Telford and Wrekin — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Telford, Newport and Shropshire host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Telford and Wrekin - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "thurrock": {
     "paragraphs": [
-      "Thurrock has 57 schools — 39 primary and 13 secondary — spread across its towns and areas.",
+      "Thurrock has 57 schools - 39 primary and 13 secondary - spread across its towns and areas.",
       "Expect the tightest competition in and around Grays and South Ockendon, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Admissions to all schools in Thurrock are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Thurrock are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "torbay": {
     "paragraphs": [
       "Torbay coordinates admissions across 31 primary and 8 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "School density is highest in Torquay and Paignton — parents in other parts of Torbay should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Torbay — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Torquay and Paignton - parents in other parts of Torbay should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Torbay - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "tower-hamlets": {
     "paragraphs": [
       "Schools in Tower Hamlets split across 66 primaries and 17 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The busiest areas for schools are London and Seaford, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Tower Hamlets — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Tower Hamlets - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "trafford": {
     "paragraphs": [
       "Schools in Trafford split across 63 primaries and 19 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "School density is highest in Manchester and Altrincham — parents in other parts of Trafford should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Trafford — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Manchester and Altrincham - parents in other parts of Trafford should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Trafford - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "wakefield": {
     "paragraphs": [
       "Wakefield coordinates admissions across 113 primary and 18 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Wakefield, Pontefract and Castleford host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Wakefield — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Wakefield, Pontefract and Castleford host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Wakefield - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "walsall": {
     "paragraphs": [
       "Walsall coordinates admissions across 85 primary and 18 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Walsall, Willenhall and Wednesbury host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Walsall — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Walsall, Willenhall and Wednesbury host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Walsall - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "waltham-forest": {
     "paragraphs": [
       "Schools in Waltham Forest split across 51 primaries and 15 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around London, Woodford Green and Chingford, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Waltham Forest — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Waltham Forest - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "wandsworth": {
     "paragraphs": [
-      "Wandsworth has 114 schools — 58 primary and 11 secondary — spread across a mix of towns and areas.",
+      "Wandsworth has 114 schools - 58 primary and 11 secondary - spread across a mix of towns and areas.",
       "The busiest areas for schools are London and Putney, London, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Wandsworth — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Wandsworth - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "warrington": {
     "paragraphs": [
       "Schools in Warrington split across 69 primaries and 13 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Warrington, Lymm and WARRINGTON host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Around 37% of schools in Warrington have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Warrington, Lymm and WARRINGTON host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Around 37% of schools in Warrington have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "warwickshire": {
     "paragraphs": [
       "Schools in Warwickshire split across 196 primaries and 37 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Rugby and Nuneaton, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Warwickshire — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Warwickshire - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "west-berkshire": {
     "paragraphs": [
-      "West Berkshire has 99 schools — 67 primary and 10 secondary — spread across a mix of towns and areas.",
-      "School density is highest in Reading and Newbury — parents in other parts of West Berkshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in West Berkshire — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "West Berkshire has 99 schools - 67 primary and 10 secondary - spread across a mix of towns and areas.",
+      "School density is highest in Reading and Newbury - parents in other parts of West Berkshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in West Berkshire - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "west-northamptonshire": {
     "paragraphs": [
       "Schools in West Northamptonshire split across 148 primaries and 17 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Northampton and Daventry, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Around 28% of schools in West Northamptonshire have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 28% of schools in West Northamptonshire have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "westminster": {
     "paragraphs": [
       "Westminster coordinates admissions across 33 primary and 10 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The busiest areas for schools are London and LONDON, which together account for the majority of pupil places in the authority.",
-      "Selective schools are part of the mix in Westminster — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Westminster - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "westmorland-and-furness": {
     "paragraphs": [
-      "Westmorland and Furness has 162 schools — 121 primary and 19 secondary — spread across a mix of towns and areas.",
-      "Barrow-in-Furness, Penrith and Kendal host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Westmorland and Furness — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Westmorland and Furness has 162 schools - 121 primary and 19 secondary - spread across a mix of towns and areas.",
+      "Barrow-in-Furness, Penrith and Kendal host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Westmorland and Furness - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "wigan": {
     "paragraphs": [
-      "Wigan has 144 schools — 99 primary and 19 secondary — spread across a mix of towns and areas.",
+      "Wigan has 144 schools - 99 primary and 19 secondary - spread across a mix of towns and areas.",
       "The largest concentrations sit around Wigan, Leigh and Manchester, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Wigan — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Wigan - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "wiltshire": {
     "paragraphs": [
-      "Wiltshire publishes its school admissions policy annually. With 201 primary and 28 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker — usually looked-after children, then siblings, then catchment distance.",
-      "Salisbury, Chippenham and Trowbridge host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Selective schools are part of the mix in Wiltshire — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Wiltshire publishes its school admissions policy annually. With 201 primary and 28 secondary schools to allocate, the council uses a ranked oversubscription tiebreaker - usually looked-after children, then siblings, then catchment distance.",
+      "Salisbury, Chippenham and Trowbridge host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Selective schools are part of the mix in Wiltshire - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "windsor-and-maidenhead": {
     "paragraphs": [
       "Windsor and Maidenhead coordinates admissions across 50 primary and 14 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "School density is highest in Maidenhead and Windsor — parents in other parts of Windsor and Maidenhead should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Selective schools are part of the mix in Windsor and Maidenhead — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "School density is highest in Maidenhead and Windsor - parents in other parts of Windsor and Maidenhead should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Selective schools are part of the mix in Windsor and Maidenhead - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "wirral": {
     "paragraphs": [
       "Wirral coordinates admissions across 90 primary and 19 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Wirral and Birkenhead, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Wirral — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Wirral - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "wokingham": {
     "paragraphs": [
       "Schools in Wokingham split across 55 primaries and 9 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Reading and Wokingham, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Wokingham — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Wokingham - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "wolverhampton": {
     "paragraphs": [
       "Schools in Wolverhampton split across 72 primaries and 19 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around Wolverhampton, Bilston and Willenhall, which together account for a meaningful share of the council's pupil places.",
-      "Selective schools are part of the mix in Wolverhampton — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Wolverhampton - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "worcestershire": {
     "paragraphs": [
       "Schools in Worcestershire split across 194 primaries and 44 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "Expect the tightest competition in and around Worcester and Redditch, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Selective schools are part of the mix in Worcestershire — for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
+      "Selective schools are part of the mix in Worcestershire - for those applying to grammar schools, a selective admissions test is required in addition to the standard admissions process."
     ]
   },
   "york": {
     "paragraphs": [
       "York coordinates admissions across 50 primary and 9 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The busiest areas for schools are York and Dunnington, which together account for the majority of pupil places in the authority.",
-      "Around 30% of schools in York have a religious character — Church of England, Catholic, or other faith — which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
+      "Around 30% of schools in York have a religious character - Church of England, Catholic, or other faith - which means faith criteria sit alongside catchment distance in those schools' oversubscription tiebreakers."
     ]
   },
   "blaenau-gwent": {
     "paragraphs": [
-      "Blaenau Gwent is a compact authority with 23 schools — 11 primary and 0 secondary — meaning most families have a limited number of realistic options within a reasonable distance.",
-      "School density is highest in Blaenau Gwent and Ebbw Vale — parents in other parts of Blaenau Gwent should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Blaenau Gwent are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Blaenau Gwent is a compact authority with 23 schools - 11 primary and 0 secondary - meaning most families have a limited number of realistic options within a reasonable distance.",
+      "School density is highest in Blaenau Gwent and Ebbw Vale - parents in other parts of Blaenau Gwent should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Blaenau Gwent are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "bridgend": {
     "paragraphs": [
-      "Bridgend has 51 schools — 36 primary and 1 secondary — spread across its towns and areas.",
-      "School density is highest in Bridgend and Porthcawl — parents in other parts of Bridgend should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Bridgend are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Bridgend has 51 schools - 36 primary and 1 secondary - spread across its towns and areas.",
+      "School density is highest in Bridgend and Porthcawl - parents in other parts of Bridgend should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Bridgend are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "caerphilly": {
     "paragraphs": [
-      "Caerphilly has 81 schools — 56 primary and 1 secondary — spread across a mix of towns and areas.",
+      "Caerphilly has 81 schools - 56 primary and 1 secondary - spread across a mix of towns and areas.",
       "Expect the tightest competition in and around Caerphilly and Blackwood, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Admissions to all schools in Caerphilly are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Caerphilly are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "cardiff": {
     "paragraphs": [
       "Schools in Cardiff split across 75 primaries and 15 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "The vast majority of schools in Cardiff are concentrated in Cardiff — distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
-      "Admissions to all schools in Cardiff are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "The vast majority of schools in Cardiff are concentrated in Cardiff - distance and catchment criteria apply as usual, but choice is limited outside the main settlement.",
+      "Admissions to all schools in Cardiff are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ],
-    "seoTitle": "Cardiff School Catchment Areas 2026 — Find 90 Schools",
-    "seoDescription": "Find Cardiff schools by postcode for 2026 admissions. 75 primary + 15 secondary catchments mapped — Ofsted ratings, distance offered & admissions tiebreakers. Check your address free."
+    "seoTitle": "Cardiff School Catchment Areas 2026 - Find 90 Schools",
+    "seoDescription": "Find Cardiff schools by postcode for 2026 admissions. 75 primary + 15 secondary catchments mapped - Ofsted ratings, distance offered & admissions tiebreakers. Check your address free."
   },
   "carmarthenshire": {
     "paragraphs": [
       "Carmarthenshire coordinates admissions across 11 primary and 1 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "Expect the tightest competition in and around Carmarthenshire and Sir Gaerfyrddin, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Admissions to all schools in Carmarthenshire are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Carmarthenshire are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "conwy": {
     "paragraphs": [
       "Conwy coordinates admissions across 6 primary and 2 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "School density is highest in Conwy and Colwyn Bay — parents in other parts of Conwy should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Conwy are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "School density is highest in Conwy and Colwyn Bay - parents in other parts of Conwy should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Conwy are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "denbighshire": {
     "paragraphs": [
       "Schools in Denbighshire split across 3 primaries and 4 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around Denbighshire, Sir Ddinbych and Denbigh, which together account for a meaningful share of the council's pupil places.",
-      "Admissions to all schools in Denbighshire are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Denbighshire are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "flintshire": {
     "paragraphs": [
       "Flintshire coordinates admissions across 8 primary and 8 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "School density is highest in Flintshire and Sir Y Fflint — parents in other parts of Flintshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Flintshire are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "School density is highest in Flintshire and Sir Y Fflint - parents in other parts of Flintshire should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Flintshire are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "merthyr-tydfil": {
     "paragraphs": [
-      "Merthyr Tydfil is a compact authority with 23 schools — 11 primary and 3 secondary — meaning most families have a limited number of realistic options within a reasonable distance.",
-      "School density is highest in Merthyr Tydfil and Aberfan — parents in other parts of Merthyr Tydfil should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Merthyr Tydfil are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Merthyr Tydfil is a compact authority with 23 schools - 11 primary and 3 secondary - meaning most families have a limited number of realistic options within a reasonable distance.",
+      "School density is highest in Merthyr Tydfil and Aberfan - parents in other parts of Merthyr Tydfil should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Merthyr Tydfil are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "monmouthshire": {
     "paragraphs": [
       "Monmouthshire coordinates admissions across 15 primary and 0 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Monmouthshire, Chepstow and Monmouth host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Admissions to all schools in Monmouthshire are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Monmouthshire, Chepstow and Monmouth host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Admissions to all schools in Monmouthshire are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "neath-port-talbot": {
     "paragraphs": [
       "Neath Port Talbot coordinates admissions across 36 primary and 0 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Neath, Port Talbot and Swansea, which together account for a meaningful share of the council's pupil places.",
-      "Admissions to all schools in Neath Port Talbot are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Neath Port Talbot are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "newport": {
     "paragraphs": [
       "Newport coordinates admissions across 23 primary and 4 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The busiest areas for schools are Newport and Casnewydd, which together account for the majority of pupil places in the authority.",
-      "Admissions to all schools in Newport are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Newport are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "pembrokeshire": {
     "paragraphs": [
       "Pembrokeshire coordinates admissions across 4 primary and 1 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Pembrokeshire, Haverfordwest and Sir Benfro host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Admissions to all schools in Pembrokeshire are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Pembrokeshire, Haverfordwest and Sir Benfro host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Admissions to all schools in Pembrokeshire are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "powys": {
     "paragraphs": [
       "Powys coordinates admissions across 4 primary and 7 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Powys, Salop and Brecon host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Admissions to all schools in Powys are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Powys, Salop and Brecon host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Admissions to all schools in Powys are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "rhondda-cynon-taf": {
     "paragraphs": [
       "Rhondda Cynon Taf coordinates admissions across 69 primary and 1 secondary schools, with oversubscription criteria applied consistently across the authority.",
       "The largest concentrations sit around Rhondda, Cynon, Taff, Pontypridd and Aberdare, which together account for a meaningful share of the council's pupil places.",
-      "Admissions to all schools in Rhondda Cynon Taf are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Rhondda Cynon Taf are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "swansea": {
     "paragraphs": [
-      "Swansea has 87 schools — 60 primary and 0 secondary — spread across a mix of towns and areas.",
-      "School density is highest in Swansea and Abertawe — parents in other parts of Swansea should check the exact distance-offered figure from the previous year before banking on proximity alone.",
-      "Admissions to all schools in Swansea are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Swansea has 87 schools - 60 primary and 0 secondary - spread across a mix of towns and areas.",
+      "School density is highest in Swansea and Abertawe - parents in other parts of Swansea should check the exact distance-offered figure from the previous year before banking on proximity alone.",
+      "Admissions to all schools in Swansea are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ],
-    "seoTitle": "Swansea School Catchment Map 2026 — Find Your Postcode",
-    "seoDescription": "Swansea catchment finder: check your postcode against every primary school catchment. 2026 boundary maps, distance offered, Ofsted ratings and admissions criteria — free."
+    "seoTitle": "Swansea School Catchment Map 2026 - Find Your Postcode",
+    "seoDescription": "Swansea catchment finder: check your postcode against every primary school catchment. 2026 boundary maps, distance offered, Ofsted ratings and admissions criteria - free."
   },
   "torfaen": {
     "paragraphs": [
-      "Torfaen is a compact authority with 25 schools — 14 primary and 1 secondary — meaning most families have a limited number of realistic options within a reasonable distance.",
+      "Torfaen is a compact authority with 25 schools - 14 primary and 1 secondary - meaning most families have a limited number of realistic options within a reasonable distance.",
       "Expect the tightest competition in and around Torfaen and Pontypool, where popular primaries are regularly oversubscribed and last-distance-offered figures can shrink to a few hundred metres.",
-      "Admissions to all schools in Torfaen are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Torfaen are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "vale-of-glamorgan": {
     "paragraphs": [
       "Schools in Vale of Glamorgan split across 32 primaries and 4 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around Vale of Glamorgan, Barry and Penarth, which together account for a meaningful share of the council's pupil places.",
-      "Admissions to all schools in Vale of Glamorgan are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Vale of Glamorgan are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "wrexham": {
     "paragraphs": [
       "Schools in Wrexham split across 23 primaries and 2 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
       "The largest concentrations sit around Wrexham, Wrecsam and Llangollen, which together account for a meaningful share of the council's pupil places.",
-      "Admissions to all schools in Wrexham are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Wrexham are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "ceredigion": {
     "paragraphs": [
       "Schools in Ceredigion split across 3 primaries and 1 secondaries, with catchment boundaries set afresh each admissions cycle by the council's school admissions team.",
-      "Ceredigion, Carmarthenshire and Aberystwyth host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Admissions to all schools in Ceredigion are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Ceredigion, Carmarthenshire and Aberystwyth host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Admissions to all schools in Ceredigion are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "gwynedd": {
     "paragraphs": [
       "Gwynedd coordinates admissions across 29 primary and 1 secondary schools, with oversubscription criteria applied consistently across the authority.",
-      "Gwynedd, Pwllheli and Bangor host the biggest clusters — useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
-      "Admissions to all schools in Gwynedd are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Gwynedd, Pwllheli and Bangor host the biggest clusters - useful to know when a preferred school is oversubscribed, because the next-nearest alternative is often in a neighbouring town rather than the same catchment.",
+      "Admissions to all schools in Gwynedd are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   },
   "isle-of-anglesey": {
     "paragraphs": [
-      "Isle of Anglesey has 48 schools — 20 primary and 2 secondary — spread across its towns and areas.",
+      "Isle of Anglesey has 48 schools - 20 primary and 2 secondary - spread across its towns and areas.",
       "The largest concentrations sit around Ynys Mon, Caergybi and Anglesey, which together account for a meaningful share of the council's pupil places.",
-      "Admissions to all schools in Isle of Anglesey are coordinated by the council — catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
+      "Admissions to all schools in Isle of Anglesey are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
   }
 }

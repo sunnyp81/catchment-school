@@ -19,7 +19,7 @@ const primaries = areaSchools.filter((s: any) => s.phase === 'Primary');
 const secondaries = areaSchools.filter((s: any) => s.phase === 'Secondary');
 const others = areaSchools.filter((s: any) => s.phase !== 'Primary' && s.phase !== 'Secondary');
 
-// Sibling areas — other towns in the same council, sorted by school count descending
+// Sibling areas - other towns in the same council, sorted by school count descending
 const siblingAreas = (towns as any[])
   .filter((t: any) => t.laSlug === town.laSlug && t.slug !== town.slug)
   .sort((a: any, b: any) => b.count - a.count)
@@ -30,12 +30,29 @@ const siblingAreas = (towns as any[])
 // generate ~150-250 unique words (below the 300-word threshold from the pSEO survival
 // checklist). Raising the gate from 5 to 10 noindexes 509 of 1,096 area pages (46.4%),
 // reducing the thin-page ratio from 64% to ~22% of indexed area pages.
-const isThin = areaSchools.length < 10;
+// Data-derived demand signals - computed at build time from schools.json, unique per area.
+// These turn the boilerplate "N schools" intro into entity-specific content (de-programmatic rebuild).
+const withFill = areaSchools.filter((s: any) => s.capacity && s.pupils);
+const oversubSchools = withFill.filter((s: any) => s.pupils >= s.capacity);
+const faithSchools = areaSchools.filter((s: any) => s.religion && s.religion !== 'Does not apply' && s.religion !== 'None');
+const academySchools = areaSchools.filter((s: any) => s.type?.toLowerCase().includes('academy'));
+const avgFill = withFill.length
+  ? Math.round(withFill.reduce((sum: number, s: any) => sum + s.pupils / s.capacity, 0) / withFill.length * 100)
+  : null;
+
+// A page is "thin" if it has few schools OR no computable demand data to differentiate it.
+const hasDemandData = oversubSchools.length > 0 || faithSchools.length > 0 || avgFill !== null;
+const isThin = areaSchools.length < 10 || (areaSchools.length < 15 && !hasDemandData);
 const robotsDirective = isThin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
 
+// Data-derived H2 for the primary-schools section - varies per entity via oversubscription count.
+const primaryH2 = oversubSchools.some((s: any) => s.phase === 'Primary')
+  ? `Primary schools in ${town.name}: ${oversubSchools.filter((s: any) => s.phase === 'Primary').length} oversubscribed`
+  : `Primary Schools in ${town.name}`;
+
 const areaOverride = (areaIntros as Record<string, { seoTitle?: string; seoDescription?: string; paragraphs?: string[] }>)[town.slug] ?? null;
-const title = areaOverride?.seoTitle ?? `${town.name} Catchment Area Schools 2026 — Map & List`;
-const description = areaOverride?.seoDescription ?? `All ${areaSchools.length} schools in the ${town.name} catchment area${town.la ? `, ${town.la}` : ''}. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' + ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''} — check if your address is in catchment, Ofsted ratings and admissions info.`;
+const title = areaOverride?.seoTitle ?? `${town.name} Catchment Area Schools 2026: Map & List`;
+const description = areaOverride?.seoDescription ?? `All ${areaSchools.length} schools in the ${town.name} catchment area${town.la ? `, ${town.la}` : ''}. ${primaries.length > 0 ? `${primaries.length} primary` : ''}${primaries.length > 0 && secondaries.length > 0 ? ' + ' : ''}${secondaries.length > 0 ? `${secondaries.length} secondary` : ''}. Check if your address is in catchment, Ofsted ratings and admissions info.`;
 const uniqueIntro = areaOverride?.paragraphs ?? null;
 
 // ItemList schema
@@ -75,7 +92,7 @@ const faqSchema = {
       "name": `What schools serve ${town.name}?`,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": `There ${areaSchools.length === 1 ? 'is' : 'are'} ${areaSchools.length} school${areaSchools.length !== 1 ? 's' : ''} in ${town.name}${town.la ? `, ${town.la}` : ''}${areaSchools.length > 0 ? ` — including ${topSchoolNames}${areaSchools.length > 5 ? ' and more' : ''}` : ''}. You can view each school's catchment area guidance and admissions policy on catchment.school.`
+        "text": `There ${areaSchools.length === 1 ? 'is' : 'are'} ${areaSchools.length} school${areaSchools.length !== 1 ? 's' : ''} in ${town.name}${town.la ? `, ${town.la}` : ''}${areaSchools.length > 0 ? `, including ${topSchoolNames}${areaSchools.length > 5 ? ' and more' : ''}` : ''}. You can view each school's catchment area guidance and admissions policy on catchment.school.`
       }
     },
     {
@@ -135,7 +152,7 @@ const faqSchema = {
     </div>
   </div>
 
-  <!-- Intro paragraph — unique per town using real counts -->
+  <!-- Intro paragraph - unique per town using real counts -->
   {uniqueIntro ? (
     <div class="max-w-2xl mb-8 space-y-3 text-gray-700">
       {uniqueIntro.map((p: string) => <p>{p}</p>)}
@@ -145,20 +162,46 @@ const faqSchema = {
       There {areaSchools.length === 1 ? 'is' : 'are'} <strong>{areaSchools.length} school{areaSchools.length !== 1 ? 's' : ''}</strong> in {town.name}
       {town.la ? `, ${town.la}` : ''}
       {primaries.length > 0 && secondaries.length > 0
-        ? ` — including ${primaries.length} primary school${primaries.length !== 1 ? 's' : ''} and ${secondaries.length} secondary school${secondaries.length !== 1 ? 's' : ''}.`
+        ? `, including ${primaries.length} primary school${primaries.length !== 1 ? 's' : ''} and ${secondaries.length} secondary school${secondaries.length !== 1 ? 's' : ''}.`
         : primaries.length > 0
-          ? `, all serving primary-age pupils (ages 4–11).`
+          ? `, all serving primary-age pupils (ages 4-11).`
           : secondaries.length > 0
-            ? `, all serving secondary-age pupils (ages 11–16+).`
+            ? `, all serving secondary-age pupils (ages 11-16+).`
             : '.'
       }
-      {' '}Catchment area boundaries are set by <a href={`/council/${town.laSlug}/`} class="text-indigo-700 hover:underline font-medium">{town.la}</a> and reviewed annually — click a school below to view its admissions guidance.
+      {' '}Catchment area boundaries are set by <a href={`/council/${town.laSlug}/`} class="text-indigo-700 hover:underline font-medium">{town.la}</a> and reviewed annually. Click a school below to view its admissions guidance.
     </p>
+  )}
+
+  {!isThin && hasDemandData && (
+    <section class="mb-10 max-w-2xl p-5 bg-indigo-50/50 border border-indigo-100 rounded-lg">
+      <h2 class="text-xl font-semibold mb-3">School demand in {town.name}</h2>
+      <div class="text-gray-700 space-y-3 text-sm">
+        {avgFill !== null && (
+          <p>
+            Across the {withFill.length} school{withFill.length !== 1 ? 's' : ''} in {town.name} with published capacity data, the average fill rate is <strong>{avgFill}%</strong>.
+            {oversubSchools.length > 0
+              ? ` ${oversubSchools.length} of them ${oversubSchools.length === 1 ? 'is' : 'are'} currently at or above their published admission number, and at those schools catchment distance is likely to decide places at the next intake.`
+              : ` None are currently over capacity, but catchment distance still applies in any year a school is oversubscribed.`}
+          </p>
+        )}
+        {faithSchools.length > 0 && (
+          <p>
+            {faithSchools.length} school{faithSchools.length !== 1 ? 's' : ''} in {town.name} {faithSchools.length !== 1 ? 'have' : 'has'} a religious character, so faith criteria sit alongside catchment distance in {faithSchools.length !== 1 ? 'their' : 'its'} admissions {faithSchools.length !== 1 ? 'policies' : 'policy'}.
+          </p>
+        )}
+        {academySchools.length > 0 && (
+          <p>
+            {academySchools.length} of the schools in {town.name} {academySchools.length !== 1 ? 'are academies that set their' : 'is an academy that sets its'} own admissions criteria independently of {town.la}, so check each school's policy directly rather than assuming the council default applies.
+          </p>
+        )}
+      </div>
+    </section>
   )}
 
   {primaries.length > 0 && (
     <section class="mb-10">
-      <h2 class="text-xl font-semibold mb-4">Primary Schools in {town.name} ({primaries.length})</h2>
+      <h2 class="text-xl font-semibold mb-4">{primaryH2} ({primaries.length})</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {primaries.map((s: any) => <SchoolCard {...s} />)}
       </div>
@@ -223,7 +266,7 @@ const faqSchema = {
     })();
   </script>
 
-  <!-- Sibling areas in same council — distributes authority between area pages -->
+  <!-- Sibling areas in same council - distributes authority between area pages -->
   {siblingAreas.length > 0 && (
     <nav class="mt-8 p-4 border border-indigo-100 bg-indigo-50/40 rounded-lg text-sm" aria-label="Other areas in this council">
       <p class="font-medium text-gray-700 mb-2">Other areas in <a href={`/council/${town.laSlug}/`} class="text-indigo-700 hover:underline">{town.la}</a></p>
@@ -249,7 +292,7 @@ const faqSchema = {
   <div class="mt-4 p-5 bg-amber-50 border border-amber-200 rounded-lg text-sm max-w-2xl">
     <p class="text-gray-700 mb-3">
       <strong>Catchment area boundaries</strong> for schools in {town.name} are set by <a href={`/council/${town.laSlug}/`} class="font-bold text-indigo-700 hover:underline">{town.la}</a> and updated
-      each year. The "last distance offered" — how far the furthest successful applicant lived — changes annually
+      each year. The "last distance offered", how far the furthest successful applicant lived, changes annually
       based on the number of applications received.
     </p>
     <div class="flex flex-wrap gap-4">
