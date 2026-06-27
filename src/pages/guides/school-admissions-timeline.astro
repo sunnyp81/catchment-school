@@ -65,6 +65,45 @@ const faqSchema = {
     }
   ]
 };
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Follow the School Admissions Timeline in England",
+  "description": "Step-by-step guide to navigating the school admissions calendar for primary and secondary schools in England.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Confirm your child's year group and school phase",
+      "text": "Determine whether your child is applying for primary (Reception, Year R) or secondary (Year 7) entry. Children start Reception in the September after their 4th birthday; Year 7 entry is the September after their 11th birthday."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Register on your local authority admissions portal in September",
+      "text": "Applications open in September of the academic year before your child's start date. Register on your home local authority's portal — even if the preferred school is in a different council's area."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Submit your application before the national deadline",
+      "text": "The deadline for primary school (Reception) applications is 15 January. The deadline for secondary school (Year 7) applications is 31 October. Late applications are processed after all on-time applicants, so always apply on time."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Receive your offer on National Offer Day and respond promptly",
+      "text": "Secondary National Offer Day is 1 March; primary National Offer Day is 16 April. Accept or decline by the response deadline (typically 15 March for secondary, 30 April for primary). Failing to respond may result in your offer being withdrawn."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Appeal or join a waiting list if you did not receive a preferred school",
+      "text": "If you were refused your preferred school, submit an appeal within 20 school days of the refusal letter and simultaneously request to join the waiting list. These actions are independent — doing both improves your options."
+    }
+  ]
+};
 ---
 <Base
   title="School Admissions Timeline England 2026–2027 | catchment.school"
@@ -73,6 +112,7 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
   </Fragment>
 
   <nav class="text-sm text-gray-500 mb-6 flex gap-2">
