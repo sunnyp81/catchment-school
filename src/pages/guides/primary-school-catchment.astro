@@ -22,6 +22,45 @@ const faqSchema = {
     }
   ]
 };
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Apply for a Primary School Place in England",
+  "description": "Step-by-step guide to applying for a Reception (Year R) primary school place in England.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Register on your local authority's admissions portal",
+      "text": "Applications are made through your home local authority — not the school directly. Register on the council's admissions portal, which typically opens in September of the year before your child is due to start school."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Research schools and check catchment distances",
+      "text": "Review the admissions policy and last-distance-offered figure for each school you are considering. Compare your home address distance with the previous year's last-admitted distance to assess your chances."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "List up to three preferences in genuine order",
+      "text": "Enter your preferences in honest order of preference — your most preferred school first. Listing a school second does not disadvantage you at that school; the system assesses each preference independently."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Submit your application by 15 January",
+      "text": "The national closing date for primary school applications is 15 January. Late applications are processed only after all on-time applicants, significantly reducing your chances of a preferred school."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Accept or decline the offer by 30 April",
+      "text": "Offers are made on National Offer Day (16 April). You typically have until 30 April to accept or decline. If you did not receive a preferred school, join the waiting list immediately and consider whether to appeal."
+    }
+  ]
+};
 ---
 <Base
   title="Primary School Catchment Areas 2026 — How They Work"
@@ -29,6 +68,7 @@ const faqSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
   </Fragment>
 
   <nav class="text-sm text-gray-500 mb-6 flex gap-2">
