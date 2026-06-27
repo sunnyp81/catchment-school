@@ -100,6 +100,9 @@ const introFacts = [
 
 const phaseLower = s.phase.toLowerCase();
 const typeDesc = s.type.toLowerCase().replace('school', '').trim();
+// "a/an" agreement for the intro: typeDesc may start with a vowel (academy, infant), else phaseLower.
+const introNoun = (typeDesc || phaseLower);
+const introArticle = /^[aeiou]/.test(introNoun) ? 'an' : 'a';
 
 // Dedup town and council names when they match (e.g. unitary authorities like Derby, Manchester,
 // Liverpool, Newcastle, Leeds, Bristol, Sheffield, Coventry, Nottingham, Leicester, Plymouth,
@@ -290,7 +293,7 @@ const breadcrumbSchema = {
       <AuthorByline type="school" />
 
       <p class="text-gray-600 mb-6">
-        {s.name} is a {typeDesc ? `${typeDesc} ` : ''}{phaseLower} school in {locationLine}
+        {s.name} is {introArticle} {typeDesc ? `${typeDesc} ` : ''}{phaseLower} school in {locationLine}
         {introFacts ? `, ${introFacts}` : ''}.
         {isOversubscribed
           ? ` The school is currently at or above capacity, making catchment area proximity important for admissions.`
