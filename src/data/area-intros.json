@@ -760,7 +760,7 @@
     "seoDescription": "Gwynedd catchment finder: 89 schools across North Wales mapped to your postcode. Welsh-medium and English-medium admissions criteria, Ofsted/Estyn ratings for 2026.",
     "paragraphs": [
       "Gwynedd has 89 schools across a large, predominantly rural county in north-west Wales, administered by Gwynedd Council. As a stronghold of the Welsh language, the vast majority of Gwynedd's schools are Welsh-medium - meaning lessons are conducted in Welsh, with English taught as a second language. Families relocating to the county from England or non-Welsh-speaking areas should be aware that their nearest school may well be Welsh-medium, and that English-medium provision in some parts of the county is limited.",
-      "School catchment areas in Gwynedd tend to be geographically large, reflecting low population density across Snowdonia and the Llŷn Peninsula. Bangor and Caernarfon are the largest urban centres with the greatest choice of schools. Gwynedd Council's admissions authority is Cyngor Gwynedd, and schools in the county are inspected by Estyn (the Wales education inspectorate) rather than Ofsted. Families should consult both Cyngor Gwynedd's admissions policies and Estyn inspection reports when choosing schools."
+      "School catchment areas in Gwynedd tend to be geographically large, reflecting low population density across Snowdonia and the Ll\u0177n Peninsula. Bangor and Caernarfon are the largest urban centres with the greatest choice of schools. Gwynedd Council's admissions authority is Cyngor Gwynedd, and schools in the county are inspected by Estyn (the Wales education inspectorate) rather than Ofsted. Families should consult both Cyngor Gwynedd's admissions policies and Estyn inspection reports when choosing schools."
     ]
   },
   "swansea": {
@@ -1455,10 +1455,10 @@
   },
   "keighley": {
     "seoTitle": "Schools in Keighley Catchment Area 2026 - Map & Admissions Guide",
-    "seoDescription": "Keighley catchment area: 40 schools across Bradford's Aire Valley town and Brontë Country moorland villages. Admissions criteria, catchment maps and 2026 guide.",
+    "seoDescription": "Keighley catchment area: 40 schools across Bradford's Aire Valley town and Bront\u00eb Country moorland villages. Admissions criteria, catchment maps and 2026 guide.",
     "paragraphs": [
       "Keighley sits in the Aire Valley in the Bradford local authority district, and its 40 schools span a varied geography - the town centre and Ingrow to the south, Silsden and Steeton to the north, and moorland villages such as Haworth, Oxenhope and Stanbury to the west. Bradford Council coordinates admissions for maintained schools and publishes catchment boundary maps annually.",
-      "Keighley and the surrounding Worth Valley are strongly associated with the Brontë sisters, drawing families to the village primaries of Haworth and Stanbury. These small schools are popular but have limited capacity; catchment boundaries are tightly drawn and last-offered distances can be very short.",
+      "Keighley and the surrounding Worth Valley are strongly associated with the Bront\u00eb sisters, drawing families to the village primaries of Haworth and Stanbury. These small schools are popular but have limited capacity; catchment boundaries are tightly drawn and last-offered distances can be very short.",
       "Secondary schools in Keighley include Dixons Kings Academy, Holy Family Catholic School and Greenhead College (sixth form only). Bradford has a legacy of faith-school provision across both primary and secondary phases; families should check each school's admissions criteria carefully, as CofE and Catholic schools apply faith criteria ahead of distance."
     ]
   },
@@ -2853,6 +2853,166 @@
     "paragraphs": [
       "Thatcham is a large town in West Berkshire, adjacent to Newbury, with 19 state schools - 13 primary and 1 secondary - serving the town and surrounding villages in the Kennet valley. West Berkshire Council coordinates admissions for community schools, using home-to-school distance as the main tiebreaker when schools are oversubscribed. Thatcham has seen significant housing growth over recent decades, and primary schools in newer residential areas have been oversubscribed in peak year groups.",
       "The town is served by Kennet School as its main state secondary, which draws pupils from both Thatcham and outlying villages across West Berkshire. Families considering secondary schools should also note that Reading and Newbury are within commuting distance, broadening the range of options available. West Berkshire Council publishes its co-ordinated admissions timetable, catchment boundary maps and last-distance-offered figures each autumn for the following September intake."
+    ]
+  },
+  "royston": {
+    "seoTitle": "Royston School Catchment Areas 2026 - 15 Primaries & 2 Secondaries",
+    "seoDescription": "Royston and surrounding villages: 19 schools across Cambridgeshire, including Bassingbourn Village College and Melbourn Village College. Catchment maps, Ofsted ratings and 2026 admissions criteria.",
+    "paragraphs": [
+      "Royston is a market town on the Hertfordshire-Cambridgeshire border served by 19 schools, of which 15 are primaries and 2 are secondaries: Bassingbourn Village College and Melbourn Village College. Admissions are coordinated by Cambridgeshire County Council, with catchment boundaries updated annually each September.",
+      "Demand across Royston's schools is notable: 4 of the 19 schools are currently at or above their published admission number. Six schools have a religious character, spanning Church of England voluntary aided and voluntary controlled designations - these schools apply faith oversubscription criteria before distance. Six schools hold a Good or Outstanding Ofsted rating, with catchment distances at those schools tending to tighten as applications concentrate there."
+    ]
+  },
+  "hove": {
+    "seoTitle": "Hove School Catchment Areas 2026 - Primary & Secondary Schools Map",
+    "seoDescription": "Hove, Brighton and Hove: 19 schools including Blatchington Mill, Hove Park and Cardinal Newman Catholic. Catchment boundaries, Ofsted ratings and 2026 admissions info by postcode.",
+    "paragraphs": [
+      "Hove lies within the Brighton and Hove unitary authority and is served by 19 schools: 9 primaries and 4 secondaries. Secondary options include Blatchington Mill School, Hove Park School and Sixth Form Centre, and Cardinal Newman Catholic School. Admissions are co-ordinated centrally by Brighton and Hove City Council, with both secondary and primary offers made on national offer days.",
+      "Seven of Hove's schools have a religious character, meaning faith criteria sit alongside proximity for oversubscription decisions. One school currently exceeds its published admission number. When places are tight at the most popular primaries - particularly those in Hove's west end - the last-distance offered can fall well under a mile, so checking your postcode against each school's catchment boundary before applying is strongly advised."
+    ]
+  },
+  "driffield": {
+    "seoTitle": "Driffield School Catchment Areas 2026 - East Riding Schools",
+    "seoDescription": "Driffield, East Riding of Yorkshire: 19 schools including Driffield School and Sixth Form. Catchment boundaries, Ofsted ratings and 2026 admissions criteria for all local primaries.",
+    "paragraphs": [
+      "Driffield is East Riding of Yorkshire's largest market town and its schools cluster is one of the most rural in the county. The 19 schools in this area include 17 primaries spread across surrounding villages, from Brandesburton and Hutton Cranswick to Nafferton and Middleton-on-the-Wolds, with Driffield School and Sixth Form serving secondary-age pupils. East Riding of Yorkshire Council co-ordinates admissions and publishes catchment boundary maps each September.",
+      "Nine of Driffield's schools have a religious character - primarily Church of England - reflecting the area's historic village church links. Nine schools currently hold a Good or Outstanding Ofsted rating. Two primaries are at or above their published admission number, so families in outlying villages should confirm their address falls within catchment before the November deadline for secondary applications."
+    ]
+  },
+  "darwen": {
+    "seoTitle": "Darwen School Catchment Areas 2026 - Blackburn with Darwen Schools",
+    "seoDescription": "Darwen, Blackburn with Darwen: 19 schools including Darwen Vale High School and Darwen Aldridge Community Academy. Catchment maps, Ofsted ratings and 2026 admissions criteria.",
+    "paragraphs": [
+      "Darwen is a mill town on the western edge of the Pennines, falling under Blackburn with Darwen Borough Council for school admissions. The area's 19 schools include 14 primaries and 3 secondary schools: Darwen Aldridge Community Academy, Darwen Aldridge Enterprise Studio, and Darwen Vale High School. Catchment boundaries are published annually by the local authority and can shift year to year based on application pressure.",
+      "Ten of Darwen's schools carry a religious designation - the highest proportion of faith schools among the town's cohort - spanning Catholic and Church of England foundations. Five schools currently hold a Good or Outstanding Ofsted rating. One primary is at or above its admission number, but secondary competition across the three Darwen schools means checking your home address against each school's defined catchment area before making preferences is essential."
+    ]
+  },
+  "oakham": {
+    "seoTitle": "Oakham School Catchment Areas 2026 - Rutland Primary & Secondary",
+    "seoDescription": "Oakham, Rutland: 19 schools including Catmose College and Brooke Hill Academy. England's smallest county - catchment boundaries, Ofsted ratings and 2026 admissions criteria.",
+    "paragraphs": [
+      "Oakham is the county town of Rutland, England's smallest county, and is served by 19 schools: 13 primaries and 1 secondary, Catmose College. Admissions across Rutland are co-ordinated by Rutland County Council, which publishes catchment maps and oversubscription criteria each September for the following academic year.",
+      "Nine of Oakham's schools have a religious character - the majority Church of England - reflecting Rutland's rural parish network. Three primaries are currently at or above their published admission number, and because the county is small and Catmose College is the sole secondary, nearly all pupils in the area apply to the same school. Three schools hold a Good or Outstanding Ofsted rating. For primary places, families should verify their address is within the defined catchment and submit preferences by mid-January."
+    ]
+  },
+  "dereham": {
+    "seoTitle": "Dereham School Catchment Areas 2026 - Norfolk Primary & Secondary",
+    "seoDescription": "Dereham, Norfolk: 19 schools including Northgate High School and Dereham Neatherd High School. Catchment maps, Ofsted ratings and 2026 admissions for all local primaries.",
+    "paragraphs": [
+      "Dereham is a mid-Norfolk market town served by 19 schools: 16 primaries across the town and surrounding villages, plus 2 secondaries - Northgate High School and Dereham Neatherd High School. Admissions are co-ordinated by Norfolk County Council, with secondary catchment boundaries defined to map broadly onto the two schools' intake areas.",
+      "Seven schools carry a religious character, including several Church of England voluntary controlled primaries in the villages around Dereham. Seven schools currently hold a Good or Outstanding Ofsted rating. Three primaries are at or above their admission number, making address a decisive factor when places run short. Families should check their postcode against the relevant school's catchment boundary and submit Norfolk's co-ordinated application by mid-January for September entry."
+    ]
+  },
+  "whitby": {
+    "seoTitle": "Whitby School Catchment Areas 2026 - North Yorkshire Schools",
+    "seoDescription": "Whitby, North Yorkshire: 19 schools including Whitby School. Coastal and moorland catchment areas, Ofsted ratings and 2026 admissions criteria across the Whitby area.",
+    "paragraphs": [
+      "Whitby is a coastal town on the North Yorkshire Moors, served by 19 schools: 16 primaries spread across the town and surrounding moorland villages such as Goathland, Danby and Sleights, with Whitby School as the sole secondary for the area. North Yorkshire County Council co-ordinates admissions and publishes catchment boundaries annually.",
+      "Eight of the schools in the Whitby area carry a religious character - predominantly Church of England village schools with voluntary aided or voluntary controlled status - which means faith criteria apply ahead of proximity at those schools. Four schools hold a Good or Outstanding Ofsted rating. One primary is currently at or above its admission number. Because this is a dispersed, rural catchment with limited secondary choice, families should confirm their address falls within Whitby School's defined area well before the October secondary application deadline."
+    ]
+  },
+  "didcot": {
+    "seoTitle": "Didcot School Catchment Areas 2026 - Oxfordshire Primary & Secondary",
+    "seoDescription": "Didcot, Oxfordshire: 19 schools including Didcot Girls' School, St Birinus and Aureus. High demand - 8 schools oversubscribed. Catchment maps and 2026 admissions criteria.",
+    "paragraphs": [
+      "Didcot is one of Oxfordshire's fastest-growing towns and its schools reflect that growth pressure. The area is served by 19 schools - 14 primaries and 4 secondaries including Didcot Girls' School, St Birinus School, and Aureus School - co-ordinated by Oxfordshire County Council. Catchment boundaries are reviewed each year as new housing developments shift local demand.",
+      "Didcot has the most competitive school admissions profile in this area: 8 of its 19 schools are currently at or above their published admission number, making address one of the most decisive factors in securing a place. Six schools hold a Good or Outstanding Ofsted rating. Four schools have a religious character. Families moving into or within Didcot should use the catchment.school postcode tool to check last-offered distances at each school before submitting their Oxfordshire co-ordinated application."
+    ]
+  },
+  "barking": {
+    "seoTitle": "Barking School Catchment Areas 2026 - East London Schools Map",
+    "seoDescription": "Barking, Barking and Dagenham: 18 schools including Barking Abbey and Riverside School. East London catchment maps, Ofsted ratings and 2026 admissions criteria by postcode.",
+    "paragraphs": [
+      "Barking sits within the London Borough of Barking and Dagenham and is served by 18 schools: 12 primaries and 3 secondaries including Barking Abbey School, Riverside School, and Greatfields School. The London Borough of Barking and Dagenham co-ordinates admissions and participates in the pan-London secondary process, with preferences due by the October 31 deadline.",
+      "Two of Barking's 18 schools are currently at or above their published admission number, and 5 hold a Good or Outstanding Ofsted rating. Three schools carry a religious character. Barking's secondaries draw from a wide catchment across the borough, and with the pan-London system, families can also consider schools in neighbouring boroughs. Always check each academy's own admissions policy, as academies set criteria independently of the borough."
+    ]
+  },
+  "south-croydon": {
+    "seoTitle": "South Croydon School Catchment Areas 2026 - South London Schools",
+    "seoDescription": "South Croydon and Purley, Croydon: 18 schools including Harris Academy Purley and Coombe Wood. Catchment maps, Ofsted ratings and 2026 London admissions criteria.",
+    "paragraphs": [
+      "South Croydon and the Purley area sit within the London Borough of Croydon and are served by 18 schools: 9 primaries and 3 secondaries including Harris Academy Purley, The Quest Academy, and Coombe Wood School. The London Borough of Croydon co-ordinates admissions as part of the pan-London process, with secondary preferences due by 31 October each year.",
+      "Six of South Croydon's schools hold a Good or Outstanding Ofsted rating - the highest concentration of well-rated schools in the Croydon cluster - which drives strong demand. Three primaries are currently at or above their published admission number, with one school carrying a religious character. Address is particularly significant at high-demand primaries in the Purley Oaks and Selsdon neighbourhoods, where last-offered distances can fall inside 0.6 miles in competitive years."
+    ]
+  },
+  "feltham": {
+    "seoTitle": "Feltham School Catchment Areas 2026 - West London Hounslow Schools",
+    "seoDescription": "Feltham, Hounslow: 18 schools including Rivers Academy West London and Springwest Academy. Catchment maps, Ofsted ratings and 2026 admissions criteria by postcode.",
+    "paragraphs": [
+      "Feltham lies in the London Borough of Hounslow and is served by 18 schools: 10 primaries and 3 secondaries - Rivers Academy West London, Springwest Academy, and Logic Studio School. Hounslow co-ordinates admissions as part of the pan-London process, with secondary preferences due by 31 October.",
+      "Feltham has a notably high oversubscription rate: 5 of its 18 schools are currently at or above their published admission number, making address a critical factor for primary admissions. Seven schools hold a Good or Outstanding Ofsted rating. One school carries a religious character. Families in Feltham should verify their address falls within the defined catchment of their preferred school using the postcode tool before making pan-London preferences."
+    ]
+  },
+  "bilston": {
+    "seoTitle": "Bilston School Catchment Areas 2026 - West Midlands Dudley Schools",
+    "seoDescription": "Bilston, Dudley (West Midlands): 18 schools including Moseley Park and Ormiston SWB Academy. High demand - 10 schools oversubscribed. Catchment maps and 2026 admissions.",
+    "paragraphs": [
+      "Bilston is a large urban area in the Black Country, falling under Dudley Metropolitan Borough Council for school admissions. The area is served by 18 schools: 13 primaries and 2 secondaries - Moseley Park and Ormiston SWB Academy. Both secondary schools are academies that set their own admissions criteria independently of Dudley Council.",
+      "Bilston has the highest oversubscription rate in this cluster: 10 of its 18 schools are currently at or above their published admission number. Seven schools hold a Good or Outstanding Ofsted rating, and 4 carry a religious character. At Bilston's most popular schools, competition for places means that proximity to the school gate is frequently the deciding factor - families should confirm their address against each school's most recent admissions policy and use the catchment.school postcode tool to check last-offered distances."
+    ]
+  },
+  "prescot": {
+    "seoTitle": "Prescot School Catchment Areas 2026 - Knowsley Merseyside Schools",
+    "seoDescription": "Prescot and Rainhill, Knowsley: 18 schools including Rainhill High School and Saint Edmund Arrowsmith Catholic Academy. Catchment maps and 2026 admissions criteria.",
+    "paragraphs": [
+      "Prescot and the surrounding Knowsley area are served by 18 schools: 14 primaries and 2 secondaries - Rainhill High School and Saint Edmund Arrowsmith Catholic Academy. Knowsley Metropolitan Borough Council co-ordinates admissions across the borough, with secondary preferences due by the October national deadline.",
+      "Eight of Prescot's 18 schools carry a religious character - the majority Catholic or Church of England - meaning faith criteria sit ahead of proximity in oversubscription decisions at those schools. Five schools are currently at or above their published admission number. Seven schools hold a Good or Outstanding Ofsted rating. Families applying to Saint Edmund Arrowsmith will need to complete a Supplementary Information Form alongside the borough's co-ordinated application."
+    ]
+  },
+  "wallasey": {
+    "seoTitle": "Wallasey School Catchment Areas 2026 - Wirral Merseyside Schools",
+    "seoDescription": "Wallasey and New Brighton, Wirral: 18 schools including Weatherhead High School and The Oldershaw School. Catchment maps, Ofsted ratings and 2026 admissions criteria.",
+    "paragraphs": [
+      "Wallasey and New Brighton sit on the northern tip of the Wirral Peninsula, within Wirral Metropolitan Borough Council's admissions remit. The area is served by 18 schools: 11 primaries and 4 secondaries including The Mosslands School, The Oldershaw School, and Weatherhead High School. Wirral co-ordinates secondary admissions with offers made on 1 March.",
+      "Eight of Wallasey's schools hold a Good or Outstanding Ofsted rating, reflecting the strong local school performance across the area. Four schools carry a religious character, including faith primaries in New Brighton. Two schools are currently at or above their admission number. Wallasey's secondary schools each serve defined parts of the peninsula, so checking which school's catchment your home address falls within before the October application deadline is particularly important."
+    ]
+  },
+  "leigh": {
+    "seoTitle": "Leigh School Catchment Areas 2026 - Wigan Greater Manchester Schools",
+    "seoDescription": "Leigh, Wigan: 18 schools including Bedford High School and The Westleigh School. High faith school presence - 12 of 18 schools. Catchment maps and 2026 admissions criteria.",
+    "paragraphs": [
+      "Leigh is a large town in the Metropolitan Borough of Wigan, served by 18 schools: 15 primaries and 2 secondaries - Bedford High School and The Westleigh School. Wigan Council co-ordinates admissions across the borough, and Leigh's secondary schools draw from clearly defined catchment zones within the town.",
+      "Leigh has one of the highest concentrations of faith schools in Greater Manchester: 12 of its 18 schools carry a religious character, including Catholic and Church of England foundations. Eight schools are currently at or above their published admission number. Seven schools hold a Good or Outstanding Ofsted rating. At faith schools, a Supplementary Information Form is typically required alongside the co-ordinated application, and faith criteria will take precedence over distance if the school is oversubscribed."
+    ]
+  },
+  "buckingham": {
+    "seoTitle": "Buckingham School Catchment Areas 2026 - Buckinghamshire Town Schools",
+    "seoDescription": "Buckingham, Buckinghamshire: 18 schools including Royal Latin School and Buckingham School. Selective and non-selective catchments. Catchment maps and 2026 admissions criteria.",
+    "paragraphs": [
+      "Buckingham is the historic county town of Buckinghamshire and sits within a mixed selective and non-selective admissions landscape. The area is served by 18 schools: 13 primaries and 2 secondaries - Buckingham School (non-selective) and Royal Latin School. Buckinghamshire County Council co-ordinates admissions and administers the 11+ selection process that determines grammar school eligibility across the county.",
+      "Six of Buckingham's schools carry a religious character, and 8 hold a Good or Outstanding Ofsted rating. Four schools are currently at or above their published admission number. Families in the Buckingham area should note that Buckinghamshire's selective system means secondary preferences need to be submitted by mid-October, and pupils hoping to apply to Royal Latin School must sit the county's transfer test in September of Year 6."
+    ]
+  },
+  "carnforth": {
+    "seoTitle": "Carnforth School Catchment Areas 2026 - Westmorland and Furness Schools",
+    "seoDescription": "Carnforth, Westmorland and Furness: 18 schools including Carnforth High School. Rural catchment areas across north Lancashire border. Ofsted ratings and 2026 admissions criteria.",
+    "paragraphs": [
+      "Carnforth is a small market town on the edge of the Lake District, administratively within Westmorland and Furness Council following local government reorganisation in 2023. The area is served by 18 schools: 15 primaries spread across surrounding villages including Holme, Nether Kellet, and Bolton-le-Sands, plus a single secondary, Carnforth High School. Council admissions are co-ordinated with preferences due by the October secondary deadline.",
+      "Eleven of Carnforth's schools carry a religious character - the majority Church of England village primaries - making this one of the more faith-school-dense rural clusters in the north-west. Eight schools hold a Good or Outstanding Ofsted rating. Four schools are at or above their published admission number. Because Carnforth High School is the sole secondary for a wide rural area, virtually all local pupils apply to the same school; primary places in the village schools can be more constrained by distance."
+    ]
+  },
+  "blandford-forum": {
+    "seoTitle": "Blandford Forum School Catchment Areas 2026 - Dorset Schools",
+    "seoDescription": "Blandford Forum, Dorset: 18 schools including The Blandford School. Rural Dorset catchment areas with 10 faith schools. Ofsted ratings and 2026 admissions criteria.",
+    "paragraphs": [
+      "Blandford Forum is a Georgian market town in the heart of Dorset, served by 18 schools: 10 primaries across the town and surrounding villages, and a single secondary, The Blandford School. Admissions are co-ordinated by Dorset Council, which publishes catchment boundary maps each September for the following academic year.",
+      "Ten of Blandford Forum's 18 schools carry a religious character - the highest proportion of any similarly-sized cluster in the county - with several Church of England village primaries including Spetisbury, Archbishop Wake, and Blandford St Mary. Four schools hold a Good or Outstanding Ofsted rating. Just one school is currently at or above its admission number. The largely rural nature of the area means that some village primaries have small annual intakes, and places at the most popular Blandford town primaries can tighten when new housing development brings additional demand."
+    ]
+  },
+  "tewkesbury": {
+    "seoTitle": "Tewkesbury School Catchment Areas 2026 - Gloucestershire Schools",
+    "seoDescription": "Tewkesbury, Gloucestershire: 18 schools including Tewkesbury Academy. Medieval market town catchment areas, Ofsted ratings and 2026 admissions criteria for all local schools.",
+    "paragraphs": [
+      "Tewkesbury is a medieval market town at the confluence of the Rivers Severn and Avon, served by 18 schools: 13 primaries including Ashchurch, Twyning, and Tewkesbury Church of England Primary, plus a single secondary, Tewkesbury Academy. Admissions are co-ordinated by Gloucestershire County Council with catchment boundaries updated annually.",
+      "Five of Tewkesbury's schools carry a religious character, including several Church of England primaries with long-established links to local parishes. Four schools hold a Good or Outstanding Ofsted rating. One school is currently at or above its admission number. Tewkesbury's surrounding villages - particularly along the M5 corridor - have seen residential growth in recent years, which can increase competition for primary places in those locations; families should confirm their address is within catchment before submitting the Gloucestershire co-ordinated application."
+    ]
+  },
+  "havant": {
+    "seoTitle": "Havant School Catchment Areas 2026 - Hampshire Schools Map",
+    "seoDescription": "Havant, Hampshire: 18 schools including Park Community School, Warblington School and Havant Academy. High demand - 7 oversubscribed. Catchment maps and 2026 admissions.",
+    "paragraphs": [
+      "Havant is a coastal town in south-east Hampshire, served by 18 schools: 14 primaries and 3 secondaries - Park Community School, Warblington School, and Havant Academy. Hampshire County Council co-ordinates admissions, with secondary preferences due by the October national deadline and primary offers made on 16 April.",
+      "Havant has significant oversubscription pressure: 7 of its 18 schools are currently at or above their published admission number, making it one of the more competitive admissions areas in Hampshire. Four schools hold a Good or Outstanding Ofsted rating. Two schools carry a religious character. With three distinct secondary schools serving different parts of Havant and Waterlooville, families should use the catchment.school postcode tool to confirm which school's zone their home address falls in before submitting preferences."
     ]
   }
 }
