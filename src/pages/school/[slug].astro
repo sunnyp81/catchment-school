@@ -158,6 +158,11 @@ const catchmentPara2 = isGrammar
   ? `For more information on how ${s.la} assesses EHCP placements and which schools are named, contact the council's SEND team directly. The council must publish its Local Offer explaining available provision.`
   : `The official admissions policy, including the catchment boundary map, is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application, as boundaries can change year to year.`;
 
+// Extractable definitional answer (AEO/GEO): self-contained, data-derived, cite-ready.
+const catchmentAnswer = isSpecial
+  ? `${s.name} is a ${phaseLower} school in ${locationLine}, and it does not use a standard catchment area. ${s.la} allocates places through each child's Education, Health and Care Plan (EHCP) rather than home-to-school distance, so placement depends on assessed need rather than a geographic boundary.`
+  : `The catchment area for ${s.name} is the geographic zone ${s.la} uses to prioritise admissions when this ${phaseLower} school receives more applications than it has places. Children living inside the boundary are ranked higher under the oversubscription criteria, ${isGrammar ? `though entry first depends on passing the selective admissions test` : isFaith ? `after looked-after children and, in most years, faith-based criteria` : `after looked-after children and siblings`}. ${s.la} publishes the exact boundary and the last distance offered before each admissions cycle, and the boundary can change year to year.`;
+
 const title = `${s.name} Catchment Area 2026: Map & Boundary`;
 const description = `${s.name} catchment area boundary in ${locationLine}. Check if your address is in catchment${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, admissions policy and nearby ${phaseLower} schools.`;
 
@@ -182,7 +187,7 @@ const schoolSchema = {
   ...(s.pupils ? { "numberOfStudents": s.pupils } : {}),
   "sameAs": [
     `https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${s.urn}`,
-    `https://reports.ofsted.gov.uk/provider/21/${s.urn}`
+    `https://reports.ofsted.gov.uk/search?q=${s.urn}`
   ],
   // Ofsted grade mapped to a 4-point scale: 1=Inadequate → 4=Outstanding
   ...(['1','2','3','4'].includes(String(s.ofstedRating)) ? {
@@ -201,6 +206,14 @@ const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `What is the catchment area for ${s.name}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": catchmentAnswer
+      }
+    },
     {
       "@type": "Question",
       "name": `Is ${s.name} oversubscribed?`,
@@ -347,6 +360,10 @@ const breadcrumbSchema = {
 
       <section id="catchment-area" class="mb-8">
         <h2 class="text-xl font-semibold mb-3">{s.name} Catchment Area Information</h2>
+        <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 mb-4 shadow-sm">
+          <p class="text-sm font-semibold text-gray-500 mb-1">What is the catchment area for {s.name}?</p>
+          <p class="text-base text-gray-800 leading-relaxed">{catchmentAnswer}</p>
+        </div>
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-5">
           <p class="text-sm text-gray-700 mb-3" set:html={catchmentPara1} />
           {isOversubscribed && (
@@ -496,6 +513,13 @@ const breadcrumbSchema = {
       <section class="mt-8" id="faq">
         <h2 class="text-xl font-semibold mb-4">Frequently Asked Questions: {s.name}</h2>
         <div class="space-y-4">
+          <details class="border rounded-lg p-4 group" open>
+            <summary class="font-medium cursor-pointer list-none flex justify-between items-center">
+              What is the catchment area for {s.name}?
+              <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
+            </summary>
+            <p class="mt-3 text-sm text-gray-700">{catchmentAnswer}</p>
+          </details>
           <details class="border rounded-lg p-4 group">
             <summary class="font-medium cursor-pointer list-none flex justify-between items-center">
               Is {s.name} oversubscribed?
@@ -542,7 +566,7 @@ const breadcrumbSchema = {
                 <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p class="mt-3 text-sm text-gray-700">
-                {s.name} was rated <strong>{ofstedLabel}</strong> by Ofsted{ofstedYear ? ` in ${ofstedYear}` : ''}. Full inspection reports are available at <a href={`https://reports.ofsted.gov.uk/provider/21/${s.urn}`} target="_blank" rel="nofollow noopener" class="text-indigo-700 hover:underline">reports.ofsted.gov.uk</a>.
+                {s.name} was rated <strong>{ofstedLabel}</strong> by Ofsted{ofstedYear ? ` in ${ofstedYear}` : ''}. Full inspection reports are available at <a href={`https://reports.ofsted.gov.uk/search?q=${s.urn}`} target="_blank" rel="nofollow noopener" class="text-indigo-700 hover:underline">reports.ofsted.gov.uk</a>.
               </p>
             </details>
           )}
@@ -579,7 +603,7 @@ const breadcrumbSchema = {
           <h3 class="font-semibold mb-1">Ofsted Rating</h3>
           <p class="text-lg font-bold mb-1">{ofstedLabel}</p>
           {ofstedYear && <p class="text-xs opacity-70 mb-3">Last inspected {ofstedYear}</p>}
-          <a href={`https://reports.ofsted.gov.uk/provider/21/${s.urn}`}
+          <a href={`https://reports.ofsted.gov.uk/search?q=${s.urn}`}
             target="_blank" rel="nofollow noopener"
             class="block text-sm font-medium hover:underline">
             Read full Ofsted report →
@@ -598,7 +622,7 @@ const breadcrumbSchema = {
           class="block text-sm text-indigo-700 hover:underline mb-2">
           DfE Get Information About Schools →
         </a>
-        <a href={`https://reports.ofsted.gov.uk/provider/21/${s.urn}`}
+        <a href={`https://reports.ofsted.gov.uk/search?q=${s.urn}`}
           target="_blank" rel="nofollow noopener"
           class="block text-sm text-indigo-700 hover:underline">
           Ofsted inspection reports →
