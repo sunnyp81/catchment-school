@@ -9,11 +9,19 @@
   },
   "solihull": {
     "seoTitle": "Solihull School Catchment Map 2026 - 43 Primaries by Postcode",
-    "seoDescription": "Solihull area catchment finder: 43 primary + 8 secondary catchments mapped to your postcode. 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+    "seoDescription": "Solihull area catchment finder: 43 primary + 8 secondary catchments mapped to your postcode. 2026 admissions tiebreakers, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Solihull has 66 schools including 43 primaries and 8 secondaries, administered across two councils — Solihull Metropolitan Borough Council and parts of Birmingham City. With 35 of those schools operating as academies, each setting its own admissions criteria, checking individual policies is essential; the remaining community schools follow the relevant LA's distance-based tiebreaker.",
+      "Demand is real: 22 of the 61 schools with published capacity data are at or above capacity. Nineteen schools have a religious character — predominantly Church of England and Catholic — meaning faith criteria sit alongside proximity in their oversubscription pecking order. One selective school in the area requires a test pass before distance comes into play at all."
+    ]
   },
   "croydon": {
     "seoTitle": "Croydon School Catchment Map 2026 - 38 Primaries by Postcode",
-    "seoDescription": "Croydon area catchment finder: 38 primary + 11 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year."
+    "seoDescription": "Croydon area catchment finder: 38 primary + 11 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Croydon has 64 schools including 38 primaries and 11 secondaries, coordinated mainly by Croydon Council with a small number of schools falling under Sutton's admissions remit. At 64% of schools operating as academies, the landscape is fragmented — each academy sets its own oversubscription criteria, so the order of priority (sibling, faith, distance) can differ sharply between schools on the same street.",
+      "Three selective schools — requiring a test pass before distance matters — add another layer to secondary applications. Faith provision covers 10 schools, drawing mainly Catholic and Church of England pupils from wider catchments than local community schools. Croydon publishes its secondary co-ordinated offer on National Offer Day (1 March) and the primary outcome on 16 April each year."
+    ]
   },
   "worthing": {
     "seoTitle": "Worthing School Catchment Map 2026 - 24 Primaries by Postcode",
@@ -25,7 +33,11 @@
   },
   "ely": {
     "seoTitle": "Ely School Catchment Map 2026 - 19 Primaries by Postcode",
-    "seoDescription": "Ely area catchment finder: 19 primary + 4 secondary catchments mapped to your postcode. Cambridgeshire 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+    "seoDescription": "Ely area catchment finder: 19 primary + 4 secondary catchments mapped to your postcode. Cambridgeshire 2026 admissions tiebreakers, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Ely has 28 schools including 19 primaries and 4 secondaries, all sitting within Cambridgeshire County Council's co-ordinated admissions area. The cathedral city's compact geography means school choice is limited: once a popular school is oversubscribed, the nearest alternative can be several miles away into the Fens.",
+      "Faith schools are prominent here — 10 of the 28 schools have a religious character, a higher proportion than most market towns of this size. Six schools are currently at or above capacity, so catchment distances at oversubscribed primaries can be tighter than parents expect. Cambridgeshire publishes last-distance-offered figures in its annual admissions booklet, usually released in September for the following academic year."
+    ]
   },
   "barnet": {
     "seoTitle": "Barnet School Catchment Map 2026 - 14 Primaries by Postcode",
@@ -77,11 +89,19 @@
   },
   "sittingbourne": {
     "seoTitle": "Sittingbourne School Catchment Map 2026 - 26 Primaries by Postcode",
-    "seoDescription": "Sittingbourne area catchment finder: 26 primary + 5 secondary catchments mapped to your postcode. Kent 2026 admissions criteria, Ofsted ratings and last distance offered - free."
+    "seoDescription": "Sittingbourne area catchment finder: 26 primary + 5 secondary catchments mapped to your postcode. Kent 2026 admissions criteria, Ofsted ratings and last distance offered - free.",
+    "paragraphs": [
+      "Sittingbourne has 37 schools including 26 primaries and 5 secondaries, governed by Kent County Council, which operates one of England's largest selective systems. Three grammar schools serve the area, meaning secondary applicants must sit the Kent Test in September of Year 5 — a pass is the prerequisite before distance tiebreakers apply for grammar entry.",
+      "Oversubscription pressure is above average: 17 of the 36 schools with capacity data are at or above roll, and nine schools have a religious character adding a faith-priority criterion. For the 23 academies in the area, each publishes its own admissions policy independently of the council — check each school's policy directly alongside Kent's co-ordinated scheme."
+    ]
   },
   "welwyn-garden-city": {
     "seoTitle": "Welwyn Garden City School Catchment Map 2026 - 16 Primaries by Postcode",
-    "seoDescription": "Welwyn Garden City catchment finder: 16 primary + 3 secondary catchments mapped to your postcode. Hertfordshire 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+    "seoDescription": "Welwyn Garden City catchment finder: 16 primary + 3 secondary catchments mapped to your postcode. Hertfordshire 2026 admissions tiebreakers, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Welwyn Garden City has 23 schools including 16 primaries and 3 secondaries, all within Hertfordshire County Council's co-ordinated admissions area. The town was designed as a planned settlement, and its school estate reflects that — schools are distributed relatively evenly across residential neighbourhoods, which keeps most address-based catchments manageable in size.",
+      "Four of the 21 schools with capacity data are oversubscribed, so proximity remains the deciding tiebreaker at popular primaries. Three faith schools operate their own priority criteria. Hertfordshire also has selective grammar provision elsewhere in the county, but the Welwyn Garden City secondary schools are all non-selective comprehensives — distance from home to school is the primary tiebreaker once sibling priority is exhausted."
+    ]
   },
   "barrow-in-furness": {
     "seoTitle": "Barrow-in-Furness School Catchment Map 2026 - 24 Primaries by Postcode",
@@ -93,7 +113,11 @@
   },
   "flintshire": {
     "seoTitle": "Schools in Flintshire Catchment 2026 - Postcode Map & List",
-    "seoDescription": "Flintshire area catchment finder: 55 schools, every catchment boundary mapped to your postcode. 2026 Welsh admissions criteria, Estyn ratings and distance offered last year - free."
+    "seoDescription": "Flintshire area catchment finder: 55 schools, every catchment boundary mapped to your postcode. 2026 Welsh admissions criteria, Estyn ratings and distance offered last year - free.",
+    "paragraphs": [
+      "Flintshire has 55 schools spread across towns including Mold, Buckley, Flint and Connah's Quay, all within Flintshire County Council's co-ordinated admissions framework. As a Welsh council, Flintshire provides both Welsh-medium and English-medium education — and the two streams maintain separate catchment areas, so families choosing Welsh-medium provision may find their nearest qualifying school is further away than the closest English-medium option.",
+      "Admissions are assessed under the School Admissions Code (Wales) and Estyn inspections replace Ofsted for school quality ratings. Flintshire publishes its co-ordinated offer dates in line with the national Welsh timetable — primary offers are released on 16 April and secondary on 1 March. Check each school's Welsh-medium or English-medium designation before applying, as this determines which catchment boundary applies to your address."
+    ]
   },
   "ashbourne": {
     "seoTitle": "Ashbourne School Catchment Map 2026 - 21 Primaries by Postcode",
@@ -145,15 +169,27 @@
   },
   "preston": {
     "seoTitle": "Preston School Catchment Map 2026 - 122 Primaries by Postcode",
-    "seoDescription": "Preston area catchment finder: 122 primary + 22 secondary catchments mapped to your postcode. Lancashire 2026 admissions criteria, Ofsted ratings and last distance offered - free."
+    "seoDescription": "Preston area catchment finder: 122 primary + 22 secondary catchments mapped to your postcode. Lancashire 2026 admissions criteria, Ofsted ratings and last distance offered - free.",
+    "paragraphs": [
+      "Preston has 176 schools including 122 primaries and 22 secondaries, primarily coordinated by Lancashire County Council with a small number under the remit of neighbouring councils. The city has one of the highest concentrations of faith schools in the North West — 93 of 176 schools have a religious character, predominantly Roman Catholic and Church of England, meaning faith criteria govern more than half of all admission decisions in the area.",
+      "Oversubscription is widespread: 51 of 158 schools with published capacity data are at or above roll. Two selective schools require a test pass for grammar entry. For Roman Catholic schools in particular, parish boundaries often extend well beyond the school's immediate neighbourhood, so families outside the local area may still qualify for a priority place. Lancashire publishes last-distance-offered data in its co-ordinated admissions booklet each autumn."
+    ]
   },
   "derby": {
     "seoTitle": "Derby School Catchment Map 2026 - 107 Primaries by Postcode",
-    "seoDescription": "Derby area catchment finder: 107 primary + 17 secondary catchments mapped to your postcode. 2026 admissions tiebreakers, Ofsted ratings and distance offered last year."
+    "seoDescription": "Derby area catchment finder: 107 primary + 17 secondary catchments mapped to your postcode. 2026 admissions tiebreakers, Ofsted ratings and distance offered last year.",
+    "paragraphs": [
+      "Derby has 158 schools including 107 primaries and 17 secondaries, spread across Derby City Council and parts of Derbyshire County Council's admissions area. Nearly half the schools — 74 — operate as academies with their own individual criteria, making it essential to check each school's policy rather than assuming a uniform distance-based tiebreaker applies across the city.",
+      "Thirty schools have a religious character, mainly Church of England and Catholic, adding faith priority to their oversubscription criteria. Pressure on places is notable: 38 of 141 schools with capacity data are at or above roll. Two selective schools in the wider Derby area require a grammar test pass. Both Derby City and Derbyshire publish last-offered-distance data in their respective annual admissions booklets, typically available from September."
+    ]
   },
   "loughborough": {
     "seoTitle": "Loughborough School Catchment Areas 2026 - 38 Primary & 8 Secondary",
-    "seoDescription": "Loughborough catchment finder: 55 Leicestershire schools - 38 primary + 8 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered - free."
+    "seoDescription": "Loughborough catchment finder: 55 Leicestershire schools - 38 primary + 8 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered - free.",
+    "paragraphs": [
+      "Loughborough has 55 schools including 38 primaries and 8 secondaries, straddling the border between Leicestershire County Council and Nottinghamshire County Council — so a small number of schools in the outer areas fall under a different co-ordinated admissions scheme to those in the town centre. The university town's growing population has maintained steady demand for primary places, particularly in newer residential developments to the south and east.",
+      "Eighteen of the 55 schools have a religious character, a higher proportion than many comparable market towns, with Catholic and Church of England schools both represented. Seven schools are currently at or above capacity. No selective schools operate in the Loughborough area, so distance-based tiebreakers (measured as a straight line from home to school gate) are the primary differentiator once sibling priority is applied."
+    ]
   },
   "eastleigh": {
     "seoTitle": "Eastleigh School Catchment Areas 2026 - 22 Primary & 4 Secondary | Hampshire",
@@ -205,11 +241,19 @@
   },
   "bridlington": {
     "seoTitle": "Bridlington School Catchment Areas 2026 - 11 Primary & 2 Secondary Schools",
-    "seoDescription": "Bridlington catchment finder: 14 East Riding of Yorkshire schools - 11 primary + 2 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered - free."
+    "seoDescription": "Bridlington catchment finder: 14 East Riding of Yorkshire schools - 11 primary + 2 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered - free.",
+    "paragraphs": [
+      "Bridlington has 14 schools including 11 primaries and 2 secondaries, all within East Riding of Yorkshire Council's co-ordinated admissions area. As a coastal market town, the school estate is smaller than many urban centres of comparable population, and most families have a limited choice of secondaries — Headlands School and Bridlington School together serve the vast majority of pupils in the town.",
+      "One school is currently at or above published capacity, and two schools have a religious character applying faith criteria as part of their oversubscription tiebreaker. East Riding publishes last-distance-offered figures in its annual admissions booklet each autumn, and the council's co-ordinated secondary offer aligns with the national offer date of 1 March."
+    ]
   },
   "dukinfield": {
     "seoTitle": "Dukinfield School Catchment Areas 2026 - Tameside Schools Postcode Map",
-    "seoDescription": "Dukinfield catchment finder: 12 Tameside schools - 6 primary + 2 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered - free."
+    "seoDescription": "Dukinfield catchment finder: 12 Tameside schools - 6 primary + 2 secondary catchments mapped to your postcode. 2026 admissions criteria, Ofsted ratings and last distance offered - free.",
+    "paragraphs": [
+      "Dukinfield has 12 schools including 6 primaries and 2 secondaries, all within Tameside Metropolitan Borough Council's co-ordinated admissions area in Greater Manchester. Nine of the 12 schools operate as academies — a high proportion for a town of this size — meaning each has its own oversubscription criteria, though most still use a distance-based tiebreaker after sibling and faith priority.",
+      "Capacity pressure is significant: 6 of the 10 schools with published data are at or above roll, giving Dukinfield one of the higher oversubscription rates in Tameside. Three schools have a religious character, mainly Catholic, drawing from a wider parish catchment than the immediate neighbourhood. Tameside publishes its co-ordinated primary offer on 16 April and secondary offer on 1 March, with last-distance-offered data available in the council's admissions booklet each September."
+    ]
   },
   "kenilworth": {
     "paragraphs": [
@@ -760,7 +804,7 @@
     "seoDescription": "Gwynedd catchment finder: 89 schools across North Wales mapped to your postcode. Welsh-medium and English-medium admissions criteria, Ofsted/Estyn ratings for 2026.",
     "paragraphs": [
       "Gwynedd has 89 schools across a large, predominantly rural county in north-west Wales, administered by Gwynedd Council. As a stronghold of the Welsh language, the vast majority of Gwynedd's schools are Welsh-medium - meaning lessons are conducted in Welsh, with English taught as a second language. Families relocating to the county from England or non-Welsh-speaking areas should be aware that their nearest school may well be Welsh-medium, and that English-medium provision in some parts of the county is limited.",
-      "School catchment areas in Gwynedd tend to be geographically large, reflecting low population density across Snowdonia and the Ll\u0177n Peninsula. Bangor and Caernarfon are the largest urban centres with the greatest choice of schools. Gwynedd Council's admissions authority is Cyngor Gwynedd, and schools in the county are inspected by Estyn (the Wales education inspectorate) rather than Ofsted. Families should consult both Cyngor Gwynedd's admissions policies and Estyn inspection reports when choosing schools."
+      "School catchment areas in Gwynedd tend to be geographically large, reflecting low population density across Snowdonia and the Llŷn Peninsula. Bangor and Caernarfon are the largest urban centres with the greatest choice of schools. Gwynedd Council's admissions authority is Cyngor Gwynedd, and schools in the county are inspected by Estyn (the Wales education inspectorate) rather than Ofsted. Families should consult both Cyngor Gwynedd's admissions policies and Estyn inspection reports when choosing schools."
     ]
   },
   "swansea": {
@@ -1455,10 +1499,10 @@
   },
   "keighley": {
     "seoTitle": "Schools in Keighley Catchment Area 2026 - Map & Admissions Guide",
-    "seoDescription": "Keighley catchment area: 40 schools across Bradford's Aire Valley town and Bront\u00eb Country moorland villages. Admissions criteria, catchment maps and 2026 guide.",
+    "seoDescription": "Keighley catchment area: 40 schools across Bradford's Aire Valley town and Brontë Country moorland villages. Admissions criteria, catchment maps and 2026 guide.",
     "paragraphs": [
       "Keighley sits in the Aire Valley in the Bradford local authority district, and its 40 schools span a varied geography - the town centre and Ingrow to the south, Silsden and Steeton to the north, and moorland villages such as Haworth, Oxenhope and Stanbury to the west. Bradford Council coordinates admissions for maintained schools and publishes catchment boundary maps annually.",
-      "Keighley and the surrounding Worth Valley are strongly associated with the Bront\u00eb sisters, drawing families to the village primaries of Haworth and Stanbury. These small schools are popular but have limited capacity; catchment boundaries are tightly drawn and last-offered distances can be very short.",
+      "Keighley and the surrounding Worth Valley are strongly associated with the Brontë sisters, drawing families to the village primaries of Haworth and Stanbury. These small schools are popular but have limited capacity; catchment boundaries are tightly drawn and last-offered distances can be very short.",
       "Secondary schools in Keighley include Dixons Kings Academy, Holy Family Catholic School and Greenhead College (sixth form only). Bradford has a legacy of faith-school provision across both primary and secondary phases; families should check each school's admissions criteria carefully, as CofE and Catholic schools apply faith criteria ahead of distance."
     ]
   },
