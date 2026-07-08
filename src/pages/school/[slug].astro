@@ -40,6 +40,18 @@ const nearby = (await env.DB
   .all()
 ).results;
 
+// CHECK-04 (rebuild design): contextual links between faith schools sharing the same
+// religious character within the same council - not surfaced by the town-based nearby
+// query above, since faith schools of the same denomination are often spread across towns.
+const isFaithSchool = !!(s.religion && s.religion !== 'Does not apply' && s.religion !== 'None');
+const sameFaithNearby = isFaithSchool
+  ? (await env.DB
+      .prepare('SELECT slug, name, type, town FROM schools WHERE laSlug = ? AND religion = ? AND urn != ? LIMIT 4')
+      .bind(s.laSlug, s.religion, s.urn)
+      .all()
+    ).results
+  : [];
+
 const address = [s.street, s.locality, s.town, s.postcode].filter(Boolean).join(', ');
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ' ' + s.postcode)}`;
 const councilAdmissionsUrl = `https://www.google.com/search?q=${encodeURIComponent(s.la + ' school admissions catchment area ' + new Date().getFullYear())}`;
@@ -467,6 +479,23 @@ const breadcrumbSchema = {
               <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
                 <p class="text-xs text-gray-500 mt-1">{n.type} · {n.postcode}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {sameFaithNearby.length > 0 && (
+        <section class="mb-8">
+          <h2 class="text-xl font-semibold mb-4">Other {s.religion} Schools in {s.la}</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            {s.name} shares its religious character with these {s.religion} schools across {s.la}. Faith criteria typically sit alongside catchment distance in each school's admissions policy.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {sameFaithNearby.map((n: any) => (
+              <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
+                <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
+                <p class="text-xs text-gray-500 mt-1">{n.type} · {n.town}</p>
               </a>
             ))}
           </div>
