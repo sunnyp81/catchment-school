@@ -52,6 +52,37 @@ const sameFaithNearby = isFaithSchool
     ).results
   : [];
 
+// CHECK-04 (rebuild design): the town-based "nearby" query above is a categorical match,
+// not a genuine adjacency link - two schools in the same large town can be miles apart,
+// and schools near a town/council boundary get few or no links. This computes real
+// straight-line distance from lat/lng (100% populated in D1) so every one of the 26,506
+// school pages gets a distance-derived cross-link, not just the ~27% that are faith schools.
+function haversineMiles(lat1: number, lng1: number, lat2: number, lng2: number) {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const R = 3958.8; // Earth radius, miles
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+const linkedSlugs = new Set([...nearby, ...sameFaithNearby].map((n: any) => n.slug));
+let nearestByDistance: any[] = [];
+if (s.lat && s.lng) {
+  const latDelta = 0.15; // ~10 miles north-south
+  const lngDelta = Math.min(0.4, 0.15 / Math.cos((s.lat * Math.PI) / 180)); // widen with latitude
+  const distCandidates = (await env.DB
+    .prepare('SELECT slug, name, type, town, lat, lng FROM schools WHERE phase = ? AND lat BETWEEN ? AND ? AND lng BETWEEN ? AND ? AND urn != ? LIMIT 80')
+    .bind(s.phase, s.lat - latDelta, s.lat + latDelta, s.lng - lngDelta, s.lng + lngDelta, s.urn)
+    .all()
+  ).results;
+  nearestByDistance = distCandidates
+    .filter((c: any) => c.lat != null && c.lng != null && !linkedSlugs.has(c.slug))
+    .map((c: any) => ({ ...c, distanceMiles: haversineMiles(s.lat, s.lng, c.lat, c.lng) }))
+    .sort((a: any, b: any) => a.distanceMiles - b.distanceMiles)
+    .slice(0, 3);
+}
+
 const address = [s.street, s.locality, s.town, s.postcode].filter(Boolean).join(', ');
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ' ' + s.postcode)}`;
 const councilAdmissionsUrl = `https://www.google.com/search?q=${encodeURIComponent(s.la + ' school admissions catchment area ' + new Date().getFullYear())}`;
@@ -496,6 +527,23 @@ const breadcrumbSchema = {
               <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
                 <p class="text-xs text-gray-500 mt-1">{n.type} · {n.town}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {nearestByDistance.length > 0 && (
+        <section class="mb-8">
+          <h2 class="text-xl font-semibold mb-4">Nearest {phaseLower} schools by distance</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            These are the {phaseLower} schools closest to {s.name} by straight-line distance, including ones across a town or council boundary. Distance is not the same as being in catchment: always check each school's own admissions policy for its actual boundary.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {nearestByDistance.map((n: any) => (
+              <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
+                <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
+                <p class="text-xs text-gray-500 mt-1">{n.type} · {n.town} · {n.distanceMiles.toFixed(1)} miles away</p>
               </a>
             ))}
           </div>
