@@ -583,6 +583,8 @@ const breadcrumbSchema = {
           {s.phase === 'Secondary' && <a href="/guides/secondary-school-catchment" class="text-indigo-700 hover:underline">Secondary school guide →</a>}
           <a href="/guides/in-year-admissions" class="text-indigo-700 hover:underline">In-year admissions →</a>
           <a href="/guides/school-waiting-lists" class="text-indigo-700 hover:underline">School waiting lists →</a>
+          {isGrammar && <a href="/guides/how-to-appeal-a-school-place" class="text-indigo-700 hover:underline">Selective test appeals →</a>}
+          {ofstedLabel && <a href="/guides/ofsted-ratings-explained" class="text-indigo-700 hover:underline">Understanding Ofsted ratings →</a>}
         </div>
       </div>
 
