@@ -5,6 +5,7 @@ import las from '../../data/las.json';
 import SchoolCard from '../../components/SchoolCard.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import councilIntros from '../../data/council-intros.json';
+import admissionsUrls from '../../data/admissions-urls.json';
 
 export async function getStaticPaths() {
   return (las as any[]).map((la: any) => ({
@@ -13,14 +14,11 @@ export async function getStaticPaths() {
   }));
 }
 
-// Pilot councils: verified direct admissions URLs replace the generic Google search CTA.
-const PILOT_ADMISSIONS_URLS: Record<string, string> = {
-  walsall: 'https://go.walsall.gov.uk/schools-and-learning/school-admissions',
-};
-
+// Councils with a live-verified direct admissions URL (src/data/admissions-urls.json,
+// shared with the school template) get it in place of the generic Google search CTA.
 const { la } = Astro.props;
 const laSchools = (schools as any[]).filter((s: any) => s.laSlug === la.slug);
-const pilotAdmissionsUrl = PILOT_ADMISSIONS_URLS[la.slug] ?? null;
+const pilotAdmissionsUrl = (admissionsUrls as Record<string, string>)[la.slug] ?? null;
 
 const byTown: Record<string, any[]> = {};
 for (const s of laSchools) {

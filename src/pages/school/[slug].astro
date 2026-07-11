@@ -4,6 +4,7 @@ export const prerender = false;
 import Base from '../../layouts/Base.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import ofstedMap from '../../data/ofsted-map.json';
+import admissionsUrls from '../../data/admissions-urls.json';
 import { env } from 'cloudflare:workers';
 
 const { slug } = Astro.params;
@@ -91,15 +92,10 @@ const isOversubscribed = s.capacity && s.pupils && s.pupils >= s.capacity;
 const fillRate = s.capacity && s.pupils ? Math.round((s.pupils / s.capacity) * 100) : null;
 const admissionsYear = new Date().getFullYear() + 1;
 
-// Pilot councils: enhanced prose template gated by LA slug.
-// These councils get extra data-driven sections derived from every available field.
-// Add more slugs here as pilots are reviewed and approved.
-// Verified admissions-authority URLs (checked live before commit). Used for the "official"
+// Verified admissions-authority URLs (each checked live before commit) live in
+// src/data/admissions-urls.json, shared with the council template. Used for the "official"
 // citation label; councils without a verified URL fall back to an admissions search link.
-const PILOT_ADMISSIONS_URLS: Record<string, string> = {
-  walsall: 'https://go.walsall.gov.uk/schools-and-learning/school-admissions',
-};
-const pilotAdmissionsUrl = PILOT_ADMISSIONS_URLS[s.laSlug] ?? null;
+const pilotAdmissionsUrl = (admissionsUrls as Record<string, string>)[s.laSlug] ?? null;
 // Citation URL for the capacity/demand section: prefer a verified council URL, fall back
 // to the council admissions search so every school page carries a named source pointer.
 const admissionsCiteUrl = pilotAdmissionsUrl ?? councilAdmissionsUrl;
