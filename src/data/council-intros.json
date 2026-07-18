@@ -1550,5 +1550,41 @@
       "The largest concentrations sit around Ynys Mon, Caergybi and Anglesey, which together account for a meaningful share of the council's pupil places.",
       "Admissions to all schools in Isle of Anglesey are coordinated by the council - catchment area and sibling priority are the most common tiebreakers when schools are oversubscribed."
     ]
+  },
+  "fieldwork-overseas-establishments": {
+    "paragraphs": [
+      "Fieldwork Overseas Establishments is a category within the national schools register covering British-linked schools operating outside England, typically serving children of military personnel, diplomatic staff, or British nationals living abroad.",
+      "With 15 establishments recorded, school places here are allocated by the establishment itself rather than a local authority admissions team — families should contact individual schools directly to understand entry requirements and availability.",
+      "Catchment boundaries as understood in England do not apply to overseas establishments; distance-from-home and sibling criteria are often replaced by serving-personnel status or residency eligibility checks."
+    ],
+    "seoTitle": "Fieldwork Overseas Establishments Schools | catchment.school",
+    "seoDescription": "Browse all 15 Fieldwork Overseas Establishments schools. Entry is determined by the individual establishment, not a local authority catchment area."
+  },
+  "isle-of-man-offshore-establishments": {
+    "paragraphs": [
+      "Isle of Man Offshore Establishments covers the 11 schools on the Isle of Man that appear within the national register, reflecting the island's Crown Dependency status and its separate education system administered by the Isle of Man Government.",
+      "School places on the Isle of Man are managed independently from mainland England admissions rounds — families must apply directly through the Isle of Man Department for Education, Sport and Culture rather than through an English local authority.",
+      "Because the Isle of Man operates its own curriculum and assessment framework, parents relocating from England should check term dates, transition year groups, and any assessment differences before enrolling."
+    ],
+    "seoTitle": "Isle of Man Offshore Establishments Schools | catchment.school",
+    "seoDescription": "Browse the 11 Isle of Man offshore establishment schools. Admissions are managed by the Isle of Man Government, not an English local authority."
+  },
+  "isles-of-scilly": {
+    "paragraphs": [
+      "The Isles of Scilly is England's smallest local authority, serving the five inhabited islands — St Mary's, Tresco, St Martin's, Bryher, and St Agnes — with a single all-through school that takes pupils from reception through to Year 11.",
+      "Five Islands Academy is the only school on the archipelago, meaning every primary and secondary-age child attends the same institution. There is no meaningful catchment competition, and all resident children are eligible for a place.",
+      "Secondary-aged pupils seeking post-16 provision or specialist subjects typically travel to Cornwall on the mainland, supported by the Council of the Isles of Scilly's transport and boarding arrangements."
+    ],
+    "seoTitle": "Isles of Scilly Schools: Five Islands Academy | catchment.school",
+    "seoDescription": "The Isles of Scilly has one school serving all ages: Five Islands Academy. No catchment competition — all resident children are eligible."
+  },
+  "scotland-offshore-establishments": {
+    "paragraphs": [
+      "Scotland Offshore Establishments is a holding category within the national schools dataset for the 7 Scottish-linked establishments that appear in DfE reporting, reflecting data-sharing arrangements between England and Scotland's education systems.",
+      "Schooling in Scotland is governed by the Scottish Government and individual local authorities (councils) such as Glasgow City, Edinburgh City, and Highland, each of which runs its own admissions process entirely separately from the English local authority system.",
+      "Parents seeking school places in Scotland should contact the relevant Scottish council directly; English admissions rules, catchment distances, and co-ordinated admissions rounds do not apply north of the border."
+    ],
+    "seoTitle": "Scotland Offshore Establishments Schools | catchment.school",
+    "seoDescription": "Browse 7 Scotland offshore establishments. Scottish school admissions are run by Scottish councils, not the English local authority system."
   }
 }
