@@ -14,6 +14,46 @@ const schema = {
   "mainEntityOfPage": "https://catchment.school/guides/ofsted-ratings-explained"
 };
 
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Read an Ofsted Inspection Report",
+  "description": "A step-by-step guide to interpreting an Ofsted school inspection report, from checking the date to understanding sub-grades and safeguarding judgements.",
+  "totalTime": "PT10M",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Check the inspection date",
+      "text": "Find the date the school was last inspected. An Outstanding rating from 2019 tells you far less than a Good rating from 2023. Ofsted inspection cycles mean some ratings are up to five years old."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Read what inspectors specifically praised",
+      "text": "Look at which qualities inspectors highlighted as strengths — curriculum breadth, behaviour culture, leadership stability — and decide whether those qualities matter to your family."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Review areas for improvement",
+      "text": "Every report lists actions the school was asked to take. Check whether the school has published a response or action plan that shows how it addressed those concerns."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Check the safeguarding judgement",
+      "text": "Safeguarding is assessed separately. A school must have effective safeguarding arrangements to receive any overall grade above Inadequate. Look for 'safeguarding is effective' in the report summary."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Look at the sub-grade judgements",
+      "text": "The overall grade is capped by the lowest sub-grade. A school rated Outstanding overall cannot have a sub-grade of Inadequate. Reading each sub-grade gives a more accurate picture than the headline alone."
+    }
+  ]
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -52,6 +92,7 @@ const faqSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
