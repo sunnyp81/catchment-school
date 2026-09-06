@@ -601,6 +601,28 @@ h1, h2, h3, h4 {
   align-self: flex-start;
 }
 
+/* ---------- Tutor CTA banner ---------- */
+.tutor-banner { padding: 64px 0; border-bottom: 1px solid var(--rule); background: var(--paper-2); }
+.tutor-banner .container {
+  display: grid;
+  grid-template-columns: 1.3fr auto;
+  gap: 48px;
+  align-items: center;
+}
+.tutor-banner h2 {
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 10px 0 0;
+}
+.tutor-banner p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin: 14px 0 0;
+  max-width: 540px;
+}
+.tutor-banner .btn { white-space: nowrap; }
+
 /* ---------- Stats strip ---------- */
 .stats-strip {
   display: grid;
@@ -1113,4 +1135,6 @@ footer {
   .footer-top { grid-template-columns: 1fr 1fr; }
   .school-row { grid-template-columns: 40px 1fr auto; }
   .school-row .capacity-cell, .school-row .distance-cell, .school-row .school-tag-cell { display: none; }
+  .tutor-banner .container { grid-template-columns: 1fr; gap: 20px; }
+  .tutor-banner .btn { align-self: flex-start; }
 }
