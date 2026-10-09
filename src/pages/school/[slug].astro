@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import ofstedMap from '../../data/ofsted-map.json';
 import admissionsUrls from '../../data/admissions-urls.json';
+import topBingSchools from '../../data/top-bing-schools.json';
 import { env } from 'cloudflare:workers';
 
 const { slug } = Astro.params;
@@ -363,6 +364,20 @@ const breadcrumbSchema = {
             : ` Find catchment area guidance, admissions policy details and nearby ${phaseLower} schools below.`
         }
       </p>
+
+      {topBingSchools.includes(slug) && (s.phase === 'Primary' || s.phase === 'Secondary') && (
+        <div class="border border-indigo-200 rounded-lg p-4 mb-6 bg-indigo-50 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
+          <p class="text-sm text-gray-700"><strong class="text-indigo-900">Need a tutor in {s.town}?</strong> Find {phaseLower} tutors for maths, English, science and more.</p>
+          <a
+            href={`https://thetutor.link/?ref=catchment&town=${encodeURIComponent(s.town)}`}
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+            class="shrink-0 text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors"
+          >
+            Find a tutor near {s.town} →
+          </a>
+        </div>
+      )}
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         {s.ageRange && (
