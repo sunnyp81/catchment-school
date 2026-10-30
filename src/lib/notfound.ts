@@ -1,10 +1,12 @@
 import { env } from 'cloudflare:workers';
 
 // Serves the prerendered /404.html with a real 404 status and noindex.
+// Fetch "/404" not "/404.html": the assets binding's default html_handling (auto-trailing-slash)
+// answers "/404.html" with a 307 to "/404", which is also what @astrojs/cloudflare strips.
 export async function notFoundResponse(url: URL): Promise<Response> {
   const headers = { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex' };
   try {
-    const r = await (env as any).ASSETS.fetch(new URL('/404.html', url));
+    const r = await (env as any).ASSETS.fetch(new URL('/404', url));
     if (r.ok) return new Response(r.body, { status: 404, headers });
   } catch { /* fall through to inline page */ }
   return new Response(

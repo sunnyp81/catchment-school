@@ -11,6 +11,7 @@ import { resolvePair, phaseGroup, isCurated, haversineMiles, deDash } from '../.
 const SITE = 'https://catchment.school';
 // schools.json comes from the March 2026 GIAS pull (the date the school pages' byline and Base trust bar state); no exact day is recorded.
 const GIAS_LABEL = 'GIAS (DfE), March 2026 extract';
+const GIAS_FROM = 'the GIAS (DfE) March 2026 extract';
 const OFSTED_LABEL = 'Ofsted MI, inspections to 31 May 2026';
 
 const notFound = () => notFoundResponse(Astro.url);
@@ -33,6 +34,8 @@ if (Astro.url.pathname !== canonicalPath) return Astro.redirect(canonicalPath, 3
 
 for (const s of [A, B]) {
   for (const k of ['ageRange', 'name', 'town', 'la', 'street', 'locality', 'type']) if (s[k] != null) s[k] = deDash(s[k]);
+  // GIAS names some councils "Bristol, City of" / "Herefordshire, County of": plain name in copy.
+  if (typeof s.la === 'string') s.la = s.la.replace(/,\s*(County|City) of$/i, '');
   const o = (ofstedMap as Record<string, any>)[String(s.urn)];
   s.ofstedRating = o?.ofstedRating ?? null;
   s.ofstedDate = o?.ofstedDate ?? null;
@@ -136,14 +139,14 @@ const a8yr = rowYear('a8');
 const p8Note = !p8y.ya && !p8y.yb
   ? 'Progress 8 is not published for these schools.'
   : a8yr.ya && p8y.ya !== a8yr.ya
-    ? `Progress 8 was not published for the ${yl('ks4', a8yr.ya)} results, because the Department for Education did not calculate it for those pupils. The last published year is shown.`
+    ? `Progress 8 was not published for the ${yl('ks4', a8yr.ya)} results because the Department for Education did not calculate it for that cohort. The last published year is shown.`
     : '';
 const rowsPerf: Row[] = hasPerf ? [
   perfRow('Attainment 8 (average score)', 'a8', f1, ksSrc, 'ks4', 'high', 1),
   perfRow('Progress 8 score', 'p8', signed2, ksSrc, 'ks4', 'high', 0.1, p8Note),
   perfRow('Grade 5+ in English and maths', 'em5', pct0, ksSrc, 'ks4', 'high', 2),
   perfRow('Grade 4+ in English and maths', 'em4', pct0, ksSrc, 'ks4', 'high', 2),
-  perfRow('GCSE pupils counted', 'ks4_cohort', withInt, ksSrc, 'ks4'),
+  perfRow('Pupils at the end of key stage 4', 'ks4_cohort', withInt, ksSrc, 'ks4'),
   perfRow('A-level average point score', 'alevel_aps', f2, alSrc, 'alevel', 'high', 1),
   perfRow('A-level average grade', 'alevel_grade', () => null, alSrc, 'alevel'),
   perfRow('A-level students in the point score measure', 'alevel_entries', withInt, alSrc, 'alevel'),
@@ -157,7 +160,7 @@ if (p8row && p8y.same && p8y.ya) {
   const [al, au, bl, bu] = [g(A.urn, 'p8_lower'), g(A.urn, 'p8_upper'), g(B.urn, 'p8_lower'), g(B.urn, 'p8_upper')];
   if (al != null && au != null && bl != null && bu != null && al <= bu && bl <= au) {
     p8row.better = undefined;
-    p8row.note = ((p8row.note ?? '') + ' Confidence intervals overlap, so no clear difference.').trim();
+    p8row.note = ((p8row.note ?? '') + ' Confidence intervals overlap so there is no clear difference.').trim();
   }
 }
 for (const r of rowsPerf) {
@@ -178,16 +181,20 @@ const groups: { title: string; note?: string; rows: Row[] }[] = [
   { title: 'School profile', rows: rowsProfile },
   ...(rowsPerf.length ? [{
     title: 'Results and attendance',
-    note: 'Each row shows the latest year both schools have a figure for. "Stronger" marks only gaps big enough to matter, not rounding-level differences, and only where both schools are in the same year. Attainment figures reflect each school\'s intake as well as its teaching; only Progress 8, where published, adjusts for pupils\' starting points.',
+    note: 'Each row shows the latest year both schools have a figure for. "Stronger" marks a gap big enough to matter in a year both schools report. Rounding-level differences are not marked. Attainment figures reflect each school\'s intake as well as its teaching. Progress 8 is the only measure here that adjusts for pupils\' starting points.',
     rows: rowsPerf,
   }] : []),
-  { title: 'Intake and admissions', note: 'Not marked as stronger or weaker. These rows describe who a school serves and how its places are filled, not how well it teaches, so a higher or lower figure is not better.', rows: rowsIntake },
+  { title: 'Intake and admissions', note: 'Not marked as stronger or weaker. These rows describe who a school serves and how its places are filled. They do not measure teaching quality so a higher or lower figure is not better.', rows: rowsIntake },
 ];
 
 // ---- Summary (data-derived) ----
 const nameA = A.name, nameB = B.name;
 const sum: string[] = [];
-if (distText) sum.push(`${nameA} and ${nameB} are ${distText} apart in a straight line${A.la === B.la ? `, both in ${A.la}` : `, in ${A.la} and ${B.la}`}.`);
+if (distText) {
+  sum.push(!A.la || !B.la ? `${nameA} and ${nameB} are ${distText} apart in a straight line.`
+    : A.la === B.la ? `${nameA} and ${nameB} are both in ${A.la} and ${distText} apart in a straight line.`
+      : `${nameA} in ${A.la} and ${nameB} in ${B.la} are ${distText} apart in a straight line.`);
+}
 const oA = ofstedOf(A), oB = ofstedOf(B);
 if (oA && oB) {
   sum.push(oA === oB ? `Ofsted rates both schools ${oA} (${nameA} inspected ${ofstedYearOf(A)}, ${nameB} ${ofstedYearOf(B)}).`
@@ -202,32 +209,39 @@ if (oA && oB) {
   if (ya && a8a != null && a8b != null) {
     const d = Math.abs(a8a - a8b);
     const yy = yl('ks4', ya);
-    sum.push(d < 1 ? `In ${yy} their Attainment 8 scores were close: ${f1(a8a)} at ${nameA} and ${f1(a8b)} at ${nameB}.`
-      : `In ${yy}, ${a8a > a8b ? nameA : nameB} had the higher Attainment 8 score, ${f1(Math.max(a8a, a8b))} against ${f1(Math.min(a8a, a8b))}, a gap of ${d.toFixed(1)} points.`);
-    if (p8Note) sum.push(`Progress 8 was not published for ${yy}, so this comparison relies on attainment.`);
+    sum.push(d < 1 ? `Attainment 8 scores were close in ${yy}: ${f1(a8a)} at ${nameA} and ${f1(a8b)} at ${nameB}.`
+      : `${a8a > a8b ? nameA : nameB} had the higher Attainment 8 score in ${yy}: ${f1(Math.max(a8a, a8b))} against ${f1(Math.min(a8a, a8b))} (a gap of ${d.toFixed(1)} points).`);
+    if (p8Note) sum.push(`Progress 8 was not published for ${yy} so this comparison relies on attainment.`);
   }
   const yb = sameYearFor('abs_overall');
-  if (yb) sum.push(`Overall absence in ${yb} was ${pct1(num(perfBy[A.urn][yb].abs_overall))} at ${nameA} and ${pct1(num(perfBy[B.urn][yb].abs_overall))} at ${nameB}.`);
+  if (yb) {
+    const absA = pct1(num(perfBy[A.urn][yb].abs_overall)), absB = pct1(num(perfBy[B.urn][yb].abs_overall));
+    sum.push(absA === absB ? `Overall absence in ${yb} was ${absA} at both schools.` : `Overall absence in ${yb} was ${absA} at ${nameA} and ${absB} at ${nameB}.`);
+  }
 }
 if (fillA != null && fillB != null) {
-  sum.push(`On published capacity, ${nameA} has ${withInt(num(A.pupils))} pupils for ${withInt(num(A.capacity))} places (${fillA}%) and ${nameB} has ${withInt(num(B.pupils))} for ${withInt(num(B.capacity))} (${fillB}%).`);
+  sum.push(`${nameA} has ${withInt(num(A.pupils))} pupils for ${withInt(num(A.capacity))} published places (${fillA}%) and ${nameB} has ${withInt(num(B.pupils))} for ${withInt(num(B.capacity))} (${fillB}%).`);
 }
 const polA = policyOf(A), polB = policyOf(B);
 const selA = !!polA?.startsWith('Selective'), selB = !!polB?.startsWith('Selective');
 if (selA !== selB) sum.push(`${selA ? nameA : nameB} is selective; ${selA ? nameB : nameA} is not.`);
 const fA = faithOf(A), fB = faithOf(B);
-if (!!fA !== !!fB) sum.push(`${fA ? nameA : nameB} has a ${fA ?? fB} religious character, which can affect admissions priority; ${fA ? nameB : nameA} has none recorded.`);
+if (!!fA !== !!fB) sum.push(`${fA ? nameA : nameB} has a ${fA ?? fB} religious character and this can affect admissions priority. ${fA ? nameB : nameA} has none recorded.`);
 
 // ---- Title / description ----
 const shorten = (n: string, max: number) => (n.length <= max ? n : n.slice(0, max - 3).replace(/\s+\S*$/, '') + '...');
 const trimSuffix = (n: string) => n.replace(/\s+(school|academy|college)$/i, '');
+// Keep full names for as long as possible: drop the suffix first, then "School/Academy/College", then shorten.
 let title = `${nameA} vs ${nameB}: compare schools`;
-if (title.length > 62) {
-  title = `${trimSuffix(nameA)} vs ${trimSuffix(nameB)}: compare schools`;
-  if (title.length > 62) title = `${shorten(trimSuffix(nameA), 24)} vs ${shorten(trimSuffix(nameB), 24)}: compare schools`;
-}
-const descRaw = sum.slice(0, 3).join(' ');
-const description = descRaw ? shorten(descRaw, 158) : `Compare ${nameA} and ${nameB}: Ofsted, results, distance, capacity and admissions.`;
+if (title.length > 62) title = `${nameA} vs ${nameB}`;
+if (title.length > 62) title = `${trimSuffix(nameA)} vs ${trimSuffix(nameB)}`;
+if (title.length > 62) title = `${shorten(trimSuffix(nameA), 28)} vs ${shorten(trimSuffix(nameB), 28)}`;
+// Whole summary sentences only (no mid-sentence "..."), then a short tail if it fits.
+const descTail = 'Ofsted, results, absence and admissions compared.';
+let description = '';
+for (const s of sum) { if (description.length + (description ? 1 : 0) + s.length <= 158) description += (description ? ' ' : '') + s; else break; }
+if (description && description.length + 1 + descTail.length <= 158) description += ' ' + descTail;
+if (!description) description = sum[0] ? shorten(sum[0], 158) : `Compare ${nameA} and ${nameB}: Ofsted, results, distance, capacity and admissions.`;
 
 // ---- Charts (inline SVG) ----
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -303,6 +317,13 @@ const dsFields: Record<string, string[]> = {
   ks4: ['a8', 'p8', 'em5', 'em4', 'ks4_cohort'],
   alevel: ['alevel_aps', 'alevel_grade', 'alevel_entries'],
   absence: ['abs_overall', 'abs_persistent'],
+};
+// The release label often repeats the publication name ("Key stage 4 performance, Academic year 2025/26"): show only the year part.
+const releaseOf = (m: any): string | null => {
+  if (!m?.release) return null;
+  const r = String(m.release);
+  const pub = m.publication ? String(m.publication) : '';
+  return pub && r.toLowerCase().startsWith(pub.toLowerCase()) ? r.slice(pub.length).replace(/^[,\s]+/, '') || null : r;
 };
 const sourceList = (['ks4', 'alevel', 'absence'] as const).map((ds) => {
   const ys = allYears.filter((y) => dsFields[ds].some((f) => num(perfBy[A.urn][y]?.[f]) != null || num(perfBy[B.urn][y]?.[f]) != null));
@@ -417,8 +438,8 @@ const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.t
     <section aria-labelledby="adm-h" class="mb-10">
       <h2 id="adm-h" class="text-xl font-semibold mb-3">Admissions: how the two schools differ</h2>
       <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 mb-4 text-sm text-gray-800 space-y-2">
-        {distText && <p><strong>Distance between the schools:</strong> {distText} in a straight line between the school sites ({GIAS_LABEL} coordinates). This is not a walking or driving distance, and it does not show which school your address is in catchment for.</p>}
-        <p><strong>How full they are:</strong> pupils on roll divided by published capacity ({GIAS_LABEL}). Both figures cover every year group{hasSixthForm ? ', including any sixth form' : ''}, so treat the percentage as a rough guide to demand, not the size of the Year 7 intake.</p>
+        {distText && <p><strong>Distance between the schools:</strong> {distText} in a straight line between the two school sites. The coordinates come from {GIAS_FROM}. This is not a walking or driving distance and it does not show which school your address is in catchment for.</p>}
+        <p><strong>How full they are:</strong> pupils on roll divided by published capacity from {GIAS_FROM}. Both figures cover every year group{hasSixthForm ? ' (including any sixth form)' : ''}. Treat the percentage as a rough guide to demand rather than the size of the Year 7 intake.</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {[A, B].map((s) => {
@@ -433,7 +454,7 @@ const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.t
                 <div class="flex justify-between gap-3"><dt class="text-gray-500">Admissions policy</dt><dd class="text-right">{pol ?? 'Not recorded'}</dd></div>
                 <div class="flex justify-between gap-3"><dt class="text-gray-500">Religious character</dt><dd class="text-right">{faith ?? 'None recorded'}</dd></div>
               </dl>
-              <p class="text-xs text-gray-500 mb-3">Source: {GIAS_LABEL}. Oversubscription criteria are set in each school's own admissions policy, published by {admUrl(s) ? <a class="underline" href={admUrl(s)} rel="nofollow noopener">{s.la} (official admissions page)</a> : s.la} or the school.</p>
+              <p class="text-xs text-gray-500 mb-3">Source: {GIAS_LABEL}. Each school's own admissions policy sets its oversubscription criteria. It is published by {admUrl(s) ? <a class="underline" href={admUrl(s)} rel="nofollow noopener">{s.la} (official admissions page)</a> : s.la} or by the school.</p>
               <a href="/postcode/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors" aria-label={`Check the catchment for your postcode (${s.name})`}>Check the catchment for your postcode</a>
               <a href={`/school/${s.slug}/`} class="block text-center text-indigo-700 text-sm font-medium mt-2 hover:underline">{s.name} catchment page</a>
             </div>
@@ -448,8 +469,7 @@ const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.t
         {sourceList.map((s) => (
           <li>
             <strong>{s.name}:</strong>{' '}
-            {s.meta ? <>{s.meta.url ? <a class="text-indigo-700 underline" href={s.meta.url} rel="nofollow noopener">{s.meta.publication}</a> : s.meta.publication}{s.meta.release ? `, released ${s.meta.release}` : ''}</> : 'Department for Education'}
-            {' '}({s.first === s.last ? s.first : `${s.first} to ${s.last}`}{s.meta?.downloaded ? `; downloaded ${s.meta.downloaded}` : ''}).
+            {s.meta ? <>{s.meta.url ? <a class="text-indigo-700 underline" href={s.meta.url} rel="nofollow noopener">{s.meta.publication}</a> : s.meta.publication}{releaseOf(s.meta) ? `, ${releaseOf(s.meta)} release` : ''}</> : 'Department for Education'}, covering {s.first === s.last ? s.first : `${s.first} to ${s.last}`}{s.meta?.downloaded ? `, downloaded ${s.meta.downloaded}` : ''}.
           </li>
         ))}
         {sourceList.length === 0 && <li>No school-level results or attendance figures are loaded for these two schools.</li>}
