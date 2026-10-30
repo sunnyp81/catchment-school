@@ -1,0 +1,29 @@
+{
+ "source": "Bing Webmaster get_page_stats for catchment.school, pulled 2026-10-30 (all available daily rows, clicks summed per council across /council/<la>/ and /school/<slug> pages of that council); top 10 councils by clicks plus shropshire (named in the Oct 2 directive entry). Batch also includes any pair containing a school in src/data/top-bing-schools.json. Expand: node scripts/gen-compare-pairs.mjs --full",
+ "bingClicks": {
+  "buckinghamshire": 57,
+  "gloucestershire": 45,
+  "leeds": 38,
+  "essex": 34,
+  "hertfordshire": 32,
+  "hampshire": 28,
+  "surrey": 27,
+  "birmingham": 23,
+  "lancashire": 22,
+  "croydon": 21,
+  "shropshire": 15
+ },
+ "councils": [
+  "buckinghamshire",
+  "gloucestershire",
+  "leeds",
+  "essex",
+  "hertfordshire",
+  "hampshire",
+  "surrey",
+  "birmingham",
+  "lancashire",
+  "croydon",
+  "shropshire"
+ ]
+}

@@ -7,7 +7,9 @@
  */
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 
-const perfPath = process.argv[2] || 'data/performance.json';
+// First batch only (default): pairs where either school is in compare-batch-councils.json or top-bing-schools.json. Expand to the full set with: node scripts/gen-compare-pairs.mjs --full
+const FULL = process.argv.includes('--full');
+const perfPath = process.argv.slice(2).find((a) => !a.startsWith('--')) || 'data/performance.json';
 if (!existsSync(perfPath)) { console.error(`Missing ${perfPath}`); process.exit(1); }
 const schools = JSON.parse(readFileSync('src/data/schools.json', 'utf8'));
 const perf = JSON.parse(readFileSync(perfPath, 'utf8'));
@@ -43,7 +45,13 @@ for (const s of sec) {
     pairs.add(`${a}-${b}`);
   }
 }
-const sorted = [...pairs].sort();
+const councils = new Set(JSON.parse(readFileSync('src/data/compare-batch-councils.json', 'utf8')).councils);
+const topUrns = new Set(JSON.parse(readFileSync('src/data/top-bing-schools.json', 'utf8')).map((s) => s.split('-').pop()));
+const byUrn = new Map(schools.map((s) => [String(s.urn), s]));
+const inBatch = (k) => k.split('-').some((u) => councils.has(byUrn.get(u)?.laSlug) || topUrns.has(u));
+const all = [...pairs].sort();
+const sorted = FULL ? all : all.filter(inBatch);
+console.log(`full candidate pairs: ${all.length}; in batch: ${all.filter(inBatch).length}; writing ${FULL ? 'FULL' : 'batch'}`);
 const out = JSON.stringify({ latestYear: latest, pairs: sorted.join(' ') });
 writeFileSync('src/data/compare-pairs.json', out);
 console.log(`secondary/all-through schools: ${sec.length}; curated pairs: ${sorted.length}; file bytes: ${out.length}`);

@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import ofstedMap from '../../data/ofsted-map.json';
 import admissionsUrls from '../../data/admissions-urls.json';
 import { env } from 'cloudflare:workers';
+import { notFoundResponse } from '../../lib/notfound';
 import { resolvePair, phaseGroup, isCurated, haversineMiles, deDash } from '../../lib/compare';
 
 const SITE = 'https://catchment.school';
@@ -12,10 +13,7 @@ const SITE = 'https://catchment.school';
 const GIAS_LABEL = 'GIAS (DfE), March 2026 extract';
 const OFSTED_LABEL = 'Ofsted MI, inspections to 31 May 2026';
 
-const notFound = () => new Response(
-  '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Comparison not found</title></head><body style="font-family:system-ui;max-width:36rem;margin:3rem auto;padding:0 1rem"><h1>Comparison not found</h1><p>We could not match that pair of schools. The two schools must be different, and both primary, or both secondary or all-through.</p><p><a href="/postcode/">Search schools by postcode</a> or <a href="/">go to the home page</a>.</p></body></html>',
-  { status: 404, headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex' } }
-);
+const notFound = () => notFoundResponse(Astro.url);
 
 if (!env?.DB) return new Response('Service unavailable', { status: 503 });
 const db = env.DB;
@@ -42,7 +40,6 @@ for (const s of [A, B]) {
 
 // Index gate: only the curated set is indexable; every other valid pair is noindex,follow with a self canonical.
 const curated = isCurated(A.urn, B.urn);
-const robots = curated ? 'index, follow, max-image-preview:large, max-snippet:-1' : 'noindex, follow';
 const canonicalUrl = SITE + canonicalPath;
 
 // ---- Performance rows from D1 (table may not exist yet: degrade to "Not published") ----
@@ -64,6 +61,8 @@ const ownLatest = (urn: string, key: string) => {
   return ys.length ? ys[ys.length - 1] : null;
 };
 const hasPerf = allYears.length > 0;
+// Indexable only when in the curated batch AND performance data exists for the pair; otherwise noindex,follow.
+const robots = curated && hasPerf ? 'index, follow, max-image-preview:large, max-snippet:-1' : 'noindex, follow';
 
 const sourceMods = import.meta.glob('../../data/performance-sources.json', { eager: true, import: 'default' }) as Record<string, any>;
 const sources: Record<string, Record<string, any>> = Object.values(sourceMods)[0] ?? {};

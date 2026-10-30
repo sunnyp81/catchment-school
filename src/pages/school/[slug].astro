@@ -7,6 +7,7 @@ import ofstedMap from '../../data/ofsted-map.json';
 import admissionsUrls from '../../data/admissions-urls.json';
 import topBingSchools from '../../data/top-bing-schools.json';
 import { env } from 'cloudflare:workers';
+import { notFoundResponse } from '../../lib/notfound';
 import { curatedPartners, haversineMiles as cmpMiles } from '../../lib/compare';
 
 const { slug } = Astro.params;
@@ -18,7 +19,7 @@ if (!env?.DB) {
 const s = await env.DB.prepare('SELECT * FROM schools WHERE slug = ?').bind(slug).first();
 
 if (!s) {
-  return Astro.redirect('/404');
+  return notFoundResponse(Astro.url);
 }
 
 // D1 still holds the pre-cleanup data, where ageRange uses en-dashes that the Workers
