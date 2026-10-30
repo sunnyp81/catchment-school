@@ -1,0 +1,131 @@
+{
+  "ks4": {
+    "2022-23": {
+      "publication": "Key stage 4 performance",
+      "dataset": "Key stage 4 institution level - Schools (performance) (API data set \"Performance tables schools data\", 2022/23 to 2024/25)",
+      "release": "Key stage 4 performance, Academic year 2024/25",
+      "version": "1.0.3",
+      "dataStatus": "Final",
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/19e39901-a96c-be76-b9c2-6af54ae076d2/csv?dataSetVersion=1.0.3",
+      "downloaded": "2026-10-30"
+    },
+    "2023-24": {
+      "publication": "Key stage 4 performance",
+      "dataset": "Key stage 4 institution level - Performance (API data set \"Performance tables schools data\", 2023/24 to 2025/26)",
+      "release": "Key stage 4 performance, Academic year 2025/26",
+      "version": "2.0.1",
+      "dataStatus": "Final",
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/19e39901-a96c-be76-b9c2-6af54ae076d2/csv?dataSetVersion=2.0.1",
+      "downloaded": "2026-10-30"
+    },
+    "2024-25": {
+      "publication": "Key stage 4 performance",
+      "dataset": "Key stage 4 institution level - Performance (API data set \"Performance tables schools data\", 2023/24 to 2025/26)",
+      "release": "Key stage 4 performance, Academic year 2025/26",
+      "version": "2.0.1",
+      "dataStatus": "Final",
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/19e39901-a96c-be76-b9c2-6af54ae076d2/csv?dataSetVersion=2.0.1",
+      "downloaded": "2026-10-30",
+      "note": "Progress 8 not published for this cohort (no KS2 baseline); stored as null"
+    },
+    "2025-26": {
+      "publication": "Key stage 4 performance",
+      "dataset": "Key stage 4 institution level - Performance (API data set \"Performance tables schools data\", 2023/24 to 2025/26)",
+      "release": "Key stage 4 performance, Academic year 2025/26",
+      "version": "2.0.1",
+      "dataStatus": "Provisional",
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/19e39901-a96c-be76-b9c2-6af54ae076d2/csv?dataSetVersion=2.0.1",
+      "downloaded": "2026-10-30",
+      "note": "Progress 8 not published for this cohort (no KS2 baseline); stored as null"
+    }
+  },
+  "alevel": {
+    "2021-22": {
+      "publication": "16 to 19 performance",
+      "dataset": "Schools and colleges - performance (A level cohort, all students)",
+      "release": "Academic year 2024/25",
+      "version": "1.0.3",
+      "dataStatus": "Final",
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019c2960-81e3-70c2-8d65-72c3718ae4fd/csv?dataSetVersion=1.0.3",
+      "downloaded": "2026-10-30",
+      "note": "alevel_entries = number of students in the APS measure (school-level entry counts are not published)"
+    },
+    "2022-23": {
+      "publication": "16 to 19 performance",
+      "dataset": "Schools and colleges - performance (A level cohort, all students)",
+      "release": "Academic year 2024/25",
+      "version": "1.0.3",
+      "dataStatus": "Final",
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019c2960-81e3-70c2-8d65-72c3718ae4fd/csv?dataSetVersion=1.0.3",
+      "downloaded": "2026-10-30",
+      "note": "alevel_entries = number of students in the APS measure (school-level entry counts are not published)"
+    },
+    "2023-24": {
+      "publication": "16 to 19 performance",
+      "dataset": "Schools and colleges - performance (A level cohort, all students)",
+      "release": "Academic year 2024/25",
+      "version": "1.0.3",
+      "dataStatus": "Final",
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019c2960-81e3-70c2-8d65-72c3718ae4fd/csv?dataSetVersion=1.0.3",
+      "downloaded": "2026-10-30",
+      "note": "alevel_entries = number of students in the APS measure (school-level entry counts are not published)"
+    },
+    "2024-25": {
+      "publication": "16 to 19 performance",
+      "dataset": "Schools and colleges - performance (A level cohort, all students)",
+      "release": "Academic year 2024/25",
+      "version": "1.0.3",
+      "dataStatus": "Final",
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019c2960-81e3-70c2-8d65-72c3718ae4fd/csv?dataSetVersion=1.0.3",
+      "downloaded": "2026-10-30",
+      "note": "alevel_entries = number of students in the APS measure (school-level entry counts are not published)"
+    }
+  },
+  "absence": {
+    "2018-19": {
+      "publication": "Pupil absence in schools in England",
+      "dataset": "Absence rates by school level (1a_Absence_3term_school.csv)",
+      "release": "Academic year 2024/25 (published 2026-03-26)",
+      "version": "n/a",
+      "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/889f9166-e3bf-4d3a-afb2-d86e4aecc70a/download",
+      "downloaded": "2026-10-30",
+      "note": "abs_persistent = % of enrolments persistently absent (10% or more sessions missed)"
+    },
+    "2021-22": {
+      "publication": "Pupil absence in schools in England",
+      "dataset": "Absence rates by school level (1a_Absence_3term_school.csv)",
+      "release": "Academic year 2024/25 (published 2026-03-26)",
+      "version": "n/a",
+      "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/889f9166-e3bf-4d3a-afb2-d86e4aecc70a/download",
+      "downloaded": "2026-10-30",
+      "note": "abs_persistent = % of enrolments persistently absent (10% or more sessions missed)"
+    },
+    "2022-23": {
+      "publication": "Pupil absence in schools in England",
+      "dataset": "Absence rates by school level (1a_Absence_3term_school.csv)",
+      "release": "Academic year 2024/25 (published 2026-03-26)",
+      "version": "n/a",
+      "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/889f9166-e3bf-4d3a-afb2-d86e4aecc70a/download",
+      "downloaded": "2026-10-30",
+      "note": "abs_persistent = % of enrolments persistently absent (10% or more sessions missed)"
+    },
+    "2023-24": {
+      "publication": "Pupil absence in schools in England",
+      "dataset": "Absence rates by school level (1a_Absence_3term_school.csv)",
+      "release": "Academic year 2024/25 (published 2026-03-26)",
+      "version": "n/a",
+      "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/889f9166-e3bf-4d3a-afb2-d86e4aecc70a/download",
+      "downloaded": "2026-10-30",
+      "note": "abs_persistent = % of enrolments persistently absent (10% or more sessions missed)"
+    },
+    "2024-25": {
+      "publication": "Pupil absence in schools in England",
+      "dataset": "Absence rates by school level (1a_Absence_3term_school.csv)",
+      "release": "Academic year 2024/25 (published 2026-03-26)",
+      "version": "n/a",
+      "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/889f9166-e3bf-4d3a-afb2-d86e4aecc70a/download",
+      "downloaded": "2026-10-30",
+      "note": "abs_persistent = % of enrolments persistently absent (10% or more sessions missed)"
+    }
+  }
+}

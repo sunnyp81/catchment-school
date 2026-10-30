@@ -7,6 +7,7 @@ import ofstedMap from '../../data/ofsted-map.json';
 import admissionsUrls from '../../data/admissions-urls.json';
 import topBingSchools from '../../data/top-bing-schools.json';
 import { env } from 'cloudflare:workers';
+import { curatedPartners, haversineMiles as cmpMiles } from '../../lib/compare';
 
 const { slug } = Astro.params;
 
@@ -84,6 +85,21 @@ if (s.lat && s.lng) {
     .sort((a: any, b: any) => a.distanceMiles - b.distanceMiles)
     .slice(0, 3);
 }
+
+// Compare block: ONLY this school's curated pairs (0-3 links, hidden when none).
+const comparePartnerUrns = curatedPartners(s.urn);
+const comparePartners = comparePartnerUrns.length
+  ? (await env.DB
+      .prepare(`SELECT slug, name, town, urn, lat, lng FROM schools WHERE urn IN (${comparePartnerUrns.map(() => '?').join(',')})`)
+      .bind(...comparePartnerUrns)
+      .all()
+    ).results.map((p: any) => ({
+      name: deDash(p.name),
+      town: p.town,
+      miles: s.lat != null && p.lat != null ? cmpMiles(s.lat, s.lng, p.lat, p.lng) : null,
+      href: `/compare/${Number(s.urn) <= Number(p.urn) ? `${s.slug}-vs-${p.slug}` : `${p.slug}-vs-${s.slug}`}/`,
+    })).sort((x: any, y: any) => (x.miles ?? 99) - (y.miles ?? 99)).slice(0, 3)
+  : [];
 
 const address = [s.street, s.locality, s.town, s.postcode].filter(Boolean).join(', ');
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ' ' + s.postcode)}`;
@@ -555,6 +571,23 @@ const breadcrumbSchema = {
               <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
                 <p class="text-xs text-gray-500 mt-1">{n.type} · {n.town} · {n.distanceMiles.toFixed(1)} miles away</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {comparePartners.length > 0 && (
+        <section class="mb-8" id="compare">
+          <h2 class="text-xl font-semibold mb-4">Compare {s.name} with nearby schools</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            Side-by-side Ofsted grade, results, attendance, capacity and admissions policy against the closest {phaseLower} schools.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {comparePartners.map((p: any) => (
+              <a href={p.href} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
+                <p class="font-medium text-indigo-700 text-sm hover:underline">{s.name} vs {p.name}</p>
+                <p class="text-xs text-gray-500 mt-1">{p.town}{p.miles != null ? ` · ${p.miles.toFixed(1)} miles away` : ''}</p>
               </a>
             ))}
           </div>

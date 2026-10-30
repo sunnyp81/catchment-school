@@ -44,3 +44,6 @@ secrets.*
 .next/cache/
 wordpress-config.md
 master-builds.md
+
+# DfE raw downloads (re-fetch: node scripts/fetch-performance.mjs)
+data/dfe/

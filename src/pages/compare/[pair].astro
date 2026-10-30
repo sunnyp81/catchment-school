@@ -1,0 +1,457 @@
+---
+export const prerender = false;
+
+import Base from '../../layouts/Base.astro';
+import ofstedMap from '../../data/ofsted-map.json';
+import { env } from 'cloudflare:workers';
+import { resolvePair, phaseGroup, isCurated, haversineMiles, deDash } from '../../lib/compare';
+
+const SITE = 'https://catchment.school';
+// schools.json is the GIAS extract loaded Jun 2026 (no finer extract date is recorded in the repo).
+const GIAS_LABEL = 'GIAS (DfE), 2026 extract';
+const OFSTED_LABEL = 'Ofsted MI, inspections to 31 May 2026';
+
+const notFound = () => new Response(
+  '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Comparison not found</title></head><body style="font-family:system-ui;max-width:36rem;margin:3rem auto;padding:0 1rem"><h1>Comparison not found</h1><p>We could not match that pair of schools. The two schools must be different, and both primary, or both secondary or all-through.</p><p><a href="/postcode/">Search schools by postcode</a> or <a href="/">go to the home page</a>.</p></body></html>',
+  { status: 404, headers: { 'content-type': 'text/html; charset=utf-8', 'x-robots-tag': 'noindex' } }
+);
+
+if (!env?.DB) return new Response('Service unavailable', { status: 503 });
+const db = env.DB;
+
+const { pair } = Astro.params;
+const resolved = pair ? await resolvePair(db, pair) : null;
+if (!resolved) return notFound();
+if (resolved.a.urn === resolved.b.urn) return notFound();
+const gA = phaseGroup(resolved.a.phase);
+const gB = phaseGroup(resolved.b.phase);
+if (!gA || gA !== gB) return notFound();
+
+// Canonical order: lower URN first. Reversed order 301s to canonical.
+const [A, B] = Number(resolved.a.urn) <= Number(resolved.b.urn) ? [resolved.a, resolved.b] : [resolved.b, resolved.a];
+const canonicalPath = `/compare/${A.slug}-vs-${B.slug}/`;
+if (Astro.url.pathname !== canonicalPath) return Astro.redirect(canonicalPath, 301);
+
+for (const s of [A, B]) {
+  for (const k of ['ageRange', 'name', 'town', 'la', 'street', 'locality', 'type']) if (s[k] != null) s[k] = deDash(s[k]);
+  const o = (ofstedMap as Record<string, any>)[String(s.urn)];
+  s.ofstedRating = o?.ofstedRating ?? null;
+  s.ofstedDate = o?.ofstedDate ?? null;
+}
+
+// Index gate: only the curated set is indexable; every other valid pair is noindex,follow with a self canonical.
+const curated = isCurated(A.urn, B.urn);
+const robots = curated ? 'index, follow, max-image-preview:large, max-snippet:-1' : 'noindex, follow';
+const canonicalUrl = SITE + canonicalPath;
+
+// ---- Performance rows from D1 (table may not exist yet: degrade to "Not published") ----
+const perfBy: Record<string, Record<string, any>> = { [A.urn]: {}, [B.urn]: {} };
+try {
+  const rows = (await db.prepare('SELECT * FROM performance WHERE urn IN (?, ?) ORDER BY year').bind(A.urn, B.urn).all()).results as any[];
+  for (const r of rows) perfBy[r.urn][r.year] = r;
+} catch { /* table not loaded */ }
+const yearsA = Object.keys(perfBy[A.urn]).sort();
+const yearsB = Object.keys(perfBy[B.urn]).sort();
+const allYears = [...new Set([...yearsA, ...yearsB])].sort();
+function num(v: any): number | null { return v === null || v === undefined || v === '' || Number.isNaN(Number(v)) ? null : Number(v); }
+const sameYearFor = (key: string) => {
+  const ys = allYears.filter((y) => num(perfBy[A.urn][y]?.[key]) != null && num(perfBy[B.urn][y]?.[key]) != null);
+  return ys.length ? ys[ys.length - 1] : null;
+};
+const ownLatest = (urn: string, key: string) => {
+  const ys = Object.keys(perfBy[urn]).sort().filter((y) => num(perfBy[urn][y]?.[key]) != null);
+  return ys.length ? ys[ys.length - 1] : null;
+};
+const hasPerf = allYears.length > 0;
+
+const sourceMods = import.meta.glob('../../data/performance-sources.json', { eager: true, import: 'default' }) as Record<string, any>;
+const sources: Record<string, Record<string, any>> = Object.values(sourceMods)[0] ?? {};
+const srcFor = (ds: string, y: string | null) => (y ? sources?.[ds]?.[y] ?? null : null);
+const isProv = (ds: string, y: string | null) => ds === 'ks4' && !!y && (srcFor(ds, y) ? srcFor(ds, y).dataStatus !== 'Final' : y === '2025-26');
+const yl = (ds: string, y: string | null) => (y ? (isProv(ds, y) ? `${y} (provisional)` : y) : 'no year');
+
+// ---- Helpers ----
+const NP = 'Not published';
+const f1 = (v: number | null) => (v == null ? null : v.toFixed(1));
+const f2 = (v: number | null) => (v == null ? null : v.toFixed(2));
+const signed2 = (v: number | null) => (v == null ? null : (v > 0 ? '+' : '') + v.toFixed(2));
+const pct0 = (v: number | null) => (v == null ? null : `${Math.round(v)}%`);
+const pct1 = (v: number | null) => (v == null ? null : `${v.toFixed(1)}%`);
+const withInt = (n: number | null) => (n == null ? null : n.toLocaleString('en-GB'));
+
+const ofstedLabels: Record<string, string> = { '1': 'Outstanding', '2': 'Good', '3': 'Requires improvement', '4': 'Inadequate' };
+const ofstedOf = (s: any) => (s.ofstedRating && ofstedLabels[s.ofstedRating]) ? ofstedLabels[s.ofstedRating] : null;
+const ofstedYearOf = (s: any) => (s.ofstedDate ? String(s.ofstedDate).split('/').pop() : null);
+const fillOf = (s: any) => (s.capacity && s.pupils ? Math.round((s.pupils / s.capacity) * 100) : null);
+const faithOf = (s: any) => (s.religion && s.religion !== 'Does not apply' && s.religion !== 'None' ? s.religion : null);
+const policyOf = (s: any) => {
+  const p = s.admissionsPolicy;
+  if (p === 'Selective') return 'Selective (entry by test)';
+  if (p === 'Non-selective') return 'Non-selective';
+  if (p === 'Modern') return 'Secondary modern';
+  return p && p !== 'Not applicable' ? p : null;
+};
+
+const distance = (A.lat != null && A.lng != null && B.lat != null && B.lng != null)
+  ? haversineMiles(A.lat, A.lng, B.lat, B.lng) : null;
+const distText = distance == null ? null : distance < 0.1 ? 'under 0.1 miles' : `${distance.toFixed(1)} miles`;
+const fillA = fillOf(A), fillB = fillOf(B);
+
+// ---- Table model ----
+type Cell = { text: string | null; yr?: string | null };
+type Row = { label: string; src: string; a: Cell; b: Cell; na?: number | null; nb?: number | null; better?: 'high' | 'low'; tol?: number; note?: string; sameYr?: boolean; winner?: 'a' | 'b' | null };
+const cell = (text: string | null, yr: string | null = null): Cell => ({ text, yr });
+const KEY: Record<string, string> = { a8: 'a8', em5: 'a8', em4: 'a8', ks4_cohort: 'a8', p8: 'p8', alevel_aps: 'alevel_aps', alevel_grade: 'alevel_aps', alevel_entries: 'alevel_aps', abs_overall: 'abs_overall', abs_persistent: 'abs_overall' };
+const rowYear = (field: string) => {
+  const k = KEY[field];
+  const same = sameYearFor(k);
+  return same ? { same: true, ya: same, yb: same } : { same: false, ya: ownLatest(A.urn, k), yb: ownLatest(B.urn, k) };
+};
+const perfRow = (label: string, field: string, fmt: (v: number | null) => string | null, srcName: string, ds: string, better?: 'high' | 'low', tol = 0, noteExtra = ''): Row => {
+  const ry = rowYear(field);
+  const a = ry.ya ? num(perfBy[A.urn][ry.ya]?.[field]) : null;
+  const b = ry.yb ? num(perfBy[B.urn][ry.yb]?.[field]) : null;
+  const texts = field === 'alevel_grade' ? [ry.ya ? perfBy[A.urn][ry.ya]?.alevel_grade : null, ry.yb ? perfBy[B.urn][ry.yb]?.alevel_grade : null] : [fmt(a), fmt(b)];
+  return {
+    label, better, tol, na: a, nb: b, note: noteExtra || undefined, sameYr: ry.same,
+    src: `${srcName}, ${ry.same ? yl(ds, ry.ya) : [ry.ya && yl(ds, ry.ya), ry.yb && yl(ds, ry.yb)].filter(Boolean).join(' / ') || 'no year'}`,
+    a: cell(texts[0] ?? null, ry.same ? null : yl(ds, ry.ya)), b: cell(texts[1] ?? null, ry.same ? null : yl(ds, ry.yb)),
+  };
+};
+const ksSrc = 'DfE KS4 results';
+const alSrc = 'DfE A-level results';
+const rowsOfsted: Row[] = [
+  { label: 'Overall Ofsted grade', src: OFSTED_LABEL, a: cell(ofstedOf(A) ?? 'No graded inspection in our data', ofstedYearOf(A)), b: cell(ofstedOf(B) ?? 'No graded inspection in our data', ofstedYearOf(B)) },
+];
+const locOf = (s: any) => [s.town, s.la].filter((v, i, arr) => v && arr.indexOf(v) === i).join(', ') || null;
+const rowsProfile: Row[] = [
+  { label: 'Type', src: GIAS_LABEL, a: cell(A.type), b: cell(B.type) },
+  { label: 'Phase and age range', src: GIAS_LABEL, a: cell(`${A.phase}${A.ageRange ? `, ages ${A.ageRange}` : ''}`), b: cell(`${B.phase}${B.ageRange ? `, ages ${B.ageRange}` : ''}`) },
+  { label: 'Location', src: GIAS_LABEL, a: cell(locOf(A)), b: cell(locOf(B)) },
+  { label: 'Pupils on roll', src: GIAS_LABEL, a: cell(withInt(num(A.pupils))), b: cell(withInt(num(B.pupils))) },
+];
+const p8y = rowYear('p8');
+const a8yr = rowYear('a8');
+const p8Note = !p8y.ya && !p8y.yb
+  ? 'Progress 8 is not published for these schools.'
+  : a8yr.ya && p8y.ya !== a8yr.ya
+    ? `Progress 8 was not published for the ${yl('ks4', a8yr.ya)} results, because the Department for Education did not calculate it for those pupils. The last published year is shown.`
+    : '';
+const rowsPerf: Row[] = hasPerf ? [
+  perfRow('Attainment 8 (average score)', 'a8', f1, ksSrc, 'ks4', 'high', 1),
+  perfRow('Progress 8 score', 'p8', signed2, ksSrc, 'ks4', 'high', 0.1, p8Note),
+  perfRow('Grade 5+ in English and maths', 'em5', pct0, ksSrc, 'ks4', 'high', 2),
+  perfRow('Grade 4+ in English and maths', 'em4', pct0, ksSrc, 'ks4', 'high', 2),
+  perfRow('GCSE pupils counted', 'ks4_cohort', withInt, ksSrc, 'ks4'),
+  perfRow('A-level average point score', 'alevel_aps', f2, alSrc, 'alevel', 'high', 1),
+  perfRow('A-level average grade', 'alevel_grade', () => null, alSrc, 'alevel'),
+  perfRow('A-level students in the point score measure', 'alevel_entries', withInt, alSrc, 'alevel'),
+  perfRow('Overall absence (lower is better)', 'abs_overall', pct1, 'DfE pupil absence', 'absence', 'low', 0.3),
+  perfRow('Persistent absence: % of pupils missing 10% or more of sessions (lower is better)', 'abs_persistent', pct1, 'DfE pupil absence', 'absence', 'low', 1),
+] : [];
+// Progress 8: mark only if the confidence intervals do not overlap.
+const p8row = rowsPerf.find((r) => r.label.startsWith('Progress 8'));
+if (p8row && p8y.same && p8y.ya) {
+  const g = (urn: string, f: string) => num(perfBy[urn][p8y.ya!]?.[f]);
+  const [al, au, bl, bu] = [g(A.urn, 'p8_lower'), g(A.urn, 'p8_upper'), g(B.urn, 'p8_lower'), g(B.urn, 'p8_upper')];
+  if (al != null && au != null && bl != null && bu != null && al <= bu && bl <= au) {
+    p8row.better = undefined;
+    p8row.note = ((p8row.note ?? '') + ' Confidence intervals overlap, so no clear difference.').trim();
+  }
+}
+for (const r of rowsPerf) {
+  r.winner = null;
+  if (r.sameYr && r.better && r.na != null && r.nb != null && Math.abs(r.na - r.nb) >= (r.tol ?? 0) && r.na !== r.nb) {
+    r.winner = r.better === 'high' ? (r.na > r.nb ? 'a' : 'b') : (r.na < r.nb ? 'a' : 'b');
+  }
+}
+const rowsIntake: Row[] = [
+  { label: 'Pupils eligible for free school meals', src: GIAS_LABEL, a: cell(A.fsm != null ? `${A.fsm}%` : null), b: cell(B.fsm != null ? `${B.fsm}%` : null) },
+  { label: 'Published capacity (places)', src: GIAS_LABEL, a: cell(withInt(num(A.capacity))), b: cell(withInt(num(B.capacity))) },
+  { label: 'Pupils on roll as % of capacity', src: `${GIAS_LABEL}, pupils divided by capacity`, a: cell(fillA != null ? `${fillA}%` : null), b: cell(fillB != null ? `${fillB}%` : null) },
+  { label: 'Admissions policy', src: GIAS_LABEL, a: cell(policyOf(A)), b: cell(policyOf(B)) },
+  { label: 'Religious character', src: GIAS_LABEL, a: cell(faithOf(A) ?? 'None recorded'), b: cell(faithOf(B) ?? 'None recorded') },
+];
+const groups: { title: string; note?: string; rows: Row[] }[] = [
+  { title: 'Ofsted', rows: rowsOfsted },
+  { title: 'School profile', rows: rowsProfile },
+  ...(rowsPerf.length ? [{
+    title: 'Results and attendance',
+    note: 'Each row shows the latest year both schools have a figure for. "Stronger" marks only gaps big enough to matter, not rounding-level differences, and only where both schools are in the same year.',
+    rows: rowsPerf,
+  }] : []),
+  { title: 'Intake and admissions', note: 'Not marked as stronger or weaker. These rows describe who a school serves and how its places are filled, not how well it teaches, so a higher or lower figure is not better.', rows: rowsIntake },
+];
+
+// ---- Summary (data-derived) ----
+const nameA = A.name, nameB = B.name;
+const sum: string[] = [];
+if (distText) sum.push(`${nameA} and ${nameB} are ${distText} apart in a straight line${A.la === B.la ? `, both in ${A.la}` : `, in ${A.la} and ${B.la}`}.`);
+const oA = ofstedOf(A), oB = ofstedOf(B);
+if (oA && oB) {
+  sum.push(oA === oB ? `Ofsted rates both schools ${oA} (${nameA} inspected ${ofstedYearOf(A)}, ${nameB} ${ofstedYearOf(B)}).`
+    : `Ofsted rates ${nameA} ${oA} (${ofstedYearOf(A)}) and ${nameB} ${oB} (${ofstedYearOf(B)}).`);
+} else if (oA || oB) {
+  const gradedName = oA ? nameA : nameB;
+  sum.push(`Only ${gradedName} has a graded Ofsted inspection in our data (${oA ?? oB}, ${ofstedYearOf(oA ? A : B)}).`);
+}
+{
+  const ya = sameYearFor('a8');
+  const a8a = ya ? num(perfBy[A.urn][ya].a8) : null, a8b = ya ? num(perfBy[B.urn][ya].a8) : null;
+  if (ya && a8a != null && a8b != null) {
+    const d = Math.abs(a8a - a8b);
+    const yy = yl('ks4', ya);
+    sum.push(d < 1 ? `In ${yy} their Attainment 8 scores were close: ${f1(a8a)} at ${nameA} and ${f1(a8b)} at ${nameB}.`
+      : `In ${yy}, ${a8a > a8b ? nameA : nameB} had the higher Attainment 8 score, ${f1(Math.max(a8a, a8b))} against ${f1(Math.min(a8a, a8b))}, a gap of ${d.toFixed(1)} points.`);
+    if (p8Note) sum.push(`Progress 8 was not published for ${yy}, so this comparison relies on attainment.`);
+  }
+  const yb = sameYearFor('abs_overall');
+  if (yb) sum.push(`Overall absence in ${yb} was ${pct1(num(perfBy[A.urn][yb].abs_overall))} at ${nameA} and ${pct1(num(perfBy[B.urn][yb].abs_overall))} at ${nameB}.`);
+}
+if (fillA != null && fillB != null) {
+  sum.push(`On published capacity, ${nameA} has ${withInt(num(A.pupils))} pupils for ${withInt(num(A.capacity))} places (${fillA}%) and ${nameB} has ${withInt(num(B.pupils))} for ${withInt(num(B.capacity))} (${fillB}%).`);
+}
+const polA = policyOf(A), polB = policyOf(B);
+const selA = !!polA?.startsWith('Selective'), selB = !!polB?.startsWith('Selective');
+if (selA !== selB) sum.push(`${selA ? nameA : nameB} is selective; ${selA ? nameB : nameA} is not.`);
+const fA = faithOf(A), fB = faithOf(B);
+if (!!fA !== !!fB) sum.push(`${fA ? nameA : nameB} has a ${fA ?? fB} religious character, which can affect admissions priority; ${fA ? nameB : nameA} has none recorded.`);
+
+// ---- Title / description ----
+const shorten = (n: string, max: number) => (n.length <= max ? n : n.slice(0, max - 3).replace(/\s+\S*$/, '') + '...');
+const trimSuffix = (n: string) => n.replace(/\s+(school|academy|college)$/i, '');
+let title = `${nameA} vs ${nameB}: compare schools`;
+if (title.length > 62) {
+  title = `${trimSuffix(nameA)} vs ${trimSuffix(nameB)}: compare schools`;
+  if (title.length > 62) title = `${shorten(trimSuffix(nameA), 24)} vs ${shorten(trimSuffix(nameB), 24)}: compare schools`;
+}
+const descRaw = sum.slice(0, 3).join(' ');
+const description = descRaw ? shorten(descRaw, 158) : `Compare ${nameA} and ${nameB}: Ofsted, results, distance, capacity and admissions.`;
+
+// ---- Charts (inline SVG) ----
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const yStart = (y: string) => parseInt(y.slice(0, 4), 10);
+const shortYear = (y: string) => `${y.slice(2, 4)}-${y.slice(-2)}`;
+const COL_A = '#1D4ED8', COL_B = '#B45309';
+function niceTicks(min: number, max: number) {
+  if (min === max) { min -= 1; max += 1; }
+  const raw = (max - min) / 4;
+  const mag = 10 ** Math.floor(Math.log10(raw));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= raw)!;
+  const lo = Math.floor(min / step) * step, hi = Math.ceil(max / step) * step;
+  const t: number[] = [];
+  for (let v = lo; v <= hi + step / 1000; v += step) t.push(+v.toFixed(6));
+  return t;
+}
+type Metric = { id: string; field: string; title: string; unit: string; dec: number; dir: string; ds: string };
+const metrics: Metric[] = [
+  { id: 'a8', field: 'a8', title: 'Attainment 8 (average score)', unit: '', dec: 1, dir: 'higher is better', ds: 'ks4' },
+  { id: 'abs', field: 'abs_overall', title: 'Overall absence (% of sessions)', unit: '%', dec: 1, dir: 'lower is better', ds: 'absence' },
+  { id: 'em5', field: 'em5', title: 'Grade 5+ in English and maths (% of pupils)', unit: '%', dec: 0, dir: 'higher is better', ds: 'ks4' },
+];
+const dsShort: Record<string, string> = { ks4: 'DfE key stage 4 results', alevel: 'DfE A-level results', absence: 'DfE pupil absence' };
+function chartFor(m: Metric) {
+  const val = (urn: string, y: string) => num(perfBy[urn][y]?.[m.field]);
+  const years = allYears.filter((y) => val(A.urn, y) != null || val(B.urn, y) != null);
+  if (!years.length) return null;
+  const vals = years.flatMap((y) => [val(A.urn, y), val(B.urn, y)]).filter((v): v is number => v != null);
+  const ticks = niceTicks(Math.min(...vals), Math.max(...vals));
+  const lo = ticks[0], hi = ticks[ticks.length - 1];
+  const W = 360, H = 240, L = 40, R = 14, T = 14, Bt = 34;
+  const xs = years.map(yStart);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs);
+  const X = (y: string) => (x1 === x0 ? (L + W - R) / 2 : L + ((yStart(y) - x0) / (x1 - x0)) * (W - L - R));
+  const Y = (v: number) => T + (1 - (v - lo) / (hi - lo)) * (H - T - Bt);
+  const fmt = (v: number) => v.toFixed(m.dec) + m.unit;
+  const list = (urn: string) => years.filter((y) => val(urn, y) != null).map((y) => `${y} ${fmt(val(urn, y)!)}`).join(', ') || 'no data';
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-labelledby="t-${m.id} d-${m.id}" focusable="false" style="display:block;max-width:560px;height:auto"><title id="t-${m.id}">${esc(m.title)} by year</title><desc id="d-${m.id}">${esc(`${nameA}: ${list(A.urn)}. ${nameB}: ${list(B.urn)}.`)}</desc>`;
+  for (const t of ticks) svg += `<line x1="${L}" x2="${W - R}" y1="${Y(t).toFixed(1)}" y2="${Y(t).toFixed(1)}" stroke="#E2E8F0" stroke-width="1"/><text x="${L - 6}" y="${(Y(t) + 3.5).toFixed(1)}" text-anchor="end" font-size="10" fill="#475569">${t.toFixed(m.dec)}</text>`;
+  for (const y of years) svg += `<text x="${X(y).toFixed(1)}" y="${H - 14}" text-anchor="middle" font-size="10" fill="#475569">${shortYear(y)}</text>`;
+  const series = [{ urn: A.urn, col: COL_A, dash: '', shape: 'c' }, { urn: B.urn, col: COL_B, dash: '6 4', shape: 's' }];
+  for (const s of series) {
+    let seg: string[] = [];
+    const flush = () => { if (seg.length > 1) svg += `<polyline points="${seg.join(' ')}" fill="none" stroke="${s.col}" stroke-width="2"${s.dash ? ` stroke-dasharray="${s.dash}"` : ''}/>`; seg = []; };
+    for (const y of years) {
+      const v = val(s.urn, y);
+      if (v == null) { flush(); continue; }
+      seg.push(`${X(y).toFixed(1)},${Y(v).toFixed(1)}`);
+    }
+    flush();
+    for (const y of years) {
+      const v = val(s.urn, y);
+      if (v == null) continue;
+      const cx = X(y), cy = Y(v);
+      svg += s.shape === 'c'
+        ? `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="3.5" fill="${s.col}"/>`
+        : `<rect x="${(cx - 3.2).toFixed(1)}" y="${(cy - 3.2).toFixed(1)}" width="6.4" height="6.4" fill="#fff" stroke="${s.col}" stroke-width="2"/>`;
+    }
+  }
+  svg += '</svg>';
+  const tableRows = years.map((y) => ({ y: yl(m.ds, y), a: val(A.urn, y) == null ? NP : fmt(val(A.urn, y)!), b: val(B.urn, y) == null ? NP : fmt(val(B.urn, y)!) }));
+  return { m, prov: years.some((y) => isProv(m.ds, y)), svg, tableRows, first: years[0], last: years[years.length - 1] };
+}
+const charts = hasPerf ? metrics.map(chartFor).filter(Boolean) as NonNullable<ReturnType<typeof chartFor>>[] : [];
+
+// ---- Sources ----
+const dsNames: Record<string, string> = { ks4: 'Key stage 4 results (Attainment 8, Progress 8, English and maths)', alevel: 'A-level results', absence: 'Pupil absence' };
+const dsFields: Record<string, string[]> = {
+  ks4: ['a8', 'p8', 'em5', 'em4', 'ks4_cohort'],
+  alevel: ['alevel_aps', 'alevel_grade', 'alevel_entries'],
+  absence: ['abs_overall', 'abs_persistent'],
+};
+const sourceList = (['ks4', 'alevel', 'absence'] as const).map((ds) => {
+  const ys = allYears.filter((y) => dsFields[ds].some((f) => num(perfBy[A.urn][y]?.[f]) != null || num(perfBy[B.urn][y]?.[f]) != null));
+  if (!ys.length) return null;
+  const last = ys[ys.length - 1];
+  return { ds, name: dsNames[ds], first: ys[0], last, meta: srcFor(ds, last) };
+}).filter(Boolean) as { ds: string; name: string; first: string; last: string; meta: any }[];
+
+// ---- JSON-LD ----
+const schoolLd = (s: any, pos: number) => ({
+  '@type': 'ListItem', position: pos,
+  item: {
+    '@type': 'EducationalOrganization', name: s.name, url: `${SITE}/school/${s.slug}/`,
+    address: { '@type': 'PostalAddress', addressLocality: s.town, postalCode: s.postcode, addressCountry: 'GB' },
+  },
+});
+const crumbs: any[] = [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` }];
+if (A.laSlug && A.laSlug === B.laSlug) crumbs.push({ '@type': 'ListItem', position: 2, name: A.la, item: `${SITE}/council/${A.laSlug}/` });
+crumbs.push({ '@type': 'ListItem', position: crumbs.length + 1, name: `${nameA} vs ${nameB}`, item: canonicalUrl });
+const breadcrumbLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: crumbs };
+const itemListLd = { '@context': 'https://schema.org', '@type': 'ItemList', name: `${nameA} vs ${nameB}`, numberOfItems: 2, itemListElement: [schoolLd(A, 1), schoolLd(B, 2)] };
+
+const winnerBadge = 'ml-1 inline-block align-middle rounded bg-blue-100 text-blue-900 border border-blue-300 px-1.5 py-px text-[11px] font-semibold leading-tight';
+const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.test(String(s.ageRange ?? '')));
+---
+<Base title={title} description={description} canonical={canonicalUrl} robots={robots}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(itemListLd)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center flex-wrap" aria-label="Breadcrumb">
+    <a href="/" class="hover:underline">Home</a>
+    {A.laSlug === B.laSlug && (<><span aria-hidden="true">&rsaquo;</span><a href={`/council/${A.laSlug}/`} class="hover:underline">{A.la}</a></>)}
+    <span aria-hidden="true">&rsaquo;</span>
+    <span class="text-gray-700">Compare schools</span>
+  </nav>
+
+  <div class="max-w-4xl">
+    <h1 class="text-3xl font-bold mb-4 break-words">{nameA} vs {nameB}</h1>
+
+    <section aria-labelledby="summary-h" class="mb-8">
+      <h2 id="summary-h" class="text-xl font-semibold mb-3">At a glance</h2>
+      <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-2 text-gray-800">
+        {sum.map((t) => <p>{t}</p>)}
+        <p class="text-xs text-gray-500 pt-1">Built from the figures in the table below. Sources and years are given next to every figure.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="table-h" class="mb-10">
+      <h2 id="table-h" class="text-xl font-semibold mb-3">Side by side</h2>
+      <table class="w-full text-sm border border-gray-200" style="table-layout:fixed">
+        <caption class="sr-only">{nameA} compared with {nameB}</caption>
+        <colgroup><col style="width:34%" /><col style="width:33%" /><col style="width:33%" /></colgroup>
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="text-left p-2 sm:p-3 font-medium text-gray-500">Measure</th>
+            <th scope="col" class="text-left p-2 sm:p-3 font-semibold break-words"><a class="text-indigo-700 hover:underline" href={`/school/${A.slug}/`}>{nameA}</a></th>
+            <th scope="col" class="text-left p-2 sm:p-3 font-semibold break-words"><a class="text-indigo-700 hover:underline" href={`/school/${B.slug}/`}>{nameB}</a></th>
+          </tr>
+        </thead>
+        {groups.map((g) => (
+          <tbody class="border-t border-gray-200">
+            <tr class="bg-gray-50"><th scope="colgroup" colspan="3" class="text-left p-2 sm:p-3 font-semibold text-gray-800">{g.title}{g.note && <span class="block font-normal text-xs text-gray-500 mt-0.5">{g.note}</span>}</th></tr>
+            {g.rows.map((r) => (
+              <tr class="border-t border-gray-100 align-top">
+                <th scope="row" class="text-left p-2 sm:p-3 font-medium text-gray-700 break-words">
+                  {r.label}
+                  <span class="block font-normal text-xs text-gray-500 mt-0.5">{r.src}</span>
+                  {r.note && <span class="block font-normal text-xs text-gray-500 mt-0.5">{r.note}</span>}
+                </th>
+                {([['a', r.a], ['b', r.b]] as const).map(([k, cl]) => (
+                  <td class={`p-2 sm:p-3 break-words text-gray-900 ${r.winner === k ? 'bg-blue-50' : ''}`}>
+                    {cl.text ? <span>{cl.text}</span> : <span class="text-gray-500">{NP}</span>}
+                    {cl.yr && cl.text && <span class="block text-xs text-gray-500">{cl.yr}</span>}
+                    {r.winner === k && <span class={winnerBadge}>Stronger</span>}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        ))}
+      </table>
+      <p class="text-xs text-gray-500 mt-2">"Not published" means the figure is not published or is suppressed for that school and year. It does not mean zero.</p>
+    </section>
+
+    {charts.length > 0 && (
+      <section aria-labelledby="trend-h" class="mb-10">
+        <h2 id="trend-h" class="text-xl font-semibold mb-1">Trends over time</h2>
+        <p class="text-sm text-gray-600 mb-4">
+          Solid blue line with round markers: {nameA}. Dashed amber line with square markers: {nameB}. Years with no published figure for either school are left off the axis.
+        </p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {charts.map((ch) => (
+            <figure class="border border-gray-200 rounded-lg p-4 bg-white m-0">
+              <figcaption class="font-semibold text-sm mb-2">{ch.m.title}<span class="font-normal text-gray-500">, {ch.m.dir}</span></figcaption>
+              <div set:html={ch.svg} />
+              <details class="mt-2 text-sm">
+                <summary class="cursor-pointer text-indigo-700">Show these figures as a table</summary>
+                <table class="w-full mt-2 text-xs border border-gray-200" style="table-layout:fixed">
+                  <thead class="bg-gray-50"><tr><th scope="col" class="text-left p-1.5">Year</th><th scope="col" class="text-left p-1.5 break-words">{nameA}</th><th scope="col" class="text-left p-1.5 break-words">{nameB}</th></tr></thead>
+                  <tbody>{ch.tableRows.map((tr) => <tr class="border-t border-gray-100"><th scope="row" class="text-left p-1.5 font-medium">{tr.y}</th><td class="p-1.5">{tr.a}</td><td class="p-1.5">{tr.b}</td></tr>)}</tbody>
+                </table>
+              </details>
+              <p class="text-xs text-gray-500 mt-2">Source: {dsShort[ch.m.ds]}, {ch.first === ch.last ? ch.first : `${ch.first} to ${ch.last}`}.{ch.prov ? ' The latest year is provisional.' : ''}</p>
+            </figure>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section aria-labelledby="adm-h" class="mb-10">
+      <h2 id="adm-h" class="text-xl font-semibold mb-3">Admissions: how the two schools differ</h2>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 mb-4 text-sm text-gray-800 space-y-2">
+        {distText && <p><strong>Distance between the schools:</strong> {distText} in a straight line between the school sites ({GIAS_LABEL} coordinates). This is not a walking or driving distance, and it does not show which school your address is in catchment for.</p>}
+        <p><strong>How full they are:</strong> pupils on roll divided by published capacity ({GIAS_LABEL}). Both figures cover every year group{hasSixthForm ? ', including any sixth form' : ''}, so treat the percentage as a rough guide to demand, not the size of the Year 7 intake.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {[A, B].map((s) => {
+          const fl = fillOf(s); const pol = policyOf(s); const faith = faithOf(s);
+          return (
+            <div class="border border-gray-200 rounded-lg p-5 bg-white">
+              <h3 class="font-semibold mb-2 break-words">{s.name}</h3>
+              <dl class="text-sm space-y-1 mb-4">
+                <div class="flex justify-between gap-3"><dt class="text-gray-500">Capacity</dt><dd>{s.capacity ? `${withInt(num(s.capacity))} places` : NP}</dd></div>
+                <div class="flex justify-between gap-3"><dt class="text-gray-500">Pupils on roll</dt><dd>{s.pupils ? withInt(num(s.pupils)) : NP}</dd></div>
+                <div class="flex justify-between gap-3"><dt class="text-gray-500">Full</dt><dd class="text-right">{fl != null ? `${fl}%${fl >= 100 ? ' (at or over capacity)' : fl >= 90 ? ' (close to capacity)' : ''}` : NP}</dd></div>
+                <div class="flex justify-between gap-3"><dt class="text-gray-500">Admissions policy</dt><dd class="text-right">{pol ?? 'Not recorded'}</dd></div>
+                <div class="flex justify-between gap-3"><dt class="text-gray-500">Religious character</dt><dd class="text-right">{faith ?? 'None recorded'}</dd></div>
+              </dl>
+              <p class="text-xs text-gray-500 mb-3">Source: {GIAS_LABEL}. Oversubscription criteria are set in each school's own admissions policy, published by {s.la} or the school.</p>
+              <a href="/postcode/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors" aria-label={`Check the catchment for your postcode (${s.name})`}>Check the catchment for your postcode</a>
+              <a href={`/school/${s.slug}/`} class="block text-center text-indigo-700 text-sm font-medium mt-2 hover:underline">{s.name} catchment page</a>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <section aria-labelledby="src-h" class="mb-8">
+      <h2 id="src-h" class="text-xl font-semibold mb-3">Sources</h2>
+      <ul class="text-sm text-gray-700 space-y-2 list-disc pl-5">
+        {sourceList.map((s) => (
+          <li>
+            <strong>{s.name}:</strong>{' '}
+            {s.meta ? <>{s.meta.url ? <a class="text-indigo-700 underline" href={s.meta.url} rel="nofollow noopener">{s.meta.publication}</a> : s.meta.publication}{s.meta.release ? `, released ${s.meta.release}` : ''}</> : 'Department for Education'}
+            {' '}({s.first === s.last ? s.first : `${s.first} to ${s.last}`}{s.meta?.downloaded ? `; downloaded ${s.meta.downloaded}` : ''}).
+          </li>
+        ))}
+        {sourceList.length === 0 && <li>No school-level results or attendance figures are loaded for these two schools.</li>}
+        <li><strong>Ofsted:</strong> <a class="text-indigo-700 underline" href="https://www.gov.uk/government/statistical-data-sets/monthly-management-information-ofsteds-school-inspections-outcomes" rel="nofollow noopener">Ofsted Management Information, state-funded schools inspections and outcomes</a>, latest inspections to 31 May 2026. The inspection year is shown beside each grade. Reports: <a class="text-indigo-700 underline" href={`https://reports.ofsted.gov.uk/search?q=${A.urn}`} rel="nofollow noopener">{nameA}</a>, <a class="text-indigo-700 underline" href={`https://reports.ofsted.gov.uk/search?q=${B.urn}`} rel="nofollow noopener">{nameB}</a>.</li>
+        <li><strong>School details, capacity, pupils, free school meals, admissions policy, location:</strong> {GIAS_LABEL}: <a class="text-indigo-700 underline" href={`https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${A.urn}`} rel="nofollow noopener">{nameA}</a>, <a class="text-indigo-700 underline" href={`https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${B.urn}`} rel="nofollow noopener">{nameB}</a>. Distance is calculated by catchment.school from those coordinates.</li>
+      </ul>
+      <p class="text-xs text-gray-500 mt-3">Contains public sector information licensed under the Open Government Licence v3.0. Attainment 8 and Progress 8 are only comparable between schools within the same year.</p>
+    </section>
+  </div>
+</Base>

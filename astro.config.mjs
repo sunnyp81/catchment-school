@@ -21,7 +21,7 @@ export default defineConfig({
   integrations: [sitemap({
     // Include the custom schools sitemap (26,506 URLs built by sitemap-schools.xml.ts)
     // in the auto-generated sitemap-index.xml alongside the static-pages sitemap-0.xml.
-    customSitemaps: ['https://catchment.school/sitemap-schools.xml'],
+    customSitemaps: ['https://catchment.school/sitemap-schools.xml', 'https://catchment.school/sitemap-compare.xml'],
     // Exclude thin area pages from sitemap (mirrors the noindex,follow meta tag).
     filter: (url) => !thinAreaUrls.has(url),
   })],
