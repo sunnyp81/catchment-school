@@ -1,0 +1,32 @@
+{
+  "2024-25": {
+    "publication": "Primary and secondary school applications and offers",
+    "release": "Academic year 2026/27 (published 2026-06-18; school-level file dated 2026-06-29)",
+    "file": "supporting-files/AppsandOffers_2026_SchoolLevel29062026.csv (supporting file, not an API data set; contains the full 2014/15-2026/27 time series)",
+    "url": "https://content.explore-education-statistics.service.gov.uk/api/releases/0bf4f9cf-721d-44e3-8473-266c87e17e00/files",
+    "page": "https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27",
+    "methodology": "https://explore-education-statistics.service.gov.uk/methodology/secondary-and-primary-school-applications-and-offers-methodology",
+    "downloaded": "2026-10-30",
+    "note": "offers made on national offer day for September 2025 entry"
+  },
+  "2025-26": {
+    "publication": "Primary and secondary school applications and offers",
+    "release": "Academic year 2026/27 (published 2026-06-18; school-level file dated 2026-06-29)",
+    "file": "supporting-files/AppsandOffers_2026_SchoolLevel29062026.csv (supporting file, not an API data set; contains the full 2014/15-2026/27 time series)",
+    "url": "https://content.explore-education-statistics.service.gov.uk/api/releases/0bf4f9cf-721d-44e3-8473-266c87e17e00/files",
+    "page": "https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27",
+    "methodology": "https://explore-education-statistics.service.gov.uk/methodology/secondary-and-primary-school-applications-and-offers-methodology",
+    "downloaded": "2026-10-30",
+    "note": "offers made on national offer day for September 2026 entry"
+  },
+  "2026-27": {
+    "publication": "Primary and secondary school applications and offers",
+    "release": "Academic year 2026/27 (published 2026-06-18; school-level file dated 2026-06-29)",
+    "file": "supporting-files/AppsandOffers_2026_SchoolLevel29062026.csv (supporting file, not an API data set; contains the full 2014/15-2026/27 time series)",
+    "url": "https://content.explore-education-statistics.service.gov.uk/api/releases/0bf4f9cf-721d-44e3-8473-266c87e17e00/files",
+    "page": "https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27",
+    "methodology": "https://explore-education-statistics.service.gov.uk/methodology/secondary-and-primary-school-applications-and-offers-methodology",
+    "downloaded": "2026-10-30",
+    "note": "offers made on national offer day for September 2026 entry (secondary 2 March 2026, primary 16 April 2026)"
+  }
+}

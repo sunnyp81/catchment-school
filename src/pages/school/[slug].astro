@@ -3,12 +3,13 @@ export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
-import ofstedMap from '../../data/ofsted-map.json';
+import SchoolDataSections from '../../components/SchoolDataSections.astro';
 import admissionsUrls from '../../data/admissions-urls.json';
 import topBingSchools from '../../data/top-bing-schools.json';
 import { env } from 'cloudflare:workers';
 import { notFoundResponse } from '../../lib/notfound';
 import { curatedPartners, haversineMiles as cmpMiles } from '../../lib/compare';
+import { loadSchoolData, ofstedView, longDate } from '../../lib/schooldata';
 
 const { slug } = Astro.params;
 
@@ -30,12 +31,12 @@ for (const k of ['ageRange', 'name', 'town', 'la', 'street', 'locality', 'type']
   if (s[k] != null) s[k] = deDash(s[k]);
 }
 
-// Ofsted ratings are not in D1; join from the bundled GIAS/Ofsted map (real DfE data,
-// "latest inspections as at 31 May 2026"). Only ~37% of schools have a graded inspection.
-const _ofsted = (ofstedMap as Record<string, { ofstedRating: string; ofstedDate: string }>)[String(s.urn)];
-if (_ofsted) {
-  s.ofstedRating = _ofsted.ofstedRating;
-  s.ofstedDate = _ofsted.ofstedDate;
+// Ofsted, admissions, destinations and school facts come from D1 tables (one batch). Ofsted fields are mapped back onto s.
+const schoolData = (await loadSchoolData(env.DB, [String(s.urn)]))[String(s.urn)];
+const ofv = ofstedView(schoolData.ofsted, String(s.urn));
+if (schoolData.ofsted?.rating) {
+  s.ofstedRating = schoolData.ofsted.rating;
+  s.ofstedDate = schoolData.ofsted.rdate;
 }
 
 const nearby = (await env.DB
@@ -505,6 +506,8 @@ const breadcrumbSchema = {
         </section>
       )}
 
+      <SchoolDataSections s={s} data={schoolData} />
+
       <section class="mb-8">
         <h2 class="text-xl font-semibold mb-4">{s.name}: School Information</h2>
         <dl class="divide-y border rounded-lg overflow-hidden">
@@ -733,10 +736,11 @@ const breadcrumbSchema = {
         <div class={`border rounded-lg p-5 ${ofstedColor}`}>
           <h3 class="font-semibold mb-1">Ofsted Rating</h3>
           <p class="text-lg font-bold mb-1">{ofstedLabel}</p>
-          {ofstedYear && <p class="text-xs opacity-70 mb-3">Last inspected {ofstedYear}</p>}
-          <a href={`https://reports.ofsted.gov.uk/search?q=${s.urn}`}
+          {ofstedYear && <p class="text-xs opacity-70 mb-1">Graded {ofstedYear}</p>}
+          {ofv?.latestDate && ofv.latestDate !== s.ofstedDate && <p class="text-xs opacity-70 mb-1">Latest inspection {longDate(ofv.latestDate)}</p>}
+          <a href={ofv?.reportUrl ?? `https://reports.ofsted.gov.uk/search?q=${s.urn}`}
             target="_blank" rel="nofollow noopener"
-            class="block text-sm font-medium hover:underline">
+            class="block text-sm font-medium hover:underline mt-2">
             Read full Ofsted report →
           </a>
           <a href="/guides/ofsted-ratings-explained"

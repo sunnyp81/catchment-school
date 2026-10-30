@@ -1,0 +1,215 @@
+---
+// Parent data sections for a school page. Each section is hidden when it has no data and carries a source line.
+import {
+  NP, SRC, ofstedView, admissionsByEntry, admissionsReading, destinationsByStage, cohortLabel, workforceShown, financeShown, sendShown,
+  longDate, int, pct1, f1, f2, gbp, num,
+} from '../lib/schooldata';
+
+const { s, data } = Astro.props;
+const urn = String(s.urn);
+const ofv = ofstedView(data.ofsted, urn);
+const adm = admissionsByEntry(data.adm);
+const dest = destinationsByStage(data.dest);
+const wf = workforceShown(data.facts);
+const fin = financeShown(s, data.facts);
+const send = sendShown(data.facts);
+const f = data.facts;
+
+const showOfsted = !!ofv && (ofv.rating || ofv.card || ofv.ungraded);
+const ofstedColors: Record<string, string> = {
+  '1': 'bg-green-100 text-green-900 border-green-300', '2': 'bg-blue-100 text-blue-900 border-blue-300',
+  '3': 'bg-amber-100 text-amber-900 border-amber-300', '4': 'bg-red-100 text-red-900 border-red-300',
+};
+const v = (x: string | null) => x ?? NP;
+const pctCell = (x: any) => v(pct1(x));
+const provLine = (n: string, p: { onRoll: number | null; capacity: number | null }) =>
+  `${n}: ${p.onRoll != null ? `${p.onRoll} pupils on roll` : 'pupils on roll not published'}${p.capacity != null ? `, capacity ${p.capacity}` : ''}`;
+const finSrc = f?.fin_source === 'AAR' ? SRC.aar : SRC.cfr;
+
+const stageRows = (stage: string) => {
+  const rows: [string, string, (r: any) => any][] = stage === 'ks4'
+    ? [
+      ['Pupils in the cohort', 'n', (r) => int(r.cohort_n)],
+      ['Sustained destination', 'p', (r) => r.sustained],
+      ['In education', 'p', (r) => r.education],
+      ['of which school sixth form', 'p sub', (r) => r.school_sixth_form],
+      ['of which sixth form college', 'p sub', (r) => r.sixth_form_college],
+      ['of which further education college', 'p sub', (r) => r.fe],
+      ['In an apprenticeship', 'p', (r) => r.apprenticeship],
+      ['In employment', 'p', (r) => r.employment],
+      ['Not in a sustained destination', 'p', (r) => r.not_sustained],
+    ]
+    : [
+      ['Students in the cohort', 'n', (r) => int(r.cohort_n)],
+      ['Sustained destination', 'p', (r) => r.sustained],
+      ['In education', 'p', (r) => r.education],
+      ['of which higher education', 'p sub', (r) => r.he],
+      ['of which further education college', 'p sub', (r) => r.fe],
+      ['In an apprenticeship', 'p', (r) => r.apprenticeship],
+      ['In employment', 'p', (r) => r.employment],
+      ['Not in a sustained destination', 'p', (r) => r.not_sustained],
+    ];
+  return rows;
+};
+const destReading = (g: any) => {
+  const r = [...g.rows].reverse().find((x: any) => num(x.sustained) != null);
+  if (!r) return null;
+  const who = g.stage === 'ks4' ? 'Year 11 leavers' : 'sixth form leavers';
+  return `${pct1(r.sustained)} of the ${int(r.cohort_n) ?? ''} ${who} in ${r.cohort}${r.status === 'Provisional' ? ' (provisional figures)' : ''} were in sustained education, an apprenticeship or employment in ${r.dest_year}.`.replace('of the  ', 'of the ');
+};
+---
+{adm.length > 0 && (
+  <section class="mb-8" id="chance-of-getting-in" aria-labelledby="chance-h">
+    <h2 id="chance-h" class="text-xl font-semibold mb-3">Chance of getting in to {s.name}</h2>
+    <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-4 text-sm text-gray-700">
+      {adm.map((g) => (
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">{g.label} entry, last {g.rows.length === 1 ? 'year' : `${g.rows.length} years`} of offer day figures</h3>
+          <div class="overflow-x-auto" role="region" aria-label={`${g.label} entry figures table`} tabindex="0">
+            <table class="w-full table-fixed text-xs sm:text-sm border border-gray-200 break-words">
+              <caption class="sr-only">{g.label} entry: first preferences and offers at {s.name} by year</caption>
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="w-[34%] text-left p-1.5 sm:p-2 font-medium text-gray-600">Measure</th>
+                  {g.rows.map((r: any) => <th scope="col" class="text-right p-1.5 sm:p-2 font-semibold text-gray-800 whitespace-nowrap">{r.year}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-gray-100"><th scope="row" class="text-left p-1.5 sm:p-2 font-medium text-gray-700">First preferences</th>{g.rows.map((r: any) => <td class="text-right p-1.5 sm:p-2">{v(int(r.first_pref))}</td>)}</tr>
+                <tr class="border-t border-gray-100"><th scope="row" class="text-left p-1.5 sm:p-2 font-medium text-gray-700">Offers made</th>{g.rows.map((r: any) => <td class="text-right p-1.5 sm:p-2">{v(int(r.offers_total))}</td>)}</tr>
+                <tr class="border-t border-gray-100"><th scope="row" class="text-left p-1.5 sm:p-2 font-medium text-gray-700">First-choice applicants offered a place</th>{g.rows.map((r: any) => <td class="text-right p-1.5 sm:p-2">{pctCell(r.pct_first_pref_offered)}</td>)}</tr>
+                <tr class="border-t border-gray-100"><th scope="row" class="text-left p-1.5 sm:p-2 font-medium text-gray-700">First preferences per offer</th>{g.rows.map((r: any) => <td class="text-right p-1.5 sm:p-2">{v(f2(r.first_pref_per_offer))}</td>)}</tr>
+              </tbody>
+            </table>
+          </div>
+          {admissionsReading(s.name, g.label, g.rows[g.rows.length - 1]) && (
+            <p class="mt-2">{admissionsReading(s.name, g.label, g.rows[g.rows.length - 1])}</p>
+          )}
+        </div>
+      ))}
+      <p class="text-xs text-gray-500">These are offer day figures, so appeals and waiting lists are not counted and the final intake can differ. Offers are not the same as capacity. DfE does not publish a last distance offered nationally, so ask {s.la} for the distance cut-off. Years are the year of entry.</p>
+      <p class="text-xs text-gray-500">Source: {SRC.admissions}. <a class="text-indigo-700 underline" href="https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27" rel="nofollow noopener">Publication</a> and <a class="text-indigo-700 underline" href="https://explore-education-statistics.service.gov.uk/methodology/secondary-and-primary-school-applications-and-offers-methodology" rel="nofollow noopener">methodology</a>.</p>
+    </div>
+  </section>
+)}
+
+{showOfsted && ofv && (
+  <section class="mb-8" id="ofsted-inspection" aria-labelledby="ofsted-h">
+    <h2 id="ofsted-h" class="text-xl font-semibold mb-3">Ofsted inspection of {s.name}</h2>
+    <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3 text-sm text-gray-700">
+      {ofv.cardLater && ofv.card ? (
+        <>
+          <p><strong class="text-gray-900">Latest inspection: report card, {longDate(ofv.card.date)}.</strong> Report cards began in September 2025. They grade separate areas and do not give an overall grade.</p>
+          {ofv.rating && <p>The last overall grade was <strong>{ofv.ratingLabel}</strong>{ofv.gradedDate ? `, from the inspection on ${longDate(ofv.gradedDate)}` : ''}{ofv.predecessor ? ', awarded to a predecessor school' : ''}.</p>}
+        </>
+      ) : (
+        <>
+          {ofv.rating && (
+            <p class="flex flex-wrap items-center gap-2">
+              <span class={`inline-block rounded border px-2 py-0.5 font-semibold ${ofstedColors[ofv.rating]}`}>{ofv.ratingLabel}</span>
+              <span>Overall effectiveness, inspected {longDate(ofv.gradedDate)}.</span>
+            </p>
+          )}
+          {ofv.rating && ofv.predecessor && <p>This grade belongs to a predecessor school (a different URN), for example before it became an academy. It is the most recent overall grade recorded for this site.</p>}
+          {ofv.ungraded && <p><strong class="text-gray-900">Latest ungraded inspection, {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}. An ungraded inspection does not issue a new grade. It reports whether the previous grade still holds.</p>}
+          {ofv.card && <p><strong class="text-gray-900">Report card, {longDate(ofv.card.date)}.</strong> Report cards began in September 2025 and do not give an overall grade.</p>}
+        </>
+      )}
+      {ofv.cardLater && ofv.ungraded && ofv.ungradedAfterCard && <p><strong class="text-gray-900">Ungraded inspection, {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}.</p>}
+      {ofv.card && (
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {ofv.card.areas.map((a: any) => (
+            <div class="flex items-center justify-between gap-3 border border-gray-200 rounded-lg px-3 py-2">
+              <dt class="text-gray-700">{a.label}</dt>
+              <dd class={`shrink-0 rounded border px-2 py-0.5 text-xs font-semibold ${a.cls}`}>{a.text}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      <p><a href={ofv.reportUrl} class="text-indigo-700 underline font-medium" target="_blank" rel="nofollow noopener">Read the Ofsted report for {s.name}</a>. <a href="/guides/ofsted-ratings-explained" class="text-indigo-700 underline">How Ofsted grades work</a>.</p>
+      <p class="text-xs text-gray-500">Source: {SRC.ofsted}.</p>
+    </div>
+  </section>
+)}
+
+{dest.length > 0 && (
+  <section class="mb-8" id="where-pupils-go-next" aria-labelledby="dest-h">
+    <h2 id="dest-h" class="text-xl font-semibold mb-3">Where pupils go next after {s.name}</h2>
+    <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-4 text-sm text-gray-700">
+      {dest.map((g) => (
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">{g.label}</h3>
+          {destReading(g) && <p class="mb-2">{destReading(g)}</p>}
+          <div class="overflow-x-auto" role="region" aria-label={`${g.label} destinations table`} tabindex="0">
+            <table class="w-full table-fixed text-xs sm:text-sm border border-gray-200 break-words">
+              <caption class="sr-only">Destinations of leavers at {s.name}, {g.label.toLowerCase()}, by cohort</caption>
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="w-[34%] text-left p-1.5 sm:p-2 font-medium text-gray-600">Leavers</th>
+                  {g.rows.map((r: any) => <th scope="col" class="text-right p-1.5 sm:p-2 font-semibold text-gray-800 whitespace-nowrap">{r.cohort}{r.status === 'Provisional' && <span class="block font-normal text-[10px] sm:text-[11px] text-gray-600">provisional</span>}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {stageRows(g.stage).map(([label, kind, get]) => {
+                  const show = g.rows.some((r: any) => get(r) != null) ;
+                  return show && (
+                    <tr class="border-t border-gray-100">
+                      <th scope="row" class={`text-left p-1.5 sm:p-2 font-medium ${kind.includes('sub') ? 'pl-3 sm:pl-5 text-gray-600' : 'text-gray-700'}`}>{label}</th>
+                      {g.rows.map((r: any) => <td class="text-right p-1.5 sm:p-2">{kind.startsWith('n') ? v(get(r)) : pctCell(get(r))}</td>)}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+      <p class="text-xs text-gray-500">Percentages are of each leaver cohort, measured the year after they left. Sustained means at least two terms in education, an apprenticeship or employment. The remainder includes activity not captured. Higher education is not split by university group in the school-level data. The latest cohort is provisional.</p>
+      <p class="text-xs text-gray-500">Source: {SRC.destinations}. <a class="text-indigo-700 underline" href="https://explore-education-statistics.service.gov.uk/find-statistics/key-stage-4-destination-measures" rel="nofollow noopener">Key stage 4 publication</a> and <a class="text-indigo-700 underline" href="https://explore-education-statistics.service.gov.uk/find-statistics/16-18-destination-measures" rel="nofollow noopener">16 to 18 publication</a>.</p>
+    </div>
+  </section>
+)}
+
+{(wf || fin) && (
+  <section class="mb-8" id="staff-and-spending" aria-labelledby="staff-h">
+    <h2 id="staff-h" class="text-xl font-semibold mb-3">Staff and spending at {s.name}</h2>
+    <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3 text-sm text-gray-700">
+      {wf && (
+        <dl class="divide-y border rounded-lg overflow-hidden">
+          {wf.ptr != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Pupils per teacher</dt><dd class="text-gray-900">{f1(wf.ptr)}</dd></div>}
+          {wf.qts != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Teachers with qualified teacher status</dt><dd class="text-gray-900">{pct1(wf.qts)}</dd></div>}
+          {wf.vac != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Teacher vacancy rate</dt><dd class="text-gray-900">{pct1(wf.vac)}</dd></div>}
+          {wf.left != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Teachers who left the school in a year</dt><dd class="text-gray-900">{pct1(wf.left)}</dd></div>}
+        </dl>
+      )}
+      {wf && <p class="text-xs text-gray-500">Workforce figures are for the November 2025 census. Teachers who left are those in post in November 2024 who were no longer at the school in November 2025.{wf.small ? ' This school has fewer than 10 full-time-equivalent teachers, so the percentages swing widely from one person leaving.' : ''} Source: {SRC.workforce}.</p>}
+      {fin && (
+        <>
+          <dl class="divide-y border rounded-lg overflow-hidden">
+            <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Total spending per pupil, {f.fin_year}</dt><dd class="text-gray-900">{gbp(fin.total)}</dd></div>
+            {fin.teaching != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Teaching staff spending per pupil, {f.fin_year}</dt><dd class="text-gray-900">{gbp(fin.teaching)}</dd></div>}
+          </dl>
+          <p class="text-xs text-gray-500">Revenue spending only, not capital. {f.fin_source === 'AAR' ? 'This is an academy, so the figure leaves out the trust\'s central spending and covers the September 2024 to August 2025 academy year.' : 'This is a council maintained school, so the figure covers the 2025-26 financial year.'} Council maintained schools and academies are not like for like.{f.fin_basis === 'federation' ? ' The figure is the pooled figure for the federation this school belongs to.' : ''} Spending is not shown for special schools, nursery schools or implausible values. Source: {finSrc}.</p>
+        </>
+      )}
+    </div>
+  </section>
+)}
+
+{send && (
+  <section class="mb-8" id="send-support" aria-labelledby="send-h">
+    <h2 id="send-h" class="text-xl font-semibold mb-3">SEND support at {s.name}</h2>
+    <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3 text-sm text-gray-700">
+      <dl class="divide-y border rounded-lg overflow-hidden">
+        {send.sup != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Pupils on SEN support</dt><dd class="text-gray-900">{pct1(send.sup)} of pupils</dd></div>}
+        {send.ehc != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Pupils with an education, health and care plan</dt><dd class="text-gray-900">{pct1(send.ehc)} of pupils</dd></div>}
+        {send.top && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Most common type of need</dt><dd class="text-gray-900 sm:text-right">{send.top.label}{send.top.pct != null ? `, ${send.top.pct.toFixed(0)}% of pupils with SEN` : ''}</dd></div>}
+        {send.rp && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Resourced provision</dt><dd class="text-gray-900 sm:text-right">{provLine('On site', send.rp).replace('On site: ', '')}</dd></div>}
+        {send.unit && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">SEN unit</dt><dd class="text-gray-900 sm:text-right">{provLine('On site', send.unit).replace('On site: ', '')}</dd></div>}
+        {(send.rp || send.unit) && send.needs && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Needs the provision caters for</dt><dd class="text-gray-900 sm:text-right">{send.needs}</dd></div>}
+      </dl>
+      <p class="text-xs text-gray-500">SEN support and EHC plan figures are shares of all pupils on roll in the January 2026 census. A higher or lower figure does not show how good the support is. Provision counts are pupils on roll, not places guaranteed.</p>
+      <p class="text-xs text-gray-500">Source: {SRC.send}. Provision: {SRC.provision}.</p>
+    </div>
+  </section>
+)}

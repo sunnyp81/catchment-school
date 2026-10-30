@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS destinations (urn TEXT NOT NULL, cohort TEXT NOT NULL, stage TEXT NOT NULL CHECK (stage IN ('ks4','1618')), dest_year TEXT, pub_year INTEGER, status TEXT, cohort_n INTEGER, sustained REAL, education REAL, fe REAL, school_sixth_form REAL, sixth_form_college REAL, he REAL, other_edu REAL, apprenticeship REAL, employment REAL, not_sustained REAL, not_captured REAL, PRIMARY KEY (urn, cohort, stage));
+CREATE INDEX IF NOT EXISTS idx_dest_urn ON destinations(urn);

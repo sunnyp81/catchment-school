@@ -1,0 +1,30 @@
+{
+  "downloadedOn": "2026-10-30",
+  "indexPage": "https://www.gov.uk/government/statistical-data-sets/monthly-management-information-ofsteds-school-inspections-outcomes",
+  "publisher": "Ofsted, Management Information: state-funded schools inspections and outcomes (Open Government Licence v3.0)",
+  "sources": [
+    {
+      "role": "Report-card areas, latest OEIF graded inspection, latest ungraded inspection (newest release)",
+      "publication": "Management information - state-funded schools - latest inspections as at 30 Sep 2026",
+      "asAt": "2026-09-30",
+      "url": "https://assets.publishing.service.gov.uk/media/6ad095a72de3184ccf8b818d/Management_information_-_state-funded_schools_-_latest_inspections_as_at_30_Sep_2026.csv",
+      "localFile": "data/ofsted-latest-2026-09-30.csv"
+    },
+    {
+      "role": "Latest and previous graded inspection including pre-2019 (pre-OEIF) grades; the Sep 2026 release only carries OEIF graded inspections",
+      "publication": "Management information - state-funded schools - latest inspections as at 31 Dec 2025",
+      "asAt": "2025-12-31",
+      "url": "https://assets.publishing.service.gov.uk/media/696611308d599f4c09e1ffa9/Management_information_-_state-funded_schools_-_latest_inspections_as_at_31_Dec_2025.csv",
+      "localFile": "data/ofsted-latest-2025-12-31.csv"
+    }
+  ],
+  "legacyFile": "data/ofsted-latest.csv is the superseded input of the previous map (undated old-schema extract); not used by the current script",
+  "rules": {
+    "ofstedRating/ofstedDate": "Most recent graded overall effectiveness (1 Outstanding, 2 Good, 3 Requires improvement, 4 Inadequate) by inspection start date, across Sep 2026 OEIF graded, Dec 2025 latest graded, Dec 2025 previous graded. ofstedDate is the inspection start date (dd/mm/yyyy), unchanged meaning.",
+    "ud/uo": "Latest ungraded inspection date and outcome (Sep 2026 release, else Dec 2025), only when later than the graded inspection. uo has the leading 'School ' and trailing ' - S5 Next' removed, e.g. 'remains Good', 'remains Good (Concerns)', 'remains Good (Improving)', 'Standards maintained', 'Improved significantly', 'Some aspects not as strong'.",
+    "rc/rcd": "Report-card inspection (from Sep 2025), area grades and inspection start date. Not an overall grade. 1 Exceptional, 2 Strong standard, 3 Expected standard, 4 Needs attention, 5 Urgent improvement. sg (safeguarding standards) is 1 Met, 0 Not met.",
+    "rcAreaKeys": { "sg": "Safeguarding standards", "inc": "Inclusion", "cur": "Curriculum and teaching", "ach": "Achievement", "att": "Attendance and behaviour", "pdw": "Personal development and wellbeing", "ey": "Early years", "p16": "Post-16 provision", "lg": "Leadership and governance" },
+    "gx": "1 when the graded inspection was of a predecessor URN (for example before academy conversion).",
+    "ot": "Ofsted report provider type for the URL https://reports.ofsted.gov.uk/provider/{ot ?? 21}/{urn}: 20 Nursery, 21 Primary (omitted), 22 Alternative provision, 23 Secondary, 25 Special."
+  }
+}

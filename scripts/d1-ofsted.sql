@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ofsted (urn TEXT PRIMARY KEY, rating TEXT, rdate TEXT, ud TEXT, uo TEXT, rcd TEXT, rc TEXT, gx INTEGER, ot INTEGER);

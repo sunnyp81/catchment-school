@@ -2,17 +2,17 @@
 export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
-import ofstedMap from '../../data/ofsted-map.json';
 import admissionsUrls from '../../data/admissions-urls.json';
 import { env } from 'cloudflare:workers';
 import { notFoundResponse } from '../../lib/notfound';
+import { loadSchoolData, ofstedView, longDate, buildCompareExtras, SRC } from '../../lib/schooldata';
 import { resolvePair, phaseGroup, isCurated, haversineMiles, deDash } from '../../lib/compare';
 
 const SITE = 'https://catchment.school';
 // schools.json comes from the March 2026 GIAS pull (the date the school pages' byline and Base trust bar state); no exact day is recorded.
 const GIAS_LABEL = 'GIAS (DfE), March 2026 extract';
 const GIAS_FROM = 'the GIAS (DfE) March 2026 extract';
-const OFSTED_LABEL = 'Ofsted MI, inspections to 31 May 2026';
+const OFSTED_LABEL = 'Ofsted MI, inspections to 30 September 2026';
 
 const notFound = () => notFoundResponse(Astro.url);
 
@@ -36,10 +36,15 @@ for (const s of [A, B]) {
   for (const k of ['ageRange', 'name', 'town', 'la', 'street', 'locality', 'type']) if (s[k] != null) s[k] = deDash(s[k]);
   // GIAS names some councils "Bristol, City of" / "Herefordshire, County of": plain name in copy.
   if (typeof s.la === 'string') s.la = s.la.replace(/,\s*(County|City) of$/i, '');
-  const o = (ofstedMap as Record<string, any>)[String(s.urn)];
-  s.ofstedRating = o?.ofstedRating ?? null;
-  s.ofstedDate = o?.ofstedDate ?? null;
 }
+// Ofsted, admissions, destinations and school facts: one D1 batch for both schools.
+const schoolData = await loadSchoolData(db, [A.urn, B.urn]);
+for (const s of [A, B]) {
+  const o = schoolData[s.urn].ofsted;
+  s.ofstedRating = o?.rating ?? null;
+  s.ofstedDate = o?.rdate ?? null;
+}
+const extras = buildCompareExtras(A, B, schoolData[A.urn], schoolData[B.urn], gA);
 
 // Index gate: only the curated set is indexable; every other valid pair is noindex,follow with a self canonical.
 const curated = isCurated(A.urn, B.urn);
@@ -125,7 +130,7 @@ const perfRow = (label: string, field: string, fmt: (v: number | null) => string
 const ksSrc = 'DfE KS4 results';
 const alSrc = 'DfE A-level results';
 const rowsOfsted: Row[] = [
-  { label: 'Overall Ofsted grade', src: OFSTED_LABEL, a: cell(ofstedOf(A) ?? 'No graded inspection in our data', ofstedYearOf(A)), b: cell(ofstedOf(B) ?? 'No graded inspection in our data', ofstedYearOf(B)) },
+  { label: 'Overall Ofsted grade', src: OFSTED_LABEL, a: cell(ofstedOf(A) ?? 'No graded inspection in our data', ofstedYearOf(A)), b: cell(ofstedOf(B) ?? 'No graded inspection in our data', ofstedYearOf(B)), note: 'Report cards, used from September 2025, give no overall grade. Where a school has one, it is shown under Ofsted detail.' },
 ];
 const locOf = (s: any) => [s.town, s.la].filter((v, i, arr) => v && arr.indexOf(v) === i).join(', ') || null;
 const rowsProfile: Row[] = [
@@ -178,6 +183,7 @@ const rowsIntake: Row[] = [
 ];
 const groups: { title: string; note?: string; rows: Row[] }[] = [
   { title: 'Ofsted', rows: rowsOfsted },
+  ...extras.ofGroups,
   { title: 'School profile', rows: rowsProfile },
   ...(rowsPerf.length ? [{
     title: 'Results and attendance',
@@ -185,7 +191,11 @@ const groups: { title: string; note?: string; rows: Row[] }[] = [
     rows: rowsPerf,
   }] : []),
   { title: 'Intake and admissions', note: 'Not marked as stronger or weaker. These rows describe who a school serves and how its places are filled. They do not measure teaching quality so a higher or lower figure is not better.', rows: rowsIntake },
+  ...extras.groups,
 ];
+for (const g of groups) for (const r of g.rows) if (r.better && r.winner === undefined && r.sameYr && r.na != null && r.nb != null && Math.abs(r.na - r.nb) >= (r.tol ?? 0) && r.na !== r.nb) {
+  r.winner = r.better === 'high' ? (r.na > r.nb ? 'a' : 'b') : (r.na < r.nb ? 'a' : 'b');
+}
 
 // ---- Summary (data-derived) ----
 const nameA = A.name, nameB = B.name;
@@ -222,6 +232,7 @@ if (oA && oB) {
 if (fillA != null && fillB != null) {
   sum.push(`${nameA} has ${withInt(num(A.pupils))} pupils for ${withInt(num(A.capacity))} published places (${fillA}%) and ${nameB} has ${withInt(num(B.pupils))} for ${withInt(num(B.capacity))} (${fillB}%).`);
 }
+for (const t of extras.sums) sum.push(t);
 const polA = policyOf(A), polB = policyOf(B);
 const selA = !!polA?.startsWith('Selective'), selB = !!polB?.startsWith('Selective');
 if (selA !== selB) sum.push(`${selA ? nameA : nameB} is selective; ${selA ? nameB : nameA} is not.`);
@@ -474,7 +485,8 @@ const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.t
           </li>
         ))}
         {sourceList.length === 0 && <li>No school-level results or attendance figures are loaded for these two schools.</li>}
-        <li><strong>Ofsted:</strong> <a class="text-indigo-700 underline" href="https://www.gov.uk/government/statistical-data-sets/monthly-management-information-ofsteds-school-inspections-outcomes" rel="nofollow noopener">Ofsted Management Information, state-funded schools inspections and outcomes</a>, latest inspections to 31 May 2026. The inspection year is shown beside each grade. Reports: <a class="text-indigo-700 underline" href={`https://reports.ofsted.gov.uk/search?q=${A.urn}`} rel="nofollow noopener">{nameA}</a>, <a class="text-indigo-700 underline" href={`https://reports.ofsted.gov.uk/search?q=${B.urn}`} rel="nofollow noopener">{nameB}</a>.</li>
+        <li><strong>Ofsted:</strong> <a class="text-indigo-700 underline" href="https://www.gov.uk/government/statistical-data-sets/monthly-management-information-ofsteds-school-inspections-outcomes" rel="nofollow noopener">Ofsted Management Information, state-funded schools inspections and outcomes</a>, latest inspections to 30 September 2026 (grades from before 2019 from the 31 December 2025 release). The inspection year is shown beside each grade. Reports: <a class="text-indigo-700 underline" href={ofstedView(schoolData[A.urn].ofsted, A.urn)?.reportUrl ?? `https://reports.ofsted.gov.uk/search?q=${A.urn}`} rel="nofollow noopener">{nameA}</a>, <a class="text-indigo-700 underline" href={ofstedView(schoolData[B.urn].ofsted, B.urn)?.reportUrl ?? `https://reports.ofsted.gov.uk/search?q=${B.urn}`} rel="nofollow noopener">{nameB}</a>.</li>
+        {extras.sources.map((x) => <li>{x}</li>)}
         <li><strong>School details, capacity, pupils, free school meals, admissions policy, location:</strong> {GIAS_LABEL}: <a class="text-indigo-700 underline" href={`https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${A.urn}`} rel="nofollow noopener">{nameA}</a>, <a class="text-indigo-700 underline" href={`https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${B.urn}`} rel="nofollow noopener">{nameB}</a>. Distance is calculated by catchment.school from those coordinates.</li>
       </ul>
       <p class="text-xs text-gray-500 mt-3">Contains public sector information licensed under the Open Government Licence v3.0. Attainment 8 and Progress 8 are only comparable between schools within the same year.</p>

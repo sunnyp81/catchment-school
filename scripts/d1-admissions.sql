@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS admissions (urn TEXT NOT NULL, year TEXT NOT NULL, entry TEXT NOT NULL, offers_total INTEGER, preferred_offers INTEGER, first_pref_offers INTEGER, second_pref_offers INTEGER, third_pref_offers INTEGER, prefs_total INTEGER, first_pref INTEGER, second_pref INTEGER, third_pref INTEGER, first_pref_per_offer REAL, pct_first_pref_offered REAL, apps_other_la INTEGER, offers_other_la INTEGER, PRIMARY KEY (urn, year, entry));
+CREATE INDEX IF NOT EXISTS idx_adm_urn ON admissions(urn);

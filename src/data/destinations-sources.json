@@ -1,0 +1,84 @@
+{
+  "1618": {
+    "2021-22": {
+      "publication": "16-18 destination measures",
+      "dataset": "16-18 study leavers destinations",
+      "release": "16-18 destination measures, data set version 2.0 (released 2026-10-15)",
+      "version": "2.0",
+      "dataStatus": "Revised",
+      "cohort": "2021-22",
+      "destinationYear": "2022/23",
+      "firstPublishedYear": 2023,
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019d4e73-6440-7523-b60c-bfab1ad4a30d/csv?dataSetVersion=2.0",
+      "downloaded": "2026-10-30",
+      "note": "Students completing 16-18 study (all qualification levels) in the cohort year; destinations measured the following academic year. Only \"UK higher education institution\" is published for HE at school level (no Russell Group / top-third split). null = suppressed or not applicable."
+    },
+    "2022-23": {
+      "publication": "16-18 destination measures",
+      "dataset": "16-18 study leavers destinations",
+      "release": "16-18 destination measures, data set version 2.0 (released 2026-10-15)",
+      "version": "2.0",
+      "dataStatus": "Revised",
+      "cohort": "2022-23",
+      "destinationYear": "2023/24",
+      "firstPublishedYear": 2024,
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019d4e73-6440-7523-b60c-bfab1ad4a30d/csv?dataSetVersion=2.0",
+      "downloaded": "2026-10-30",
+      "note": "Students completing 16-18 study (all qualification levels) in the cohort year; destinations measured the following academic year. Only \"UK higher education institution\" is published for HE at school level (no Russell Group / top-third split). null = suppressed or not applicable."
+    },
+    "2023-24": {
+      "publication": "16-18 destination measures",
+      "dataset": "16-18 study leavers destinations",
+      "release": "16-18 destination measures, data set version 2.0 (released 2026-10-15)",
+      "version": "2.0",
+      "dataStatus": "Provisional",
+      "cohort": "2023-24",
+      "destinationYear": "2024/25",
+      "firstPublishedYear": 2025,
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019d4e73-6440-7523-b60c-bfab1ad4a30d/csv?dataSetVersion=2.0",
+      "downloaded": "2026-10-30",
+      "note": "Students completing 16-18 study (all qualification levels) in the cohort year; destinations measured the following academic year. Only \"UK higher education institution\" is published for HE at school level (no Russell Group / top-third split). null = suppressed or not applicable."
+    }
+  },
+  "ks4": {
+    "2021-22": {
+      "publication": "Key stage 4 destination measures",
+      "dataset": "Key stage 4 leavers destinations",
+      "release": "Key stage 4 destination measures, data set version 2.0 (released 2026-10-15)",
+      "version": "2.0",
+      "dataStatus": "Revised",
+      "cohort": "2021-22",
+      "destinationYear": "2022/23",
+      "firstPublishedYear": 2023,
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019d4f41-22d1-71b2-a1a7-f3b91026815b/csv?dataSetVersion=2.0",
+      "downloaded": "2026-10-30",
+      "note": "Pupils completing KS4 in the cohort year; destinations measured the following academic year. All pupils (no sex/disadvantage/ethnicity split). Percentages are of the cohort; null = suppressed or not applicable. fe + school_sixth_form + sixth_form_college + other_edu = education."
+    },
+    "2022-23": {
+      "publication": "Key stage 4 destination measures",
+      "dataset": "Key stage 4 leavers destinations",
+      "release": "Key stage 4 destination measures, data set version 2.0 (released 2026-10-15)",
+      "version": "2.0",
+      "dataStatus": "Revised",
+      "cohort": "2022-23",
+      "destinationYear": "2023/24",
+      "firstPublishedYear": 2024,
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019d4f41-22d1-71b2-a1a7-f3b91026815b/csv?dataSetVersion=2.0",
+      "downloaded": "2026-10-30",
+      "note": "Pupils completing KS4 in the cohort year; destinations measured the following academic year. All pupils (no sex/disadvantage/ethnicity split). Percentages are of the cohort; null = suppressed or not applicable. fe + school_sixth_form + sixth_form_college + other_edu = education."
+    },
+    "2023-24": {
+      "publication": "Key stage 4 destination measures",
+      "dataset": "Key stage 4 leavers destinations",
+      "release": "Key stage 4 destination measures, data set version 2.0 (released 2026-10-15)",
+      "version": "2.0",
+      "dataStatus": "Provisional",
+      "cohort": "2023-24",
+      "destinationYear": "2024/25",
+      "firstPublishedYear": 2025,
+      "url": "https://api.education.gov.uk/statistics/v1/data-sets/019d4f41-22d1-71b2-a1a7-f3b91026815b/csv?dataSetVersion=2.0",
+      "downloaded": "2026-10-30",
+      "note": "Pupils completing KS4 in the cohort year; destinations measured the following academic year. All pupils (no sex/disadvantage/ethnicity split). Percentages are of the cohort; null = suppressed or not applicable. fe + school_sixth_form + sixth_form_college + other_edu = education."
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "workforce": {
+    "publication": "School workforce in England",
+    "release": "Reporting year 2025 (School workforce in England)",
+    "year": "2025/26 (November 2025 school workforce census)",
+    "turnoverYear": "2024/25 (teachers in post at the November 2024 census, followed to the November 2025 census)",
+    "datasets": {
+      "ptr": {
+        "dataset": "Pupil to teacher ratios - school level",
+        "file": "workforce_ptrs_2010_2025_sch.csv",
+        "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/d5f1867a-ca93-454d-9361-6c64df108872/download",
+        "downloaded": "2026-10-30"
+      },
+      "fte": {
+        "dataset": "Size of the school workforce - school level",
+        "file": "Workforce_2010_2025_fte_hc_sch.csv",
+        "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/cce5e2fe-b6eb-4741-9199-21afa08fb97a/download",
+        "downloaded": "2026-10-30"
+      },
+      "qts": {
+        "dataset": "Teacher characteristics - school level",
+        "file": "workforce_teacher_characteristics_sch_202526.csv",
+        "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/15fca977-837e-4a82-8e24-bd9ee9fb5515/download",
+        "downloaded": "2026-10-30"
+      },
+      "turnover": {
+        "dataset": "Teacher turnover - school level",
+        "file": "teacher_turnover_2010_2025_sch.csv",
+        "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/a92cdbbb-5596-4b1c-a169-b350461c5294/download",
+        "downloaded": "2026-10-30"
+      },
+      "vacancies": {
+        "dataset": "Teacher vacancies - school level",
+        "file": "vacancies_number_rate_sch_2010_2025.csv",
+        "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/e70db0c4-e346-413b-a238-05a81a6087a9/download",
+        "downloaded": "2026-10-30"
+      }
+    },
+    "definitions": {
+      "ptr": "pupil_to_qual_unqual_teacher_ratio: FTE pupils per FTE teacher (qualified and unqualified)",
+      "ptr_qualified": "pupil_to_qual_teacher_ratio: FTE pupils per FTE qualified teacher",
+      "qts_pct": "Qualified teachers (QTS) as % of the school's FTE teachers (teacher characteristics file, fte_school_percent; every other dimension Total)",
+      "vacancy_rate": "Vacancies as % of (vacancies + FTE teachers in post), as published by DfE; verified against the FTE file",
+      "left_school_pct": "% of FTE teachers in post at the Nov 2024 census who were no longer in that school at the Nov 2025 census (left to another state school plus left the state sector)",
+      "left_system_pct": "Part of left_school_pct: % who left the state-funded sector altogether"
+    }
+  },
+  "finance": {
+    "cfr": {
+      "publication": "Schools financial benchmarking (FBIT) - Consistent Financial Reporting, LA maintained schools",
+      "file": "CFR_2025-26_Full_Data_Workbook.xlsx (sheet CFR Data)",
+      "url": "https://financial-benchmarking-and-insights-tool.education.gov.uk/files/CFR_2025-26_Full_Data_Workbook.xlsx",
+      "year": "Financial year 2025-26 (April 2025 to March 2026); final cut produced 26 August 2026",
+      "downloaded": "2026-10-30",
+      "pupils": "FTE pupils, January 2026 school census (sole and dual main registration)"
+    },
+    "aar": {
+      "publication": "Schools financial benchmarking (FBIT) - Academies Accounts Return",
+      "file": "AAR_2024-25_download.xlsx (sheet Academies)",
+      "url": "https://financial-benchmarking-and-insights-tool.education.gov.uk/files/AAR_2024-25_download.xlsx",
+      "year": "Academy year September 2024 to August 2025 (version 2 updated 22 April 2026)",
+      "downloaded": "2026-10-30",
+      "pupils": "FTE pupils in academy plus dual subsidiary registrations (January 2025 census)"
+    },
+    "definitions": {
+      "total_exp_per_pupil": "Total expenditure / FTE pupils, in pounds. CFR: E01 to E29 plus E31 and E32 (excludes direct revenue financing of capital E30). AAR: DfE Total Expenditure column, which excludes capital expenditure. Revenue spending only, not capital.",
+      "teaching_staff_per_pupil": "Teaching staff costs (CFR E01 / AAR Teaching staff) / FTE pupils, pounds. Excludes supply and agency teachers and teaching assistants.",
+      "academies": "AAR figures are reported per academy (not apportioned from the trust) but exclude the trust's central services spending, which is a separate sheet and is not apportioned here, so academy figures are not like for like with maintained schools.",
+      "years": "Maintained schools are 2025-26 financial year; academies are the earlier 2024/25 academy year. Each URN carries its own fin_year."
+    },
+    "rules": "Returns covering fewer than 12 months, schools flagged Did Not Supply, and rows with non-numeric values are null. Academies with two part-year rows (mid-year trust move) are summed only if the months total 12. Federation members take the lead school's pooled per-pupil figure (fin_basis = federation)."
+  },
+  "send": {
+    "publication": "Special educational needs in England",
+    "release": "Academic year 2025/26",
+    "year": "2025/26 (January 2026 school census)",
+    "dataset": "School level data - 2026 (sen_school_level_ud_api.csv)",
+    "url": "https://content.explore-education-statistics.service.gov.uk/api/data-set-files/c5490fd8-6cf3-469e-9f60-0b4262134cb5/download",
+    "downloaded": "2026-10-30",
+    "definitions": {
+      "sen_support_pct": "Pupils on SEN support as % of all pupils on roll",
+      "ehc_pct": "Pupils with an education, health and care plan as % of all pupils on roll",
+      "sen_total_pct": "SEN support plus EHC plan as % of all pupils on roll",
+      "top_need": "Most common primary type of need among pupils with SEN support or an EHC plan (excludes \"SEN support but no specialist assessment\"); needs_pct_of_sen gives each need as % of all pupils with SEN",
+      "sen_unit_pupils": "Pupils recorded in a SEN unit in the census (count, not capacity)",
+      "resourced_provision_pupils": "Pupils recorded in resourced provision in the census (count, not capacity)"
+    }
+  },
+  "provision": {
+    "publication": "Get Information About Schools (GIAS) edubasealldata",
+    "url": "data/dfe/edubasealldata.csv",
+    "asOf": "2026-10-30",
+    "fields": "ResourcedProvisionOnRoll/Capacity, SenUnitOnRoll/Capacity, TypeOfResourcedProvision, SEN1-SEN13 (types of need the school caters for)",
+    "definitions": {
+      "has_resourced_provision": "1 when GIAS records resourced provision (type, capacity or on roll)",
+      "has_sen_unit": "1 when GIAS records a SEN unit (type, capacity or on roll)",
+      "needs_catered": "Need types the school says it caters for (SEN1-13, excluding Not applicable); for mainstream schools this is its stated provision, not pupil counts"
+    }
+  },
+  "generated": "2026-10-30"
+}
