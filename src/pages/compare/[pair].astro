@@ -3,12 +3,13 @@ export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
 import ofstedMap from '../../data/ofsted-map.json';
+import admissionsUrls from '../../data/admissions-urls.json';
 import { env } from 'cloudflare:workers';
 import { resolvePair, phaseGroup, isCurated, haversineMiles, deDash } from '../../lib/compare';
 
 const SITE = 'https://catchment.school';
-// schools.json is the GIAS extract loaded Jun 2026 (no finer extract date is recorded in the repo).
-const GIAS_LABEL = 'GIAS (DfE), 2026 extract';
+// schools.json comes from the March 2026 GIAS pull (the date the school pages' byline and Base trust bar state); no exact day is recorded.
+const GIAS_LABEL = 'GIAS (DfE), March 2026 extract';
 const OFSTED_LABEL = 'Ofsted MI, inspections to 31 May 2026';
 
 const notFound = () => new Response(
@@ -84,6 +85,7 @@ const ofstedOf = (s: any) => (s.ofstedRating && ofstedLabels[s.ofstedRating]) ? 
 const ofstedYearOf = (s: any) => (s.ofstedDate ? String(s.ofstedDate).split('/').pop() : null);
 const fillOf = (s: any) => (s.capacity && s.pupils ? Math.round((s.pupils / s.capacity) * 100) : null);
 const faithOf = (s: any) => (s.religion && s.religion !== 'Does not apply' && s.religion !== 'None' ? s.religion : null);
+const admUrl = (s: any): string | null => (admissionsUrls as Record<string, string>)[s.laSlug] ?? null;
 const policyOf = (s: any) => {
   const p = s.admissionsPolicy;
   if (p === 'Selective') return 'Selective (entry by test)';
@@ -147,7 +149,7 @@ const rowsPerf: Row[] = hasPerf ? [
   perfRow('A-level average grade', 'alevel_grade', () => null, alSrc, 'alevel'),
   perfRow('A-level students in the point score measure', 'alevel_entries', withInt, alSrc, 'alevel'),
   perfRow('Overall absence (lower is better)', 'abs_overall', pct1, 'DfE pupil absence', 'absence', 'low', 0.3),
-  perfRow('Persistent absence: % of pupils missing 10% or more of sessions (lower is better)', 'abs_persistent', pct1, 'DfE pupil absence', 'absence', 'low', 1),
+  perfRow('Persistent absence (lower is better)', 'abs_persistent', pct1, 'DfE pupil absence', 'absence', 'low', 1, 'Share of pupils missing 10% or more of sessions.'),
 ] : [];
 // Progress 8: mark only if the confidence intervals do not overlap.
 const p8row = rowsPerf.find((r) => r.label.startsWith('Progress 8'));
@@ -177,7 +179,7 @@ const groups: { title: string; note?: string; rows: Row[] }[] = [
   { title: 'School profile', rows: rowsProfile },
   ...(rowsPerf.length ? [{
     title: 'Results and attendance',
-    note: 'Each row shows the latest year both schools have a figure for. "Stronger" marks only gaps big enough to matter, not rounding-level differences, and only where both schools are in the same year.',
+    note: 'Each row shows the latest year both schools have a figure for. "Stronger" marks only gaps big enough to matter, not rounding-level differences, and only where both schools are in the same year. Attainment figures reflect each school\'s intake as well as its teaching; only Progress 8, where published, adjusts for pupils\' starting points.',
     rows: rowsPerf,
   }] : []),
   { title: 'Intake and admissions', note: 'Not marked as stronger or weaker. These rows describe who a school serves and how its places are filled, not how well it teaches, so a higher or lower figure is not better.', rows: rowsIntake },
@@ -270,10 +272,14 @@ function chartFor(m: Metric) {
   const series = [{ urn: A.urn, col: COL_A, dash: '', shape: 'c' }, { urn: B.urn, col: COL_B, dash: '6 4', shape: 's' }];
   for (const s of series) {
     let seg: string[] = [];
+    let prevY: string | null = null;
     const flush = () => { if (seg.length > 1) svg += `<polyline points="${seg.join(' ')}" fill="none" stroke="${s.col}" stroke-width="2"${s.dash ? ` stroke-dasharray="${s.dash}"` : ''}/>`; seg = []; };
     for (const y of years) {
       const v = val(s.urn, y);
-      if (v == null) { flush(); continue; }
+      // Break the line where a year is missing (e.g. 2019-20 and 2020-21 absence not published).
+      if (v == null || (prevY && yStart(y) - yStart(prevY) > 1)) flush();
+      prevY = y;
+      if (v == null) continue;
       seg.push(`${X(y).toFixed(1)},${Y(v).toFixed(1)}`);
     }
     flush();
@@ -428,7 +434,7 @@ const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.t
                 <div class="flex justify-between gap-3"><dt class="text-gray-500">Admissions policy</dt><dd class="text-right">{pol ?? 'Not recorded'}</dd></div>
                 <div class="flex justify-between gap-3"><dt class="text-gray-500">Religious character</dt><dd class="text-right">{faith ?? 'None recorded'}</dd></div>
               </dl>
-              <p class="text-xs text-gray-500 mb-3">Source: {GIAS_LABEL}. Oversubscription criteria are set in each school's own admissions policy, published by {s.la} or the school.</p>
+              <p class="text-xs text-gray-500 mb-3">Source: {GIAS_LABEL}. Oversubscription criteria are set in each school's own admissions policy, published by {admUrl(s) ? <a class="underline" href={admUrl(s)} rel="nofollow noopener">{s.la} (official admissions page)</a> : s.la} or the school.</p>
               <a href="/postcode/" class="block text-center bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-indigo-800 transition-colors" aria-label={`Check the catchment for your postcode (${s.name})`}>Check the catchment for your postcode</a>
               <a href={`/school/${s.slug}/`} class="block text-center text-indigo-700 text-sm font-medium mt-2 hover:underline">{s.name} catchment page</a>
             </div>
@@ -455,3 +461,10 @@ const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.t
     </section>
   </div>
 </Base>
+
+<style>
+  /* redesign.css zeroes heading margins outside Tailwind's layers, so restore spacing here. */
+  h1 { margin-bottom: 1rem; }
+  h2 { margin-bottom: 0.75rem; }
+  h3 { margin-bottom: 0.5rem; }
+</style>

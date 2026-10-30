@@ -19,7 +19,11 @@ const latestTwo = [...yearsWithA8].sort().slice(-2).reverse();
 const latest = latestTwo[0];
 console.log('a8 years considered:', latestTwo);
 
-const sec = schools.filter((s) => (s.phase === 'Secondary' || s.phase === 'All through') && s.lat != null && s.lng != null);
+// Exclude FE colleges and 14+/16+ entry providers (UTCs, studio schools, sixth forms): no Year 7
+// catchment, and their small 14-16 cohorts make Attainment 8 comparisons with 11-16/18 schools misleading.
+const entryAge = (s) => { const m = /^(\d+)/.exec(String(s.ageRange ?? '')); return m ? Number(m[1]) : null; };
+const sec = schools.filter((s) => (s.phase === 'Secondary' || s.phase === 'All through') && s.lat != null && s.lng != null
+  && s.type !== 'Further education' && !(entryAge(s) != null && entryAge(s) >= 14));
 const latestA8Year = (urn) => latestTwo.find((y) => perf[urn]?.[y]?.a8 != null) ?? null;
 // Both schools need an a8 in the same year (newest year both have one).
 const hasA8 = (u, v) => latestTwo.some((y) => perf[u]?.[y]?.a8 != null && perf[v]?.[y]?.a8 != null);
