@@ -2,10 +2,11 @@
 // Run: node scripts/gen-school-ranks.mjs   then load scripts/d1-school-ranks.sql followed by data/school-ranks.sql.
 // Competition ranking: ties share a rank and the next rank skips (1, 2, 2, 4). Rank 1 is the highest value, or the lowest where dir is 'asc'.
 import { readFileSync, writeFileSync } from 'fs';
+import { parse } from 'csv-parse/sync';
 
 const rd = (f) => JSON.parse(readFileSync(f, 'utf8'));
 const schools = rd('src/data/schools.json');
-const adm = rd('data/admissions.json'), perf = rd('data/performance.json'), dest = rd('data/destinations.json'), facts = rd('data/schoolfacts.json');
+const perf = rd('data/performance.json'), dest = rd('data/destinations.json'), facts = rd('data/schoolfacts.json');
 const perfSrc = rd('src/data/performance-sources.json');
 const byUrn = new Map(schools.map((s) => [String(s.urn), s]));
 
@@ -27,15 +28,26 @@ const rnd = (v, d) => Math.round(v * 10 ** d) / 10 ** d;
 const cand = {};
 const add = (metric, urn, value, year, pool) => { if (value == null || !Number.isFinite(value)) return; (cand[metric] ??= []).push({ urn, value, year, pool }); };
 
-// 1. First preferences per offer, latest offer-day year. Same qualifying rules as gen-oversubscription.mjs.
+// 1. First preferences per offer, 2026-27. Port of the qualifying logic in gen-oversubscription.mjs, read from the raw DfE school-level CSV
+// (gitignored, not in the repo): split-site rows sharing a URN are summed, offers >= 30, Year 7 rows at all-through schools dropped (DfE flag).
+const RAW = process.argv[2] ?? process.env.ADM_CSV ?? 'data/dfe/adm/supporting-files/AppsandOffers_2026_SchoolLevel29062026.csv';
 const ADM_YEAR = '2026-27';
-for (const [urn, years] of Object.entries(adm)) {
-  for (const entry of ['7', 'R']) {
-    const r = years[ADM_YEAR]?.[entry];
-    if (!r || r.offers_total == null || r.offers_total < MIN_OFFERS || r.first_pref == null || r.first_pref_per_offer == null) continue;
-    if (entry === '7' && groupOf(urn) === 'all-through') continue; // Year 7 offers at all-through schools leave out pupils moving up from the school's own primary
-    add(entry === '7' ? 'fppo_y7' : 'fppo_r', urn, r.first_pref_per_offer, ADM_YEAR, entry === '7' ? 'year7' : 'reception');
-  }
+const numS = (v) => { const s = String(v ?? '').trim(); return /^-?\d+(\.\d+)?$/.test(s) ? Number(s) : null; };
+const r4 = (n) => (n === null ? null : Math.round(n * 10000) / 10000);
+const raw = new Map();
+for (const r of parse(readFileSync(RAW), { columns: true, bom: true, relax_quotes: true, skip_empty_lines: true })) {
+  if (r.time_period !== '202627' || !['7', 'R'].includes(r.entry_year) || !/^\d+$/.test(r.school_urn)) continue;
+  const o = { urn: r.school_urn, entry: r.entry_year, offers_total: numS(r.total_number_places_offered), first_pref: numS(r.times_put_as_1st_preference), fppo: r4(numS(r.proportion_1stprefs_v_totaloffers)), allthrough: r.allthrough_school === 'Yes' };
+  const k = `${o.urn}|${o.entry}`, prev = raw.get(k);
+  if (!prev) { raw.set(k, o); continue; }
+  const add = (x, y) => (x === null || y === null ? null : x + y);
+  prev.offers_total = add(prev.offers_total, o.offers_total); prev.first_pref = add(prev.first_pref, o.first_pref);
+  prev.fppo = prev.first_pref !== null && prev.offers_total ? r4(prev.first_pref / prev.offers_total) : null;
+  prev.allthrough ||= o.allthrough;
+}
+for (const o of raw.values()) {
+  if (!(o.offers_total !== null && o.offers_total >= MIN_OFFERS && o.first_pref !== null && o.fppo !== null && !(o.entry === '7' && o.allthrough))) continue;
+  add(o.entry === '7' ? 'fppo_y7' : 'fppo_r', o.urn, o.fppo, ADM_YEAR, o.entry === '7' ? 'year7' : 'reception');
 }
 
 // 2. Performance: one year per metric, the latest with at least MIN_YEAR_N schools.
@@ -43,7 +55,7 @@ const perfYearCount = {};
 const perfKeys = { a8: 'a8', p8: 'p8', abs_overall: 'abs_overall', abs_persistent: 'abs_persistent' };
 for (const years of Object.values(perf)) for (const [y, r] of Object.entries(years)) for (const k of Object.keys(perfKeys)) if (r[k] != null) { perfYearCount[k] ??= {}; perfYearCount[k][y] = (perfYearCount[k][y] ?? 0) + 1; }
 const perfYear = {};
-for (const k of Object.keys(perfKeys)) perfYear[k] = Object.entries(perfYearCount[k]).filter(([, n]) => n >= MIN_YEAR_N).map(([y]) => y).sort().pop();
+for (const k of Object.keys(perfKeys)) perfYear[k] = Object.entries(perfYearCount[k]).filter(([y, n]) => n >= MIN_YEAR_N && !((k === 'a8' || k === 'p8') && perfSrc.ks4?.[y]?.dataStatus === 'Provisional')).map(([y]) => y).sort().pop();
 for (const [urn, years] of Object.entries(perf)) {
   const g = groupOf(urn); if (!g) continue;
   for (const k of Object.keys(perfKeys)) {
