@@ -90,6 +90,56 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 
   <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-black focus:px-3 focus:py-1 focus:rounded">Skip to content</a>
 
+  <div class="dl-banner" id="dl-banner" role="region" aria-label="School application deadlines">
+    <div class="dl-banner-inner">
+      <p class="dl-text" id="dl-text">School application deadlines in England: 31 October for secondary, 15 January for primary. <a href="https://www.gov.uk/schools-admissions/applying-for-a-school-place" rel="nofollow noopener" target="_blank">Apply through your council</a>.</p>
+      <a class="dl-cta" href="/postcode/">Check your postcode</a>
+      <button type="button" class="dl-close" id="dl-close" aria-label="Dismiss deadline banner">&times;</button>
+    </div>
+  </div>
+  <script is:inline>
+  (function () {
+    var b = document.getElementById('dl-banner');
+    if (!b) return;
+    var KEY = 'dl-banner-dismissed';
+    var DAY = 86400000;
+    var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var GOV = { sec: 'https://www.gov.uk/apply-for-secondary-school-place', pri: 'https://www.gov.uk/apply-for-primary-school-place', late: 'https://www.gov.uk/schools-admissions/applying-for-a-school-place' };
+    function today() {
+      var q = /[?&]bannerdate=(\d{4})-(\d{2})-(\d{2})/.exec(location.search);
+      if (q) return Date.UTC(+q[1], +q[2] - 1, +q[3]);
+      try {
+        var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', year: 'numeric', month: 'numeric', day: 'numeric' }).formatToParts(new Date());
+        var o = {}; p.forEach(function (x) { o[x.type] = +x.value; });
+        return Date.UTC(o.year, o.month - 1, o.day);
+      } catch (e) { var n = new Date(); return Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()); }
+    }
+    // Offer day: nominal date, or next Monday if it falls on a weekend (bank holidays not modelled).
+    function offer(y, m, d) { var t = Date.UTC(y, m, d), w = new Date(t).getUTCDay(); if (w === 6) t += 2 * DAY; if (w === 0) t += DAY; return t; }
+    function fmt(t) { var x = new Date(t); return DAYS[x.getUTCDay()] + ' ' + x.getUTCDate() + ' ' + MONTHS[x.getUTCMonth()]; }
+    function left(t, now) { var n = Math.round((t - now) / DAY); return n <= 0 ? 'today' : n === 1 ? 'tomorrow' : 'in ' + n + ' days'; }
+    var now = today(), y = new Date(now).getUTCFullYear(), m = new Date(now).getUTCMonth();
+    var msg, href, label, id;
+    var secDl = Date.UTC(y, 9, 31), priDl = Date.UTC(y, 0, 15);
+    if (now <= priDl) { id = 'pri'; href = GOV.pri; label = 'Apply for a primary place'; msg = 'Primary school applications close on ' + fmt(priDl) + ' (' + left(priDl, now) + '). Apply through your council.'; }
+    else if (now <= offer(y, 2, 1)) { var o = offer(y, 2, 1); id = 'secoffer'; href = GOV.sec; label = 'Secondary applications'; msg = 'Secondary school offers come out on ' + fmt(o) + '. Check your council for the time they are sent.'; }
+    else if (now <= offer(y, 3, 16)) { var o2 = offer(y, 3, 16); id = 'prioffer'; href = GOV.pri; label = 'Primary applications'; msg = 'Primary school offers come out on ' + fmt(o2) + '. Check your council for the time they are sent.'; }
+    else if (m < 8) { id = 'late'; href = GOV.late; label = 'Late applications'; msg = 'Missed a deadline? Late applications and waiting lists are handled by your council. Contact them as soon as you can.'; }
+    else if (now <= secDl) { id = 'sec'; href = GOV.sec; label = 'Apply for a secondary place'; msg = 'Secondary school applications close on ' + fmt(secDl) + ' (' + left(secDl, now) + '). Apply through your council.'; }
+    else { var nd = Date.UTC(y + 1, 0, 15); id = 'pri'; href = GOV.pri; label = 'Apply for a primary place'; msg = 'Primary school applications close on ' + fmt(nd) + ' (' + left(nd, now) + '). Apply through your council.'; }
+    var key = id + '-' + y;
+    try { if (localStorage.getItem(KEY) === key) { b.hidden = true; return; } } catch (e) {}
+    var txt = document.getElementById('dl-text');
+    txt.textContent = msg + ' ';
+    var a = document.createElement('a'); a.href = href; a.rel = 'nofollow noopener'; a.target = '_blank'; a.textContent = 'On GOV.UK'; txt.appendChild(a);
+    document.getElementById('dl-close').addEventListener('click', function () {
+      b.hidden = true;
+      try { localStorage.setItem(KEY, key); } catch (e) {}
+    });
+  })();
+  </script>
+
   <div class="topbar">
     <div class="topbar-inner">
       <span>A free, independent guide for parents - <em>updated each admissions cycle.</em></span>
@@ -115,7 +165,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
         <span>catchment<span class="dot">.school</span></span>
       </a>
       <div class="right-tools">
-        <a class="pill-link primary" href="/council/cardiff/">View Cardiff →</a>
+        <a class="pill-link primary" href="/postcode/">Search by postcode →</a>
       </div>
     </div>
   </header>
