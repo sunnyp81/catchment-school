@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { OS, pct } from '../../lib/oversub';
 
 const schema = {
   "@context": "https://schema.org",
@@ -283,6 +284,12 @@ const howToSchema = {
       <p>
         You cannot find out your result before the official offer day. Calling the local authority
         in the week before will not get you an early answer.
+      </p>
+      <p>
+        On offer day for September 2026, {pct(OS.national.secondary.notOffered['2026-27'].notOfferedPct)} of Year 7 applicants and
+        {pct(OS.national.primary.notOffered['2026-27'].notOfferedPct)} of Reception applicants in England were not offered their first
+        preference school. The <a href="/oversubscribed-schools/">most oversubscribed schools in England</a> page lists first
+        choices per place for every school with 30 or more offers.
       </p>
 
       <h2>How to apply: the local authority portal</h2>

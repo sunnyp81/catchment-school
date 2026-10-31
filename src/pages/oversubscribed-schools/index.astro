@@ -19,7 +19,7 @@ const lowCouncilS = OS.councilRank.secondary[OS.councilRank.secondary.length - 1
 const hasSection = (slug: string, k: 's' | 'p') => index.some((c) => c.slug === slug && c[k]);
 
 const share = (n: number, d: number) => ((n / d) * 100).toFixed(1);
-const title = 'Most Oversubscribed Schools in England 2026: First Choices Per Place';
+const title = 'Most Oversubscribed Schools in England 2026 (DfE Data)';
 const description = `${S.at2} secondary and ${P.at2} primary schools had at least two first choices for every place in 2026. DfE offer day figures, method and a free CSV.`;
 const canonical = `${SITE}${HUB}`;
 
@@ -43,7 +43,7 @@ const itemList = { '@context': 'https://schema.org', '@type': 'ItemList', name: 
 
 const faqs = [
   { q: 'What does oversubscribed mean for a school?', a: 'A school is oversubscribed when more families put it first than it has places. DfE measures this as first preferences per offer. A figure above 1 means more first choices than offers. A figure of 2 means two first choices for every offer.' },
-  { q: 'How many schools in England are oversubscribed?', a: `On first preferences, ${share(S.n - S.below1, S.n)}% of secondary schools and ${share(P.n - P.below1, P.n)}% of primary schools had at least as many first choices as offers in 2026. The share with two or more first choices per offer was ${S.at2Pct}% for secondary schools and ${P.at2Pct}% for primary schools.` },
+  { q: 'How many schools in England are oversubscribed?', a: `${int(S.n - S.below1)} of ${int(S.n)} secondary schools (${share(S.n - S.below1, S.n)}%) and ${int(P.n - P.below1)} of ${int(P.n)} primary schools (${share(P.n - P.below1, P.n)}%) had at least as many first choices as offers in 2026. ${S.at2} secondary schools (${S.at2Pct}%) and ${P.at2} primary schools (${P.at2Pct}%) had two or more first choices per offer.` },
   { q: 'Does an oversubscribed school mean a better school?', a: 'No. The figure shows how many families put the school first. It does not measure teaching or results. Location, faith criteria, entrance tests and local choice all affect it.' },
   { q: 'What share of children get their first choice of school?', a: `${(100 - sec['2026-27'].notOfferedPct).toFixed(1)}% of Year 7 applicants and ${(100 - pri['2026-27'].notOfferedPct).toFixed(1)}% of Reception applicants were offered their first preference school for September 2026 (DfE, offer day).` },
   { q: 'Can I use this to work out if I will get a place?', a: 'No. These figures are for offer day and do not include the last distance offered, waiting lists or appeals. Ask the council for the last distance offered and read the school admissions policy.' },
@@ -51,6 +51,7 @@ const faqs = [
 const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 const th = 'p-2 font-medium text-gray-700 text-right align-bottom';
 const dropPct = (a: number, b: number) => ((1 - b / a) * 100).toFixed(1);
+const move = (a: number, b: number) => (b > a ? `rose from ${pct(a)} to ${pct(b)}` : b < a ? `fell from ${pct(a)} to ${pct(b)}` : `stayed at ${pct(b)}`);
 ---
 <Base title={title} description={description} canonical={canonical}>
   <Fragment slot="head">
@@ -73,29 +74,15 @@ const dropPct = (a: number, b: number) => ((1 - b / a) * 100).toFixed(1);
     <section aria-labelledby="answer-h" class="mb-8">
       <h2 id="answer-h" class="sr-only">The short answer</h2>
       <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-3 text-gray-800">
-        <p>Most schools in England were not oversubscribed for September 2026. {S.below1Pct}% of secondary schools and {P.below1Pct}% of primary schools had fewer first choices than offers.</p>
-        <p>The pressure sits in a small group. {S.at2} secondary schools ({S.at2Pct}%) and {P.at2} primary schools ({P.at2Pct}%) had at least two first choices for every offer. A further {S.at15 - S.at2} secondary schools had between 1.5 and 2.</p>
+        <p>Most schools in England were not oversubscribed for September 2026. {S.below1Pct}% of secondary schools and {P.below1Pct}% of primary schools had fewer first choices than offers. The other {int(S.n - S.below1)} secondary and {int(P.n - P.below1)} primary schools had at least as many first choices as offers.</p>
+        <p>{S.at2} secondary schools ({S.at2Pct}%) and {P.at2} primary schools ({P.at2Pct}%) had at least two first choices for every offer. A further {S.at15 - S.at2} secondary schools had between 1.5 and 2.</p>
         <p class="text-xs text-gray-600">{SOURCE_LINE} Schools with fewer than {M.minOffers} offers are left out. Year 7 entry at all-through schools is left out. <a class="text-indigo-700 underline" href="#method">Method and limits</a>.</p>
       </div>
     </section>
 
-    <section aria-labelledby="lists-h" class="mb-10">
-      <h2 id="lists-h" class="text-xl font-semibold mb-3">The full lists</h2>
-      <ul class="grid sm:grid-cols-2 gap-3">
-        <li class="border border-gray-200 rounded-lg p-4 bg-white">
-          <a class="font-semibold text-indigo-700 underline" href="/oversubscribed-schools/secondary/">Secondary schools: top {OS.top.secondary.length}</a>
-          <p class="text-sm text-gray-700 mt-1">Year 7 entry, ranked by first choices per offer. Selective and faith schools are flagged.</p>
-        </li>
-        <li class="border border-gray-200 rounded-lg p-4 bg-white">
-          <a class="font-semibold text-indigo-700 underline" href="/oversubscribed-schools/primary/">Primary schools: top {OS.top.primary.length}</a>
-          <p class="text-sm text-gray-700 mt-1">Reception entry. Many of these schools admit 30 children, so the figures move easily.</p>
-        </li>
-      </ul>
-    </section>
-
     <section aria-labelledby="first-h" class="mb-10">
-      <h2 id="first-h" class="text-xl font-semibold mb-3">How many applicants miss their first choice</h2>
-      <p class="text-gray-800 mb-3">In 2026, {sec['2026-27'].notOfferedPct}% of Year 7 applicants and {pri['2026-27'].notOfferedPct}% of Reception applicants were not offered their first preference school. Over three years secondary got slightly easier and primary slightly harder.</p>
+      <h2 id="first-h" class="text-xl font-semibold mb-3">How many applicants miss their first choice school?</h2>
+      <p class="text-gray-800 mb-3">{pct(sec['2026-27'].notOfferedPct)} of Year 7 applicants and {pct(pri['2026-27'].notOfferedPct)} of Reception applicants were not offered their first preference school for September 2026. Year 7 {move(sec['2024-25'].notOfferedPct, sec['2026-27'].notOfferedPct)} over three years and Reception {move(pri['2024-25'].notOfferedPct, pri['2026-27'].notOfferedPct)}.</p>
       <div class="overflow-x-auto" role="region" aria-label="Applicants not offered their first preference, by year" tabindex="0">
         <table class="w-full min-w-[480px] text-sm border border-gray-200">
           <caption class="sr-only">Share of applicants not offered their first preference school in England, by year of entry</caption>
@@ -116,8 +103,8 @@ const dropPct = (a: number, b: number) => ((1 - b / a) * 100).toFixed(1);
     </section>
 
     <section aria-labelledby="councils-h" class="mb-10">
-      <h2 id="councils-h" class="text-xl font-semibold mb-3">Where it varies most</h2>
-      <p class="text-gray-800 mb-3">The gap between councils is wide. The middle council left {S.medianCouncilPct}% of Year 7 applicants without their first preference. {topCouncilsS[0].name} left {topCouncilsS[0].pct}% and {lowCouncilS.name} left {lowCouncilS.pct}%. For Reception the middle council was {P.medianCouncilPct}% and the highest was {topCouncilsP[0].name} at {topCouncilsP[0].pct}%.</p>
+      <h2 id="councils-h" class="text-xl font-semibold mb-3">Which councils have the most applicants missing their first choice?</h2>
+      <p class="text-gray-800 mb-3">{topCouncilsS[0].name} had the highest share of Year 7 applicants not offered their first preference at {pct(topCouncilsS[0].pct)} and {lowCouncilS.name} the lowest at {pct(lowCouncilS.pct)}. The middle council was {pct(S.medianCouncilPct)}. For Reception the middle council was {pct(P.medianCouncilPct)} and the highest was {topCouncilsP[0].name} at {pct(topCouncilsP[0].pct)}.</p>
       <div class="grid md:grid-cols-2 gap-6">
         {[{ k: 'Year 7', list: topCouncilsS, key: 's' as const }, { k: 'Reception', list: topCouncilsP, key: 'p' as const }].map((g) => (
           <div class="overflow-x-auto" role="region" aria-label={`Councils with the highest share of ${g.k} applicants not offered their first preference`} tabindex="0">
@@ -140,18 +127,32 @@ const dropPct = (a: number, b: number) => ((1 - b / a) * 100).toFixed(1);
     </section>
 
     <section aria-labelledby="top-h" class="mb-10">
-      <h2 id="top-h" class="text-xl font-semibold mb-3">Highest demand at the top of each list</h2>
-      <p class="text-gray-800 mb-3">These are the five secondary schools and five primary schools with the most first choices per offer in 2026. High demand is not the same as quality. It reflects how many families put the school first and how many places it had.</p>
+      <h2 id="top-h" class="text-xl font-semibold mb-3">Which schools had the most first choices per offer?</h2>
+      <p class="text-gray-800 mb-3">{top5s[0].name}{top5s[0].name.includes(top5s[0].council) ? '' : ` in ${top5s[0].council}`} had the most first choices per offer of any secondary school in 2026, at {f2(top5s[0].fppo)}, and {top5p[0].name}{top5p[0].name.includes(top5p[0].council) ? '' : ` in ${top5p[0].council}`} led the primary list at {f2(top5p[0].fppo)}. High demand is not the same as quality. It reflects how many families put the school first and how many places it had.</p>
       <h3 class="font-semibold text-gray-900 mb-2">Secondary, Year 7 entry</h3>
       <div class="mb-6"><OversubTable rows={top5s} caption="Five secondary schools with the most first choices per offer, 2026 entry" showCouncil={true} /></div>
       <h3 class="font-semibold text-gray-900 mb-2">Primary, Reception entry</h3>
       <OversubTable rows={top5p} caption="Five primary schools with the most first choices per offer, 2026 entry" showCouncil={true} />
-      <p class="text-sm mt-3">Source: DfE school-level file, 2026/27 release, offer day figures for September 2026 entry. <a class="text-indigo-700 underline" href="/oversubscribed-schools/secondary/">See the top {OS.top.secondary.length} secondary schools</a> or <a class="text-indigo-700 underline" href="/oversubscribed-schools/primary/">the top {OS.top.primary.length} primary schools</a>.</p>
+      <p class="text-sm mt-3">Source: DfE school-level file, 2026/27 release, offer day figures for September 2026 entry.</p>
+    </section>
+
+    <section aria-labelledby="lists-h" class="mb-10">
+      <h2 id="lists-h" class="text-xl font-semibold mb-3">The full lists</h2>
+      <ul class="grid sm:grid-cols-2 gap-3">
+        <li class="border border-gray-200 rounded-lg p-4 bg-white">
+          <a class="font-semibold text-indigo-700 underline" href="/oversubscribed-schools/secondary/">Secondary schools: top {OS.top.secondary.length}</a>
+          <p class="text-sm text-gray-700 mt-1">Year 7 entry, ranked by first choices per offer, with three years of figures. Selective and faith schools are flagged.</p>
+        </li>
+        <li class="border border-gray-200 rounded-lg p-4 bg-white">
+          <a class="font-semibold text-indigo-700 underline" href="/oversubscribed-schools/primary/">Primary schools: top {OS.top.primary.length}</a>
+          <p class="text-sm text-gray-700 mt-1">Reception entry, with three years of figures. Many of these schools admit 30 children, so the figures move easily.</p>
+        </li>
+      </ul>
     </section>
 
     <section aria-labelledby="type-h" class="mb-10">
-      <h2 id="type-h" class="text-xl font-semibold mb-3">Selective and faith schools</h2>
-      <p class="text-gray-800 mb-3">Selective schools are far more likely to reach two first choices per offer. {S.selective.at2Pct}% of selective secondary schools did, against {S.rest.at2Pct}% of schools that are neither selective nor faith schools. Selective schools offered a place to a median {S.selective.medianPctOffered}% of the families who put them first.</p>
+      <h2 id="type-h" class="text-xl font-semibold mb-3">Are selective and faith schools more oversubscribed?</h2>
+      <p class="text-gray-800 mb-3">Yes for selective schools, and only slightly for faith schools. {S.selective.at2Pct}% of selective secondary schools had two or more first choices per offer, {S.faith.at2Pct}% of faith schools did and {S.rest.at2Pct}% of schools that are neither. Selective schools offered a place to a median {S.selective.medianPctOffered}% of the families who put them first.</p>
       <div class="overflow-x-auto" role="region" aria-label="Demand by school type" tabindex="0">
         <table class="w-full min-w-[620px] text-sm border border-gray-200">
           <caption class="sr-only">First choices per offer by school type, 2026 entry</caption>
@@ -175,8 +176,8 @@ const dropPct = (a: number, b: number) => ((1 - b / a) * 100).toFixed(1);
     </section>
 
     <section aria-labelledby="trend-h" class="mb-10">
-      <h2 id="trend-h" class="text-xl font-semibold mb-3">Little change nationally, more locally</h2>
-      <p class="text-gray-800">Of {int(S.trend.n)} secondary schools with enough offers in all three years, {S.trend.rose03} rose by 0.3 or more first choices per offer between 2024-25 and 2026-27 and {S.trend.fell03} fell by 0.3 or more. The median stayed near {S.trend.medians[2].toFixed(2)} each year. Changes happen school by school, so the lists show the last three years next to each figure. Source: DfE school-level file, 2024-25 to 2026-27.</p>
+      <h2 id="trend-h" class="text-xl font-semibold mb-3">How much has oversubscription changed since 2024?</h2>
+      <p class="text-gray-800">Very little nationally. The median first choices per offer for the {int(S.trend.n)} secondary schools with enough offers in all three years stayed near {S.trend.medians[2].toFixed(2)} each year. {S.trend.rose03} of those schools rose by 0.3 or more between 2024-25 and 2026-27 and {S.trend.fell03} fell by 0.3 or more. Changes happen school by school, so the lists show the last three years next to each figure. Source: DfE school-level file, 2024-25 to 2026-27.</p>
     </section>
 
     <section aria-labelledby="method-h" id="method" class="mb-10">
@@ -197,12 +198,12 @@ const dropPct = (a: number, b: number) => ((1 - b / a) * 100).toFixed(1);
 
     <section aria-labelledby="download-h" class="mb-10">
       <h2 id="download-h" class="text-xl font-semibold mb-3">Download the data</h2>
-      <p class="text-gray-800 mb-3">Every school in the lists, {int(S.n + P.n)} rows, with first choices, offers, the ratio and the two earlier years. Free to use with a link back to this page.</p>
+      <p class="text-gray-800 mb-3">Every school with 30 or more offers, {int(S.n + P.n)} rows, with first choices, offers, the ratio and the two earlier years. Free to use with a link back to this page.</p>
       <a class="inline-block bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-800" href={CSV_URL} download>Download CSV</a>
     </section>
 
     <section aria-labelledby="faq-h" class="mb-10">
-      <h2 id="faq-h" class="text-xl font-semibold mb-3">Questions</h2>
+      <h2 id="faq-h" class="text-xl font-semibold mb-3">Questions about oversubscribed schools</h2>
       <div class="space-y-4">
         {faqs.map((f) => (<div><h3 class="font-semibold text-gray-900">{f.q}</h3><p class="text-gray-800">{f.a}</p></div>))}
       </div>

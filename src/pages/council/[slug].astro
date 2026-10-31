@@ -7,7 +7,7 @@ import AuthorByline from '../../components/AuthorByline.astro';
 import councilIntros from '../../data/council-intros.json';
 import admissionsUrls from '../../data/admissions-urls.json';
 import OversubTable from '../../components/OversubTable.astro';
-import { OS, HUB, SOURCE_LINE, int, pct, rowsFromCompact } from '../../lib/oversub';
+import { OS, HUB, SOURCE_LINE, int, pct, rowsFromCompact, ordinal, trendClause } from '../../lib/oversub';
 
 export async function getStaticPaths() {
   return (las as any[]).map((la: any) => ({
@@ -214,7 +214,7 @@ const faqSchema = {
       <h2 id="oversub-h" class="text-xl font-semibold mb-3">Oversubscription in {la.name}</h2>
       <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-2 text-gray-800 mb-5">
         {osPhases.map((ph: any) => (
-          <p>In 2026, {pct(ph.d.notOffered['2026-27'])} of {ph.label} applicants in {la.name} were not offered their first preference school, against {pct(ph.nat['2026-27'].notOfferedPct)} across England.{ph.d.rank ? ` That is ${ph.d.rank} of ${ph.d.of} councils, where 1 is the highest share.` : ''}</p>
+          <p>{pct(ph.d.notOffered['2026-27'])} of {ph.label} applicants in {la.name} were not offered their first preference school for September 2026, against {pct(ph.nat['2026-27'].notOfferedPct)} across England{trendClause(ph.d.notOffered['2024-25'], ph.d.notOffered['2026-27'])}.{ph.d.rank ? ` ${la.name} ranks ${ordinal(ph.d.rank)} of ${ph.d.of} councils, where 1st is the highest share.` : ''}</p>
         ))}
         <p class="text-xs text-gray-600">{SOURCE_LINE} Method and limits are on the <a class="text-indigo-700 underline" href={HUB}>oversubscribed schools</a> page.</p>
       </div>

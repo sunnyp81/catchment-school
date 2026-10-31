@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { OS } from '../../lib/oversub';
 
 const schema = {
   "@context": "https://schema.org",
@@ -216,6 +217,12 @@ const howToSchema = {
         Academies, free schools, voluntary-aided schools, and foundation schools may have different
         criteria - for example, a faith criterion or a feeder school link - but they must all publish
         their full criteria in their admissions policy.
+      </p>
+      <p>
+        Most schools had fewer first choices than places for September 2026: {OS.national.secondary.below1Pct}% of secondary
+        schools and {OS.national.primary.below1Pct}% of primary schools.
+        The <a href="/oversubscribed-schools/">most oversubscribed schools in England</a> page shows first choices per place
+        for each school and the share of applicants in each council who missed their first preference.
       </p>
 
       <h2>How is catchment area distance measured?</h2>

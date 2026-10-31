@@ -184,7 +184,7 @@ const topList = (e) => all[e].slice(0, TOP[e]);
 
 const out = {
   meta: {
-    generated: new Date().toISOString().slice(0, 10),
+    generated: '2026-10-31', // date the figures were computed; set by hand when the DfE data is refreshed
     source: 'Department for Education, Primary and secondary school applications and offers, academic year 2026/27 (published 2026-06-18)',
     schoolFile: 'School-level supporting file dated 2026-06-29', councilFile: 'Local-authority file dated 2026-05-19',
     publication: 'https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27',
