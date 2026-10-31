@@ -94,15 +94,21 @@ const yr = (d) => Number(String(d).split('/').pop());
 const GL = { 1: 'Outstanding', 2: 'Good', 3: 'Requires improvement', 4: 'Inadequate' };
 const buckets = ['2014 or earlier', ...Array.from({ length: 12 }, (_, i) => String(2015 + i))];
 const grid = Object.fromEntries(buckets.map((b) => [b, { Outstanding: 0, Good: 0, 'Requires improvement': 0, Inadequate: 0, total: 0 }]));
-let noGraded = 0, graded = 0;
+// Graded inspections of state-funded schools stopped giving an overall grade in September 2024 ("Not judged"), so those schools sit under their earlier grade.
+let noGraded = 0, graded = 0; const nj = { total: 0, noEarlierGrade: 0, inTable: 0, outstanding: 0, outstandingBefore2015: 0, dates: [], restOpened: [] };
 for (const r of waitingRows) {
-  const m = map[r.URN]; if (!m?.ofstedRating || !m.ofstedDate) { noGraded++; continue; }
+  const notJudged = r['Latest OEIF overall effectiveness'] === 'Not judged';
+  if (notJudged) { nj.total++; nj.dates.push(iso(r['Inspection start date of latest OEIF graded inspection'])); }
+  const m = map[r.URN]; if (!m?.ofstedRating || !m.ofstedDate) { noGraded++; if (notJudged) nj.noEarlierGrade++; else nj.restOpened.push(yr(r['School open date'])); continue; }
   graded++; const y = yr(m.ofstedDate); const b = y <= 2014 ? buckets[0] : String(y);
   grid[b][GL[m.ofstedRating]]++; grid[b].total++;
+  if (notJudged) { nj.inTable++; if (m.ofstedRating === '1') { nj.outstanding++; if (b === buckets[0]) nj.outstandingBefore2015++; } }
 }
+nj.dates.sort(); const njRange = [nj.dates[0], nj.dates.at(-1)]; delete nj.dates;
+const restOpenedFrom = Math.min(...nj.restOpened.filter(Number.isFinite)); nj.restNoGrade = nj.restOpened.length; delete nj.restOpened; nj.restOpenedFrom = restOpenedFrom;
 const osBefore = (y) => buckets.filter((b) => (b === buckets[0] ? true : Number(b) < y)).reduce((a, b) => a + grid[b].Outstanding, 0);
 out.waiting = {
-  noReportCard: waitingRows.length, withGraded: graded, noGradedOnRecord: noGraded, grid, buckets,
+  noReportCard: waitingRows.length, withGraded: graded, noGradedOnRecord: noGraded, grid, buckets, noOverallGrade: { ...nj, dateRange: njRange },
   outstandingTotal: osBefore(9999), outstandingBefore2015: grid[buckets[0]].Outstanding, outstandingBefore2020: osBefore(2020),
   byGrade: Object.fromEntries(Object.values(GL).map((l) => [l, { total: buckets.reduce((a, b) => a + grid[b][l], 0), before2015: grid[buckets[0]][l], before2020: buckets.filter((b) => b === buckets[0] || Number(b) < 2020).reduce((a, b) => a + grid[b][l], 0) }])),
   gradedBefore2020: buckets.filter((b) => b === buckets[0] || Number(b) < 2020).reduce((a, b) => a + grid[b].total, 0),

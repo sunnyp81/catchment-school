@@ -1944,6 +1944,19 @@
    "2025",
    "2026"
   ],
+  "noOverallGrade": {
+   "total": 3275,
+   "noEarlierGrade": 97,
+   "inTable": 3178,
+   "outstanding": 895,
+   "outstandingBefore2015": 628,
+   "restNoGrade": 225,
+   "restOpenedFrom": 2023,
+   "dateRange": [
+    "2024-09-24",
+    "2025-09-30"
+   ]
+  },
   "outstandingTotal": 2705,
   "outstandingBefore2015": 879,
   "outstandingBefore2020": 1701,

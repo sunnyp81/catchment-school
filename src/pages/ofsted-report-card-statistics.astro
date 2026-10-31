@@ -9,7 +9,7 @@ const PATH = '/ofsted-report-card-statistics/';
 const CSV_URL = '/downloads/ofsted-report-card-results-2026.csv';
 const OGL = 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/';
 const UPDATED = '2026-10-31';
-const M = D.meta, C = D.cards, A = D.areas, SG = D.safeguarding, X = D.crossTab, CO = D.councils, W = D.waiting;
+const M = D.meta, C = D.cards, A = D.areas, SG = D.safeguarding, X = D.crossTab, CO = D.councils, W = D.waiting, NJ = D.waiting.noOverallGrade;
 
 const int = (n: number) => n.toLocaleString('en-GB');
 const pc = (n: number | null) => (n == null ? 'n/a' : `${n.toFixed(1)}%`);
@@ -45,8 +45,8 @@ const faqs = [
   { q: 'How many schools have an Ofsted report card?', a: `${int(C.total)} state-funded schools in England had a report card in Ofsted's data as at ${asAt}. That is ${pc(C.shareOfSchoolsPct)} of the ${int(M.schoolsInFile)} schools in the file. The first inspection was on ${first}.` },
   { q: 'What grades can an Ofsted report card give?', a: 'Each area is graded Exceptional, Strong standard, Expected standard, Needs attention or Urgent improvement. Safeguarding standards are marked Met or Not met. There is no single overall grade.' },
   { q: 'How many schools did not meet the safeguarding standards?', a: `${SG.notMet} of ${int(C.total)} schools (${pc(SG.notMetPct)}) had safeguarding standards marked Not met, as at ${asAt}: ${sgPhase.primary.notMet} primary, ${sgPhase.secondary.notMet} secondary and ${sgPhase.other.notMet} special, nursery or alternative provision schools.` },
-  { q: 'Are report card grades the same as Outstanding and Good?', a: 'No. The old grades gave one overall judgement. A report card grades each area separately against a new scale, so the two cannot be compared directly.' },
-  { q: 'How many schools have not had a report card yet?', a: `${int(W.noReportCard)} of ${int(M.schoolsInFile)} schools had no report card as at ${asAt}. ${int(W.byGrade.Outstanding.total)} of them were last graded Outstanding and ${int(W.outstandingBefore2015)} of those were graded in 2014 or earlier.` },
+  { q: 'Are report card grades the same as Outstanding and Good?', a: 'No. The old grades gave one overall judgement. A report card grades each area separately against a new scale. The two cannot be compared directly.' },
+  { q: 'How many schools have not had a report card yet?', a: `${int(W.noReportCard)} of ${int(M.schoolsInFile)} schools had no report card as at ${asAt}. ${int(W.byGrade.Outstanding.total)} of them hold Outstanding as their last overall grade and ${int(W.outstandingBefore2015)} of those got it in 2014 or earlier. Outstanding schools were exempt from routine inspection from 2012 to 2020.` },
 ];
 
 const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
@@ -103,7 +103,7 @@ const phaseTables = [
       <h2 id="answer-h" class="sr-only">The short answer</h2>
       <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-3 text-gray-800">
         <p>{answerText}</p>
-        <p class="text-xs text-gray-600">Data as at {asAt}. First report card inspection {first}. <a class="text-indigo-700 underline" href="#method">Method and limits</a>. To see how the grades work, read the <a class="text-indigo-700 underline" href="/guides/ofsted-ratings-explained/">guide to Ofsted ratings</a>.</p>
+        <p class="text-xs text-gray-600">Data as at {asAt}. First report card inspection {first}. <a class="text-indigo-700 underline" href="#method">Method and limits</a>. Read the <a class="text-indigo-700 underline" href="/guides/ofsted-ratings-explained/">guide to Ofsted ratings</a> to see how the grades work.</p>
       </div>
     </section>
 
@@ -125,12 +125,12 @@ const phaseTables = [
           </tbody>
         </table>
       </div>
-      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information, latest inspections as at {asAt}. A school counts as having a report card when its latest full inspection carries area grades. Ofsted did not choose schools at random, so the phase shares say nothing about schools yet to be inspected.</p>
+      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information, latest inspections as at {asAt}. A school counts as having a report card when its latest full inspection carries area grades. Ofsted did not choose schools at random. The phase shares say nothing about schools yet to be inspected.</p>
     </section>
 
     <section aria-labelledby="grades-h" class="mb-10">
       <h2 id="grades-h" class="text-xl font-semibold mb-3">What grades do schools get in each area?</h2>
-      <p class="text-gray-800 mb-3">Most grades are Expected standard. Across all {int(C.total)} report cards, {lc(label(hiK))} had the highest share graded Needs attention or Urgent improvement, at {pc(A.all[hiK].belowExpectedPct)}. {label(loK)} had the lowest, at {pc(A.all[loK].belowExpectedPct)}. Leadership and governance was graded Strong standard or better for {pc(lg.strongOrBetterPct)} of schools and Achievement for {pc(ach.strongOrBetterPct)}.</p>
+      <p class="text-gray-800 mb-3">Most grades are Expected standard. {label(hiK)} had the highest share graded Needs attention or Urgent improvement across all {int(C.total)} report cards: {pc(A.all[hiK].belowExpectedPct)}. {label(loK)} had the lowest: {pc(A.all[loK].belowExpectedPct)}. Leadership and governance was graded Strong standard or better for {pc(lg.strongOrBetterPct)} of schools and Achievement for {pc(ach.strongOrBetterPct)}.</p>
       <p class="text-gray-800 mb-4">The five grades, from top to bottom, are Exceptional, Strong standard, Expected standard, Needs attention and Urgent improvement. Early years applies to schools with early years provision and post-16 to schools with a sixth form. Safeguarding is not graded: it is marked Met or Not met.</p>
       {phaseTables.map((t) => (
         <div class="mb-6">
@@ -164,13 +164,13 @@ const phaseTables = [
 
     <section aria-labelledby="sg-h" class="mb-10">
       <h2 id="sg-h" class="text-xl font-semibold mb-3">How often is safeguarding not met?</h2>
-      <p class="text-gray-800 mb-3">{SG.notMet} of {int(C.total)} schools ({pc(SG.notMetPct)}) had safeguarding standards marked Not met. {sgPhase.primary.notMet} are primary schools, {sgPhase.secondary.notMet} are secondary schools and {sgPhase.other.notMet} are special, nursery or alternative provision schools. The other {int(SG.met)} were marked Met. With a count this small, a few inspections change the percentage, so the count is the better figure to quote.</p>
+      <p class="text-gray-800 mb-3">{SG.notMet} of {int(C.total)} schools ({pc(SG.notMetPct)}) had safeguarding standards marked Not met. {sgPhase.primary.notMet} are primary schools, {sgPhase.secondary.notMet} are secondary schools and {sgPhase.other.notMet} are special, nursery or alternative provision schools. The other {int(SG.met)} were marked Met. A few inspections change a percentage this small. Quote the count rather than the share.</p>
       <p class="text-xs text-gray-600">Source: Ofsted management information as at {asAt}. Filter the Safeguarding standards column of the <a class="text-indigo-700 underline" href={CSV_URL} download>CSV download</a> for "Not met" to see which schools they are.</p>
     </section>
 
     <section aria-labelledby="prev-h" class="mb-10">
       <h2 id="prev-h" class="text-xl font-semibold mb-3">How did schools graded Outstanding, Good, Requires improvement or Inadequate fare in their report card?</h2>
-      <p class="text-gray-800 mb-3">Of {int(X.withPrevious)} report card schools with a previous overall grade in Ofsted's file, {pc(xo.ach.strongOrBetterPct)} of those last graded Outstanding got Strong standard or better for Achievement, against {pc(xg.ach.strongOrBetterPct)} of Good schools, {pc(xr.ach.strongOrBetterPct)} of Requires improvement schools and {pc(xi.ach.strongOrBetterPct)} of Inadequate schools. {pc(xg.ach.belowExpectedPct)} of previously Good schools were graded Needs attention or Urgent improvement for Achievement, and {pc(xg.lg.belowExpectedPct)} for Leadership and governance.</p>
+      <p class="text-gray-800 mb-3">{int(X.withPrevious)} report card schools have a previous overall grade in Ofsted's file. {pc(xo.ach.strongOrBetterPct)} of those last graded Outstanding got Strong standard or better for Achievement. The same grades went to {pc(xg.ach.strongOrBetterPct)} of Good schools, {pc(xr.ach.strongOrBetterPct)} of Requires improvement schools and {pc(xi.ach.strongOrBetterPct)} of Inadequate schools. {pc(xg.ach.belowExpectedPct)} of previously Good schools were graded Needs attention or Urgent improvement for Achievement and {pc(xg.lg.belowExpectedPct)} for Leadership and governance.</p>
       {[['ach', 'Achievement'], ['lg', 'Leadership and governance']].map(([k, name]) => (
         <div class="mb-6">
           <h3 class="font-semibold text-gray-900 mb-2">{name} grade by previous overall grade</h3>
@@ -195,19 +195,19 @@ const phaseTables = [
           </div>
         </div>
       ))}
-      <p class="text-xs text-gray-600">Source: Ofsted management information as at {asAt}. The previous grade is the school's latest graded inspection under the framework that ran from September 2019, which Ofsted holds for {int(X.withPrevious)} of the {int(C.total)} report card schools. Those inspections took place between {dateLong(X.prevDateRange[0])} and {dateLong(X.prevDateRange[1])}. {int(X.noOeifGrade)} report card schools have no such grade in the file and {int(X.notJudged)} were not judged. Shares are of the schools in each row. The Inadequate row has {int(xi.n)} schools, so treat its shares loosely.</p>
+      <p class="text-xs text-gray-600">Source: Ofsted management information as at {asAt}. The previous grade is the school's latest graded inspection under the framework that ran from September 2019. Ofsted holds one for {int(X.withPrevious)} of the {int(C.total)} report card schools. Those inspections took place between {dateLong(X.prevDateRange[0])} and {dateLong(X.prevDateRange[1])}. {int(X.noOeifGrade)} report card schools have no such grade in the file and {int(X.notJudged)} were not judged. Shares are of the schools in each row. The Inadequate row has {int(xi.n)} schools. Treat its shares loosely.</p>
     </section>
 
     <section aria-labelledby="councils-h" class="mb-10">
       <h2 id="councils-h" class="text-xl font-semibold mb-3">Which councils have the most report cards?</h2>
-      <p class="text-gray-800 mb-3">{cTop.name} had the most, at {int(cTop.cards)} report cards ({pc(cTop.sharePct)} of its {int(cTop.schools)} schools in the file). {int(CO.councilsWithTen)} councils have {CO.minCards} or more report cards. The table shows the top 15, with each council's share of schools that have one.</p>
+      <p class="text-gray-800 mb-3">{cTop.name} had the most, at {int(cTop.cards)} report cards ({pc(cTop.sharePct)} of its {int(cTop.schools)} schools in the file). {int(CO.councilsWithTen)} councils have {CO.minCards} or more report cards. The table shows the top 15 and each council's share of schools with one.</p>
       <div class="overflow-x-auto" role="region" aria-label="Councils with the most report cards" tabindex="0">
         <table class="w-full min-w-[480px] text-sm border border-gray-200">
           <caption class="sr-only">The 15 councils with the most Ofsted report cards, as at {asAt}</caption>
           <thead class="bg-gray-50"><tr>
             <th scope="col" class="p-2 text-left font-medium text-gray-700 w-10">#</th>
             <th scope="col" class="p-2 text-left font-medium text-gray-700">Council</th>
-            <th scope="col" class={th}>Report cards</th><th scope="col" class={th}>Schools in council</th><th scope="col" class={th}>Share with a report card</th>
+            <th scope="col" class={th}>Report cards</th><th scope="col" class={th}>Schools in file</th><th scope="col" class={th}>Share with a report card</th>
           </tr></thead>
           <tbody>
             {topC.map((c: any, i: number) => (
@@ -220,17 +220,18 @@ const phaseTables = [
           </tbody>
         </table>
       </div>
-      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information as at {asAt}, with councils matched through each school's URN. {int(CO.unmatchedCards)} report cards could not be matched to a council and are left out of this table. Large councils have more schools, so the share column is a fairer comparison than the count. The CSV download has the council for every school.</p>
+      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information as at {asAt}. Councils are matched through each school's URN. {int(CO.unmatchedCards)} report cards could not be matched to a council and are left out of this table. Large councils have more schools. The share column is a fairer comparison than the count. The CSV download has the council for every school.</p>
     </section>
 
     <section aria-labelledby="wait-h" class="mb-10">
       <h2 id="wait-h" class="text-xl font-semibold mb-3">How many schools are still waiting for a report card?</h2>
-      <p class="text-gray-800 mb-3">{int(W.noReportCard)} schools had no report card as at {asAt}. {int(W.withGraded)} of them have a graded inspection on record, shown below by the year it started. {int(W.byGrade.Outstanding.total)} were last graded Outstanding, and {int(W.outstandingBefore2015)} of those were graded in 2014 or earlier. {int(W.byGrade.Outstanding.before2020)} Outstanding schools and {int(W.byGrade.Good.before2020)} Good schools were last graded in 2019 or earlier. The other {int(W.noGradedOnRecord)} have no graded inspection in the file, for example new schools.</p>
-      <div class="overflow-x-auto" role="region" aria-label="Schools without a report card by year of last graded inspection" tabindex="0">
+      <p class="text-gray-800 mb-3">{int(W.noReportCard)} schools had no report card as at {asAt}. {int(W.withGraded)} of them have an overall effectiveness grade on record. The table shows them by the year of the inspection that gave it. {int(W.byGrade.Outstanding.total)} hold Outstanding as their last overall grade and {int(W.outstandingBefore2015)} of those got it in 2014 or earlier. Schools graded Outstanding were exempt from routine inspection from 2012 to 2020. {int(W.byGrade.Outstanding.before2020)} Outstanding schools and {int(W.byGrade.Good.before2020)} Good schools got their last overall grade in 2019 or earlier.</p>
+      <p class="text-gray-800 mb-3">Graded inspections of state-funded schools stopped giving an overall grade in September 2024. The table therefore understates recent inspections: {int(NJ.inTable)} of the schools in it had a graded inspection between {monthLong(NJ.dateRange[0].slice(0, 7))} and {monthLong(NJ.dateRange[1].slice(0, 7))} with no new overall grade. That includes {int(NJ.outstandingBefore2015)} of the {int(W.outstandingBefore2015)} Outstanding schools from 2014 or earlier. The other {int(W.noGradedOnRecord)} schools have no overall grade in the file: {int(NJ.noEarlierGrade)} were inspected without one after September 2024 and the remaining {int(NJ.restNoGrade)} opened in {NJ.restOpenedFrom} or later.</p>
+      <div class="overflow-x-auto" role="region" aria-label="Schools without a report card by year of last overall grade" tabindex="0">
         <table class="w-full min-w-[560px] text-sm border border-gray-200">
-          <caption class="sr-only">Schools without a report card, by year of last graded inspection and grade</caption>
+          <caption class="sr-only">Schools without a report card, by year of the inspection that gave their last overall effectiveness grade, and that grade</caption>
           <thead class="bg-gray-50"><tr>
-            <th scope="col" class="p-2 text-left font-medium text-gray-700">Last graded</th>
+            <th scope="col" class="p-2 text-left font-medium text-gray-700">Year of last overall grade</th>
             <th scope="col" class={th}>Outstanding</th><th scope="col" class={th}>Good</th><th scope="col" class={th}>Requires improvement</th><th scope="col" class={th}>Inadequate</th><th scope="col" class={th}>All schools</th>
           </tr></thead>
           <tbody>
@@ -247,7 +248,7 @@ const phaseTables = [
           </tbody>
         </table>
       </div>
-      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information as at {asAt} and as at 31 December 2025, which holds graded inspections from before September 2019. The year is the start of the school's latest graded inspection, and the grade is its overall effectiveness then. Only graded inspections are counted: a school may also have had a shorter ungraded inspection since. A school without a report card is not necessarily overdue for one.</p>
+      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information as at {asAt} and as at 31 December 2025. The December 2025 file holds graded inspections from before September 2019. The year is the start of the graded inspection that gave the school its latest overall effectiveness grade. Graded inspections from September 2024 carry no overall grade and are not shown. A school may also have had a shorter ungraded inspection since. A school without a report card is not necessarily overdue for one.</p>
     </section>
 
     <section aria-labelledby="method-h" id="method" class="mb-10">
@@ -255,12 +256,12 @@ const phaseTables = [
       <ul class="list-disc pl-5 space-y-2 text-gray-800">
         <li><strong>Source.</strong> <a class="text-indigo-700 underline" href={M.indexPage} rel="nofollow noopener">Ofsted, Management information: state-funded schools inspections and outcomes</a>, file "latest inspections as at 30 Sep 2026", covering {int(M.schoolsInFile)} state-funded schools. Previous grades before September 2019 come from the 31 December 2025 file in the same series. Contains public sector information licensed under the <a class="text-indigo-700 underline" href={OGL} rel="nofollow noopener">Open Government Licence v3.0</a>.</li>
         <li><strong>What counts as a report card.</strong> A school whose latest full inspection carries area grades. All {int(C.total)} inspections started between {first} and {dateLong(M.lastInspection)}.</li>
-        <li><strong>Report cards are not the old grades.</strong> The old Outstanding, Good, Requires improvement and Inadequate grades gave one overall judgement. A report card grades each area on a different scale, so a Strong standard is not a new name for Good. Do not read the previous-grade table as a measure of improvement or decline.</li>
-        <li><strong>The sample is not random.</strong> Ofsted chooses which schools to inspect first, and early report cards cover a part of the system that was chosen, not drawn by chance. The shares here describe the {int(C.total)} schools inspected so far and should not be applied to all schools.</li>
+        <li><strong>Report cards are not the old grades.</strong> The old Outstanding, Good, Requires improvement and Inadequate grades gave one overall judgement. A report card grades each area on a different scale. A Strong standard is not a new name for Good. Do not read the previous-grade table as a measure of improvement or decline.</li>
+        <li><strong>The sample is not random.</strong> Ofsted chooses which schools to inspect first. Early report cards cover a part of the system that was chosen rather than drawn by chance. The shares here describe the {int(C.total)} schools inspected so far and should not be applied to all schools.</li>
         <li><strong>Previous grades.</strong> Only {int(X.withPrevious)} of {int(C.total)} report card schools have an overall grade from September 2019 onwards in the file. The previous grade could be several years old.</li>
-        <li><strong>Percentages.</strong> Shares are rounded to one decimal place and use the schools graded in that area as the base, so early years and post-16 rows have smaller bases.</li>
+        <li><strong>Percentages.</strong> Shares are rounded to one decimal place. The base is the schools graded in that area. Early years and post-16 rows have smaller bases.</li>
         <li><strong>Councils.</strong> Councils come from the catchment.school school records, matched by URN. {int(CO.unmatchedCards)} report cards had no match.</li>
-        <li><strong>Counts, not judgements.</strong> The page counts grades. It does not say why a school received one, or whether it is a good school to apply to.</li>
+        <li><strong>Counts only.</strong> The page counts grades. It does not say why a school received one or whether it is a good school to apply to.</li>
       </ul>
     </section>
 
@@ -269,12 +270,12 @@ const phaseTables = [
       <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-800">
         <p>catchment.school (2026). <em>Ofsted report card results 2025-26: statistics for England.</em> Data as at {asAt}, from Ofsted management information. Updated {dateLong(UPDATED)}. {canonical}</p>
       </div>
-      <p class="text-sm text-gray-700 mt-3">To look up one school, <a class="text-indigo-700 underline" href="/postcode/">search by postcode</a>.</p>
+      <p class="text-sm text-gray-700 mt-3"><a class="text-indigo-700 underline" href="/postcode/">Search by postcode</a> to look up one school.</p>
     </section>
 
     <section aria-labelledby="download-h" class="mb-10">
       <h2 id="download-h" class="text-xl font-semibold mb-3">Download the data</h2>
-      <p class="text-gray-800 mb-3">One row for each of the {int(C.total)} report card schools, with the council, inspection dates, safeguarding result, every area grade and the previous overall grade where there is one. Data as at {asAt}. Free to use with a link back to this page.</p>
+      <p class="text-gray-800 mb-3">One row for each of the {int(C.total)} report card schools: council, inspection dates, safeguarding result, every area grade and the previous overall grade where there is one. Data as at {asAt}. Free to use with a link back to this page.</p>
       <a class="inline-block bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-800" href={CSV_URL} download>Download CSV</a>
     </section>
 
