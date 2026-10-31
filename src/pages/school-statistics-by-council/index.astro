@@ -12,8 +12,9 @@ const description = `Compare ${M.councils} English councils on Ofsted ratings, G
 if (title.length > 60 || description.length > 155) throw new Error(`meta too long: ${title.length}/${description.length}`);
 
 const list = (k: string) => sortedBy(k);
-const low = (k: string, n = 10) => list(k).slice(0, n);
-const high = (k: string, n = 10) => list(k).slice(-n).reverse();
+/** Lowest or highest n councils plus any council tied with the nth, ties listed alphabetically. */
+const low = (k: string, n = 10) => { const l = list(k), cut = l[n - 1]?.v; return l.filter((r, i) => i < n || r.v === cut); };
+const high = (k: string, n = 10) => { const l = [...list(k)].sort((a, b) => b.v - a.v || a.name.localeCompare(b.name)), cut = l[n - 1]?.v; return l.filter((r, i) => i < n || r.v === cut); };
 /** Extreme council for a headline; fails the build if two councils tie for it. */
 const extreme = (k: string, end: 'low' | 'high') => {
   const l = list(k), e = end === 'low' ? l[0] : l[l.length - 1], next = end === 'low' ? l[1] : l[l.length - 2];
@@ -39,6 +40,8 @@ const deHi = extreme('destinations', 'high'), deLo = extreme('destinations', 'lo
 const y7Hi = extreme('year7NotOffered', 'high'), y7Lo = extreme('year7NotOffered', 'low');
 const rcMax = [...councils].sort((a, b) => b[1].reportCards - a[1].reportCards)[0][1];
 const at100 = list('goodOutstanding').filter((c) => c.v === 100);
+const listNames = (a: string[]) => (a.length > 1 ? `${a.slice(0, -1).join(', ')} and ${a[a.length - 1]}` : a[0] ?? '');
+const at100Sentence = at100.length ? `${at100.length === 1 ? 'One council' : `${at100.length} councils`} had every graded school rated Good or Outstanding: ${listNames(at100.map((c) => c.name))}.` : 'No council had every graded school rated Good or Outstanding.';
 
 const dataset = {
   '@context': 'https://schema.org', '@type': 'Dataset',
@@ -71,11 +74,11 @@ const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList'
 ] };
 
 const faqs = [
-  { q: 'Which council has the highest GCSE results?', a: `${a8Hi.name} had the highest average Attainment 8 score at ${fmt(a8Hi.v)} in 2024-25, and ${a8Lo.name} the lowest at ${fmt(a8Lo.v)}. England's average across the same schools was ${fmt(N.attainment8)}. For Progress 8 in 2023-24, the latest year DfE published, ${p8Hi.name} was highest at ${p8f(p8Hi.v)} and ${p8Lo.name} lowest at ${p8f(p8Lo.v)}.` },
-  { q: 'Which council has the highest school absence?', a: `For secondary schools in 2024-25, ${abHi[1].name} and ${abHi[0].name} both had an overall absence rate of ${fmtPct(abHi[1].v)}, the highest of any council. ${abLo.name} had the lowest at ${fmtPct(abLo.v)}. The average across England's mainstream secondary schools was ${fmtPct(N.absence)}. Primary school absence is not in this table.` },
-  { q: 'What share of schools in England are rated Good or Outstanding?', a: `${fmtPct(N.goodOutstanding)} of the ${int(N.gradedSchools)} state-funded schools with a graded Ofsted inspection were rated Good or Outstanding at their latest graded inspection, in Ofsted data as at 30 September 2026. ${goLo.name} had the lowest share of any council at ${fmtPct(goLo.v)}. ${at100.length} councils had 100%.` },
-  { q: 'Do the council figures show which area is best for schools?', a: 'No. Each figure describes the schools in a council area as a group and says nothing about a single school or street. Results and absence also reflect pupil intake, so a gap between councils is not a measure of how well the schools teach. Use the figures to ask questions, then check the schools you are considering.' },
-  { q: 'How are the council figures worked out?', a: 'Each council figure combines the published figures for its state-funded schools. Most are averages weighted by pupil numbers, so a larger school counts for more. Ofsted shares are simple shares of schools. The first-preference figures are DfE\'s own council figures. The method section shows the weighting for each measure.' },
+  { q: 'Which council has the highest GCSE results?', a: `${a8Hi.name} had the highest average Attainment 8 score in 2024-25 at ${fmt(a8Hi.v)} and ${a8Lo.name} the lowest at ${fmt(a8Lo.v)}. England's average across mainstream state secondary schools was ${fmt(N.attainment8)}. ${p8Hi.name} had the highest Progress 8 in 2023-24 at ${p8f(p8Hi.v)} and ${p8Lo.name} the lowest at ${p8f(p8Lo.v)}. 2023-24 is the latest year DfE published Progress 8.` },
+  { q: 'Which council has the highest school absence?', a: `${abHi[1].name} and ${abHi[0].name} had the highest secondary overall absence rate of any council in 2024-25 at ${fmtPct(abHi[1].v)} each. ${abLo.name} had the lowest at ${fmtPct(abLo.v)}. The average across England's mainstream state secondary schools was ${fmtPct(N.absence)}. Primary school absence is not in this table.` },
+  { q: 'What share of schools in England are rated Good or Outstanding?', a: `${fmtPct(N.goodOutstanding)} of the ${int(N.gradedSchools)} state-funded schools with a graded Ofsted inspection were rated Good or Outstanding at their latest graded inspection. That is Ofsted data as at 30 September 2026. ${goLo.name} had the lowest share of any council at ${fmtPct(goLo.v)}. ${at100.length} councils had 100%.` },
+  { q: 'Do the council figures show which area is best for schools?', a: 'No. Each figure describes the schools in a council area as a group and says nothing about a single school or street. Results and absence also reflect pupil intake. A gap between councils is not a measure of how well the schools teach. Use the figures to ask questions and then check the schools you are considering.' },
+  { q: 'How are the council figures worked out?', a: 'Each council figure combines the published figures for its state-funded schools. Most are averages weighted by pupil numbers. A larger school counts for more. Ofsted shares are simple shares of schools. The first-preference figures are DfE\'s own council figures. The method section shows the weighting for each measure.' },
 ];
 const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 
@@ -128,30 +131,30 @@ const cite = `catchment.school (${new Date(M.generated).getFullYear()}). School 
 
     <section aria-labelledby="ofsted-h" class="mb-10">
       <h2 id="ofsted-h" class="text-xl font-semibold mb-3">Which councils have the most schools rated Good or Outstanding?</h2>
-      <p class="text-gray-800 mb-3">{fmtPct(N.goodOutstanding)} of the {int(N.gradedSchools)} state-funded schools in England with a graded inspection were rated Good or Outstanding at their latest graded inspection. {at100.length} councils were at 100%, and {goLo.name} was lowest at {fmtPct(goLo.v)}. Ofsted has started to use report cards instead of single overall grades. {int(N.reportCards)} schools had a report card, and {rcMax.name} had the most with {rcMax.reportCards}.</p>
+      <p class="text-gray-800 mb-3">{at100Sentence} {goLo.name} was lowest at {fmtPct(goLo.v)}. Across England {fmtPct(N.goodOutstanding)} of the {int(N.gradedSchools)} state-funded schools with a graded inspection were rated Good or Outstanding at their latest graded inspection. Ofsted has started to use report cards instead of single overall grades. {int(N.reportCards)} schools had a report card. {rcMax.name} had the most with {rcMax.reportCards}.</p>
       <div class="grid md:grid-cols-2 gap-6">
-        <CouncilRankTable rows={high('goodOutstanding').map((r: any) => ({ ...r, x: CS.councils[r.slug].gradedSchools }))} caption="Ten highest share of schools Good or Outstanding" valueHeader="Good or Outstanding" unit="%" extraHeader="Graded schools" extraDp={0} />
-        <CouncilRankTable rows={low('goodOutstanding').map((r: any) => ({ ...r, x: CS.councils[r.slug].gradedSchools }))} caption="Ten lowest share of schools Good or Outstanding" valueHeader="Good or Outstanding" unit="%" extraHeader="Graded schools" extraDp={0} />
+        <CouncilRankTable rows={high('goodOutstanding').map((r: any) => ({ ...r, x: CS.councils[r.slug].gradedSchools }))} limit={10} caption="Ten highest share of schools Good or Outstanding" valueHeader="Good or Outstanding" unit="%" extraHeader="Graded schools" extraDp={0} />
+        <CouncilRankTable rows={low('goodOutstanding').map((r: any) => ({ ...r, x: CS.councils[r.slug].gradedSchools }))} limit={10} caption="Ten lowest share of schools Good or Outstanding" valueHeader="Good or Outstanding" unit="%" extraHeader="Graded schools" extraDp={0} />
       </div>
-      <p class="text-xs text-gray-600 mt-2">Source: {MM.goodOutstanding.source}, {MM.goodOutstanding.year}. {MM.goodOutstanding.basis} Councils tied on a figure are listed alphabetically, so a tie at the edge of a list can leave out a council with the same figure. A rating can be several years old, and a school's latest inspection may be a report card, which has no overall grade.</p>
+      <p class="text-xs text-gray-600 mt-2">Source: {MM.goodOutstanding.source}, {MM.goodOutstanding.year}. {MM.goodOutstanding.basis} Councils tied on a figure are listed alphabetically. Any council tied with the last place is included. A rating can be several years old. A school's latest inspection may be a report card with no overall grade.</p>
     </section>
 
     <section aria-labelledby="gcse-h" class="mb-10">
       <h2 id="gcse-h" class="text-xl font-semibold mb-3">Which councils have the highest GCSE results?</h2>
-      <p class="text-gray-800 mb-3">The average Attainment 8 score across England's mainstream state secondary schools was {fmt(N.attainment8)} in 2024-25. {a8Hi.name} was highest at {fmt(a8Hi.v)} and {a8Lo.name} lowest at {fmt(a8Lo.v)}. DfE did not publish Progress 8 for 2024-25, so the Progress 8 column is for 2023-24, the latest year available. The England average that year was {p8f(N.progress8)}. Attainment 8 shows the level of results. Progress 8 compares pupils with others who started at a similar level.</p>
+      <p class="text-gray-800 mb-3">{a8Hi.name} had the highest average Attainment 8 score in 2024-25 at {fmt(a8Hi.v)} and {a8Lo.name} the lowest at {fmt(a8Lo.v)}. The average across England's mainstream state secondary schools was {fmt(N.attainment8)}. The Progress 8 column is for 2023-24 because DfE did not publish Progress 8 for 2024-25. The England average that year was {p8f(N.progress8)}. Attainment 8 shows the level of results. Progress 8 compares pupils with others who started at a similar level.</p>
       <div class="grid md:grid-cols-2 gap-6">
-        <CouncilRankTable rows={withExtra(high('attainment8'), 'progress8')} caption="Ten highest average Attainment 8, 2024-25" valueHeader="Attainment 8" extraHeader="Progress 8 (2023-24)" extraDp={2} />
-        <CouncilRankTable rows={withExtra(low('attainment8'), 'progress8')} caption="Ten lowest average Attainment 8, 2024-25" valueHeader="Attainment 8" extraHeader="Progress 8 (2023-24)" extraDp={2} />
+        <CouncilRankTable rows={withExtra(high('attainment8'), 'progress8')} limit={10} caption="Ten highest average Attainment 8, 2024-25" valueHeader="Attainment 8" extraHeader="Progress 8 (2023-24)" extraDp={2} />
+        <CouncilRankTable rows={withExtra(low('attainment8'), 'progress8')} limit={10} caption="Ten lowest average Attainment 8, 2024-25" valueHeader="Attainment 8" extraHeader="Progress 8 (2023-24)" extraDp={2} />
       </div>
-      <p class="text-xs text-gray-600 mt-2">Source: {MM.attainment8.source}. Attainment 8: {MM.attainment8.year}. Progress 8: {MM.progress8.year}. {MM.attainment8.basis} Councils with fewer than {M.minSchools.attainment8} such schools show no figure. Results also reflect the mix of schools in an area, including selective schools, and who attends them.</p>
+      <p class="text-xs text-gray-600 mt-2">Source: {MM.attainment8.source}. Attainment 8: {MM.attainment8.year}. Progress 8: {MM.progress8.year}. {MM.attainment8.basis} Councils with fewer than {M.minSchools.attainment8} such schools show no figure. Results also reflect the mix of schools in an area and who attends them. That includes selective schools.</p>
     </section>
 
     <section aria-labelledby="abs-h" class="mb-10">
       <h2 id="abs-h" class="text-xl font-semibold mb-3">Which councils have the highest school absence?</h2>
-      <p class="text-gray-800 mb-3">Across England's mainstream state secondary schools, {fmtPct(N.absence)} of sessions were missed in 2024-25 and {fmtPct(N.persistentAbsence)} of pupils were persistently absent, which means they missed 10% or more of sessions. {abLo.name} had the lowest overall absence at {fmtPct(abLo.v)}. {abHi[1].name} and {abHi[0].name} were highest, both at {fmtPct(abHi[1].v)}. This table covers secondary schools only. The primary absence file is not part of this dataset.</p>
+      <p class="text-gray-800 mb-3">{abHi[1].name} and {abHi[0].name} had the highest secondary overall absence in 2024-25 at {fmtPct(abHi[1].v)} each. {abLo.name} had the lowest at {fmtPct(abLo.v)}. Across England's mainstream state secondary schools {fmtPct(N.absence)} of sessions were missed and {fmtPct(N.persistentAbsence)} of pupils were persistently absent. Persistently absent means missing 10% or more of sessions. This table covers secondary schools only. The primary absence file is not part of this dataset.</p>
       <div class="grid md:grid-cols-2 gap-6">
-        <CouncilRankTable rows={withExtra(high('absence'), 'persistentAbsence')} caption="Ten highest secondary overall absence, 2024-25" valueHeader="Overall absence" unit="%" extraHeader="Persistent absence" extraUnit="%" />
-        <CouncilRankTable rows={withExtra(low('absence'), 'persistentAbsence')} caption="Ten lowest secondary overall absence, 2024-25" valueHeader="Overall absence" unit="%" extraHeader="Persistent absence" extraUnit="%" />
+        <CouncilRankTable rows={withExtra(high('absence'), 'persistentAbsence')} limit={10} caption="Ten highest secondary overall absence, 2024-25" valueHeader="Overall absence" unit="%" extraHeader="Persistent absence" extraUnit="%" />
+        <CouncilRankTable rows={withExtra(low('absence'), 'persistentAbsence')} limit={10} caption="Ten lowest secondary overall absence, 2024-25" valueHeader="Overall absence" unit="%" extraHeader="Persistent absence" extraUnit="%" />
       </div>
       <p class="text-xs text-gray-600 mt-2">Source: {MM.absence.source}, {MM.absence.year}. {MM.absence.basis}</p>
     </section>
@@ -160,41 +163,42 @@ const cite = `catchment.school (${new Date(M.generated).getFullYear()}). School 
       <h2 id="dest-h" class="text-xl font-semibold mb-3">Where do pupils go after Year 11?</h2>
       <p class="text-gray-800 mb-3">{fmtPct(N.destinations)} of pupils in England's mainstream state secondary schools who finished Year 11 in 2023-24 were in a sustained education, apprenticeship or employment destination in 2024/25. {deHi.name} was highest at {fmtPct(deHi.v)} and {deLo.name} lowest at {fmtPct(deLo.v)}. These figures are provisional.</p>
       <div class="grid md:grid-cols-2 gap-6">
-        <CouncilRankTable rows={high('destinations', 5)} caption="Five highest sustained destination rate" valueHeader="Sustained destination" unit="%" />
-        <CouncilRankTable rows={low('destinations', 5)} caption="Five lowest sustained destination rate" valueHeader="Sustained destination" unit="%" />
+        <CouncilRankTable rows={high('destinations', 5)} limit={5} caption="Five highest sustained destination rate" valueHeader="Sustained destination" unit="%" />
+        <CouncilRankTable rows={low('destinations', 5)} limit={5} caption="Five lowest sustained destination rate" valueHeader="Sustained destination" unit="%" />
       </div>
       <p class="text-xs text-gray-600 mt-2">Source: {MM.destinations.source}, {MM.destinations.year}. {MM.destinations.basis}</p>
     </section>
 
     <section aria-labelledby="send-h" class="mb-10">
       <h2 id="send-h" class="text-xl font-semibold mb-3">Which councils have the most pupils with an EHC plan?</h2>
-      <p class="text-gray-800 mb-3">{fmtPct(N.ehcp)} of pupils in England's state-funded schools had an education, health and care (EHC) plan in January 2026, and {fmtPct(N.senSupport)} were on SEN support. {ehHi.name} was highest for EHC plans at {fmtPct(ehHi.v)} and {ehLo.name} lowest at {fmtPct(ehLo.v)}. The figure is for pupils on the roll of schools in the council area, wherever they live. It counts special schools, so a council with several special schools shows a higher share.</p>
+      <p class="text-gray-800 mb-3">{ehHi.name} had the highest share of pupils with an education, health and care (EHC) plan at {fmtPct(ehHi.v)} and {ehLo.name} the lowest at {fmtPct(ehLo.v)}. Across England's state-funded schools {fmtPct(N.ehcp)} of pupils had an EHC plan in January 2026 and {fmtPct(N.senSupport)} were on SEN support. The figure is for pupils on the roll of schools in the council area wherever they live. It counts special schools. A council with several special schools shows a higher share.</p>
       <div class="grid md:grid-cols-2 gap-6">
-        <CouncilRankTable rows={withExtra(high('ehcp'), 'senSupport')} caption="Ten highest share of pupils with an EHC plan" valueHeader="EHC plan" unit="%" extraHeader="SEN support" extraUnit="%" />
-        <CouncilRankTable rows={withExtra(low('ehcp'), 'senSupport')} caption="Ten lowest share of pupils with an EHC plan" valueHeader="EHC plan" unit="%" extraHeader="SEN support" extraUnit="%" />
+        <CouncilRankTable rows={withExtra(high('ehcp'), 'senSupport')} limit={10} caption="Ten highest share of pupils with an EHC plan" valueHeader="EHC plan" unit="%" extraHeader="SEN support" extraUnit="%" />
+        <CouncilRankTable rows={withExtra(low('ehcp'), 'senSupport')} limit={10} caption="Ten lowest share of pupils with an EHC plan" valueHeader="EHC plan" unit="%" extraHeader="SEN support" extraUnit="%" />
       </div>
       <p class="text-xs text-gray-600 mt-2">Source: {MM.ehcp.source}, {MM.ehcp.year}. {MM.ehcp.basis}</p>
     </section>
 
     <section aria-labelledby="ptr-h" class="mb-10">
       <h2 id="ptr-h" class="text-xl font-semibold mb-3">Which councils have the fewest pupils per teacher?</h2>
-      <p class="text-gray-800 mb-3">Mainstream state schools in England had {fmt(N.ptr)} pupils for every full-time-equivalent teacher in November 2025. {ptrLo.name} had the lowest ratio at {fmt(ptrLo.v)} and {ptrHi.name} the highest at {fmt(ptrHi.v)}.</p>
+      <p class="text-gray-800 mb-3">{ptrLo.name} had the fewest pupils per teacher at {fmt(ptrLo.v)} and {ptrHi.name} the most at {fmt(ptrHi.v)}. Mainstream state schools in England had {fmt(N.ptr)} pupils for every full-time-equivalent teacher in November 2025.</p>
       <div class="grid md:grid-cols-2 gap-6">
-        <CouncilRankTable rows={low('ptr', 5)} caption="Five lowest pupils per teacher" valueHeader="Pupils per teacher" />
-        <CouncilRankTable rows={high('ptr', 5)} caption="Five highest pupils per teacher" valueHeader="Pupils per teacher" />
+        <CouncilRankTable rows={low('ptr', 5)} limit={5} caption="Five lowest pupils per teacher" valueHeader="Pupils per teacher" />
+        <CouncilRankTable rows={high('ptr', 5)} limit={5} caption="Five highest pupils per teacher" valueHeader="Pupils per teacher" />
       </div>
       <p class="text-xs text-gray-600 mt-2">Source: {MM.ptr.source}, {MM.ptr.year}. {MM.ptr.basis} Pupils per teacher is not class size.</p>
     </section>
 
     <section aria-labelledby="offer-h" class="mb-10">
       <h2 id="offer-h" class="text-xl font-semibold mb-3">How many applicants miss their first choice, by council?</h2>
-      <p class="text-gray-800 mb-3">{fmtPct(N.year7NotOffered)} of Year 7 applicants and {fmtPct(N.receptionNotOffered)} of Reception applicants in England were not offered their first preference for September 2026. {y7Hi.name} had the highest Year 7 share at {fmtPct(y7Hi.v)} and {y7Lo.name} the lowest at {fmtPct(y7Lo.v)}. Both columns are in the table below. The <a class="text-indigo-700 underline" href={HUB}>oversubscribed schools</a> page has the trend, the schools with the most first choices per offer and the method.</p>
+      <p class="text-gray-800 mb-3">{fmtPct(N.year7NotOffered)} of Year 7 applicants and {fmtPct(N.receptionNotOffered)} of Reception applicants in England were not offered their first preference for September 2026. {y7Hi.name} had the highest Year 7 share at {fmtPct(y7Hi.v)} and {y7Lo.name} the lowest at {fmtPct(y7Lo.v)}. Both columns are in the table below.</p>
+      <p class="text-gray-800 mb-3">The <a class="text-indigo-700 underline" href={HUB}>oversubscribed schools</a> page has the three-year trend, the schools with the most first choices per offer and the method.</p>
       <p class="text-xs text-gray-600">Source: {MM.year7NotOffered.source}, {MM.year7NotOffered.year}. {MM.year7NotOffered.basis}</p>
     </section>
 
     <section aria-labelledby="table-h" class="mb-10">
       <h2 id="table-h" class="text-xl font-semibold mb-3">What are the figures for every council?</h2>
-      <p class="text-gray-800 mb-3">All {M.councils} councils, sorted by name. Select a column heading to sort by that measure. "{NODATA}" means the council has too few schools with a published figure, or DfE publishes none.</p>
+      <p class="text-gray-800 mb-3">All {M.councils} councils sorted by name. Select a column heading to sort by that measure. "{NODATA}" means the council has too few schools with a published figure or DfE publishes none.</p>
       <div class="overflow-x-auto border border-gray-200 rounded" role="region" aria-label="School statistics for every council in England" tabindex="0">
         <table id="council-table" class="w-full min-w-[1100px] text-sm">
           <caption class="sr-only">School statistics by council in England 2026, with one row per council</caption>
@@ -226,32 +230,32 @@ const cite = `catchment.school (${new Date(M.generated).getFullYear()}). School 
           </tfoot>
         </table>
       </div>
-      <p class="text-xs text-gray-600 mt-2">Years: Ofsted to 30 September 2026. First preference, September 2026 entry. Attainment 8, 2024-25. Progress 8, 2023-24. Absence, 2024-25 (secondary schools only). EHC plan and SEN support, January 2026. Pupils per teacher, November 2025. Destinations, Year 11 leavers of 2023-24. England row: the same method applied to all state-funded schools, except the first-preference columns, which are DfE's England figures.</p>
+      <p class="text-xs text-gray-600 mt-2">Years: Ofsted to 30 September 2026. First preference, September 2026 entry. Attainment 8, 2024-25. Progress 8, 2023-24. Absence, 2024-25 (secondary schools only). EHC plan and SEN support, January 2026. Pupils per teacher, November 2025. Destinations, Year 11 leavers of 2023-24. England row: the same method applied to all state-funded schools. The first-preference columns are DfE's England figures.</p>
     </section>
 
     <section aria-labelledby="method-h" id="method" class="mb-10">
       <h2 class="text-xl font-semibold mb-3" id="method-h">How are the council figures worked out?</h2>
-      <p class="text-gray-800 mb-3">Councils are the local authority areas in the DfE schools register. "State-funded" means maintained schools, academies, free schools, special schools, alternative provision, pupil referral units, university technical colleges and studio schools that are open. Independent schools, further education colleges and sixth form colleges are left out. A council figure is published only when enough schools contribute, and the minimum is shown in the notes.</p>
+      <p class="text-gray-800 mb-3">Councils are the local authority areas in the DfE schools register. "State-funded" means maintained schools, academies, free schools, special schools, alternative provision, pupil referral units, university technical colleges and studio schools that are open. Independent schools, 16 to 19 academies and free schools, further education colleges and sixth form colleges are left out. A council figure is published only when enough schools contribute. The minimum is shown in the notes. Lists of the highest and lowest councils include every council tied with the last place shown. A list of ten can run to eleven or more.</p>
       <ul class="list-disc pl-5 space-y-2 text-gray-800">
         <li><strong>Ofsted.</strong> The share of schools with a graded inspection whose latest graded overall effectiveness is Outstanding or Good. It is a simple share of schools. Report cards are counted separately because they have no overall grade. Minimum {M.minSchools.goodOutstanding} graded schools.</li>
-        <li><strong>First preference.</strong> DfE's own council figure for Year 7 and Reception, not recalculated here. 100 minus DfE's share of applicants who received a first preference offer.</li>
-        <li><strong>Attainment 8 and Progress 8.</strong> School averages weighted by the number of pupils at the end of key stage 4, for mainstream state secondary and all-through schools. Minimum {M.minSchools.attainment8} schools. Progress 8 is the latest year DfE published.</li>
-        <li><strong>Absence.</strong> Secondary and all-through mainstream state schools, weighted by pupils on roll in the schools register. DfE does not publish a council rate on this basis, so the figures can differ slightly from DfE's local authority tables. Minimum {M.minSchools.absence} schools.</li>
-        <li><strong>EHC plan and SEN support.</strong> School percentages weighted by pupils on roll, so a council figure equals its pupils with a plan divided by its pupils. All state-funded schools, including special schools. Minimum {M.minSchools.ehcp} schools.</li>
-        <li><strong>Pupils per teacher.</strong> School ratios weighted by full-time-equivalent teachers, so a council figure equals its pupils divided by its teachers. Mainstream state schools only. Minimum {M.minSchools.ptr} schools.</li>
-        <li><strong>Destinations.</strong> School percentages weighted by cohort size, for mainstream state secondary and all-through schools. Minimum {M.minSchools.destinations} schools.</li>
+        <li><strong>First preference.</strong> DfE's own council figure for Year 7 and Reception. It is not recalculated here. 100 minus DfE's share of applicants who received a first preference offer.</li>
+        <li><strong>Attainment 8 and Progress 8.</strong> School averages weighted by the number of pupils at the end of key stage 4 for mainstream state secondary and all-through schools. Minimum {M.minSchools.attainment8} schools. Progress 8 is the latest year DfE published.</li>
+        <li><strong>Absence.</strong> Secondary and all-through mainstream state schools weighted by pupils on roll in the schools register. DfE does not publish a council rate on this basis. The figures differed from DfE's local authority tables by up to about one percentage point in spot checks. Minimum {M.minSchools.absence} schools.</li>
+        <li><strong>EHC plan and SEN support.</strong> School percentages weighted by pupils on roll. A council figure equals its pupils with a plan divided by its pupils. All state-funded schools including special schools. DfE's own council tables also count independent and 16 to 19 schools and show different figures. Minimum {M.minSchools.ehcp} schools.</li>
+        <li><strong>Pupils per teacher.</strong> School ratios weighted by full-time-equivalent teachers. A council figure equals its pupils divided by its teachers. Mainstream state schools only. Minimum {M.minSchools.ptr} schools.</li>
+        <li><strong>Destinations.</strong> School percentages weighted by cohort size for mainstream state secondary and all-through schools. DfE's own council figures count every pupil including those at schools without a published figure and so differ slightly. Minimum {M.minSchools.destinations} schools.</li>
       </ul>
     </section>
 
     <section aria-labelledby="limits-h" class="mb-10">
       <h2 id="limits-h" class="text-xl font-semibold mb-3">What do these figures not show?</h2>
       <ul class="list-disc pl-5 space-y-2 text-gray-800">
-        <li><strong>Different years.</strong> Measures come from different years, shown against each figure. Do not read one council's row as a single moment in time.</li>
-        <li><strong>Intake matters.</strong> Results, absence and SEND shares reflect who attends, including selective schools and the number of special schools. A gap is not a measure of teaching.</li>
-        <li><strong>Small councils.</strong> City of London and the Isles of Scilly have too few schools for most measures. A few schools can move a small council's figure a long way.</li>
+        <li><strong>Different years.</strong> Measures come from different years. The year is shown against each figure. Do not read one council's row as a single moment in time.</li>
+        <li><strong>Intake matters.</strong> Results, absence and SEND shares reflect who attends. Selective schools and the number of special schools both move a council's figures. A gap is not a measure of teaching.</li>
+        <li><strong>Small councils.</strong> City of London and the Isles of Scilly have one state school each and show no figure on any measure. A few schools can move a small council's figure a long way.</li>
         <li><strong>Averages hide spread.</strong> Every council has schools well above and well below its figure.</li>
         <li><strong>Primary results and absence.</strong> Primary results and primary absence are not in this table.</li>
-        <li><strong>Spending per pupil is left out.</strong> Academies and council-maintained schools report spending on different returns and for different years, so a council figure would mostly show how many of its schools are academies.</li>
+        <li><strong>Spending per pupil is left out.</strong> Academies and council-maintained schools report spending on different returns and for different years. A council figure would mostly show how many of its schools are academies.</li>
       </ul>
       <p class="text-sm text-gray-700 mt-3">Publications: <a class="text-indigo-700 underline" href={MM.attainment8.url} rel="nofollow noopener">Key stage 4 performance</a>, <a class="text-indigo-700 underline" href={MM.absence.url} rel="nofollow noopener">Pupil absence in schools in England</a>, <a class="text-indigo-700 underline" href={MM.ehcp.url} rel="nofollow noopener">Special educational needs in England</a>, <a class="text-indigo-700 underline" href={MM.ptr.url} rel="nofollow noopener">School workforce in England</a>, <a class="text-indigo-700 underline" href={MM.destinations.url} rel="nofollow noopener">Key stage 4 destination measures</a>, <a class="text-indigo-700 underline" href={MM.goodOutstanding.url} rel="nofollow noopener">Ofsted inspection outcomes</a>, <a class="text-indigo-700 underline" href={MM.year7NotOffered.url} rel="nofollow noopener">Applications and offers</a>. Contains public sector information licensed under the <a class="text-indigo-700 underline" href={OGL} rel="nofollow noopener">Open Government Licence v3.0</a>.</p>
     </section>
@@ -264,7 +268,7 @@ const cite = `catchment.school (${new Date(M.generated).getFullYear()}). School 
 
     <section aria-labelledby="download-h" class="mb-10">
       <h2 id="download-h" class="text-xl font-semibold mb-3">Download the data</h2>
-      <p class="text-gray-800 mb-3">One row per council, {M.councils} rows, with the number of schools behind each average. Free to use with a link back to this page.</p>
+      <p class="text-gray-800 mb-3">One row for each of the {M.councils} councils with the number of schools behind each average. Free to use with a link back to this page.</p>
       <a class="inline-block bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-800" href={STATS_CSV} download>Download CSV</a>
     </section>
 

@@ -9,12 +9,13 @@ export const NODATA = 'No data';
 export const fmt = (v: number | null | undefined, dp = 1) => (v == null ? NODATA : v.toFixed(dp));
 export const fmtPct = (v: number | null | undefined) => (v == null ? NODATA : `${v.toFixed(1)}%`);
 
-/** "12th lowest of 151" or "3rd highest of 151", whichever end is nearer. Rank ties share a place. */
+/** "12th lowest of 151" or "3rd highest of 151", whichever end is nearer. Rank ties share a place and are called joint. */
 export function rankText(x: { rank: number | null; rankHigh: number | null; of: number }, noun: string): string | null {
   if (x.rank == null || x.rankHigh == null) return null;
   const low = x.rank <= x.rankHigh;
   const r = low ? x.rank : x.rankHigh;
-  return `${r === 1 ? '' : `${ordinal(r)} `}${low ? 'lowest' : 'highest'} ${noun} of ${x.of}`;
+  const joint = x.rank + x.rankHigh < x.of + 1;
+  return `${joint ? 'joint ' : ''}${r === 1 ? '' : `${ordinal(r)} `}${low ? 'lowest' : 'highest'} ${noun} of ${x.of}`;
 }
 
 export const councilEntries = (): [string, any][] => Object.entries(CS.councils) as [string, any][];

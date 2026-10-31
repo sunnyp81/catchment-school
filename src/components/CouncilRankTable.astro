@@ -1,8 +1,10 @@
 ---
 import { fmt } from '../lib/councilstats';
 interface Row { slug: string; name: string; v: number; n: number; x?: number | null }
-interface Props { rows: Row[]; caption: string; valueHeader: string; dp?: number; unit?: string; extraHeader?: string; extraDp?: number; extraUnit?: string; startRank?: number }
-const { rows, caption, valueHeader, dp = 1, unit = '', extraHeader, extraDp = 1, extraUnit = '' } = Astro.props;
+interface Props { rows: Row[]; caption: string; valueHeader: string; dp?: number; unit?: string; extraHeader?: string; extraDp?: number; extraUnit?: string; limit?: number }
+const { rows, caption: base, valueHeader, dp = 1, unit = '', extraHeader, extraDp = 1, extraUnit = '', limit } = Astro.props;
+// A list runs past its limit when councils tie with the last place; say so in the caption.
+const caption = limit && rows.length > limit ? `${base}, with ties` : base;
 const th = 'p-2 font-medium text-gray-700 text-right align-bottom';
 ---
 <div class="overflow-x-auto" role="region" aria-label={caption} tabindex="0">
