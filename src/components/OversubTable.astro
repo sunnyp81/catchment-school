@@ -1,0 +1,51 @@
+---
+import { int, f2, pct, seriesCell, type Row } from '../lib/oversub';
+interface Props { rows: Row[]; caption: string; showRank?: boolean; showCouncil?: boolean; showSeries?: boolean; startRank?: number; }
+const { rows, caption, showRank = true, showCouncil = false, showSeries = false, startRank = 1 } = Astro.props;
+const th = 'p-2 font-medium text-gray-700 text-right align-bottom';
+const td = 'p-2 text-right align-top whitespace-nowrap';
+---
+<div class="overflow-x-auto" role="region" aria-label={caption} tabindex="0">
+  <table class={`w-full text-sm border border-gray-200 ${showSeries ? 'min-w-[760px]' : 'min-w-[560px]'}`}>
+    <caption class="sr-only">{caption}</caption>
+    <thead class="bg-gray-50">
+      <tr>
+        {showRank && <th scope="col" class="p-2 font-medium text-gray-700 text-left align-bottom w-10">#</th>}
+        <th scope="col" class="p-2 font-medium text-gray-700 text-left align-bottom">School</th>
+        <th scope="col" class={th}>First choices</th>
+        <th scope="col" class={th}>Offers</th>
+        <th scope="col" class={th}>First choices per offer</th>
+        <th scope="col" class={th}>First-choice families offered</th>
+        {showSeries && <th scope="col" class={th}>2025-26</th>}
+        {showSeries && <th scope="col" class={th}>2024-25</th>}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r, i) => (
+        <tr class="border-t border-gray-100">
+          {showRank && <td class="p-2 text-left align-top text-gray-600">{startRank + i}</td>}
+          <th scope="row" class="p-2 text-left align-top font-medium text-gray-900 break-words">
+            {r.slug ? <a class="text-indigo-700 underline hover:text-indigo-900" href={`/school/${r.slug}/`}>{r.name}</a> : <span>{r.name}</span>}
+            {(r.selective || r.faith) && (
+              <span class="ml-1 inline-block align-middle">
+                {r.selective && <span class="inline-block rounded border border-gray-300 bg-gray-50 px-1.5 py-px text-[11px] font-semibold leading-tight text-gray-800 mr-1">Selective</span>}
+                {r.faith && <span class="inline-block rounded border border-gray-300 bg-gray-50 px-1.5 py-px text-[11px] font-semibold leading-tight text-gray-800">Faith school</span>}
+              </span>
+            )}
+            {showCouncil && r.council && (
+              <span class="block text-xs font-normal text-gray-600">
+                {r.councilSlug ? <a class="underline hover:text-gray-900" href={`/council/${r.councilSlug}/`}>{r.council}</a> : r.council}
+              </span>
+            )}
+          </th>
+          <td class={td}>{int(r.fp)}</td>
+          <td class={td}>{int(r.offers)}</td>
+          <td class={`${td} font-semibold text-gray-900`}>{f2(r.fppo)}</td>
+          <td class={td}>{pct(r.pctOffered)}</td>
+          {showSeries && <td class={`${td} !whitespace-normal`}>{seriesCell(r.series?.[1] ?? null)}</td>}
+          {showSeries && <td class={`${td} !whitespace-normal`}>{seriesCell(r.series?.[0] ?? null)}</td>}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

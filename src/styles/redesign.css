@@ -1213,3 +1213,9 @@ footer {
 .dl-close { background: none; border: 0; color: #fff; font-size: 24px; line-height: 1; width: 44px; height: 44px; cursor: pointer; flex: none; }
 @media (min-width: 900px) { .dl-banner-inner { min-height: 44px; padding: 0 32px; } }
 @media (max-width: 899px) { .dl-banner-inner { padding: 6px 8px 6px 16px; gap: 8px; } .dl-banner .dl-cta { display: none; } }
+
+/* Footer overflowed 375px wide screens (two columns with an unbreakable first column). */
+@media (max-width: 560px) {
+  .footer-top { grid-template-columns: minmax(0, 1fr); }
+  .footer-top > * { min-width: 0; }
+}

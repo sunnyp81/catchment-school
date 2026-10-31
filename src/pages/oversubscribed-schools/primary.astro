@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+import OversubTable from '../../components/OversubTable.astro';
+import { OS, SITE, HUB, CSV_URL, SOURCE_LINE, int, f2 } from '../../lib/oversub';
+
+const P = OS.national.primary, M = OS.meta;
+const rows = OS.top.primary;
+const canonical = `${SITE}${HUB}primary/`;
+const title = `Most Oversubscribed Primary Schools in England 2026: Top ${rows.length}`;
+const description = `The ${rows.length} primary schools with the most first choices per place for Reception in September 2026, with offers, three years of figures and school type. DfE data.`;
+const faithN = rows.filter((r: any) => r.faith).length;
+const smallN = rows.filter((r: any) => r.offers <= 35).length;
+const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+  { '@type': 'ListItem', position: 2, name: 'Oversubscribed schools', item: `${SITE}${HUB}` },
+  { '@type': 'ListItem', position: 3, name: 'Primary schools', item: canonical },
+] };
+const itemList = { '@context': 'https://schema.org', '@type': 'ItemList', name: `Top ${rows.length} primary schools by first choices per offer, 2026 entry`, numberOfItems: rows.length,
+  itemListElement: rows.map((r: any, i: number) => ({ '@type': 'ListItem', position: i + 1, name: r.name, ...(r.slug ? { url: `${SITE}/school/${r.slug}/` } : {}) })) };
+---
+<Base title={title} description={description} canonical={canonical}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+    <script type="application/ld+json" set:html={JSON.stringify(itemList)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-600 mb-6 flex gap-2 items-center flex-wrap" aria-label="Breadcrumb">
+    <a href="/" class="hover:underline">Home</a>
+    <span aria-hidden="true">&rsaquo;</span>
+    <a href={HUB} class="hover:underline">Oversubscribed schools</a>
+    <span aria-hidden="true">&rsaquo;</span>
+    <span class="text-gray-800">Primary schools</span>
+  </nav>
+
+  <div class="max-w-5xl">
+    <h1 class="text-3xl font-bold mb-3 break-words">Most oversubscribed primary schools in England, 2026 entry</h1>
+    <AuthorByline type="hub" lastUpdated={M.generated} />
+
+    <section class="mb-8" aria-labelledby="ans-h">
+      <h2 id="ans-h" class="sr-only">The short answer</h2>
+      <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-3 text-gray-800">
+        <p>{rows[0].name} had the most first choices per offer for Reception in September 2026: {int(rows[0].fp)} first choices for {int(rows[0].offers)} offers, or {f2(rows[0].fppo)}. {P.at2} of {int(P.n)} primary schools had two or more.</p>
+        <p><strong>Small intakes move the figures.</strong> {smallN} of the top {rows.length} made 35 offers or fewer, which is about one form of entry. At that size a handful of families changes the figure by 0.1 or more, so a school can rise or fall sharply from one year to the next.</p>
+        <p class="text-xs text-gray-600">{SOURCE_LINE} Schools with fewer than {M.minOffers} offers are left out. <a class="text-indigo-700 underline" href={`${HUB}#method`}>Method and limits</a>.</p>
+      </div>
+    </section>
+
+    <section class="mb-10" aria-labelledby="list-h">
+      <h2 id="list-h" class="text-xl font-semibold mb-3">Top {rows.length} primary schools by first choices per offer</h2>
+      <p class="text-gray-800 mb-3">First choices per offer is the number of times a school was put first divided by the offers it made. {faithN} of the {rows.length} are faith schools. High demand shows how many families put a school first. It does not measure teaching or results. The last two columns show the same figure for the two earlier years.</p>
+      <OversubTable rows={rows} caption={`Top ${rows.length} primary schools by first choices per offer, Reception entry 2026-27`} showCouncil={true} showSeries={true} />
+      <p class="text-xs text-gray-600 mt-2">Source: DfE school-level file, 2026/27 release (dated 29 June 2026), offer day figures for September 2026, 2025 and 2024 entry. First-choice families offered is offers to first-choice applicants divided by first choices. Under 30 offers means too few to compare. Faith labels come from DfE's religious character field. First choices include families from other council areas. Offer day only: waiting lists and appeals are not counted.</p>
+    </section>
+
+    <section class="mb-6" aria-labelledby="more-h">
+      <h2 id="more-h" class="text-xl font-semibold mb-3">More</h2>
+      <ul class="list-disc pl-5 space-y-1.5 text-gray-800">
+        <li><a class="text-indigo-700 underline" href={HUB}>National findings, council comparison and method</a></li>
+        <li><a class="text-indigo-700 underline" href={`${HUB}secondary/`}>Most oversubscribed secondary schools</a></li>
+        <li><a class="text-indigo-700 underline" href={CSV_URL} download>Download all {int(OS.national.secondary.n)} secondary and {int(P.n)} primary schools as CSV</a></li>
+        <li><a class="text-indigo-700 underline" href="/guides/primary-school-catchment">How primary school admissions work</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>

@@ -6,6 +6,8 @@ import SchoolCard from '../../components/SchoolCard.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import councilIntros from '../../data/council-intros.json';
 import admissionsUrls from '../../data/admissions-urls.json';
+import OversubTable from '../../components/OversubTable.astro';
+import { OS, HUB, SOURCE_LINE, int, pct, rowsFromCompact } from '../../lib/oversub';
 
 export async function getStaticPaths() {
   return (las as any[]).map((la: any) => ({
@@ -45,7 +47,28 @@ const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[]; seo
 const title = uniqueIntro?.seoTitle ?? `${la.name} School Catchment Areas 2026: Full Map`;
 const description = uniqueIntro?.seoDescription ?? `${la.name} school catchment areas for all ${primaries} primary and ${secondaries} secondary schools across ${townCount} areas. Maps, Ofsted ratings and admissions policies for 2026.`;
 
-const itemListSchema = {
+// Oversubscription section: only for phases that meet the hub thresholds (Year 7: 8+ schools, Reception: 10+).
+const osC: any = (OS.councils as Record<string, any>)[la.slug] ?? null;
+const osSec = osC?.secondary ?? null, osPri = osC?.primary ?? null;
+const osNat = OS.national;
+const osPhases = [
+  osSec && { key: 'secondary', label: 'Year 7', who: 'secondary', d: osSec, nat: osNat.secondary.notOffered, rows: rowsFromCompact(osSec.rows) },
+  osPri && { key: 'primary', label: 'Reception', who: 'primary', d: osPri, nat: osNat.primary.notOffered, rows: rowsFromCompact(osPri.rows) },
+].filter(Boolean) as any[];
+const osYears = ['2024-25', '2025-26', '2026-27'];
+
+const itemListSchema = osPhases.length ? {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": `Schools in ${la.name} by first choices per offer, ${osPhases[0].label} entry 2026`,
+  "numberOfItems": Math.min(10, osPhases[0].rows.length),
+  "itemListElement": osPhases[0].rows.slice(0, 10).map((r: any, i: number) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": r.name,
+    ...(r.slug ? { "url": `https://catchment.school/school/${r.slug}/` } : {})
+  }))
+} : {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": `Schools in ${la.name}`,
@@ -185,6 +208,57 @@ const faqSchema = {
       {pilotAdmissionsUrl ? `${la.name} admissions (official) →` : 'Find admissions documents →'}
     </a>
   </div>
+
+  {osPhases.length > 0 && (
+    <section id="oversubscription" class="mb-10 scroll-mt-6" aria-labelledby="oversub-h">
+      <h2 id="oversub-h" class="text-xl font-semibold mb-3">Oversubscription in {la.name}</h2>
+      <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-2 text-gray-800 mb-5">
+        {osPhases.map((ph: any) => (
+          <p>In 2026, {pct(ph.d.notOffered['2026-27'])} of {ph.label} applicants in {la.name} were not offered their first preference school, against {pct(ph.nat['2026-27'].notOfferedPct)} across England.{ph.d.rank ? ` That is ${ph.d.rank} of ${ph.d.of} councils, where 1 is the highest share.` : ''}</p>
+        ))}
+        <p class="text-xs text-gray-600">{SOURCE_LINE} Method and limits are on the <a class="text-indigo-700 underline" href={HUB}>oversubscribed schools</a> page.</p>
+      </div>
+
+      <div class="overflow-x-auto mb-6" role="region" aria-label={`Applicants in ${la.name} not offered their first preference, by year`} tabindex="0">
+        <table class="w-full min-w-[460px] text-sm border border-gray-200">
+          <caption class="sr-only">Share of applicants not offered their first preference school, {la.name} and England, by year of entry</caption>
+          <thead class="bg-gray-50"><tr>
+            <th scope="col" class="p-2 text-left font-medium text-gray-700">Not offered first preference</th>
+            {osYears.map((y: string) => <th scope="col" class="p-2 text-right font-medium text-gray-700">{y}</th>)}
+          </tr></thead>
+          <tbody>
+            {osPhases.map((ph: any) => (
+              <>
+                <tr class="border-t border-gray-100"><th scope="row" class="p-2 text-left font-medium text-gray-900">{ph.label} in {la.name}</th>{osYears.map((y: string) => <td class={`p-2 text-right ${y === '2026-27' ? 'font-semibold' : ''}`}>{pct(ph.d.notOffered[y])}</td>)}</tr>
+                <tr class="border-t border-gray-100"><th scope="row" class="p-2 text-left font-normal text-gray-700">{ph.label} in England</th>{osYears.map((y: string) => <td class="p-2 text-right text-gray-700">{pct(ph.nat[y]?.notOfferedPct)}</td>)}</tr>
+              </>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {osPhases.map((ph: any) => (
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold mb-2">{ph.who === 'secondary' ? 'Secondary' : 'Primary'} schools in {la.name} by first choices per offer</h3>
+          <p class="text-gray-800 mb-3">
+            {ph.d.n} {ph.who} schools in {la.name} made 30 or more offers for {ph.label} entry in 2026. {ph.d.at15 > 0 ? `${ph.d.at15} had 1.5 or more first choices per offer${ph.d.at2 > 0 ? ` and ${ph.d.at2} had 2 or more.` : '.'}` : 'None had 1.5 or more first choices per offer.'}
+            {ph.d.otherLaOfferPct != null ? ` At these schools ${ph.d.otherLaOfferPct}% of offers went to children living in another council area.` : ''}
+            {ph.key === 'primary' ? ' Many primary schools admit 30 children, so a few families change the figure by 0.1 or more.' : ''}
+          </p>
+          <OversubTable rows={ph.rows.slice(0, 10)} caption={`${la.name} ${ph.who} schools with the most first choices per offer, ${ph.label} entry 2026-27`} />
+          {ph.rows.length > 10 && (
+            <details class="mt-3">
+              <summary class="cursor-pointer text-indigo-700 underline">Show all {ph.rows.length} {ph.who} schools in {la.name}</summary>
+              <div class="mt-3">
+                <OversubTable rows={ph.rows.slice(10)} startRank={11} caption={`All other ${la.name} ${ph.who} schools by first choices per offer, ${ph.label} entry 2026-27`} />
+              </div>
+            </details>
+          )}
+        </div>
+      ))}
+      <p class="text-xs text-gray-600">Source: DfE school-level and local-authority files, 2026/27 release, offer day figures. Schools with fewer than 30 offers are left out{osSec ? ', and so are all-through schools for Year 7' : ''}. Selective and faith labels come from DfE fields. High demand is not the same as quality. See the <a class="text-indigo-700 underline" href={HUB}>England-wide lists and method</a>.</p>
+    </section>
+  )}
 
   <!-- Area quick-nav - links council authority to all its area pages -->
   {towns.length > 1 && (
