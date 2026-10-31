@@ -43,8 +43,6 @@ async function main() {
     if (!YEARS.includes(r.time_period) || !ENTRY.has(r.entry_year)) continue;
     if (!/^\d+$/.test(r.school_urn)) { skipped.dummy_code_no_urn++; continue; } // dummy establishment codes (split sites, streams) have school_urn 'n/a'
     const k = `${r.school_urn}|${r.time_period}|${r.entry_year}`;
-    if (seen.has(k)) { skipped.dup++; continue; }
-    seen.add(k);
     const first = num(r.times_put_as_1st_preference);
     const fpo = num(r.number_1st_preference_offers);
     const o = {
@@ -62,7 +60,19 @@ async function main() {
       apps_other_la: num(r.all_applications_from_another_LA),
       offers_other_la: num(r.offers_to_applicants_from_another_LA),
     };
-    (((out[r.school_urn] ??= {})[yearKey(r.time_period)] ??= {})[r.entry_year] = o);
+    const slot = ((out[r.school_urn] ??= {})[yearKey(r.time_period)] ??= {});
+    const prev = slot[r.entry_year];
+    if (seen.has(k) && prev) {
+      // Split sites and streams sharing one URN: sum the counts into a school total, then recompute the ratios.
+      skipped.dup++;
+      const add = (a, b) => (a === null || b === null ? null : a + b);
+      for (const f of ['offers_total', 'preferred_offers', 'first_pref_offers', 'second_pref_offers', 'third_pref_offers', 'prefs_total', 'first_pref', 'second_pref', 'third_pref', 'apps_other_la', 'offers_other_la']) prev[f] = add(prev[f], o[f]);
+      prev.first_pref_per_offer = prev.first_pref !== null && prev.offers_total ? r4(prev.first_pref / prev.offers_total) : null;
+      prev.pct_first_pref_offered = prev.first_pref && prev.first_pref_offers !== null ? Math.round((prev.first_pref_offers / prev.first_pref) * 1000) / 10 : null;
+      continue;
+    }
+    seen.add(k);
+    slot[r.entry_year] = o;
   }
 
   const sorted = {};

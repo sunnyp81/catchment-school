@@ -94,13 +94,15 @@ export function admissionsByEntry(adm: any[]) {
     .sort((a, b) => (a.entry === 'R' ? -1 : b.entry === 'R' ? 1 : a.entry < b.entry ? -1 : 1));
 }
 /** Plain sentences about the latest year. Leads with the share of first-choice families offered a place, then DfE's first preferences per offer. */
-export function admissionsReading(name: string, label: string, r: any): string | null {
+export const ALL_THROUGH_Y7_NOTE = 'This school also admits at Reception, so its Year 7 offers leave out pupils moving up from its own primary. Demand per offer looks higher than it is.';
+export function admissionsReading(name: string, label: string, r: any, allThroughY7 = false): string | null {
   const fp = num(r.first_pref), off = num(r.offers_total), ratio = num(r.first_pref_per_offer), pc = num(r.pct_first_pref_offered);
   if (fp == null || off == null) return null;
   const fpT = fp.toLocaleString('en-GB'), offT = off.toLocaleString('en-GB');
   let t = pc != null
     ? `${pc.toFixed(1)}% of the ${fpT} families who put ${name} first for ${label} entry in ${r.year} were offered a place on offer day. The school made ${offT} ${off === 1 ? 'offer' : 'offers'} in total.`
     : `${fpT} ${fp === 1 ? 'family' : 'families'} put ${name} first for ${label} entry in ${r.year} and the school made ${offT} ${off === 1 ? 'offer' : 'offers'}.`;
+  if (allThroughY7) return `${t} ${ALL_THROUGH_Y7_NOTE}`;
   if (ratio != null) t += ` That is ${ratio.toFixed(2)} first preferences per offer. DfE counts a figure above 1 as oversubscribed. ${name} was ${ratio > 1 ? '' : 'not '}oversubscribed on first preferences.`;
   const oo = num(r.offers_other_la);
   if (oo != null && off > 0) t += ` ${oo.toLocaleString('en-GB')} of the ${offT} offers went to children living in another council area.`;
@@ -214,6 +216,7 @@ export function buildCompareExtras(A: any, B: any, dA: SchoolData, dB: SchoolDat
   const entry = group === 'secondary' ? '7' : 'R';
   const entryName = ENTRY_LABEL[entry];
   const aa = dA.adm.filter((r) => r.entry === entry), ab = dB.adm.filter((r) => r.entry === entry);
+  const atY7 = entry === '7' && (dA.adm.some((r) => r.entry === 'R') || dB.adm.some((r) => r.entry === 'R'));
   const admSrc = 'DfE applications and offers';
   const ak = (r: any) => r.year;
   const admRows: CRow[] = [
@@ -229,13 +232,13 @@ export function buildCompareExtras(A: any, B: any, dA: SchoolData, dB: SchoolDat
   const tA = trend(aa), tB = trend(ab);
   if (tA || tB) admRows.push({ label: 'First preferences, oldest year to latest', src: admSrc, a: cell(tA?.text ?? null, tA?.yr ?? null), b: cell(tB?.text ?? null, tB?.yr ?? null) });
   if (hasAny(admRows)) {
-    groups.push({ title: `Admissions demand (${entryName} entry)`, note: 'Offer day figures only, so appeals and waiting lists are not counted. Offers are not the same as capacity. DfE does not publish a last distance offered nationally. Not marked as stronger or weaker: higher demand is not a measure of quality.', rows: admRows });
+    groups.push({ title: `Admissions demand (${entryName} entry)`, note: 'Offer day figures only, so appeals and waiting lists are not counted. Offers are not the same as capacity. DfE does not publish a last distance offered nationally. Not marked as stronger or weaker: higher demand is not a measure of quality.' + (atY7 ? ' At least one of these schools also admits at Reception, so its Year 7 offers leave out pupils moving up from its own primary.' : ''), rows: admRows });
     sources.push(`${SRC.admissions}.`);
     const p = pickYear(aa, ab, ak, (r) => num(r.first_pref));
     if (p.same && p.a && p.b && num(p.a.offers_total) != null && num(p.b.offers_total) != null) {
       sums.push(`For ${entryName} entry in ${p.ya}, ${A.name} had ${int(p.a.first_pref)} first preferences and made ${int(p.a.offers_total)} offers on offer day. ${B.name} had ${int(p.b.first_pref)} first preferences and made ${int(p.b.offers_total)} offers.`);
       const ra = num(p.a.first_pref_per_offer), rb = num(p.b.first_pref_per_offer);
-      if (ra != null && rb != null && Math.abs(ra - rb) >= 0.2) {
+      if (!atY7 && ra != null && rb != null && Math.abs(ra - rb) >= 0.2) {
         const hiA = ra > rb;
         sums.push(`${hiA ? A.name : B.name} had more first preferences per offer (${f2(Math.max(ra, rb))} against ${f2(Math.min(ra, rb))}).`);
       }

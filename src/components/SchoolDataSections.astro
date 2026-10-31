@@ -65,8 +65,8 @@ const destReading = (g: any) => {
       {adm.map((g) => (
         <div>
           <h3 class="font-semibold text-gray-900 mb-2">{g.label} entry, last {g.rows.length === 1 ? 'year' : `${g.rows.length} years`} of offer day figures</h3>
-          {admissionsReading(s.name, g.label, g.rows[g.rows.length - 1]) && (
-            <p class="mb-2">{admissionsReading(s.name, g.label, g.rows[g.rows.length - 1])}</p>
+          {admissionsReading(s.name, g.label, g.rows[g.rows.length - 1], g.entry === '7' && adm.some((x) => x.entry === 'R')) && (
+            <p class="mb-2">{admissionsReading(s.name, g.label, g.rows[g.rows.length - 1], g.entry === '7' && adm.some((x) => x.entry === 'R'))}</p>
           )}
           <div class="overflow-x-auto" role="region" aria-label={`${g.label} entry figures table`} tabindex="0">
             <table class="w-full table-fixed text-xs sm:text-sm border border-gray-200 break-words">
