@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 ---
 <Base
   title="Privacy Policy | catchment.school"
-  description="Privacy policy for catchment.school. We do not collect personal data. School data is sourced from the Department for Education's GIAS service."
+  description="Privacy policy for catchment.school. What is collected, which third-party services are used and how to get in touch. School data is sourced from the Department for Education's GIAS service."
 >
   <nav class="text-sm text-gray-500 mb-6 flex gap-2">
     <a href="/" class="hover:underline">Home</a>
@@ -13,24 +13,24 @@ import Base from '../layouts/Base.astro';
 
   <article class="prose prose-lg max-w-3xl">
     <h1>Privacy Policy</h1>
-    <p class="text-gray-500 text-sm">Last updated: March 2026</p>
+    <p class="text-gray-500 text-sm">Last updated: 31 October 2026</p>
 
-    <h2>What data we collect</h2>
+    <h2>What data do we collect?</h2>
     <p>
-      catchment.school does not collect, store or process any personal data about visitors.
-      We do not use cookies, registration forms or tracking pixels.
+      Postcode searches are processed in your browser. Your postcode is sent to the public
+      <a href="https://postcodes.io" rel="nofollow noopener" target="_blank">postcodes.io API</a>
+      to find its coordinates. catchment.school does not log or store the postcodes you search for.
     </p>
     <p>
-      Postcode searches are processed entirely in your browser using the public
-      <a href="https://postcodes.io" rel="nofollow noopener" target="_blank">postcodes.io API</a>.
-      We do not log or store the postcodes you search for.
+      If you use the email sign-up or the corrections form, the details you type (an email address and your message) are sent to the site owner.
+      They are used only to send the updates you asked for or to reply to your report.
     </p>
 
     <h2>Third-party services</h2>
     <ul>
       <li><strong>postcodes.io</strong> - used to convert postcodes to coordinates for the school search. See their <a href="https://postcodes.io" rel="nofollow noopener" target="_blank">privacy policy</a>.</li>
-      <li><strong>Google AdSense</strong> - we may serve adverts via Google AdSense. Google's privacy policy governs data collected through advertising.</li>
-      <li><strong>Cloudflare</strong> - this site is hosted on Cloudflare Pages. Cloudflare may collect standard server logs.</li>
+      <li><strong>Google Analytics 4</strong> - measures visits to the site. It may set cookies and collect standard usage data under Google's privacy policy.</li>
+      <li><strong>Cloudflare</strong> - the site is hosted on Cloudflare, which may collect standard server logs.</li>
     </ul>
 
     <h2>School data</h2>
@@ -41,6 +41,6 @@ import Base from '../layouts/Base.astro';
     </p>
 
     <h2>Contact</h2>
-    <p>For any privacy-related queries, please contact us via the details on our <a href="/about">About page</a>.</p>
+    <p>For any privacy-related queries, please use the <a href="/corrections/">corrections page</a> or read the <a href="/about/">About page</a>.</p>
   </article>
 </Base>

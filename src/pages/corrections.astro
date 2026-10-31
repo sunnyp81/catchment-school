@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+
+const SITE = 'https://catchment.school';
+const lastUpdated = '31 October 2026';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${SITE}/corrections/#webpage`,
+      url: `${SITE}/corrections/`,
+      name: 'Report a mistake or request a correction - catchment.school',
+      description: 'How to report an error on catchment.school and what happens to your report.',
+      inLanguage: 'en-GB',
+      dateModified: '2026-10-31',
+      isPartOf: { '@type': 'WebSite', name: 'catchment.school', url: SITE },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+        { '@type': 'ListItem', position: 2, name: 'Corrections', item: `${SITE}/corrections/` },
+      ],
+    },
+  ],
+};
+---
+<Base
+  title="Report a mistake or request a correction - catchment.school"
+  description="Found an error on catchment.school? Tell me which page and what is wrong. This page explains what happens to your report and what can and cannot be changed."
+  canonical="https://catchment.school/corrections/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center" aria-label="Breadcrumb">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <span class="text-gray-700">Corrections</span>
+  </nav>
+
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-bold mb-2">Report a mistake or request a correction</h1>
+    <p class="text-sm text-gray-500 mb-8">Last updated: {lastUpdated}</p>
+
+    <div class="prose prose-gray max-w-none space-y-6">
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">How do I report an error?</h2>
+        <p>Use the form below. Give the address of the page, say which figure or sentence is wrong and, if you can, link to the official source that shows the right answer. An email address is optional. Add one if you want a reply.</p>
+
+        <div id="correction-done" hidden class="rounded-lg border border-green-300 bg-green-50 p-4 text-sm text-green-900" role="status">
+          Thank you. Your report has been sent. If you left an email address, I will reply to it.
+        </div>
+
+        <form
+          action="https://emailit-worker.sunnypat81.workers.dev/"
+          method="POST"
+          id="correction-form"
+          class="not-prose space-y-4 bg-white border border-gray-200 rounded-lg p-5"
+        >
+          <input type="hidden" name="accessKey" value="sf_9e906eb6c00416b9d3354749" />
+          <input type="hidden" name="_site" value="catchment.school" />
+          <input type="hidden" name="subject" value="Correction report (catchment.school)" />
+          <input type="hidden" name="redirectTo" value="https://catchment.school/corrections/?sent=1" />
+          <input type="text" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div>
+            <label for="c-page" class="block text-sm font-medium text-gray-900 mb-1">Page address</label>
+            <input id="c-page" name="page" type="text" required maxlength="300" placeholder="https://catchment.school/school/..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label for="c-issue" class="block text-sm font-medium text-gray-900 mb-1">What is wrong?</label>
+            <textarea id="c-issue" name="issue" required rows="4" maxlength="2000" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"></textarea>
+          </div>
+          <div>
+            <label for="c-source" class="block text-sm font-medium text-gray-900 mb-1">Link to the official source (optional)</label>
+            <input id="c-source" name="source" type="text" maxlength="300" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label for="c-email" class="block text-sm font-medium text-gray-900 mb-1">Your email address (optional)</label>
+            <input id="c-email" name="email" type="email" maxlength="200" autocomplete="email" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+          </div>
+          <button type="submit" class="rounded-lg bg-green-900 text-white font-semibold text-sm px-5 py-2.5" style="background:#2B5440;">Send report</button>
+          <p class="text-xs text-gray-500">The email address is used only to reply to this report. See the <a href="/privacy" class="underline">privacy policy</a>.</p>
+        </form>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">What happens after I send a report?</h2>
+        <ol>
+          <li>I compare the page with the official source it came from: GIAS, Ofsted or the DfE release listed on the <a href="/methodology/" class="underline">methodology page</a>.</li>
+          <li>If the site misread or mis-processed the source, I fix the data or the page and publish the corrected version.</li>
+          <li>If the site matches its source, the page stays as it is. The mistake is then in the DfE or Ofsted record, and the fix has to be made there.</li>
+          <li>If you left an email address, I reply with what I found.</li>
+        </ol>
+        <p>I do not promise a reply time. Reports that name a page and link to the official source are quickest to check.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">What can and cannot be corrected here?</h2>
+        <ul>
+          <li>The site can correct its own errors: wrong figures, wrong schools, broken links, wrong dates and misleading wording.</li>
+          <li>The site cannot change an Ofsted grade, a DfE figure or a school's admissions policy. Contact <a href="https://www.gov.uk/government/organisations/ofsted" class="underline" rel="nofollow noopener" target="_blank">Ofsted</a>, the <a href="https://get-information-about-schools.service.gov.uk" class="underline" rel="nofollow noopener" target="_blank">GIAS</a> record owner or the school's admissions authority.</li>
+          <li>This form is not for admissions advice, appeals or complaints about a school. Your local authority admissions team handles those.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Who reads these reports?</h2>
+        <p>Sunny Patel, who runs catchment.school. The <a href="/about/" class="underline">About page</a> has the details.</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var done = new URLSearchParams(window.location.search).get('sent') === '1';
+      if (!done) return;
+      var f = document.getElementById('correction-form'), d = document.getElementById('correction-done');
+      if (f) f.hidden = true;
+      if (d) d.hidden = false;
+    })();
+  </script>
+</Base>
