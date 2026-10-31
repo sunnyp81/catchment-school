@@ -3,11 +3,11 @@
 
 export const NP = 'Not published';
 
-export type SchoolData = { ofsted: any | null; adm: any[]; dest: any[]; facts: any | null };
+export type SchoolData = { ofsted: any | null; adm: any[]; dest: any[]; facts: any | null; ranks: any[] };
 
 export async function loadSchoolData(db: any, urns: string[]): Promise<Record<string, SchoolData>> {
   const out: Record<string, SchoolData> = {};
-  for (const u of urns) out[u] = { ofsted: null, adm: [], dest: [], facts: null };
+  for (const u of urns) out[u] = { ofsted: null, adm: [], dest: [], facts: null, ranks: [] };
   const ph = urns.map(() => '?').join(',');
   const stmts = [
     `SELECT * FROM ofsted WHERE urn IN (${ph})`,
@@ -22,7 +22,72 @@ export async function loadSchoolData(db: any, urns: string[]): Promise<Record<st
     for (const r of d.results) out[r.urn].dest.push(r);
     for (const r of f.results) out[r.urn].facts = r;
   } catch { /* tables not loaded */ }
+  // Ranks are optional and fetched on their own so a missing school_ranks table cannot hide the other sections.
+  try {
+    const r = (await db.prepare(`SELECT * FROM school_ranks WHERE urn IN (${ph})`).bind(...urns).all()) as any;
+    for (const row of r.results ?? []) out[row.urn]?.ranks.push(row);
+  } catch { /* school_ranks not loaded */ }
   return out;
+}
+
+// ---------- Rankings ("How this school compares") ----------
+const ord = (n: number) => { const m100 = n % 100, m10 = n % 10; return `${n.toLocaleString('en-GB')}${m100 >= 11 && m100 <= 13 ? 'th' : m10 === 1 ? 'st' : m10 === 2 ? 'nd' : m10 === 3 ? 'rd' : 'th'}`; };
+// "2023-24 (provisional)" becomes "2023-24 results (provisional)".
+const withProv = (y: string, noun: string) => { const p = / \(provisional\)$/.test(y); return `${y.replace(/ \(provisional\)$/, '')} ${noun}${p ? ' (provisional)' : ''}`; };
+type RankMeta = { label: string; top: string; src: keyof typeof SRC; srcShort: string; yearText: (r: any) => string; fmt: (v: number) => string; value: string };
+const RANK_META: Record<string, RankMeta> = {
+  fppo_y7: { label: 'first preferences per offer at Year 7 entry', top: 'most first preferences per offer', src: 'admissions', srcShort: 'DfE school applications and offers', yearText: (r) => `${r.year} entry`, fmt: (v) => v.toFixed(2), value: 'per offer' },
+  fppo_r: { label: 'first preferences per offer at Reception entry', top: 'most first preferences per offer', src: 'admissions', srcShort: 'DfE school applications and offers', yearText: (r) => `${r.year} entry`, fmt: (v) => v.toFixed(2), value: 'per offer' },
+  p8: { label: 'Progress 8', top: 'highest Progress 8 score', src: 'ks4', srcShort: 'DfE key stage 4 performance', yearText: (r) => withProv(r.year, 'results'), fmt: (v) => (v > 0 ? '+' : '') + v.toFixed(2), value: '' },
+  a8: { label: 'Attainment 8', top: 'highest Attainment 8 score', src: 'ks4', srcShort: 'DfE key stage 4 performance', yearText: (r) => withProv(r.year, 'results'), fmt: (v) => v.toFixed(1), value: '' },
+  abs_overall: { label: 'overall absence', top: 'lowest overall absence rate', src: 'absence', srcShort: 'DfE pupil absence in schools in England', yearText: (r) => String(r.year), fmt: (v) => `${v.toFixed(1)}%`, value: 'of sessions' },
+  abs_persistent: { label: 'persistent absence', top: 'lowest persistent absence rate', src: 'absence', srcShort: 'DfE pupil absence in schools in England', yearText: (r) => String(r.year), fmt: (v) => `${v.toFixed(1)}%`, value: 'of pupils' },
+  dest_ks4: { label: 'Year 11 leavers in a sustained destination', top: 'highest share in a sustained destination', src: 'destinations', srcShort: 'DfE key stage 4 destination measures', yearText: (r) => withProv(r.year, 'leavers'), fmt: (v) => `${v.toFixed(1)}%`, value: 'of leavers' },
+  dest_1618: { label: 'sixth form leavers in a sustained destination', top: 'highest share in a sustained destination', src: 'destinations', srcShort: 'DfE 16 to 18 destination measures', yearText: (r) => withProv(r.year, 'leavers'), fmt: (v) => `${v.toFixed(1)}%`, value: 'of leavers' },
+  ptr: { label: 'pupils per teacher', top: 'fewest pupils per teacher', src: 'workforce', srcShort: 'DfE school workforce in England', yearText: () => 'November 2025 census', fmt: (v) => v.toFixed(1), value: 'pupils per teacher' },
+  spend_cfr: { label: 'total spending per pupil', top: 'highest spending per pupil', src: 'cfr', srcShort: 'DfE schools financial benchmarking, council maintained schools', yearText: (r) => `${r.year} financial year`, fmt: (v) => `£${Math.round(v).toLocaleString('en-GB')}`, value: 'per pupil' },
+  spend_aar: { label: 'total spending per pupil', top: 'highest spending per pupil', src: 'aar', srcShort: 'DfE schools financial benchmarking, academies', yearText: (r) => `${r.year} academy year`, fmt: (v) => `£${Math.round(v).toLocaleString('en-GB')}`, value: 'per pupil' },
+};
+// Display order; only the first MAX_RANK_ROWS present are shown. Persistent absence goes last so it appears only when there is room.
+const RANK_ORDER = ['fppo_y7', 'fppo_r', 'p8', 'a8', 'abs_overall', 'dest_ks4', 'dest_1618', 'ptr', 'spend_cfr', 'spend_aar', 'abs_persistent'];
+const MAX_RANK_ROWS = 5;
+const POOL_LABEL: Record<string, string> = { year7: 'secondary schools', reception: 'schools with a Reception intake', secondary: 'secondary schools', primary: 'primary schools', 'all-through': 'all-through schools' };
+const laLabel = (la: string) => la.replace(/^(.+), (City|County) of$/, '$2 of $1');
+
+export type RankRow = { metric: string; sentence: string; note: string; source: string; sourceShort: string; yearText: string; valueText: string };
+/** One plain sentence per metric the school has a rank for. A council rank is used only when the council pool has 10 or more schools (the table stores NULL otherwise). */
+export function rankRows(s: any, ranks: any[]): RankRow[] {
+  const by: Record<string, any> = {};
+  for (const r of ranks ?? []) if (RANK_META[r.metric] && num(r.rank) != null && num(r.of_n) != null && Number(r.of_n) >= 30) by[r.metric] = r;
+  const la = laLabel(String(s.la ?? ''));
+  const rows: RankRow[] = [];
+  for (const m of RANK_ORDER) {
+    const r = by[m]; if (!r) continue;
+    const meta = RANK_META[m];
+    const pool = POOL_LABEL[r.pool] ?? 'schools';
+    const kind = m === 'spend_cfr' ? 'council maintained ' : m === 'spend_aar' ? 'academy ' : '';
+    const hasLa = la && num(r.la_rank) != null && num(r.la_of_n) != null && Number(r.la_of_n) >= 10;
+    const v = num(r.value);
+    rows.push({
+      metric: m,
+      sentence: `Ranked ${ord(Number(r.rank))} of ${Number(r.of_n).toLocaleString('en-GB')} ${kind}${pool} in England for ${meta.label}${hasLa ? `, and ${ord(Number(r.la_rank))} of ${Number(r.la_of_n).toLocaleString('en-GB')} in ${la}` : ''}.`,
+      yearText: meta.yearText(r), sourceShort: meta.srcShort, source: SRC[meta.src],
+      valueText: v != null ? `${meta.fmt(v)}${meta.value ? ' ' + meta.value : ''}` : '',
+      note: `1st means the ${meta.top}.`,
+    });
+    if (rows.length >= MAX_RANK_ROWS) break;
+  }
+  return rows;
+}
+export const RANK_METHOD = 'Each ranking compares only schools with a published figure for that measure, so the number of schools differs between rows. Rank 1 is the highest or lowest figure, as each row states. Schools with the same figure share a rank and the next rank is skipped. Council rankings appear only where at least 10 schools in the council have a figure. Rankings describe the published figures and do not explain why schools differ.';
+
+/** Copy-ready plain-text citation. `accessed` is passed in so the caller renders it at request time. */
+export function citationText(s: any, rows: RankRow[], hasOfsted: boolean, accessed: string): string {
+  const years = new Map<string, string[]>();
+  for (const r of rows) { const a = years.get(r.sourceShort) ?? []; if (!a.includes(r.yearText)) a.push(r.yearText); years.set(r.sourceShort, a); }
+  const parts = [...years].map(([k, y]) => `${k} (${y.join(', ')})`);
+  if (hasOfsted) parts.push('Ofsted Management Information, state-funded schools inspections and outcomes (inspections to 30 September 2026)');
+  return `${s.name}, ${s.town}. School data and rankings, catchment.school. https://catchment.school/school/${s.slug}/\nSources: ${parts.join('; ')}.\nAccessed ${accessed}.`;
 }
 
 // ---------- formatting ----------
@@ -157,6 +222,8 @@ export const SRC = {
   cfr: 'DfE Schools financial benchmarking, Consistent Financial Reporting for council maintained schools, financial year 2025-26',
   aar: 'DfE Schools financial benchmarking, Academies Accounts Return, academy year September 2024 to August 2025',
   send: 'DfE, Special educational needs in England, academic year 2025/26 (January 2026 school census)',
+  ks4: 'DfE, Key stage 4 performance (school-level performance tables data, provisional for 2025/26), downloaded 30 October 2026',
+  absence: 'DfE, Pupil absence in schools in England, academic year 2024/25 (published 26 March 2026), downloaded 30 October 2026',
   provision: 'Get Information About Schools, as at 30 October 2026',
   ofsted: 'Ofsted Management Information, state-funded schools inspections and outcomes, latest inspections to 30 September 2026 (grades before 2019 from the 31 December 2025 release)',
 };

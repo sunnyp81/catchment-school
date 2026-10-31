@@ -2,7 +2,7 @@
 // Parent data sections for a school page. Each section is hidden when it has no data and carries a source line.
 import {
   NP, SRC, ofstedView, admissionsByEntry, admissionsReading, destinationsByStage, cohortLabel, workforceShown, financeShown, sendShown, isSpecialLike,
-  longDate, int, pct1, f1, f2, gbp, num,
+  longDate, int, pct1, f1, f2, gbp, num, rankRows, citationText, RANK_METHOD,
 } from '../lib/schooldata';
 import osIndex from '../data/oversubscription-index.json';
 
@@ -15,6 +15,9 @@ const wf = workforceShown(data.facts);
 const fin = financeShown(s, data.facts);
 const send = sendShown(data.facts);
 const f = data.facts;
+const ranks = rankRows(s, data.ranks ?? []);
+const accessed = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const citation = ranks.length > 0 ? citationText(s, ranks, !!ofv && !!(ofv.rating || ofv.card || ofv.ungraded), accessed) : '';
 
 const osFlags = (osIndex as Record<string, string>)[s.laSlug] ?? '';
 const osQualifies = (g: any) => g.rows.some((r: any) => r.year === '2026-27' && num(r.offers_total) != null && num(r.offers_total) >= 30 && num(r.first_pref_per_offer) != null);
@@ -63,6 +66,44 @@ const destReading = (g: any) => {
   return `${pct1(r.sustained)} of the ${int(r.cohort_n) ?? ''} ${who} in ${r.cohort}${r.status === 'Provisional' ? ' (provisional figures)' : ''} were in sustained education, an apprenticeship or employment in ${r.dest_year}.`.replace('of the  ', 'of the ');
 };
 ---
+{ranks.length > 0 && (
+  <section class="mb-8" id="how-it-compares" aria-labelledby="compare-h">
+    <h2 id="compare-h" class="text-xl font-semibold mb-3">How {s.name} compares</h2>
+    <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-4 text-sm text-gray-700">
+      <ul class="space-y-3">
+        {ranks.map((r) => (
+          <li>
+            <p class="text-gray-900">{r.sentence}{r.valueText && <> The school's figure is {r.valueText}.</>}</p>
+            <p class="text-xs text-gray-500">{r.note} Data year: {r.yearText}. Source: {r.source}.</p>
+          </li>
+        ))}
+      </ul>
+      <p class="text-xs text-gray-500">{RANK_METHOD}</p>
+      <div class="border-t border-gray-100 pt-4" id="cite-data">
+        <h3 class="font-semibold text-gray-900 mb-2">Cite this school's data</h3>
+        <pre id="cite-text" class="whitespace-pre-wrap break-words rounded border border-gray-200 bg-gray-50 p-3 text-xs text-gray-800 font-sans">{citation}</pre>
+        <div class="mt-2 flex items-center gap-3 min-h-9">
+          <button type="button" id="cite-copy" class="invisible rounded border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-800 hover:bg-gray-50">Copy citation</button>
+          <span id="cite-status" role="status" aria-live="polite" class="text-xs text-gray-600"></span>
+        </div>
+      </div>
+    </div>
+    <script is:inline>
+      (function () {
+        var b = document.getElementById('cite-copy'), p = document.getElementById('cite-text'), st = document.getElementById('cite-status');
+        if (!b || !p) return;
+        b.classList.remove('invisible');
+        b.addEventListener('click', function () {
+          var txt = p.textContent || '';
+          var done = function (ok) { st.textContent = ok ? 'Copied' : 'Select the text above to copy it'; };
+          if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).then(function () { done(true); }, function () { done(false); }); return; }
+          try { var r = document.createRange(); r.selectNodeContents(p); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); done(document.execCommand('copy')); } catch (e) { done(false); }
+        });
+      })();
+    </script>
+  </section>
+)}
+
 {adm.length > 0 && (
   <section class="mb-8" id="chance-of-getting-in" aria-labelledby="chance-h">
     <h2 id="chance-h" class="text-xl font-semibold mb-3">Chance of getting in to {s.name}</h2>
