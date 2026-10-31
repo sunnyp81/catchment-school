@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import OversubTable from '../../components/OversubTable.astro';
-import { OS, SITE, HUB, CSV_URL, SOURCE_LINE, int, f2 } from '../../lib/oversub';
+import { OS, SITE, HUB, CSV_URL, SOURCE_LINE, OGL, int, f2 } from '../../lib/oversub';
 
 const S = OS.national.secondary, M = OS.meta;
 const rows = OS.top.secondary;
@@ -17,10 +17,22 @@ const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList'
 ] };
 const itemList = { '@context': 'https://schema.org', '@type': 'ItemList', name: `Top ${rows.length} secondary schools by first choices per offer, 2026 entry`, numberOfItems: rows.length,
   itemListElement: rows.map((r: any, i: number) => ({ '@type': 'ListItem', position: i + 1, name: r.name, ...(r.slug ? { url: `${SITE}/school/${r.slug}/` } : {}) })) };
+const dataset = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: `Secondary schools in England ranked by first choices per offer, ${rows.length} highest, Year 7 entry 2026`,
+  description: `First preferences, offers and first preferences per offer for the ${rows.length} secondary schools in England with the most first choices per offer, from DfE offer day figures for September 2024, 2025 and 2026 entry. Schools with fewer than ${M.minOffers} offers are left out. The CSV covers every secondary and primary school with at least ${M.minOffers} offers.`,
+  url: canonical, dateModified: M.generated, inLanguage: 'en-GB', license: OGL, isAccessibleForFree: true,
+  creator: { '@type': 'Organization', name: 'catchment.school', url: SITE },
+  isBasedOn: { '@type': 'Dataset', name: 'Primary and secondary school applications and offers', url: M.publication, creator: { '@type': 'GovernmentOrganization', name: 'Department for Education' } },
+  temporalCoverage: '2024-09/2026-09', spatialCoverage: { '@type': 'Place', name: 'England' },
+  variableMeasured: ['First preferences', 'Offers made', 'First preferences per offer', 'Share of first-choice families offered a place'],
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE}${CSV_URL}` }],
+};
 ---
 <Base title={title} description={description} canonical={canonical}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+    <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
     <script type="application/ld+json" set:html={JSON.stringify(itemList)} />
   </Fragment>
 
@@ -39,21 +51,21 @@ const itemList = { '@context': 'https://schema.org', '@type': 'ItemList', name: 
     <section class="mb-8" aria-labelledby="ans-h">
       <h2 id="ans-h" class="sr-only">The short answer</h2>
       <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-3 text-gray-800">
-        <p>{rows[0].name} had the most first choices per offer for Year 7 in September 2026: {int(rows[0].fp)} first choices for {int(rows[0].offers)} offers, or {f2(rows[0].fppo)}. {S.at2} of {int(S.n)} secondary schools had two or more.</p>
+        <p>{rows[0].name} had the most first choices per offer of any secondary school in England for Year 7 entry in September 2026: {int(rows[0].fp)} first choices for {int(rows[0].offers)} offers, or {f2(rows[0].fppo)}, according to Department for Education offer day figures. {S.at2} of {int(S.n)} secondary schools with at least {M.minOffers} offers had two or more.</p>
         <p>{selN} of the top {rows.length} are selective schools and {faithN} more are faith schools. High demand shows how many families put a school first. It does not measure teaching or results.</p>
         <p class="text-xs text-gray-600">{SOURCE_LINE} Schools with fewer than {M.minOffers} offers and all-through schools are left out. <a class="text-indigo-700 underline" href={`${HUB}#method`}>Method and limits</a>.</p>
       </div>
     </section>
 
     <section class="mb-10" aria-labelledby="list-h">
-      <h2 id="list-h" class="text-xl font-semibold mb-3">Top {rows.length} secondary schools by first choices per offer</h2>
-      <p class="text-gray-800 mb-3">First choices per offer is the number of times a school was put first divided by the offers it made. 2.00 means two first choices for every offer. The last two columns show the same figure for the two earlier years.</p>
+      <h2 id="list-h" class="text-xl font-semibold mb-3">Which {rows.length} secondary schools had the most first choices per offer in 2026?</h2>
+      <p class="text-gray-800 mb-3">First choices per offer is the number of times a school was put first divided by the offers it made. 2.00 means two first choices for every offer. Across England the median secondary school with at least {M.minOffers} offers had {f2(S.median)} first choices per offer in 2026, so the schools below sit well above a typical school. The last two columns show the same figure for the two earlier years.</p>
       <OversubTable rows={rows} caption={`Top ${rows.length} secondary schools by first choices per offer, Year 7 entry 2026-27`} showCouncil={true} showSeries={true} />
       <p class="text-xs text-gray-600 mt-2">Source: DfE school-level file, 2026/27 release (dated 29 June 2026), offer day figures for September 2026, 2025 and 2024 entry. First-choice families offered is offers to first-choice applicants divided by first choices. Under 30 offers means too few to compare. Selective and faith labels come from DfE's admissions policy and religious character fields. First choices include families from other council areas. Offer day only: waiting lists and appeals are not counted.</p>
     </section>
 
     <section class="mb-6" aria-labelledby="more-h">
-      <h2 id="more-h" class="text-xl font-semibold mb-3">More</h2>
+      <h2 id="more-h" class="text-xl font-semibold mb-3">Where can I find the primary list, the method and the data?</h2>
       <ul class="list-disc pl-5 space-y-1.5 text-gray-800">
         <li><a class="text-indigo-700 underline" href={HUB}>National findings, council comparison and method</a></li>
         <li><a class="text-indigo-700 underline" href={`${HUB}primary/`}>Most oversubscribed primary schools</a></li>
