@@ -221,7 +221,7 @@ const faqSchema = {
         <span>{faithCount} school{faithCount !== 1 ? 's' : ''} {faithCount !== 1 ? 'apply' : 'applies'} faith-based criteria alongside catchment distance. </span>
       )}
       {ofstedRatedCount > 0 && (
-        <span>Of the {ofstedRatedCount} {la.name} school{ofstedRatedCount !== 1 ? 's' : ''} with a graded Ofsted inspection, <strong>{ofstedGoodPlusCount}</strong> {ofstedGoodPlusCount !== 1 ? 'were' : 'was'} rated Good or Outstanding at the latest one.{ofstedCardCount > 0 ? ` ${ofstedCardCount} ${ofstedCardCount !== 1 ? 'have' : 'has'} since had an Ofsted report card, which grades separate areas instead.` : ''}</span>
+        <span>Of the {ofstedRatedCount} {la.name} school{ofstedRatedCount !== 1 ? 's' : ''} with an overall Ofsted grade, <strong>{ofstedGoodPlusCount}</strong> {ofstedGoodPlusCount !== 1 ? 'were' : 'was'} rated Good or Outstanding at their most recent one.{ofstedCardCount > 0 ? ` ${ofstedCardCount} ${ofstedCardCount !== 1 ? 'have' : 'has'} since had an Ofsted report card, which grades separate areas instead.` : ''}</span>
       )}
     </p>
   )}

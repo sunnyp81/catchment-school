@@ -203,7 +203,7 @@ const faqSchema = {
         )}
         {ofstedRated.length > 0 && (
           <p>
-            {ofstedRated.length} of the schools in {town.name} {ofstedRated.length !== 1 ? 'have' : 'has'} a graded Ofsted inspection, and <strong>{ofstedGoodPlus}</strong> {ofstedGoodPlus !== 1 ? 'were' : 'was'} rated Good or Outstanding at the latest one.{ofstedCards > 0 ? ` ${ofstedCards} ${ofstedCards !== 1 ? 'have' : 'has'} since had an Ofsted report card, which grades separate areas instead.` : ''} Demand and catchment distance tend to be tightest at the highest-rated schools.
+            {ofstedRated.length} of the schools in {town.name} {ofstedRated.length !== 1 ? 'have' : 'has'} an overall Ofsted grade, and <strong>{ofstedGoodPlus}</strong> {ofstedGoodPlus !== 1 ? 'were' : 'was'} rated Good or Outstanding at their most recent one.{ofstedCards > 0 ? ` ${ofstedCards} ${ofstedCards !== 1 ? 'have' : 'has'} since had an Ofsted report card, which grades separate areas instead.` : ''} Demand and catchment distance tend to be tightest at the highest-rated schools.
           </p>
         )}
       </div>
