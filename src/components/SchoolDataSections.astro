@@ -74,7 +74,7 @@ const destReading = (g: any) => {
         {ranks.map((r) => (
           <li>
             <p class="text-gray-900">{r.sentence}{r.valueText && <> The school's figure is {r.valueText}.</>}</p>
-            <p class="text-xs text-gray-500">{r.note} Data year: {r.yearText}. Source: {r.source}.</p>
+            <p class="text-xs text-gray-500">{r.note}{r.caveat ? ` ${r.caveat}` : ''} Data year: {r.yearText}. Source: {r.source}.</p>
           </li>
         ))}
       </ul>

@@ -9,14 +9,22 @@ const schools = rd('src/data/schools.json');
 const perf = rd('data/performance.json'), dest = rd('data/destinations.json'), facts = rd('data/schoolfacts.json');
 const perfSrc = rd('src/data/performance-sources.json');
 const byUrn = new Map(schools.map((s) => [String(s.urn), s]));
+// Council for a school with no page (closed or merged since the GIAS snapshot) comes from the DfE la_name, as in gen-oversubscription.mjs, so council pools match the hub's council tables.
+const las = rd('src/data/las.json');
+const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+const laByNorm = new Map(las.map((l) => [norm(l.name), l.slug]));
+const laAlias = new Map([['bristol city of', 'bristol-city-of'], ['st helens', 'st-helens']]);
+const laFromName = (n) => laByNorm.get(norm(n)) ?? laAlias.get(norm(n)) ?? null;
 
 const MIN_OFFERS = 30, MIN_LA = 10, MIN_POOL = 30, MIN_COHORT = 10, MIN_YEAR_N = 1000;
 // Phase group from age range, because schools.json phase mislabels some all-through academies as Special. Special schools, PRUs, AP, hospital and nursery schools are not ranked.
+// Independent schools are not ranked either (their Attainment 8 leaves out unregulated qualifications such as IGCSEs), nor are 16 to 19 providers (not secondary schools).
 const groupOf = (urn) => {
   const s = byUrn.get(urn); if (!s) return null;
-  if (s.phase === 'Nursery' || /special|pupil referral|alternative provision|hospital/i.test(String(s.type ?? ''))) return null;
+  if (s.phase === 'Nursery' || /special|pupil referral|alternative provision|hospital|independent/i.test(String(s.type ?? ''))) return null;
   const m = /(\d+)\D+(\d+)/.exec(String(s.ageRange ?? '')); if (!m) return null;
   const lo = +m[1], hi = +m[2];
+  if (lo >= 16) return null;
   if (lo <= 7 && hi >= 13) return 'all-through';
   if (hi <= 12) return 'primary';
   if (lo >= 8) return 'secondary';
@@ -24,9 +32,9 @@ const groupOf = (urn) => {
 };
 const rnd = (v, d) => Math.round(v * 10 ** d) / 10 ** d;
 
-// candidates: metric -> [{urn, value, year, pool}]
+// candidates: metric -> [{urn, value, year, pool, la}]
 const cand = {};
-const add = (metric, urn, value, year, pool) => { if (value == null || !Number.isFinite(value)) return; (cand[metric] ??= []).push({ urn, value, year, pool }); };
+const add = (metric, urn, value, year, pool, la = byUrn.get(urn)?.laSlug ?? null) => { if (value == null || !Number.isFinite(value)) return; (cand[metric] ??= []).push({ urn, value, year, pool, la }); };
 
 // 1. First preferences per offer, 2026-27. Port of the qualifying logic in gen-oversubscription.mjs, read from the raw DfE school-level CSV
 // (gitignored, not in the repo): split-site rows sharing a URN are summed, offers >= 30, Year 7 rows at all-through schools dropped (DfE flag).
@@ -37,7 +45,7 @@ const r4 = (n) => (n === null ? null : Math.round(n * 10000) / 10000);
 const raw = new Map();
 for (const r of parse(readFileSync(RAW), { columns: true, bom: true, relax_quotes: true, skip_empty_lines: true })) {
   if (r.time_period !== '202627' || !['7', 'R'].includes(r.entry_year) || !/^\d+$/.test(r.school_urn)) continue;
-  const o = { urn: r.school_urn, entry: r.entry_year, offers_total: numS(r.total_number_places_offered), first_pref: numS(r.times_put_as_1st_preference), fppo: r4(numS(r.proportion_1stprefs_v_totaloffers)), allthrough: r.allthrough_school === 'Yes' };
+  const o = { urn: r.school_urn, entry: r.entry_year, offers_total: numS(r.total_number_places_offered), first_pref: numS(r.times_put_as_1st_preference), fppo: r4(numS(r.proportion_1stprefs_v_totaloffers)), allthrough: r.allthrough_school === 'Yes', la_name: r.la_name };
   const k = `${o.urn}|${o.entry}`, prev = raw.get(k);
   if (!prev) { raw.set(k, o); continue; }
   const add = (x, y) => (x === null || y === null ? null : x + y);
@@ -47,7 +55,7 @@ for (const r of parse(readFileSync(RAW), { columns: true, bom: true, relax_quote
 }
 for (const o of raw.values()) {
   if (!(o.offers_total !== null && o.offers_total >= MIN_OFFERS && o.first_pref !== null && o.fppo !== null && !(o.entry === '7' && o.allthrough))) continue;
-  add(o.entry === '7' ? 'fppo_y7' : 'fppo_r', o.urn, o.fppo, ADM_YEAR, o.entry === '7' ? 'year7' : 'reception');
+  add(o.entry === '7' ? 'fppo_y7' : 'fppo_r', o.urn, o.fppo, ADM_YEAR, o.entry === '7' ? 'year7' : 'reception', byUrn.get(o.urn)?.laSlug ?? laFromName(o.la_name));
 }
 
 // 2. Performance: one year per metric, the latest with at least MIN_YEAR_N schools.
@@ -99,8 +107,8 @@ for (const [metric, list] of Object.entries(cand)) {
   for (const [key, pl] of Object.entries(pools)) {
     const nat = rankAll(pl, asc);
     if (pl.length < MIN_POOL) continue;
-    const las = {}; for (const c of pl) (las[byUrn.get(c.urn)?.laSlug ?? ''] ??= []).push(c);
-    const laRank = new Map(); for (const [slug, ll] of Object.entries(las)) if (slug && ll.length >= MIN_LA) { const m = rankAll(ll, asc); for (const [c, r] of m) laRank.set(c, [r, ll.length]); }
+    const byLa = {}; for (const c of pl) (byLa[c.la ?? ''] ??= []).push(c);
+    const laRank = new Map(); for (const [slug, ll] of Object.entries(byLa)) if (slug && ll.length >= MIN_LA) { const m = rankAll(ll, asc); for (const [c, r] of m) laRank.set(c, [r, ll.length]); }
     for (const c of pl) {
       if (!byUrn.has(c.urn)) continue; // no school page
       const la = laRank.get(c);
