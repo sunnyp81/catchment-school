@@ -1,0 +1,288 @@
+---
+import Base from '../layouts/Base.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+import data from '../data/ofsted-card-stats.json';
+
+const D: any = data;
+const SITE = 'https://catchment.school';
+const PATH = '/ofsted-report-card-statistics/';
+const CSV_URL = '/downloads/ofsted-report-card-results-2026.csv';
+const OGL = 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/';
+const UPDATED = '2026-10-31';
+const M = D.meta, C = D.cards, A = D.areas, SG = D.safeguarding, X = D.crossTab, CO = D.councils, W = D.waiting;
+
+const int = (n: number) => n.toLocaleString('en-GB');
+const pc = (n: number | null) => (n == null ? 'n/a' : `${n.toFixed(1)}%`);
+const dateLong = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const monthLong = (ym: string) => new Date(`${ym}-15T12:00:00Z`).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const asAt = dateLong(M.asAt), first = dateLong(M.firstInspection);
+
+const GR: string[] = M.grades;
+const CORE = ['inc', 'cur', 'ach', 'att', 'pdw', 'lg'];
+const label = (k: string) => M.areaLabels[k];
+const lc = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+const ranked = [...CORE].sort((a, b) => A.all[b].belowExpectedPct - A.all[a].belowExpectedPct);
+const hiK = ranked[0], loK = ranked[ranked.length - 1];
+const ach = A.all.ach, lg = A.all.lg;
+const pri = C.byPhase.primary, sec = C.byPhase.secondary, oth = C.byPhase.other;
+const sgPhase = SG.byPhase;
+
+const title = 'Ofsted Report Card Results 2025-26: England Statistics';
+const description = `Ofsted report card results for ${int(C.total)} schools in England: grades by area, safeguarding not met, councils and schools still waiting. Free CSV.`;
+const canonical = `${SITE}${PATH}`;
+
+const answerText = `${int(C.total)} state-funded schools in England had an Ofsted report card by ${asAt} (${pc(C.shareOfSchoolsPct)} of ${int(M.schoolsInFile)}). For Achievement, ${pc(ach.strongOrBetterPct)} were Strong standard or better, ${pc(ach.pct['Expected standard'])} Expected standard and ${pc(ach.belowExpectedPct)} Needs attention or Urgent improvement. Safeguarding standards were not met at ${SG.notMet} schools. Source: Ofsted management information.`;
+
+const crossRow = (label: string) => X.rows.find((r: any) => r.label === label);
+const xo = crossRow('Outstanding'), xg = crossRow('Good'), xr = crossRow('Requires improvement'), xi = crossRow('Inadequate');
+const topC = CO.list.slice(0, 15);
+const wRows = W.buckets.filter((b: string) => W.grid[b].total > 0);
+const cTop = CO.list[0];
+const months = C.byMonth;
+const peak = Object.entries(months).sort((a: any, b: any) => b[1] - a[1])[0] as [string, number];
+
+const faqs = [
+  { q: 'How many schools have an Ofsted report card?', a: `${int(C.total)} state-funded schools in England had a report card in Ofsted's data as at ${asAt}. That is ${pc(C.shareOfSchoolsPct)} of the ${int(M.schoolsInFile)} schools in the file. The first inspection was on ${first}.` },
+  { q: 'What grades can an Ofsted report card give?', a: 'Each area is graded Exceptional, Strong standard, Expected standard, Needs attention or Urgent improvement. Safeguarding standards are marked Met or Not met. There is no single overall grade.' },
+  { q: 'How many schools did not meet the safeguarding standards?', a: `${SG.notMet} of ${int(C.total)} schools (${pc(SG.notMetPct)}) had safeguarding standards marked Not met, as at ${asAt}: ${sgPhase.primary.notMet} primary, ${sgPhase.secondary.notMet} secondary and ${sgPhase.other.notMet} special, nursery or alternative provision schools.` },
+  { q: 'Are report card grades the same as Outstanding and Good?', a: 'No. The old grades gave one overall judgement. A report card grades each area separately against a new scale, so the two cannot be compared directly.' },
+  { q: 'How many schools have not had a report card yet?', a: `${int(W.noReportCard)} of ${int(M.schoolsInFile)} schools had no report card as at ${asAt}. ${int(W.byGrade.Outstanding.total)} of them were last graded Outstanding and ${int(W.outstandingBefore2015)} of those were graded in 2014 or earlier.` },
+];
+
+const breadcrumb = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+  { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+  { '@type': 'ListItem', position: 2, name: 'Ofsted report card statistics', item: canonical },
+] };
+const article = {
+  '@context': 'https://schema.org', '@type': 'Article',
+  headline: 'Ofsted report card results 2025-26: statistics for England', description,
+  author: { '@type': 'Organization', name: 'catchment.school', url: SITE },
+  publisher: { '@type': 'Organization', name: 'catchment.school', url: SITE, logo: { '@type': 'ImageObject', url: `${SITE}/og-default.png` } },
+  datePublished: UPDATED, dateModified: UPDATED, inLanguage: 'en-GB', mainEntityOfPage: canonical,
+};
+const dataset = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Ofsted report card results for state-funded schools in England, November 2025 to September 2026',
+  description: `Report card grades by area for ${int(C.total)} state-funded schools in England, taken from Ofsted management information as at ${asAt}, with each school's previous graded overall effectiveness where Ofsted holds one.`,
+  url: canonical, dateModified: UPDATED, inLanguage: 'en-GB', license: OGL, isAccessibleForFree: true,
+  creator: { '@type': 'Organization', name: 'catchment.school', url: SITE },
+  isBasedOn: { '@type': 'Dataset', name: M.source, url: M.indexPage, creator: { '@type': 'GovernmentOrganization', name: 'Ofsted' } },
+  temporalCoverage: `${M.firstInspection}/${M.lastInspection}`, spatialCoverage: { '@type': 'Place', name: 'England' },
+  variableMeasured: ['Safeguarding standards', ...CORE.map(label), 'Previous graded overall effectiveness'],
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE}${CSV_URL}` }],
+};
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+
+const th = 'p-2 font-medium text-gray-700 text-right align-bottom';
+const td = 'p-2 text-right align-top whitespace-nowrap';
+const cell = (c: number, n: number) => `${int(c)} (${pc(n ? Math.round((c / n) * 1000) / 10 : null)})`;
+const phaseTables = [
+  { key: 'primary', name: 'Primary schools', list: ['inc', 'cur', 'ach', 'att', 'pdw', 'lg', 'ey'] },
+  { key: 'secondary', name: 'Secondary schools', list: ['inc', 'cur', 'ach', 'att', 'pdw', 'lg', 'p16'] },
+];
+---
+<Base title={title} description={description} canonical={canonical}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(article)} />
+    <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-600 mb-6 flex gap-2 items-center flex-wrap" aria-label="Breadcrumb">
+    <a href="/" class="hover:underline">Home</a>
+    <span aria-hidden="true">&rsaquo;</span>
+    <span class="text-gray-800">Ofsted report card statistics</span>
+  </nav>
+
+  <div class="max-w-4xl">
+    <h1 class="text-3xl font-bold mb-3 break-words">Ofsted report card results 2025-26: statistics for England</h1>
+    <AuthorByline type="hub" lastUpdated={UPDATED} />
+
+    <section aria-labelledby="answer-h" class="mb-8">
+      <h2 id="answer-h" class="sr-only">The short answer</h2>
+      <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-3 text-gray-800">
+        <p>{answerText}</p>
+        <p class="text-xs text-gray-600">Data as at {asAt}. First report card inspection {first}. <a class="text-indigo-700 underline" href="#method">Method and limits</a>. To see how the grades work, read the <a class="text-indigo-700 underline" href="/guides/ofsted-ratings-explained/">guide to Ofsted ratings</a>.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="count-h" class="mb-10">
+      <h2 id="count-h" class="text-xl font-semibold mb-3">How many schools have an Ofsted report card?</h2>
+      <p class="text-gray-800 mb-3">{int(C.total)} of {int(M.schoolsInFile)} state-funded schools ({pc(C.shareOfSchoolsPct)}). {int(pri.cards)} are primary schools ({pc(pri.sharePct)} of all primaries) and {int(sec.cards)} are secondary schools ({pc(sec.sharePct)} of all secondaries). The first inspection started on {first}. {monthLong(peak[0])} had the most inspections starting, at {int(peak[1])}.</p>
+      <div class="overflow-x-auto" role="region" aria-label="Report cards by school phase" tabindex="0">
+        <table class="w-full min-w-[420px] text-sm border border-gray-200">
+          <caption class="sr-only">Schools with an Ofsted report card, by phase, as at {asAt}</caption>
+          <thead class="bg-gray-50"><tr>
+            <th scope="col" class="p-2 text-left font-medium text-gray-700">Phase</th>
+            <th scope="col" class={th}>With a report card</th><th scope="col" class={th}>Schools in file</th><th scope="col" class={th}>Share</th>
+          </tr></thead>
+          <tbody>
+            {[['Primary', pri], ['Secondary', sec], ['Special, nursery and alternative provision', oth]].map(([l, g]: any) => (
+              <tr class="border-t border-gray-100"><th scope="row" class="p-2 text-left font-medium">{l}</th><td class={td}>{int(g.cards)}</td><td class={td}>{int(g.schools)}</td><td class={td}>{pc(g.sharePct)}</td></tr>
+            ))}
+            <tr class="border-t border-gray-200 bg-gray-50 font-semibold"><th scope="row" class="p-2 text-left">All schools</th><td class={td}>{int(C.total)}</td><td class={td}>{int(M.schoolsInFile)}</td><td class={td}>{pc(C.shareOfSchoolsPct)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information, latest inspections as at {asAt}. A school counts as having a report card when its latest full inspection carries area grades. Ofsted did not choose schools at random, so the phase shares say nothing about schools yet to be inspected.</p>
+    </section>
+
+    <section aria-labelledby="grades-h" class="mb-10">
+      <h2 id="grades-h" class="text-xl font-semibold mb-3">What grades do schools get in each area?</h2>
+      <p class="text-gray-800 mb-3">Most grades are Expected standard. Across all {int(C.total)} report cards, {lc(label(hiK))} had the highest share graded Needs attention or Urgent improvement, at {pc(A.all[hiK].belowExpectedPct)}. {label(loK)} had the lowest, at {pc(A.all[loK].belowExpectedPct)}. Leadership and governance was graded Strong standard or better for {pc(lg.strongOrBetterPct)} of schools and Achievement for {pc(ach.strongOrBetterPct)}.</p>
+      <p class="text-gray-800 mb-4">The five grades, from top to bottom, are Exceptional, Strong standard, Expected standard, Needs attention and Urgent improvement. Early years applies to schools with early years provision and post-16 to schools with a sixth form. Safeguarding is not graded: it is marked Met or Not met.</p>
+      {phaseTables.map((t) => (
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 mb-2">{t.name}: {int(C.byPhase[t.key].cards)} report cards</h3>
+          <div class="overflow-x-auto" role="region" aria-label={`Report card grades by area, ${t.name.toLowerCase()}`} tabindex="0">
+            <table class="w-full min-w-[760px] text-sm border border-gray-200">
+              <caption class="sr-only">Report card grades by area, {t.name.toLowerCase()}, count and share of schools graded in that area</caption>
+              <thead class="bg-gray-50"><tr>
+                <th scope="col" class="p-2 text-left font-medium text-gray-700 align-bottom">Area</th>
+                <th scope="col" class={th}>Schools graded</th>
+                {GR.map((g) => <th scope="col" class={th}>{g}</th>)}
+              </tr></thead>
+              <tbody>
+                {t.list.map((k) => {
+                  const d = A[t.key][k];
+                  return (
+                    <tr class="border-t border-gray-100">
+                      <th scope="row" class="p-2 text-left font-medium">{label(k)}</th>
+                      <td class={td}>{int(d.n)}</td>
+                      {GR.map((g) => <td class={td}>{cell(d.counts[g], d.n)}</td>)}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+      <p class="text-xs text-gray-600">Source: Ofsted management information as at {asAt}. Shares are of the schools graded in that area. Special, nursery and alternative provision schools are in the all-school figures above but not in these two tables. Primary and secondary shares should be read side by side only as a description: the schools differ in size, type and when they were inspected.</p>
+    </section>
+
+    <section aria-labelledby="sg-h" class="mb-10">
+      <h2 id="sg-h" class="text-xl font-semibold mb-3">How often is safeguarding not met?</h2>
+      <p class="text-gray-800 mb-3">{SG.notMet} of {int(C.total)} schools ({pc(SG.notMetPct)}) had safeguarding standards marked Not met. {sgPhase.primary.notMet} are primary schools, {sgPhase.secondary.notMet} are secondary schools and {sgPhase.other.notMet} are special, nursery or alternative provision schools. The other {int(SG.met)} were marked Met. With a count this small, a few inspections change the percentage, so the count is the better figure to quote.</p>
+      <p class="text-xs text-gray-600">Source: Ofsted management information as at {asAt}. Filter the Safeguarding standards column of the <a class="text-indigo-700 underline" href={CSV_URL} download>CSV download</a> for "Not met" to see which schools they are.</p>
+    </section>
+
+    <section aria-labelledby="prev-h" class="mb-10">
+      <h2 id="prev-h" class="text-xl font-semibold mb-3">How did schools graded Outstanding, Good, Requires improvement or Inadequate fare in their report card?</h2>
+      <p class="text-gray-800 mb-3">Of {int(X.withPrevious)} report card schools with a previous overall grade in Ofsted's file, {pc(xo.ach.strongOrBetterPct)} of those last graded Outstanding got Strong standard or better for Achievement, against {pc(xg.ach.strongOrBetterPct)} of Good schools, {pc(xr.ach.strongOrBetterPct)} of Requires improvement schools and {pc(xi.ach.strongOrBetterPct)} of Inadequate schools. {pc(xg.ach.belowExpectedPct)} of previously Good schools were graded Needs attention or Urgent improvement for Achievement, and {pc(xg.lg.belowExpectedPct)} for Leadership and governance.</p>
+      {[['ach', 'Achievement'], ['lg', 'Leadership and governance']].map(([k, name]) => (
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 mb-2">{name} grade by previous overall grade</h3>
+          <div class="overflow-x-auto" role="region" aria-label={`${name} grade by previous overall grade`} tabindex="0">
+            <table class="w-full min-w-[760px] text-sm border border-gray-200">
+              <caption class="sr-only">{name} report card grade by the school's previous overall effectiveness grade</caption>
+              <thead class="bg-gray-50"><tr>
+                <th scope="col" class="p-2 text-left font-medium text-gray-700 align-bottom">Previous overall grade</th>
+                <th scope="col" class={th}>Schools</th>
+                {GR.map((g) => <th scope="col" class={th}>{g}</th>)}
+              </tr></thead>
+              <tbody>
+                {X.rows.map((r: any) => (
+                  <tr class="border-t border-gray-100">
+                    <th scope="row" class="p-2 text-left font-medium">{r.label}</th>
+                    <td class={td}>{int(r.n)}</td>
+                    {GR.map((g) => <td class={td}>{cell(r[k].counts[g], r[k].n)}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+      <p class="text-xs text-gray-600">Source: Ofsted management information as at {asAt}. The previous grade is the school's latest graded inspection under the framework that ran from September 2019, which Ofsted holds for {int(X.withPrevious)} of the {int(C.total)} report card schools. Those inspections took place between {dateLong(X.prevDateRange[0])} and {dateLong(X.prevDateRange[1])}. {int(X.noOeifGrade)} report card schools have no such grade in the file and {int(X.notJudged)} were not judged. Shares are of the schools in each row. The Inadequate row has {int(xi.n)} schools, so treat its shares loosely.</p>
+    </section>
+
+    <section aria-labelledby="councils-h" class="mb-10">
+      <h2 id="councils-h" class="text-xl font-semibold mb-3">Which councils have the most report cards?</h2>
+      <p class="text-gray-800 mb-3">{cTop.name} had the most, at {int(cTop.cards)} report cards ({pc(cTop.sharePct)} of its {int(cTop.schools)} schools in the file). {int(CO.councilsWithTen)} councils have {CO.minCards} or more report cards. The table shows the top 15, with each council's share of schools that have one.</p>
+      <div class="overflow-x-auto" role="region" aria-label="Councils with the most report cards" tabindex="0">
+        <table class="w-full min-w-[480px] text-sm border border-gray-200">
+          <caption class="sr-only">The 15 councils with the most Ofsted report cards, as at {asAt}</caption>
+          <thead class="bg-gray-50"><tr>
+            <th scope="col" class="p-2 text-left font-medium text-gray-700 w-10">#</th>
+            <th scope="col" class="p-2 text-left font-medium text-gray-700">Council</th>
+            <th scope="col" class={th}>Report cards</th><th scope="col" class={th}>Schools in council</th><th scope="col" class={th}>Share with a report card</th>
+          </tr></thead>
+          <tbody>
+            {topC.map((c: any, i: number) => (
+              <tr class="border-t border-gray-100">
+                <td class="p-2 text-left text-gray-600">{i + 1}</td>
+                <th scope="row" class="p-2 text-left font-medium"><a class="text-indigo-700 underline" href={`/council/${c.slug}/`}>{c.name}</a></th>
+                <td class={td}>{int(c.cards)}</td><td class={td}>{int(c.schools)}</td><td class={td}>{pc(c.sharePct)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information as at {asAt}, with councils matched through each school's URN. {int(CO.unmatchedCards)} report cards could not be matched to a council and are left out of this table. Large councils have more schools, so the share column is a fairer comparison than the count. The CSV download has the council for every school.</p>
+    </section>
+
+    <section aria-labelledby="wait-h" class="mb-10">
+      <h2 id="wait-h" class="text-xl font-semibold mb-3">How many schools are still waiting for a report card?</h2>
+      <p class="text-gray-800 mb-3">{int(W.noReportCard)} schools had no report card as at {asAt}. {int(W.withGraded)} of them have a graded inspection on record, shown below by the year it started. {int(W.byGrade.Outstanding.total)} were last graded Outstanding, and {int(W.outstandingBefore2015)} of those were graded in 2014 or earlier. {int(W.byGrade.Outstanding.before2020)} Outstanding schools and {int(W.byGrade.Good.before2020)} Good schools were last graded in 2019 or earlier. The other {int(W.noGradedOnRecord)} have no graded inspection in the file, for example new schools.</p>
+      <div class="overflow-x-auto" role="region" aria-label="Schools without a report card by year of last graded inspection" tabindex="0">
+        <table class="w-full min-w-[560px] text-sm border border-gray-200">
+          <caption class="sr-only">Schools without a report card, by year of last graded inspection and grade</caption>
+          <thead class="bg-gray-50"><tr>
+            <th scope="col" class="p-2 text-left font-medium text-gray-700">Last graded</th>
+            <th scope="col" class={th}>Outstanding</th><th scope="col" class={th}>Good</th><th scope="col" class={th}>Requires improvement</th><th scope="col" class={th}>Inadequate</th><th scope="col" class={th}>All schools</th>
+          </tr></thead>
+          <tbody>
+            {wRows.map((b: string) => (
+              <tr class="border-t border-gray-100">
+                <th scope="row" class="p-2 text-left font-medium">{b}</th>
+                <td class={td}>{int(W.grid[b].Outstanding)}</td><td class={td}>{int(W.grid[b].Good)}</td><td class={td}>{int(W.grid[b]['Requires improvement'])}</td><td class={td}>{int(W.grid[b].Inadequate)}</td><td class={`${td} font-semibold`}>{int(W.grid[b].total)}</td>
+              </tr>
+            ))}
+            <tr class="border-t border-gray-200 bg-gray-50 font-semibold">
+              <th scope="row" class="p-2 text-left">All years</th>
+              <td class={td}>{int(W.byGrade.Outstanding.total)}</td><td class={td}>{int(W.byGrade.Good.total)}</td><td class={td}>{int(W.byGrade['Requires improvement'].total)}</td><td class={td}>{int(W.byGrade.Inadequate.total)}</td><td class={td}>{int(W.withGraded)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-gray-600 mt-2">Source: Ofsted management information as at {asAt} and as at 31 December 2025, which holds graded inspections from before September 2019. The year is the start of the school's latest graded inspection, and the grade is its overall effectiveness then. Only graded inspections are counted: a school may also have had a shorter ungraded inspection since. A school without a report card is not necessarily overdue for one.</p>
+    </section>
+
+    <section aria-labelledby="method-h" id="method" class="mb-10">
+      <h2 class="text-xl font-semibold mb-3" id="method-h">Method and limits</h2>
+      <ul class="list-disc pl-5 space-y-2 text-gray-800">
+        <li><strong>Source.</strong> <a class="text-indigo-700 underline" href={M.indexPage} rel="nofollow noopener">Ofsted, Management information: state-funded schools inspections and outcomes</a>, file "latest inspections as at 30 Sep 2026", covering {int(M.schoolsInFile)} state-funded schools. Previous grades before September 2019 come from the 31 December 2025 file in the same series. Contains public sector information licensed under the <a class="text-indigo-700 underline" href={OGL} rel="nofollow noopener">Open Government Licence v3.0</a>.</li>
+        <li><strong>What counts as a report card.</strong> A school whose latest full inspection carries area grades. All {int(C.total)} inspections started between {first} and {dateLong(M.lastInspection)}.</li>
+        <li><strong>Report cards are not the old grades.</strong> The old Outstanding, Good, Requires improvement and Inadequate grades gave one overall judgement. A report card grades each area on a different scale, so a Strong standard is not a new name for Good. Do not read the previous-grade table as a measure of improvement or decline.</li>
+        <li><strong>The sample is not random.</strong> Ofsted chooses which schools to inspect first, and early report cards cover a part of the system that was chosen, not drawn by chance. The shares here describe the {int(C.total)} schools inspected so far and should not be applied to all schools.</li>
+        <li><strong>Previous grades.</strong> Only {int(X.withPrevious)} of {int(C.total)} report card schools have an overall grade from September 2019 onwards in the file. The previous grade could be several years old.</li>
+        <li><strong>Percentages.</strong> Shares are rounded to one decimal place and use the schools graded in that area as the base, so early years and post-16 rows have smaller bases.</li>
+        <li><strong>Councils.</strong> Councils come from the catchment.school school records, matched by URN. {int(CO.unmatchedCards)} report cards had no match.</li>
+        <li><strong>Counts, not judgements.</strong> The page counts grades. It does not say why a school received one, or whether it is a good school to apply to.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="cite-h" class="mb-10">
+      <h2 id="cite-h" class="text-xl font-semibold mb-3">How to cite this page</h2>
+      <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-800">
+        <p>catchment.school (2026). <em>Ofsted report card results 2025-26: statistics for England.</em> Data as at {asAt}, from Ofsted management information. Updated {dateLong(UPDATED)}. {canonical}</p>
+      </div>
+      <p class="text-sm text-gray-700 mt-3">To look up one school, <a class="text-indigo-700 underline" href="/postcode/">search by postcode</a>.</p>
+    </section>
+
+    <section aria-labelledby="download-h" class="mb-10">
+      <h2 id="download-h" class="text-xl font-semibold mb-3">Download the data</h2>
+      <p class="text-gray-800 mb-3">One row for each of the {int(C.total)} report card schools, with the council, inspection dates, safeguarding result, every area grade and the previous overall grade where there is one. Data as at {asAt}. Free to use with a link back to this page.</p>
+      <a class="inline-block bg-indigo-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-indigo-800" href={CSV_URL} download>Download CSV</a>
+    </section>
+
+    <section aria-labelledby="faq-h" class="mb-6">
+      <h2 id="faq-h" class="text-xl font-semibold mb-3">Questions about Ofsted report cards</h2>
+      <div class="space-y-4">
+        {faqs.map((f) => (<div><h3 class="font-semibold text-gray-900">{f.q}</h3><p class="text-gray-800">{f.a}</p></div>))}
+      </div>
+    </section>
+  </div>
+</Base>

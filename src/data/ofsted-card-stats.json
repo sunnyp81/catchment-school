@@ -1,0 +1,1974 @@
+{
+ "meta": {
+  "asAt": "2026-09-30",
+  "source": "Ofsted, Management information - state-funded schools - latest inspections as at 30 Sep 2026",
+  "indexPage": "https://www.gov.uk/government/statistical-data-sets/monthly-management-information-ofsteds-school-inspections-outcomes",
+  "fileUrl": "https://assets.publishing.service.gov.uk/media/6ad095a72de3184ccf8b818d/Management_information_-_state-funded_schools_-_latest_inspections_as_at_30_Sep_2026.csv",
+  "firstInspection": "2025-11-11",
+  "lastInspection": "2026-09-09",
+  "lastPublication": "2026-09-29",
+  "schoolsInFile": 21931,
+  "areaLabels": {
+   "inc": "Inclusion",
+   "cur": "Curriculum and teaching",
+   "ach": "Achievement",
+   "att": "Attendance and behaviour",
+   "pdw": "Personal development and wellbeing",
+   "ey": "Early years",
+   "p16": "Post-16 provision",
+   "lg": "Leadership and governance"
+  },
+  "grades": [
+   "Exceptional",
+   "Strong standard",
+   "Expected standard",
+   "Needs attention",
+   "Urgent improvement"
+  ]
+ },
+ "cards": {
+  "total": 3189,
+  "shareOfSchoolsPct": 14.5,
+  "byPhase": {
+   "primary": {
+    "cards": 2282,
+    "schools": 16679,
+    "sharePct": 13.7
+   },
+   "secondary": {
+    "cards": 685,
+    "schools": 3423,
+    "sharePct": 20
+   },
+   "other": {
+    "cards": 222,
+    "schools": 1829,
+    "sharePct": 12.1
+   }
+  },
+  "byPhaseDetail": {
+   "Alternative provision": {
+    "cards": 31,
+    "schools": 330
+   },
+   "Nursery": {
+    "cards": 59,
+    "schools": 374
+   },
+   "Primary": {
+    "cards": 2282,
+    "schools": 16679
+   },
+   "Secondary": {
+    "cards": 685,
+    "schools": 3423
+   },
+   "Special": {
+    "cards": 132,
+    "schools": 1125
+   }
+  },
+  "byMonth": {
+   "2025-11": 125,
+   "2025-12": 89,
+   "2026-01": 460,
+   "2026-02": 334,
+   "2026-03": 404,
+   "2026-04": 383,
+   "2026-05": 387,
+   "2026-06": 711,
+   "2026-07": 290,
+   "2026-09": 6
+  }
+ },
+ "areas": {
+  "all": {
+   "inc": {
+    "n": 3189,
+    "counts": {
+     "Exceptional": 64,
+     "Strong standard": 1058,
+     "Expected standard": 1751,
+     "Needs attention": 290,
+     "Urgent improvement": 26
+    },
+    "pct": {
+     "Exceptional": 2,
+     "Strong standard": 33.2,
+     "Expected standard": 54.9,
+     "Needs attention": 9.1,
+     "Urgent improvement": 0.8
+    },
+    "strongOrBetter": 1122,
+    "strongOrBetterPct": 35.2,
+    "belowExpected": 316,
+    "belowExpectedPct": 9.9
+   },
+   "cur": {
+    "n": 3189,
+    "counts": {
+     "Exceptional": 30,
+     "Strong standard": 504,
+     "Expected standard": 1967,
+     "Needs attention": 641,
+     "Urgent improvement": 47
+    },
+    "pct": {
+     "Exceptional": 0.9,
+     "Strong standard": 15.8,
+     "Expected standard": 61.7,
+     "Needs attention": 20.1,
+     "Urgent improvement": 1.5
+    },
+    "strongOrBetter": 534,
+    "strongOrBetterPct": 16.7,
+    "belowExpected": 688,
+    "belowExpectedPct": 21.6
+   },
+   "ach": {
+    "n": 3189,
+    "counts": {
+     "Exceptional": 49,
+     "Strong standard": 514,
+     "Expected standard": 1720,
+     "Needs attention": 835,
+     "Urgent improvement": 71
+    },
+    "pct": {
+     "Exceptional": 1.5,
+     "Strong standard": 16.1,
+     "Expected standard": 53.9,
+     "Needs attention": 26.2,
+     "Urgent improvement": 2.2
+    },
+    "strongOrBetter": 563,
+    "strongOrBetterPct": 17.7,
+    "belowExpected": 906,
+    "belowExpectedPct": 28.4
+   },
+   "att": {
+    "n": 3189,
+    "counts": {
+     "Exceptional": 41,
+     "Strong standard": 962,
+     "Expected standard": 1687,
+     "Needs attention": 460,
+     "Urgent improvement": 39
+    },
+    "pct": {
+     "Exceptional": 1.3,
+     "Strong standard": 30.2,
+     "Expected standard": 52.9,
+     "Needs attention": 14.4,
+     "Urgent improvement": 1.2
+    },
+    "strongOrBetter": 1003,
+    "strongOrBetterPct": 31.5,
+    "belowExpected": 499,
+    "belowExpectedPct": 15.6
+   },
+   "pdw": {
+    "n": 3189,
+    "counts": {
+     "Exceptional": 68,
+     "Strong standard": 1225,
+     "Expected standard": 1752,
+     "Needs attention": 136,
+     "Urgent improvement": 8
+    },
+    "pct": {
+     "Exceptional": 2.1,
+     "Strong standard": 38.4,
+     "Expected standard": 54.9,
+     "Needs attention": 4.3,
+     "Urgent improvement": 0.3
+    },
+    "strongOrBetter": 1293,
+    "strongOrBetterPct": 40.5,
+    "belowExpected": 144,
+    "belowExpectedPct": 4.5
+   },
+   "ey": {
+    "n": 2191,
+    "counts": {
+     "Exceptional": 17,
+     "Strong standard": 571,
+     "Expected standard": 1347,
+     "Needs attention": 238,
+     "Urgent improvement": 18
+    },
+    "pct": {
+     "Exceptional": 0.8,
+     "Strong standard": 26.1,
+     "Expected standard": 61.5,
+     "Needs attention": 10.9,
+     "Urgent improvement": 0.8
+    },
+    "strongOrBetter": 588,
+    "strongOrBetterPct": 26.8,
+    "belowExpected": 256,
+    "belowExpectedPct": 11.7
+   },
+   "p16": {
+    "n": 416,
+    "counts": {
+     "Exceptional": 18,
+     "Strong standard": 115,
+     "Expected standard": 242,
+     "Needs attention": 40,
+     "Urgent improvement": 1
+    },
+    "pct": {
+     "Exceptional": 4.3,
+     "Strong standard": 27.6,
+     "Expected standard": 58.2,
+     "Needs attention": 9.6,
+     "Urgent improvement": 0.2
+    },
+    "strongOrBetter": 133,
+    "strongOrBetterPct": 32,
+    "belowExpected": 41,
+    "belowExpectedPct": 9.9
+   },
+   "lg": {
+    "n": 3189,
+    "counts": {
+     "Exceptional": 53,
+     "Strong standard": 691,
+     "Expected standard": 1972,
+     "Needs attention": 414,
+     "Urgent improvement": 59
+    },
+    "pct": {
+     "Exceptional": 1.7,
+     "Strong standard": 21.7,
+     "Expected standard": 61.8,
+     "Needs attention": 13,
+     "Urgent improvement": 1.9
+    },
+    "strongOrBetter": 744,
+    "strongOrBetterPct": 23.3,
+    "belowExpected": 473,
+    "belowExpectedPct": 14.8
+   }
+  },
+  "primary": {
+   "inc": {
+    "n": 2282,
+    "counts": {
+     "Exceptional": 16,
+     "Strong standard": 746,
+     "Expected standard": 1301,
+     "Needs attention": 204,
+     "Urgent improvement": 15
+    },
+    "pct": {
+     "Exceptional": 0.7,
+     "Strong standard": 32.7,
+     "Expected standard": 57,
+     "Needs attention": 8.9,
+     "Urgent improvement": 0.7
+    },
+    "strongOrBetter": 762,
+    "strongOrBetterPct": 33.4,
+    "belowExpected": 219,
+    "belowExpectedPct": 9.6
+   },
+   "cur": {
+    "n": 2282,
+    "counts": {
+     "Exceptional": 8,
+     "Strong standard": 323,
+     "Expected standard": 1459,
+     "Needs attention": 459,
+     "Urgent improvement": 33
+    },
+    "pct": {
+     "Exceptional": 0.4,
+     "Strong standard": 14.2,
+     "Expected standard": 63.9,
+     "Needs attention": 20.1,
+     "Urgent improvement": 1.4
+    },
+    "strongOrBetter": 331,
+    "strongOrBetterPct": 14.5,
+    "belowExpected": 492,
+    "belowExpectedPct": 21.6
+   },
+   "ach": {
+    "n": 2282,
+    "counts": {
+     "Exceptional": 17,
+     "Strong standard": 320,
+     "Expected standard": 1293,
+     "Needs attention": 612,
+     "Urgent improvement": 40
+    },
+    "pct": {
+     "Exceptional": 0.7,
+     "Strong standard": 14,
+     "Expected standard": 56.7,
+     "Needs attention": 26.8,
+     "Urgent improvement": 1.8
+    },
+    "strongOrBetter": 337,
+    "strongOrBetterPct": 14.8,
+    "belowExpected": 652,
+    "belowExpectedPct": 28.6
+   },
+   "att": {
+    "n": 2282,
+    "counts": {
+     "Exceptional": 8,
+     "Strong standard": 659,
+     "Expected standard": 1291,
+     "Needs attention": 312,
+     "Urgent improvement": 12
+    },
+    "pct": {
+     "Exceptional": 0.4,
+     "Strong standard": 28.9,
+     "Expected standard": 56.6,
+     "Needs attention": 13.7,
+     "Urgent improvement": 0.5
+    },
+    "strongOrBetter": 667,
+    "strongOrBetterPct": 29.2,
+    "belowExpected": 324,
+    "belowExpectedPct": 14.2
+   },
+   "pdw": {
+    "n": 2282,
+    "counts": {
+     "Exceptional": 18,
+     "Strong standard": 876,
+     "Expected standard": 1303,
+     "Needs attention": 82,
+     "Urgent improvement": 3
+    },
+    "pct": {
+     "Exceptional": 0.8,
+     "Strong standard": 38.4,
+     "Expected standard": 57.1,
+     "Needs attention": 3.6,
+     "Urgent improvement": 0.1
+    },
+    "strongOrBetter": 894,
+    "strongOrBetterPct": 39.2,
+    "belowExpected": 85,
+    "belowExpectedPct": 3.7
+   },
+   "ey": {
+    "n": 2124,
+    "counts": {
+     "Exceptional": 16,
+     "Strong standard": 533,
+     "Expected standard": 1324,
+     "Needs attention": 234,
+     "Urgent improvement": 17
+    },
+    "pct": {
+     "Exceptional": 0.8,
+     "Strong standard": 25.1,
+     "Expected standard": 62.3,
+     "Needs attention": 11,
+     "Urgent improvement": 0.8
+    },
+    "strongOrBetter": 549,
+    "strongOrBetterPct": 25.8,
+    "belowExpected": 251,
+    "belowExpectedPct": 11.8
+   },
+   "p16": {
+    "n": 0,
+    "counts": {
+     "Exceptional": 0,
+     "Strong standard": 0,
+     "Expected standard": 0,
+     "Needs attention": 0,
+     "Urgent improvement": 0
+    },
+    "pct": {
+     "Exceptional": null,
+     "Strong standard": null,
+     "Expected standard": null,
+     "Needs attention": null,
+     "Urgent improvement": null
+    },
+    "strongOrBetter": 0,
+    "strongOrBetterPct": null,
+    "belowExpected": 0,
+    "belowExpectedPct": null
+   },
+   "lg": {
+    "n": 2282,
+    "counts": {
+     "Exceptional": 14,
+     "Strong standard": 451,
+     "Expected standard": 1476,
+     "Needs attention": 305,
+     "Urgent improvement": 36
+    },
+    "pct": {
+     "Exceptional": 0.6,
+     "Strong standard": 19.8,
+     "Expected standard": 64.7,
+     "Needs attention": 13.4,
+     "Urgent improvement": 1.6
+    },
+    "strongOrBetter": 465,
+    "strongOrBetterPct": 20.4,
+    "belowExpected": 341,
+    "belowExpectedPct": 14.9
+   }
+  },
+  "secondary": {
+   "inc": {
+    "n": 685,
+    "counts": {
+     "Exceptional": 27,
+     "Strong standard": 203,
+     "Expected standard": 373,
+     "Needs attention": 77,
+     "Urgent improvement": 5
+    },
+    "pct": {
+     "Exceptional": 3.9,
+     "Strong standard": 29.6,
+     "Expected standard": 54.5,
+     "Needs attention": 11.2,
+     "Urgent improvement": 0.7
+    },
+    "strongOrBetter": 230,
+    "strongOrBetterPct": 33.6,
+    "belowExpected": 82,
+    "belowExpectedPct": 12
+   },
+   "cur": {
+    "n": 685,
+    "counts": {
+     "Exceptional": 16,
+     "Strong standard": 117,
+     "Expected standard": 393,
+     "Needs attention": 151,
+     "Urgent improvement": 8
+    },
+    "pct": {
+     "Exceptional": 2.3,
+     "Strong standard": 17.1,
+     "Expected standard": 57.4,
+     "Needs attention": 22,
+     "Urgent improvement": 1.2
+    },
+    "strongOrBetter": 133,
+    "strongOrBetterPct": 19.4,
+    "belowExpected": 159,
+    "belowExpectedPct": 23.2
+   },
+   "ach": {
+    "n": 685,
+    "counts": {
+     "Exceptional": 23,
+     "Strong standard": 125,
+     "Expected standard": 310,
+     "Needs attention": 204,
+     "Urgent improvement": 23
+    },
+    "pct": {
+     "Exceptional": 3.4,
+     "Strong standard": 18.2,
+     "Expected standard": 45.3,
+     "Needs attention": 29.8,
+     "Urgent improvement": 3.4
+    },
+    "strongOrBetter": 148,
+    "strongOrBetterPct": 21.6,
+    "belowExpected": 227,
+    "belowExpectedPct": 33.1
+   },
+   "att": {
+    "n": 685,
+    "counts": {
+     "Exceptional": 23,
+     "Strong standard": 185,
+     "Expected standard": 324,
+     "Needs attention": 135,
+     "Urgent improvement": 18
+    },
+    "pct": {
+     "Exceptional": 3.4,
+     "Strong standard": 27,
+     "Expected standard": 47.3,
+     "Needs attention": 19.7,
+     "Urgent improvement": 2.6
+    },
+    "strongOrBetter": 208,
+    "strongOrBetterPct": 30.4,
+    "belowExpected": 153,
+    "belowExpectedPct": 22.3
+   },
+   "pdw": {
+    "n": 685,
+    "counts": {
+     "Exceptional": 35,
+     "Strong standard": 226,
+     "Expected standard": 377,
+     "Needs attention": 46,
+     "Urgent improvement": 1
+    },
+    "pct": {
+     "Exceptional": 5.1,
+     "Strong standard": 33,
+     "Expected standard": 55,
+     "Needs attention": 6.7,
+     "Urgent improvement": 0.1
+    },
+    "strongOrBetter": 261,
+    "strongOrBetterPct": 38.1,
+    "belowExpected": 47,
+    "belowExpectedPct": 6.9
+   },
+   "ey": {
+    "n": 31,
+    "counts": {
+     "Exceptional": 1,
+     "Strong standard": 16,
+     "Expected standard": 13,
+     "Needs attention": 1,
+     "Urgent improvement": 0
+    },
+    "pct": {
+     "Exceptional": 3.2,
+     "Strong standard": 51.6,
+     "Expected standard": 41.9,
+     "Needs attention": 3.2,
+     "Urgent improvement": 0
+    },
+    "strongOrBetter": 17,
+    "strongOrBetterPct": 54.8,
+    "belowExpected": 1,
+    "belowExpectedPct": 3.2
+   },
+   "p16": {
+    "n": 355,
+    "counts": {
+     "Exceptional": 16,
+     "Strong standard": 86,
+     "Expected standard": 214,
+     "Needs attention": 38,
+     "Urgent improvement": 1
+    },
+    "pct": {
+     "Exceptional": 4.5,
+     "Strong standard": 24.2,
+     "Expected standard": 60.3,
+     "Needs attention": 10.7,
+     "Urgent improvement": 0.3
+    },
+    "strongOrBetter": 102,
+    "strongOrBetterPct": 28.7,
+    "belowExpected": 39,
+    "belowExpectedPct": 11
+   },
+   "lg": {
+    "n": 685,
+    "counts": {
+     "Exceptional": 27,
+     "Strong standard": 154,
+     "Expected standard": 399,
+     "Needs attention": 90,
+     "Urgent improvement": 15
+    },
+    "pct": {
+     "Exceptional": 3.9,
+     "Strong standard": 22.5,
+     "Expected standard": 58.2,
+     "Needs attention": 13.1,
+     "Urgent improvement": 2.2
+    },
+    "strongOrBetter": 181,
+    "strongOrBetterPct": 26.4,
+    "belowExpected": 105,
+    "belowExpectedPct": 15.3
+   }
+  }
+ },
+ "safeguarding": {
+  "met": 3174,
+  "notMet": 15,
+  "notMetPct": 0.5,
+  "byPhase": {
+   "primary": {
+    "cards": 2282,
+    "notMet": 4
+   },
+   "secondary": {
+    "cards": 685,
+    "notMet": 6
+   },
+   "other": {
+    "cards": 222,
+    "notMet": 5
+   }
+  }
+ },
+ "crossTab": {
+  "rows": [
+   {
+    "label": "Outstanding",
+    "n": 92,
+    "ach": {
+     "n": 92,
+     "counts": {
+      "Exceptional": 20,
+      "Strong standard": 51,
+      "Expected standard": 21,
+      "Needs attention": 0,
+      "Urgent improvement": 0
+     },
+     "pct": {
+      "Exceptional": 21.7,
+      "Strong standard": 55.4,
+      "Expected standard": 22.8,
+      "Needs attention": 0,
+      "Urgent improvement": 0
+     },
+     "strongOrBetter": 71,
+     "strongOrBetterPct": 77.2,
+     "belowExpected": 0,
+     "belowExpectedPct": 0
+    },
+    "lg": {
+     "n": 92,
+     "counts": {
+      "Exceptional": 15,
+      "Strong standard": 57,
+      "Expected standard": 20,
+      "Needs attention": 0,
+      "Urgent improvement": 0
+     },
+     "pct": {
+      "Exceptional": 16.3,
+      "Strong standard": 62,
+      "Expected standard": 21.7,
+      "Needs attention": 0,
+      "Urgent improvement": 0
+     },
+     "strongOrBetter": 72,
+     "strongOrBetterPct": 78.3,
+     "belowExpected": 0,
+     "belowExpectedPct": 0
+    }
+   },
+   {
+    "label": "Good",
+    "n": 1036,
+    "ach": {
+     "n": 1036,
+     "counts": {
+      "Exceptional": 6,
+      "Strong standard": 182,
+      "Expected standard": 556,
+      "Needs attention": 281,
+      "Urgent improvement": 11
+     },
+     "pct": {
+      "Exceptional": 0.6,
+      "Strong standard": 17.6,
+      "Expected standard": 53.7,
+      "Needs attention": 27.1,
+      "Urgent improvement": 1.1
+     },
+     "strongOrBetter": 188,
+     "strongOrBetterPct": 18.1,
+     "belowExpected": 292,
+     "belowExpectedPct": 28.2
+    },
+    "lg": {
+     "n": 1036,
+     "counts": {
+      "Exceptional": 13,
+      "Strong standard": 243,
+      "Expected standard": 646,
+      "Needs attention": 126,
+      "Urgent improvement": 8
+     },
+     "pct": {
+      "Exceptional": 1.3,
+      "Strong standard": 23.5,
+      "Expected standard": 62.4,
+      "Needs attention": 12.2,
+      "Urgent improvement": 0.8
+     },
+     "strongOrBetter": 256,
+     "strongOrBetterPct": 24.7,
+     "belowExpected": 134,
+     "belowExpectedPct": 12.9
+    }
+   },
+   {
+    "label": "Requires improvement",
+    "n": 454,
+    "ach": {
+     "n": 454,
+     "counts": {
+      "Exceptional": 0,
+      "Strong standard": 11,
+      "Expected standard": 204,
+      "Needs attention": 206,
+      "Urgent improvement": 33
+     },
+     "pct": {
+      "Exceptional": 0,
+      "Strong standard": 2.4,
+      "Expected standard": 44.9,
+      "Needs attention": 45.4,
+      "Urgent improvement": 7.3
+     },
+     "strongOrBetter": 11,
+     "strongOrBetterPct": 2.4,
+     "belowExpected": 239,
+     "belowExpectedPct": 52.6
+    },
+    "lg": {
+     "n": 454,
+     "counts": {
+      "Exceptional": 0,
+      "Strong standard": 42,
+      "Expected standard": 298,
+      "Needs attention": 95,
+      "Urgent improvement": 19
+     },
+     "pct": {
+      "Exceptional": 0,
+      "Strong standard": 9.3,
+      "Expected standard": 65.6,
+      "Needs attention": 20.9,
+      "Urgent improvement": 4.2
+     },
+     "strongOrBetter": 42,
+     "strongOrBetterPct": 9.3,
+     "belowExpected": 114,
+     "belowExpectedPct": 25.1
+    }
+   },
+   {
+    "label": "Inadequate",
+    "n": 74,
+    "ach": {
+     "n": 74,
+     "counts": {
+      "Exceptional": 3,
+      "Strong standard": 4,
+      "Expected standard": 31,
+      "Needs attention": 30,
+      "Urgent improvement": 6
+     },
+     "pct": {
+      "Exceptional": 4.1,
+      "Strong standard": 5.4,
+      "Expected standard": 41.9,
+      "Needs attention": 40.5,
+      "Urgent improvement": 8.1
+     },
+     "strongOrBetter": 7,
+     "strongOrBetterPct": 9.5,
+     "belowExpected": 36,
+     "belowExpectedPct": 48.6
+    },
+    "lg": {
+     "n": 74,
+     "counts": {
+      "Exceptional": 4,
+      "Strong standard": 15,
+      "Expected standard": 38,
+      "Needs attention": 13,
+      "Urgent improvement": 4
+     },
+     "pct": {
+      "Exceptional": 5.4,
+      "Strong standard": 20.3,
+      "Expected standard": 51.4,
+      "Needs attention": 17.6,
+      "Urgent improvement": 5.4
+     },
+     "strongOrBetter": 19,
+     "strongOrBetterPct": 25.7,
+     "belowExpected": 17,
+     "belowExpectedPct": 23
+    }
+   }
+  ],
+  "withPrevious": 1656,
+  "notJudged": 9,
+  "noOeifGrade": 1524,
+  "prevDateRange": [
+   "2019-09-11",
+   "2024-07-10"
+  ]
+ },
+ "councils": {
+  "minCards": 10,
+  "unmatchedCards": 16,
+  "councilsWithAnyCard": 151,
+  "councilsWithTen": 113,
+  "list": [
+   {
+    "slug": "lancashire",
+    "name": "Lancashire",
+    "cards": 128,
+    "notMet": 1,
+    "schools": 623,
+    "achBelow": 63,
+    "sharePct": 20.5
+   },
+   {
+    "slug": "hampshire",
+    "name": "Hampshire",
+    "cards": 84,
+    "notMet": 0,
+    "schools": 525,
+    "achBelow": 20,
+    "sharePct": 16
+   },
+   {
+    "slug": "kent",
+    "name": "Kent",
+    "cards": 83,
+    "notMet": 0,
+    "schools": 588,
+    "achBelow": 27,
+    "sharePct": 14.1
+   },
+   {
+    "slug": "staffordshire",
+    "name": "Staffordshire",
+    "cards": 73,
+    "notMet": 0,
+    "schools": 407,
+    "achBelow": 15,
+    "sharePct": 17.9
+   },
+   {
+    "slug": "hertfordshire",
+    "name": "Hertfordshire",
+    "cards": 66,
+    "notMet": 1,
+    "schools": 527,
+    "achBelow": 10,
+    "sharePct": 12.5
+   },
+   {
+    "slug": "essex",
+    "name": "Essex",
+    "cards": 63,
+    "notMet": 0,
+    "schools": 555,
+    "achBelow": 14,
+    "sharePct": 11.4
+   },
+   {
+    "slug": "birmingham",
+    "name": "Birmingham",
+    "cards": 60,
+    "notMet": 0,
+    "schools": 435,
+    "achBelow": 14,
+    "sharePct": 13.8
+   },
+   {
+    "slug": "surrey",
+    "name": "Surrey",
+    "cards": 60,
+    "notMet": 0,
+    "schools": 389,
+    "achBelow": 6,
+    "sharePct": 15.4
+   },
+   {
+    "slug": "norfolk",
+    "name": "Norfolk",
+    "cards": 58,
+    "notMet": 0,
+    "schools": 416,
+    "achBelow": 18,
+    "sharePct": 13.9
+   },
+   {
+    "slug": "nottinghamshire",
+    "name": "Nottinghamshire",
+    "cards": 52,
+    "notMet": 0,
+    "schools": 338,
+    "achBelow": 18,
+    "sharePct": 15.4
+   },
+   {
+    "slug": "warwickshire",
+    "name": "Warwickshire",
+    "cards": 51,
+    "notMet": 0,
+    "schools": 245,
+    "achBelow": 14,
+    "sharePct": 20.8
+   },
+   {
+    "slug": "derbyshire",
+    "name": "Derbyshire",
+    "cards": 50,
+    "notMet": 0,
+    "schools": 412,
+    "achBelow": 21,
+    "sharePct": 12.1
+   },
+   {
+    "slug": "gloucestershire",
+    "name": "Gloucestershire",
+    "cards": 45,
+    "notMet": 0,
+    "schools": 297,
+    "achBelow": 10,
+    "sharePct": 15.2
+   },
+   {
+    "slug": "suffolk",
+    "name": "Suffolk",
+    "cards": 45,
+    "notMet": 0,
+    "schools": 319,
+    "achBelow": 13,
+    "sharePct": 14.1
+   },
+   {
+    "slug": "devon",
+    "name": "Devon",
+    "cards": 44,
+    "notMet": 0,
+    "schools": 370,
+    "achBelow": 11,
+    "sharePct": 11.9
+   },
+   {
+    "slug": "cornwall",
+    "name": "Cornwall",
+    "cards": 41,
+    "notMet": 0,
+    "schools": 279,
+    "achBelow": 16,
+    "sharePct": 14.7
+   },
+   {
+    "slug": "leicestershire",
+    "name": "Leicestershire",
+    "cards": 41,
+    "notMet": 0,
+    "schools": 287,
+    "achBelow": 8,
+    "sharePct": 14.3
+   },
+   {
+    "slug": "county-durham",
+    "name": "County Durham",
+    "cards": 39,
+    "notMet": 0,
+    "schools": 258,
+    "achBelow": 10,
+    "sharePct": 15.1
+   },
+   {
+    "slug": "lincolnshire",
+    "name": "Lincolnshire",
+    "cards": 38,
+    "notMet": 1,
+    "schools": 359,
+    "achBelow": 15,
+    "sharePct": 10.6
+   },
+   {
+    "slug": "north-yorkshire",
+    "name": "North Yorkshire",
+    "cards": 38,
+    "notMet": 0,
+    "schools": 345,
+    "achBelow": 13,
+    "sharePct": 11
+   },
+   {
+    "slug": "cambridgeshire",
+    "name": "Cambridgeshire",
+    "cards": 37,
+    "notMet": 1,
+    "schools": 268,
+    "achBelow": 13,
+    "sharePct": 13.8
+   },
+   {
+    "slug": "worcestershire",
+    "name": "Worcestershire",
+    "cards": 36,
+    "notMet": 0,
+    "schools": 242,
+    "achBelow": 11,
+    "sharePct": 14.9
+   },
+   {
+    "slug": "liverpool",
+    "name": "Liverpool",
+    "cards": 34,
+    "notMet": 0,
+    "schools": 168,
+    "achBelow": 16,
+    "sharePct": 20.2
+   },
+   {
+    "slug": "west-sussex",
+    "name": "West Sussex",
+    "cards": 34,
+    "notMet": 0,
+    "schools": 284,
+    "achBelow": 9,
+    "sharePct": 12
+   },
+   {
+    "slug": "oxfordshire",
+    "name": "Oxfordshire",
+    "cards": 33,
+    "notMet": 0,
+    "schools": 307,
+    "achBelow": 9,
+    "sharePct": 10.7
+   },
+   {
+    "slug": "somerset",
+    "name": "Somerset",
+    "cards": 33,
+    "notMet": 0,
+    "schools": 264,
+    "achBelow": 18,
+    "sharePct": 12.5
+   },
+   {
+    "slug": "cheshire-west-and-chester",
+    "name": "Cheshire West and Chester",
+    "cards": 32,
+    "notMet": 2,
+    "schools": 157,
+    "achBelow": 13,
+    "sharePct": 20.4
+   },
+   {
+    "slug": "wiltshire",
+    "name": "Wiltshire",
+    "cards": 30,
+    "notMet": 0,
+    "schools": 234,
+    "achBelow": 10,
+    "sharePct": 12.8
+   },
+   {
+    "slug": "buckinghamshire",
+    "name": "Buckinghamshire",
+    "cards": 29,
+    "notMet": 0,
+    "schools": 230,
+    "achBelow": 4,
+    "sharePct": 12.6
+   },
+   {
+    "slug": "bristol-city-of",
+    "name": "Bristol, City of",
+    "cards": 28,
+    "notMet": 0,
+    "schools": 153,
+    "achBelow": 11,
+    "sharePct": 18.3
+   },
+   {
+    "slug": "westmorland-and-furness",
+    "name": "Westmorland and Furness",
+    "cards": 28,
+    "notMet": 0,
+    "schools": 147,
+    "achBelow": 14,
+    "sharePct": 19
+   },
+   {
+    "slug": "east-sussex",
+    "name": "East Sussex",
+    "cards": 27,
+    "notMet": 0,
+    "schools": 185,
+    "achBelow": 3,
+    "sharePct": 14.6
+   },
+   {
+    "slug": "wirral",
+    "name": "Wirral",
+    "cards": 27,
+    "notMet": 0,
+    "schools": 124,
+    "achBelow": 10,
+    "sharePct": 21.8
+   },
+   {
+    "slug": "dorset",
+    "name": "Dorset",
+    "cards": 26,
+    "notMet": 0,
+    "schools": 157,
+    "achBelow": 16,
+    "sharePct": 16.6
+   },
+   {
+    "slug": "east-riding-of-yorkshire",
+    "name": "East Riding of Yorkshire",
+    "cards": 26,
+    "notMet": 0,
+    "schools": 149,
+    "achBelow": 10,
+    "sharePct": 17.4
+   },
+   {
+    "slug": "kirklees",
+    "name": "Kirklees",
+    "cards": 26,
+    "notMet": 0,
+    "schools": 177,
+    "achBelow": 8,
+    "sharePct": 14.7
+   },
+   {
+    "slug": "leeds",
+    "name": "Leeds",
+    "cards": 26,
+    "notMet": 0,
+    "schools": 276,
+    "achBelow": 9,
+    "sharePct": 9.4
+   },
+   {
+    "slug": "sandwell",
+    "name": "Sandwell",
+    "cards": 26,
+    "notMet": 0,
+    "schools": 123,
+    "achBelow": 5,
+    "sharePct": 21.1
+   },
+   {
+    "slug": "west-northamptonshire",
+    "name": "West Northamptonshire",
+    "cards": 26,
+    "notMet": 0,
+    "schools": 186,
+    "achBelow": 8,
+    "sharePct": 14
+   },
+   {
+    "slug": "bolton",
+    "name": "Bolton",
+    "cards": 25,
+    "notMet": 0,
+    "schools": 128,
+    "achBelow": 7,
+    "sharePct": 19.5
+   },
+   {
+    "slug": "manchester",
+    "name": "Manchester",
+    "cards": 25,
+    "notMet": 0,
+    "schools": 184,
+    "achBelow": 8,
+    "sharePct": 13.6
+   },
+   {
+    "slug": "northumberland",
+    "name": "Northumberland",
+    "cards": 25,
+    "notMet": 0,
+    "schools": 165,
+    "achBelow": 11,
+    "sharePct": 15.2
+   },
+   {
+    "slug": "south-gloucestershire",
+    "name": "South Gloucestershire",
+    "cards": 25,
+    "notMet": 0,
+    "schools": 113,
+    "achBelow": 6,
+    "sharePct": 22.1
+   },
+   {
+    "slug": "stockport",
+    "name": "Stockport",
+    "cards": 25,
+    "notMet": 0,
+    "schools": 114,
+    "achBelow": 7,
+    "sharePct": 21.9
+   },
+   {
+    "slug": "bradford",
+    "name": "Bradford",
+    "cards": 24,
+    "notMet": 1,
+    "schools": 208,
+    "achBelow": 11,
+    "sharePct": 11.5
+   },
+   {
+    "slug": "cumberland",
+    "name": "Cumberland",
+    "cards": 24,
+    "notMet": 0,
+    "schools": 171,
+    "achBelow": 11,
+    "sharePct": 14
+   },
+   {
+    "slug": "rotherham",
+    "name": "Rotherham",
+    "cards": 23,
+    "notMet": 0,
+    "schools": 123,
+    "achBelow": 7,
+    "sharePct": 18.7
+   },
+   {
+    "slug": "salford",
+    "name": "Salford",
+    "cards": 23,
+    "notMet": 0,
+    "schools": 97,
+    "achBelow": 12,
+    "sharePct": 23.7
+   },
+   {
+    "slug": "walsall",
+    "name": "Walsall",
+    "cards": 22,
+    "notMet": 0,
+    "schools": 121,
+    "achBelow": 7,
+    "sharePct": 18.2
+   },
+   {
+    "slug": "cheshire-east",
+    "name": "Cheshire East",
+    "cards": 21,
+    "notMet": 0,
+    "schools": 154,
+    "achBelow": 4,
+    "sharePct": 13.6
+   },
+   {
+    "slug": "sheffield",
+    "name": "Sheffield",
+    "cards": 21,
+    "notMet": 0,
+    "schools": 171,
+    "achBelow": 5,
+    "sharePct": 12.3
+   },
+   {
+    "slug": "stoke-on-trent",
+    "name": "Stoke-on-Trent",
+    "cards": 21,
+    "notMet": 0,
+    "schools": 91,
+    "achBelow": 4,
+    "sharePct": 23.1
+   },
+   {
+    "slug": "west-berkshire",
+    "name": "West Berkshire",
+    "cards": 21,
+    "notMet": 0,
+    "schools": 79,
+    "achBelow": 4,
+    "sharePct": 26.6
+   },
+   {
+    "slug": "wigan",
+    "name": "Wigan",
+    "cards": 21,
+    "notMet": 0,
+    "schools": 126,
+    "achBelow": 6,
+    "sharePct": 16.7
+   },
+   {
+    "slug": "sunderland",
+    "name": "Sunderland",
+    "cards": 20,
+    "notMet": 0,
+    "schools": 116,
+    "achBelow": 3,
+    "sharePct": 17.2
+   },
+   {
+    "slug": "tameside",
+    "name": "Tameside",
+    "cards": 20,
+    "notMet": 0,
+    "schools": 97,
+    "achBelow": 8,
+    "sharePct": 20.6
+   },
+   {
+    "slug": "barnet",
+    "name": "Barnet",
+    "cards": 19,
+    "notMet": 0,
+    "schools": 132,
+    "achBelow": 0,
+    "sharePct": 14.4
+   },
+   {
+    "slug": "doncaster",
+    "name": "Doncaster",
+    "cards": 19,
+    "notMet": 0,
+    "schools": 128,
+    "achBelow": 2,
+    "sharePct": 14.8
+   },
+   {
+    "slug": "dudley",
+    "name": "Dudley",
+    "cards": 19,
+    "notMet": 0,
+    "schools": 105,
+    "achBelow": 3,
+    "sharePct": 18.1
+   },
+   {
+    "slug": "sefton",
+    "name": "Sefton",
+    "cards": 18,
+    "notMet": 0,
+    "schools": 103,
+    "achBelow": 8,
+    "sharePct": 17.5
+   },
+   {
+    "slug": "solihull",
+    "name": "Solihull",
+    "cards": 18,
+    "notMet": 0,
+    "schools": 83,
+    "achBelow": 3,
+    "sharePct": 21.7
+   },
+   {
+    "slug": "st-helens",
+    "name": "St. Helens",
+    "cards": 18,
+    "notMet": 0,
+    "schools": 69,
+    "achBelow": 8,
+    "sharePct": 26.1
+   },
+   {
+    "slug": "wolverhampton",
+    "name": "Wolverhampton",
+    "cards": 18,
+    "notMet": 0,
+    "schools": 110,
+    "achBelow": 3,
+    "sharePct": 16.4
+   },
+   {
+    "slug": "bexley",
+    "name": "Bexley",
+    "cards": 17,
+    "notMet": 0,
+    "schools": 83,
+    "achBelow": 4,
+    "sharePct": 20.5
+   },
+   {
+    "slug": "central-bedfordshire",
+    "name": "Central Bedfordshire",
+    "cards": 17,
+    "notMet": 0,
+    "schools": 128,
+    "achBelow": 6,
+    "sharePct": 13.3
+   },
+   {
+    "slug": "coventry",
+    "name": "Coventry",
+    "cards": 17,
+    "notMet": 0,
+    "schools": 117,
+    "achBelow": 5,
+    "sharePct": 14.5
+   },
+   {
+    "slug": "derby",
+    "name": "Derby",
+    "cards": 17,
+    "notMet": 2,
+    "schools": 106,
+    "achBelow": 9,
+    "sharePct": 16
+   },
+   {
+    "slug": "enfield",
+    "name": "Enfield",
+    "cards": 17,
+    "notMet": 1,
+    "schools": 97,
+    "achBelow": 0,
+    "sharePct": 17.5
+   },
+   {
+    "slug": "knowsley",
+    "name": "Knowsley",
+    "cards": 17,
+    "notMet": 0,
+    "schools": 61,
+    "achBelow": 6,
+    "sharePct": 27.9
+   },
+   {
+    "slug": "north-somerset",
+    "name": "North Somerset",
+    "cards": 17,
+    "notMet": 0,
+    "schools": 79,
+    "achBelow": 7,
+    "sharePct": 21.5
+   },
+   {
+    "slug": "plymouth",
+    "name": "Plymouth",
+    "cards": 17,
+    "notMet": 1,
+    "schools": 95,
+    "achBelow": 5,
+    "sharePct": 17.9
+   },
+   {
+    "slug": "stockton-on-tees",
+    "name": "Stockton-on-Tees",
+    "cards": 17,
+    "notMet": 1,
+    "schools": 75,
+    "achBelow": 4,
+    "sharePct": 22.7
+   },
+   {
+    "slug": "leicester",
+    "name": "Leicester",
+    "cards": 16,
+    "notMet": 0,
+    "schools": 112,
+    "achBelow": 5,
+    "sharePct": 14.3
+   },
+   {
+    "slug": "shropshire",
+    "name": "Shropshire",
+    "cards": 16,
+    "notMet": 0,
+    "schools": 151,
+    "achBelow": 4,
+    "sharePct": 10.6
+   },
+   {
+    "slug": "wakefield",
+    "name": "Wakefield",
+    "cards": 16,
+    "notMet": 0,
+    "schools": 140,
+    "achBelow": 4,
+    "sharePct": 11.4
+   },
+   {
+    "slug": "bedford",
+    "name": "Bedford",
+    "cards": 15,
+    "notMet": 0,
+    "schools": 74,
+    "achBelow": 3,
+    "sharePct": 20.3
+   },
+   {
+    "slug": "blackburn-with-darwen",
+    "name": "Blackburn with Darwen",
+    "cards": 15,
+    "notMet": 0,
+    "schools": 76,
+    "achBelow": 7,
+    "sharePct": 19.7
+   },
+   {
+    "slug": "bournemouth-christchurch-and-poole",
+    "name": "Bournemouth, Christchurch and Poole",
+    "cards": 15,
+    "notMet": 0,
+    "schools": 100,
+    "achBelow": 7,
+    "sharePct": 15
+   },
+   {
+    "slug": "haringey",
+    "name": "Haringey",
+    "cards": 15,
+    "notMet": 0,
+    "schools": 79,
+    "achBelow": 0,
+    "sharePct": 19
+   },
+   {
+    "slug": "havering",
+    "name": "Havering",
+    "cards": 15,
+    "notMet": 0,
+    "schools": 82,
+    "achBelow": 1,
+    "sharePct": 18.3
+   },
+   {
+    "slug": "kingston-upon-hull-city-of",
+    "name": "Kingston upon Hull, City of",
+    "cards": 15,
+    "notMet": 0,
+    "schools": 95,
+    "achBelow": 4,
+    "sharePct": 15.8
+   },
+   {
+    "slug": "north-northamptonshire",
+    "name": "North Northamptonshire",
+    "cards": 15,
+    "notMet": 0,
+    "schools": 144,
+    "achBelow": 7,
+    "sharePct": 10.4
+   },
+   {
+    "slug": "portsmouth",
+    "name": "Portsmouth",
+    "cards": 15,
+    "notMet": 0,
+    "schools": 61,
+    "achBelow": 4,
+    "sharePct": 24.6
+   },
+   {
+    "slug": "brighton-and-hove",
+    "name": "Brighton and Hove",
+    "cards": 14,
+    "notMet": 0,
+    "schools": 62,
+    "achBelow": 2,
+    "sharePct": 22.6
+   },
+   {
+    "slug": "brent",
+    "name": "Brent",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 86,
+    "achBelow": 1,
+    "sharePct": 15.1
+   },
+   {
+    "slug": "greenwich",
+    "name": "Greenwich",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 88,
+    "achBelow": 1,
+    "sharePct": 14.8
+   },
+   {
+    "slug": "herefordshire-county-of",
+    "name": "Herefordshire, County of",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 99,
+    "achBelow": 5,
+    "sharePct": 13.1
+   },
+   {
+    "slug": "lewisham",
+    "name": "Lewisham",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 86,
+    "achBelow": 4,
+    "sharePct": 15.1
+   },
+   {
+    "slug": "newham",
+    "name": "Newham",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 100,
+    "achBelow": 0,
+    "sharePct": 13
+   },
+   {
+    "slug": "nottingham",
+    "name": "Nottingham",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 105,
+    "achBelow": 3,
+    "sharePct": 12.4
+   },
+   {
+    "slug": "oldham",
+    "name": "Oldham",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 105,
+    "achBelow": 3,
+    "sharePct": 12.4
+   },
+   {
+    "slug": "redbridge",
+    "name": "Redbridge",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 79,
+    "achBelow": 0,
+    "sharePct": 16.5
+   },
+   {
+    "slug": "tower-hamlets",
+    "name": "Tower Hamlets",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 93,
+    "achBelow": 0,
+    "sharePct": 14
+   },
+   {
+    "slug": "wokingham",
+    "name": "Wokingham",
+    "cards": 13,
+    "notMet": 0,
+    "schools": 70,
+    "achBelow": 1,
+    "sharePct": 18.6
+   },
+   {
+    "slug": "bury",
+    "name": "Bury",
+    "cards": 12,
+    "notMet": 0,
+    "schools": 78,
+    "achBelow": 1,
+    "sharePct": 15.4
+   },
+   {
+    "slug": "lambeth",
+    "name": "Lambeth",
+    "cards": 12,
+    "notMet": 0,
+    "schools": 86,
+    "achBelow": 3,
+    "sharePct": 14
+   },
+   {
+    "slug": "newcastle-upon-tyne",
+    "name": "Newcastle upon Tyne",
+    "cards": 12,
+    "notMet": 0,
+    "schools": 100,
+    "achBelow": 1,
+    "sharePct": 12
+   },
+   {
+    "slug": "bath-and-north-east-somerset",
+    "name": "Bath and North East Somerset",
+    "cards": 11,
+    "notMet": 0,
+    "schools": 80,
+    "achBelow": 2,
+    "sharePct": 13.8
+   },
+   {
+    "slug": "croydon",
+    "name": "Croydon",
+    "cards": 11,
+    "notMet": 0,
+    "schools": 127,
+    "achBelow": 2,
+    "sharePct": 8.7
+   },
+   {
+    "slug": "hillingdon",
+    "name": "Hillingdon",
+    "cards": 11,
+    "notMet": 1,
+    "schools": 96,
+    "achBelow": 2,
+    "sharePct": 11.5
+   },
+   {
+    "slug": "slough",
+    "name": "Slough",
+    "cards": 11,
+    "notMet": 0,
+    "schools": 50,
+    "achBelow": 2,
+    "sharePct": 22
+   },
+   {
+    "slug": "southampton",
+    "name": "Southampton",
+    "cards": 11,
+    "notMet": 0,
+    "schools": 76,
+    "achBelow": 4,
+    "sharePct": 14.5
+   },
+   {
+    "slug": "southwark",
+    "name": "Southwark",
+    "cards": 11,
+    "notMet": 0,
+    "schools": 101,
+    "achBelow": 1,
+    "sharePct": 10.9
+   },
+   {
+    "slug": "trafford",
+    "name": "Trafford",
+    "cards": 11,
+    "notMet": 0,
+    "schools": 91,
+    "achBelow": 2,
+    "sharePct": 12.1
+   },
+   {
+    "slug": "waltham-forest",
+    "name": "Waltham Forest",
+    "cards": 11,
+    "notMet": 0,
+    "schools": 77,
+    "achBelow": 2,
+    "sharePct": 14.3
+   },
+   {
+    "slug": "calderdale",
+    "name": "Calderdale",
+    "cards": 10,
+    "notMet": 0,
+    "schools": 99,
+    "achBelow": 3,
+    "sharePct": 10.1
+   },
+   {
+    "slug": "hounslow",
+    "name": "Hounslow",
+    "cards": 10,
+    "notMet": 0,
+    "schools": 76,
+    "achBelow": 0,
+    "sharePct": 13.2
+   },
+   {
+    "slug": "luton",
+    "name": "Luton",
+    "cards": 10,
+    "notMet": 0,
+    "schools": 70,
+    "achBelow": 4,
+    "sharePct": 14.3
+   },
+   {
+    "slug": "rochdale",
+    "name": "Rochdale",
+    "cards": 10,
+    "notMet": 0,
+    "schools": 90,
+    "achBelow": 2,
+    "sharePct": 11.1
+   },
+   {
+    "slug": "swindon",
+    "name": "Swindon",
+    "cards": 10,
+    "notMet": 0,
+    "schools": 87,
+    "achBelow": 2,
+    "sharePct": 11.5
+   },
+   {
+    "slug": "wandsworth",
+    "name": "Wandsworth",
+    "cards": 10,
+    "notMet": 0,
+    "schools": 79,
+    "achBelow": 1,
+    "sharePct": 12.7
+   },
+   {
+    "slug": "warrington",
+    "name": "Warrington",
+    "cards": 10,
+    "notMet": 0,
+    "schools": 84,
+    "achBelow": 1,
+    "sharePct": 11.9
+   },
+   {
+    "slug": "windsor-and-maidenhead",
+    "name": "Windsor and Maidenhead",
+    "cards": 10,
+    "notMet": 0,
+    "schools": 66,
+    "achBelow": 4,
+    "sharePct": 15.2
+   }
+  ]
+ },
+ "waiting": {
+  "noReportCard": 18742,
+  "withGraded": 18420,
+  "noGradedOnRecord": 322,
+  "grid": {
+   "2015": {
+    "Outstanding": 262,
+    "Good": 939,
+    "Requires improvement": 0,
+    "Inadequate": 0,
+    "total": 1201
+   },
+   "2016": {
+    "Outstanding": 82,
+    "Good": 556,
+    "Requires improvement": 0,
+    "Inadequate": 1,
+    "total": 639
+   },
+   "2017": {
+    "Outstanding": 199,
+    "Good": 718,
+    "Requires improvement": 3,
+    "Inadequate": 0,
+    "total": 920
+   },
+   "2018": {
+    "Outstanding": 105,
+    "Good": 746,
+    "Requires improvement": 9,
+    "Inadequate": 11,
+    "total": 871
+   },
+   "2019": {
+    "Outstanding": 174,
+    "Good": 1323,
+    "Requires improvement": 25,
+    "Inadequate": 26,
+    "total": 1548
+   },
+   "2020": {
+    "Outstanding": 22,
+    "Good": 357,
+    "Requires improvement": 16,
+    "Inadequate": 8,
+    "total": 403
+   },
+   "2021": {
+    "Outstanding": 4,
+    "Good": 71,
+    "Requires improvement": 63,
+    "Inadequate": 31,
+    "total": 169
+   },
+   "2022": {
+    "Outstanding": 112,
+    "Good": 1314,
+    "Requires improvement": 510,
+    "Inadequate": 79,
+    "total": 2015
+   },
+   "2023": {
+    "Outstanding": 437,
+    "Good": 2812,
+    "Requires improvement": 341,
+    "Inadequate": 63,
+    "total": 3653
+   },
+   "2024": {
+    "Outstanding": 429,
+    "Good": 1533,
+    "Requires improvement": 295,
+    "Inadequate": 30,
+    "total": 2287
+   },
+   "2025": {
+    "Outstanding": 0,
+    "Good": 0,
+    "Requires improvement": 0,
+    "Inadequate": 0,
+    "total": 0
+   },
+   "2026": {
+    "Outstanding": 0,
+    "Good": 0,
+    "Requires improvement": 0,
+    "Inadequate": 0,
+    "total": 0
+   },
+   "2014 or earlier": {
+    "Outstanding": 879,
+    "Good": 3835,
+    "Requires improvement": 0,
+    "Inadequate": 0,
+    "total": 4714
+   }
+  },
+  "buckets": [
+   "2014 or earlier",
+   "2015",
+   "2016",
+   "2017",
+   "2018",
+   "2019",
+   "2020",
+   "2021",
+   "2022",
+   "2023",
+   "2024",
+   "2025",
+   "2026"
+  ],
+  "outstandingTotal": 2705,
+  "outstandingBefore2015": 879,
+  "outstandingBefore2020": 1701,
+  "byGrade": {
+   "Outstanding": {
+    "total": 2705,
+    "before2015": 879,
+    "before2020": 1701
+   },
+   "Good": {
+    "total": 14204,
+    "before2015": 3835,
+    "before2020": 8117
+   },
+   "Requires improvement": {
+    "total": 1262,
+    "before2015": 0,
+    "before2020": 37
+   },
+   "Inadequate": {
+    "total": 249,
+    "before2015": 0,
+    "before2020": 38
+   }
+  },
+  "gradedBefore2020": 9893
+ }
+}
