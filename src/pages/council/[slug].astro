@@ -10,6 +10,7 @@ import { hasArea } from '../../lib/areas';
 import ofstedGrades from '../../data/ofsted-grades.json';
 import OversubTable from '../../components/OversubTable.astro';
 import { OS, HUB, SOURCE_LINE, int, pct, rowsFromCompact, ordinal, trendClause } from '../../lib/oversub';
+import { CS, STATS_URL, rankText } from '../../lib/councilstats';
 
 export async function getStaticPaths() {
   return (las as any[]).map((la: any) => ({
@@ -45,6 +46,21 @@ const og = (s: any) => (ofstedGrades as Record<string, number[]>)[s.urn] ?? [0, 
 const ofstedRatedCount = laSchools.filter((s: any) => og(s)[0] > 0).length;
 const ofstedGoodPlusCount = laSchools.filter((s: any) => og(s)[0] === 1 || og(s)[0] === 2).length;
 const ofstedCardCount = laSchools.filter((s: any) => og(s)[1] === 1).length;
+
+// Council statistics snapshot: figures and ranks from src/data/council-stats.json (scripts/gen-council-stats.mjs).
+const cs: any = (CS.councils as Record<string, any>)[la.slug] ?? null;
+// [key, card label, rank noun, source label, what n counts, formatter]
+const snapDefs: [string, string, string, string, string, (v: number) => string][] = [
+  ['goodOutstanding', 'schools rated Good or Outstanding', 'share Good or Outstanding', 'Ofsted, September 2026', 'graded schools', (v) => `${v.toFixed(1)}%`],
+  ['attainment8', 'average Attainment 8', 'Attainment 8', 'DfE, 2024-25', 'secondary schools', (v) => v.toFixed(1)],
+  ['absence', 'secondary absence rate', 'secondary absence', 'DfE, 2024-25', 'secondary schools', (v) => `${v.toFixed(1)}%`],
+  ['ehcp', 'pupils with an EHC plan', 'share with an EHC plan', 'DfE, January 2026', 'schools', (v) => `${v.toFixed(1)}%`],
+  ['ptr', 'pupils per teacher', 'pupils per teacher', 'DfE, November 2025', 'mainstream schools', (v) => v.toFixed(1)],
+  ['year7NotOffered', 'Year 7 applicants not offered first preference', 'Year 7 not offered first preference', 'DfE, 2026 entry', 'applications', (v) => `${v.toFixed(1)}%`],
+];
+const snapshot = cs ? snapDefs.filter(([k]) => cs[k].v != null).map(([k, label, noun, src, unit, f]) => ({
+  label, value: f(cs[k].v), england: f(CS.national[k]), rank: rankText(cs[k], noun), basis: `From ${int(cs[k].n)} ${unit}`, src, url: CS.meta.metrics[k].url,
+})) : [];
 
 // Unique long-form intro (top 20 LAs); fall back to null for remaining councils
 const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[]; seoTitle?: string; seoDescription?: string }>)[la.slug] ?? null;
@@ -175,6 +191,23 @@ const faqSchema = {
     <span>{secondaries} secondary</span>
     <span>{townCount} area{townCount !== 1 ? 's' : ''}</span>
   </div>
+
+  {snapshot.length >= 3 && (
+    <section class="mb-8 max-w-3xl" aria-labelledby="numbers-h">
+      <h2 id="numbers-h" class="text-lg font-semibold mb-3">{la.name} schools in numbers</h2>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {snapshot.map((s: any) => (
+          <li class="border border-gray-200 rounded-lg p-3 bg-white">
+            <p class="text-sm text-gray-700">{s.label[0].toUpperCase() + s.label.slice(1)}</p>
+            <p class="text-2xl font-bold text-gray-900">{s.value} <span class="text-xs font-normal text-gray-600">England {s.england}</span></p>
+            {s.rank && <p class="text-xs text-gray-700">{s.rank[0].toUpperCase() + s.rank.slice(1)}</p>}
+            <p class="text-xs text-gray-600">{s.basis}. <a class="underline" href={s.url} rel="nofollow noopener">{s.src}</a></p>
+          </li>
+        ))}
+      </ul>
+      <p class="text-xs text-gray-600 mt-2">Ranks are among councils with a figure. Joint means a tie. Method and every council side by side: <a class="text-indigo-700 underline" href={STATS_URL}>school statistics by council</a>.</p>
+    </section>
+  )}
 
   {(oversubCount > 0 || selectiveCount > 0 || faithCount > 0) && (
     <p class="text-gray-600 mb-8 max-w-2xl text-sm">
