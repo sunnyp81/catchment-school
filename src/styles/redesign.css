@@ -713,6 +713,8 @@ h1, h2, h3, h4 {
 .stat .value em { font-style: italic; color: var(--terracotta); font-weight: 500; }
 .stat .sub { font-size: 13.5px; color: var(--muted); margin-top: 10px; }
 
+.editorial-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: center; }
+
 /* ---------- Footer ---------- */
 footer {
   background: var(--paper);
@@ -1188,6 +1190,8 @@ footer {
   .step:last-child { border-bottom: none; }
   .step:not(:first-child) { padding-left: 0; padding-top: 28px; }
   .stats-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .editorial-grid { grid-template-columns: 1fr; gap: 24px; }
+  .editorial-grid h2 { font-size: 30px; }
   .stat { padding: 28px 16px; min-width: 0; overflow-wrap: anywhere; }
   .stat { border-right: none; border-bottom: 1px solid rgba(242,237,224,0.12); }
   .footer-top { grid-template-columns: 1fr 1fr; }
@@ -1198,14 +1202,14 @@ footer {
 }
 
 /* ---------- Deadline banner ---------- */
-.dl-banner { background: var(--ink); color: #fff; font-size: 13px; line-height: 1.35; }
+.dl-banner { background: var(--ink); color: #fff; font-size: 13px; line-height: 1.35; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
 .dl-banner[hidden] { display: none; }
-.dl-banner-inner { display: flex; align-items: center; gap: 14px; max-width: var(--container); margin: 0 auto; padding: 0 32px; height: 64px; overflow: hidden; }
+.dl-banner-inner { box-sizing: border-box; display: flex; align-items: center; gap: 14px; max-width: var(--container); margin: 0 auto; padding: 6px 32px; min-height: 64px; }
 .dl-text { margin: 0; flex: 1; }
 .dl-banner a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
 .dl-banner a:focus-visible, .dl-close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .dl-banner .dl-cta { white-space: nowrap; font-weight: 600; border: 1px solid #fff; border-radius: 999px; padding: 5px 12px; text-decoration: none; }
 .dl-banner .dl-cta:hover { background: #fff; color: var(--ink); }
 .dl-close { background: none; border: 0; color: #fff; font-size: 24px; line-height: 1; width: 44px; height: 44px; cursor: pointer; flex: none; }
-@media (min-width: 900px) { .dl-banner-inner { height: 44px; } }
-@media (max-width: 899px) { .dl-banner-inner { padding: 0 8px 0 16px; gap: 8px; } .dl-banner .dl-cta { display: none; } }
+@media (min-width: 900px) { .dl-banner-inner { min-height: 44px; padding: 0 32px; } }
+@media (max-width: 899px) { .dl-banner-inner { padding: 6px 8px 6px 16px; gap: 8px; } .dl-banner .dl-cta { display: none; } }
