@@ -4,14 +4,13 @@ import schools from '../data/schools.json';
 import pairsData from '../data/compare-pairs.json';
 
 export const GET: APIRoute = () => {
-  const lastmod = new Date().toISOString().split('T')[0];
   const slugByUrn = new Map((schools as any[]).map((s) => [String(s.urn), s.slug]));
   const keys = (((pairsData as any).pairs as string) || '').split(' ').filter(Boolean);
   const urls = keys.flatMap((k) => {
     const [a, b] = k.split('-');
     const sa = slugByUrn.get(a), sb = slugByUrn.get(b);
     return sa && sb
-      ? [`  <url><loc>https://catchment.school/compare/${sa}-vs-${sb}/</loc><lastmod>${lastmod}</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>`]
+      ? [`  <url><loc>https://catchment.school/compare/${sa}-vs-${sb}/</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>`]
       : [];
   }).join('\n');
 
