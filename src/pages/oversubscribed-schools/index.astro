@@ -211,6 +211,7 @@ const move = (a: number, b: number) => (b > a ? `rose from ${pct(a)} to ${pct(b)
 
     <section aria-labelledby="index-h" class="mb-6">
       <h2 id="index-h" class="text-xl font-semibold mb-3">Oversubscription by council</h2>
+      <p class="text-gray-800 mb-3">To compare councils on Ofsted ratings, GCSE results, absence and special educational needs as well, see <a class="text-indigo-700 underline" href="/school-statistics-by-council/">school statistics by council</a>.</p>
       <p class="text-gray-800 mb-3">Each council page has its share of applicants who missed their first preference, three years of trend and a table of its schools. Year 7 sections need at least {M.minSchools['7']} schools with data and Reception sections at least {M.minSchools.R}. {secCouncils} councils have a Year 7 section and {priCouncils} have a Reception section.</p>
       <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-1.5 text-sm">
         {index.map((c) => (
