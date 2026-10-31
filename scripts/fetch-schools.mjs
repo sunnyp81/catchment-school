@@ -21,8 +21,9 @@ const PHASE_MAP = {
   2: 'Primary',
   3: 'Middle',
   4: 'Secondary',
-  5: 'All through',
-  6: 'Nursery',
+  5: 'Middle deemed secondary',
+  6: '16 plus',
+  7: 'All through',
 };
 
 const OFSTED_MAP = {

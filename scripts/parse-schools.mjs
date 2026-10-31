@@ -74,8 +74,8 @@ const PHASE_LABELS = {
   '3': 'Middle deemed primary',
   '4': 'Secondary',
   '5': 'Middle deemed secondary',
-  '6': 'All through',
-  '7': 'Special',
+  '6': '16 plus',
+  '7': 'All through',
 };
 
 async function parseCSV(filePath) {

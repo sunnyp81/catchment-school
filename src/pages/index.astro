@@ -1,9 +1,11 @@
 ---
 import RedesignBase from '../layouts/Base.astro';
 import las from '../data/las.json';
+import ofstedCardStats from '../data/ofsted-card-stats.json';
 
 const totalSchools = las.reduce((s, la) => s + la.count, 0);
 const totalLAs = las.length;
+const ofstedSchools = ofstedCardStats.meta.schoolsInFile;
 
 const featuredSlugs = [
   'barnet','birmingham','bradford','brighton-and-hove',
@@ -32,7 +34,7 @@ const letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'
   <div class="container">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow">For the 2026/27 school year <span class="meta">- applications open September</span></div>
+        <div class="eyebrow">For September 2027 entry <span class="meta">primary applications close 15 January 2027</span></div>
         <h1>Which schools is your address <em>actually</em> in catchment for?</h1>
         <p class="hero-lede">Enter a postcode. We'll show every primary and secondary nearby, their distance, current pupil numbers, and a link to your council's official catchment map - in about three seconds.</p>
 
@@ -160,9 +162,9 @@ const letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'
     <div class="sub">Straight from the DfE</div>
   </div>
   <div class="stat">
-    <div class="label">Parents we helped last month</div>
-    <div class="value">41,200</div>
-    <div class="sub">Free, with no sign-up</div>
+    <div class="label">Schools with an Ofsted record</div>
+    <div class="value">{ofstedSchools.toLocaleString('en-GB')}</div>
+    <div class="sub">Ofsted data as at 30 September 2026</div>
   </div>
 </div>
 
