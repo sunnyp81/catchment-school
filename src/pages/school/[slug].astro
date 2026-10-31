@@ -192,6 +192,12 @@ const ofstedColors: Record<string, string> = {
 const ofstedLabel = s.ofstedRating ? (ofstedLabels[s.ofstedRating] ?? null) : null;
 const ofstedColor = s.ofstedRating ? (ofstedColors[s.ofstedRating] ?? '') : '';
 const ofstedYear = s.ofstedDate ? s.ofstedDate.split('/').pop() : null;
+// One Ofsted answer for the visible FAQ and the FAQ schema. Leads with a report card when it is newer than the overall grade.
+const ofstedFaqText = !ofstedLabel ? null
+  : ofv?.cardLater && ofv.card
+    ? `The latest Ofsted inspection of ${s.name} was a report card on ${longDate(ofv.card.date)}. Report cards grade separate areas and give no overall grade. The last overall grade was ${ofstedLabel}${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv.predecessor ? ', awarded to a predecessor school on this site' : ''}.`
+    : `${s.name} was rated ${ofstedLabel} by Ofsted${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv?.predecessor ? '. That grade was awarded to a predecessor school on this site, for example before academy conversion' : ''}.${ofv?.ungraded ? ` The latest ungraded inspection, on ${longDate(ofv.ungraded.date)}, reported "${ofv.ungraded.outcome}".` : ''}`;
+const ofstedReportUrl = ofv?.reportUrl ?? `https://reports.ofsted.gov.uk/search?q=${s.urn}`;
 
 // Catchment guidance - varies by phase, type, and capacity to avoid boilerplate
 const isGrammar = s.admissionsPolicy === 'Selective';
@@ -246,7 +252,7 @@ const schoolSchema = {
   ...(s.pupils ? { "numberOfStudents": s.pupils } : {}),
   "sameAs": [
     `https://get-information-about-schools.service.gov.uk/Establishments/Establishment/Details/${s.urn}`,
-    `https://reports.ofsted.gov.uk/search?q=${s.urn}`
+    ofstedReportUrl
   ],
   // Ofsted grade mapped to a 4-point scale: 1=Inadequate → 4=Outstanding
   ...(['1','2','3','4'].includes(String(s.ofstedRating)) ? {
@@ -312,7 +318,7 @@ const faqSchema = {
       "name": `What is the Ofsted rating for ${s.name}?`,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": `${s.name} was rated ${ofstedLabel} by Ofsted${ofstedYear ? ` in ${ofstedYear}` : ''}. Full inspection reports are available on the Ofsted website at reports.ofsted.gov.uk.`
+        "text": `${ofstedFaqText} Full inspection reports are available on the Ofsted website at reports.ofsted.gov.uk.`
       }
     }] : []),
   ]
@@ -694,7 +700,7 @@ const breadcrumbSchema = {
                 <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p class="mt-3 text-sm text-gray-700">
-                {s.name} was rated <strong>{ofstedLabel}</strong> by Ofsted{ofstedYear ? ` in ${ofstedYear}` : ''}. Full inspection reports are available at <a href={`https://reports.ofsted.gov.uk/search?q=${s.urn}`} target="_blank" rel="nofollow noopener" class="text-indigo-700 hover:underline">reports.ofsted.gov.uk</a>.
+                {ofstedFaqText} Full inspection reports are available at <a href={ofstedReportUrl} target="_blank" rel="nofollow noopener" class="text-indigo-700 hover:underline">reports.ofsted.gov.uk</a>.
               </p>
             </details>
           )}
@@ -738,7 +744,7 @@ const breadcrumbSchema = {
           <p class="text-lg font-bold mb-1">{ofstedLabel}</p>
           {ofstedYear && <p class="text-xs opacity-70 mb-1">Graded {ofstedYear}</p>}
           {ofv?.latestDate && ofv.latestDate !== s.ofstedDate && <p class="text-xs opacity-70 mb-1">Latest inspection {longDate(ofv.latestDate)}</p>}
-          <a href={ofv?.reportUrl ?? `https://reports.ofsted.gov.uk/search?q=${s.urn}`}
+          <a href={ofstedReportUrl}
             target="_blank" rel="nofollow noopener"
             class="block text-sm font-medium hover:underline mt-2">
             Read full Ofsted report →
@@ -757,7 +763,7 @@ const breadcrumbSchema = {
           class="block text-sm text-indigo-700 hover:underline mb-2">
           DfE Get Information About Schools →
         </a>
-        <a href={`https://reports.ofsted.gov.uk/search?q=${s.urn}`}
+        <a href={ofstedReportUrl}
           target="_blank" rel="nofollow noopener"
           class="block text-sm text-indigo-700 hover:underline">
           Ofsted inspection reports →

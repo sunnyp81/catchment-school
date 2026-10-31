@@ -206,12 +206,26 @@ if (distText) {
       : `${nameA} in ${A.la} and ${nameB} in ${B.la} are ${distText} apart in a straight line.`);
 }
 const oA = ofstedOf(A), oB = ofstedOf(B);
-if (oA && oB) {
-  sum.push(oA === oB ? `Ofsted rates both schools ${oA} (${nameA} inspected ${ofstedYearOf(A)}, ${nameB} ${ofstedYearOf(B)}).`
-    : `Ofsted rates ${nameA} ${oA} (${ofstedYearOf(A)}) and ${nameB} ${oB} (${ofstedYearOf(B)}).`);
-} else if (oA || oB) {
-  const gradedName = oA ? nameA : nameB;
-  sum.push(`Only ${gradedName} has a graded Ofsted inspection in our data (${oA ?? oB}, ${ofstedYearOf(oA ? A : B)}).`);
+{
+  // A report card newer than the overall grade is the latest inspection, so the summary leads with it rather than the old grade.
+  const vA = ofstedView(schoolData[A.urn].ofsted, A.urn), vB = ofstedView(schoolData[B.urn].ofsted, B.urn);
+  const cardA = vA?.cardLater && vA.card ? vA.card : null, cardB = vB?.cardLater && vB.card ? vB.card : null;
+  const gradeOf = (s: any, v: any) => `${ofstedOf(s)} (${ofstedYearOf(s)}${v?.predecessor ? ', predecessor school' : ''})`;
+  if (cardA && cardB) {
+    sum.push(`Ofsted's latest inspections of both schools were report cards (${nameA} ${longDate(cardA.date)}, ${nameB} ${longDate(cardB.date)}). Report cards grade separate areas and give no overall grade.`);
+    if (oA && oB) sum.push(oA === oB ? `The last overall grade for both schools was ${oA} (${nameA} ${ofstedYearOf(A)}${vA?.predecessor ? ', predecessor school' : ''}, ${nameB} ${ofstedYearOf(B)}${vB?.predecessor ? ', predecessor school' : ''}).` : `The last overall grades were ${gradeOf(A, vA)} for ${nameA} and ${gradeOf(B, vB)} for ${nameB}.`);
+    else if (oA || oB) sum.push(`Only ${oA ? nameA : nameB} has an earlier overall grade in our data: ${gradeOf(oA ? A : B, oA ? vA : vB)}.`);
+  } else if (cardA || cardB) {
+    const cs = cardA ? A : B, cv = cardA ? vA : vB, os = cardA ? B : A, ov = cardA ? vB : vA;
+    sum.push(`Ofsted's latest inspection of ${cs.name} was a report card on ${longDate(cv!.card!.date)}. Report cards grade separate areas and give no overall grade.${ofstedOf(cs) ? ` Its last overall grade was ${gradeOf(cs, cv)}.` : ''}`);
+    sum.push(ofstedOf(os) ? `Ofsted rates ${os.name} ${gradeOf(os, ov)}.` : `${os.name} has no graded Ofsted inspection in our data.`);
+  } else if (oA && oB) {
+    sum.push(oA === oB ? `Ofsted rates both schools ${oA} (${nameA} inspected ${ofstedYearOf(A)}${vA?.predecessor ? ', predecessor school' : ''}, ${nameB} ${ofstedYearOf(B)}${vB?.predecessor ? ', predecessor school' : ''}).`
+      : `Ofsted rates ${nameA} ${gradeOf(A, vA)} and ${nameB} ${gradeOf(B, vB)}.`);
+  } else if (oA || oB) {
+    const gradedName = oA ? nameA : nameB;
+    sum.push(`Only ${gradedName} has a graded Ofsted inspection in our data: ${gradeOf(oA ? A : B, oA ? vA : vB)}.`);
+  }
 }
 {
   const ya = sameYearFor('a8');

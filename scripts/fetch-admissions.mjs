@@ -91,7 +91,7 @@ async function main() {
       page: 'https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27',
       methodology: 'https://explore-education-statistics.service.gov.uk/methodology/secondary-and-primary-school-applications-and-offers-methodology',
       downloaded,
-      note: y === '202627' ? 'offers made on national offer day for September 2026 entry (secondary 2 March 2026, primary 16 April 2026)' : 'offers made on national offer day for September ' + y.slice(0, 2) + y.slice(4) + ' entry',
+      note: y === '202627' ? 'offers made on national offer day for September 2026 entry (secondary 2 March 2026, primary 16 April 2026)' : 'offers made on national offer day for September ' + y.slice(0, 4) + ' entry',
     };
   }
   writeFileSync('src/data/admissions-sources.json', JSON.stringify(src, null, 2) + '\n');

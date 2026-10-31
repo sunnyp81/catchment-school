@@ -93,15 +93,17 @@ export function admissionsByEntry(adm: any[]) {
     .filter((g) => g.rows.some((r) => num(r.first_pref) != null || num(r.offers_total) != null))
     .sort((a, b) => (a.entry === 'R' ? -1 : b.entry === 'R' ? 1 : a.entry < b.entry ? -1 : 1));
 }
-/** One plain sentence about the latest year, using DfE's reading of first preferences per offer. */
+/** Plain sentences about the latest year. Leads with the share of first-choice families offered a place, then DfE's first preferences per offer. */
 export function admissionsReading(name: string, label: string, r: any): string | null {
   const fp = num(r.first_pref), off = num(r.offers_total), ratio = num(r.first_pref_per_offer), pc = num(r.pct_first_pref_offered);
   if (fp == null || off == null) return null;
-  let t = `For ${label} entry in ${r.year}, ${fp.toLocaleString('en-GB')} ${fp === 1 ? 'family' : 'families'} named ${name} as their first choice and it made ${off.toLocaleString('en-GB')} ${off === 1 ? 'offer' : 'offers'}.`;
-  if (pc != null) t += ` ${pc.toFixed(1)}% of first-choice applicants were offered a place.`;
-  if (ratio != null) t += ` That is ${ratio.toFixed(2)} first preferences per offer. DfE reads a figure above 1 as oversubscribed, so ${name} was ${ratio > 1 ? '' : 'not '}oversubscribed on first preferences.`;
+  const fpT = fp.toLocaleString('en-GB'), offT = off.toLocaleString('en-GB');
+  let t = pc != null
+    ? `${pc.toFixed(1)}% of the ${fpT} families who put ${name} first for ${label} entry in ${r.year} were offered a place on offer day. The school made ${offT} ${off === 1 ? 'offer' : 'offers'} in total.`
+    : `${fpT} ${fp === 1 ? 'family' : 'families'} put ${name} first for ${label} entry in ${r.year} and the school made ${offT} ${off === 1 ? 'offer' : 'offers'}.`;
+  if (ratio != null) t += ` That is ${ratio.toFixed(2)} first preferences per offer. DfE counts a figure above 1 as oversubscribed. ${name} was ${ratio > 1 ? '' : 'not '}oversubscribed on first preferences.`;
   const oo = num(r.offers_other_la);
-  if (oo != null && off > 0) t += ` ${oo.toLocaleString('en-GB')} of the ${off.toLocaleString('en-GB')} offers went to children living in another council area.`;
+  if (oo != null && off > 0) t += ` ${oo.toLocaleString('en-GB')} of the ${offT} offers went to children living in another council area.`;
   return t;
 }
 
@@ -196,7 +198,7 @@ export function buildCompareExtras(A: any, B: any, dA: SchoolData, dB: SchoolDat
   const ung = (v: any) => (v?.ungraded ? `${v.ungraded.outcome}, ${longDate(v.ungraded.date)}` : null);
   const ofRows: CRow[] = [];
   if (vA?.ungraded || vB?.ungraded) ofRows.push({ label: 'Latest ungraded inspection', src: 'Ofsted MI, inspections to 30 September 2026', a: cell(ung(vA)), b: cell(ung(vB)), note: 'Ungraded inspections do not give a new grade. They report whether the previous grade still holds.' });
-  if (vA?.predecessor || vB?.predecessor) ofRows.push({ label: 'Whose inspection the grade is', src: 'Ofsted MI, inspections to 30 September 2026', a: cell(vA ? (vA.predecessor ? 'A predecessor school (for example before academy conversion)' : vA.rating ? 'This school' : null) : null), b: cell(vB ? (vB.predecessor ? 'A predecessor school (for example before academy conversion)' : vB.rating ? 'This school' : null) : null) });
+  if (vA?.predecessor || vB?.predecessor) ofRows.push({ label: 'School the overall grade was awarded to', src: 'Ofsted MI, inspections to 30 September 2026', a: cell(vA ? (vA.predecessor ? 'A predecessor school on this site, for example before academy conversion' : vA.rating ? 'This school' : null) : null), b: cell(vB ? (vB.predecessor ? 'A predecessor school on this site, for example before academy conversion' : vB.rating ? 'This school' : null) : null), note: 'Ofsted does not name the predecessor in its management information.' });
   if (vA?.card || vB?.card) {
     const ofsrc = 'Ofsted report card';
     ofRows.push({ label: 'Report card inspection date', src: ofsrc, a: cell(vA?.card ? longDate(vA.card.date) : 'No report card yet'), b: cell(vB?.card ? longDate(vB.card.date) : 'No report card yet'), note: 'Report cards began in September 2025 and give grades by area, with no overall grade.' });
@@ -231,7 +233,7 @@ export function buildCompareExtras(A: any, B: any, dA: SchoolData, dB: SchoolDat
     sources.push(`${SRC.admissions}.`);
     const p = pickYear(aa, ab, ak, (r) => num(r.first_pref));
     if (p.same && p.a && p.b && num(p.a.offers_total) != null && num(p.b.offers_total) != null) {
-      sums.push(`In ${p.ya} ${A.name} had ${int(p.a.first_pref)} first preferences for ${int(p.a.offers_total)} ${entryName} offers and ${B.name} had ${int(p.b.first_pref)} for ${int(p.b.offers_total)}.`);
+      sums.push(`For ${entryName} entry in ${p.ya}, ${A.name} had ${int(p.a.first_pref)} first preferences and made ${int(p.a.offers_total)} offers on offer day. ${B.name} had ${int(p.b.first_pref)} first preferences and made ${int(p.b.offers_total)} offers.`);
       const ra = num(p.a.first_pref_per_offer), rb = num(p.b.first_pref_per_offer);
       if (ra != null && rb != null && Math.abs(ra - rb) >= 0.2) {
         const hiA = ra > rb;
@@ -292,7 +294,7 @@ export function buildCompareExtras(A: any, B: any, dA: SchoolData, dB: SchoolDat
     groups.push({ title: 'Staff and spending', note: '"Stronger" is used only for the qualified teacher share and the teacher vacancy rate, and only when both schools have at least 10 full-time-equivalent teachers. Pupils per teacher, staff turnover and spending are not marked: a higher or lower figure is not clearly better.', rows: staffAll });
     if (staffRows.some((r) => r.a.text != null || r.b.text != null)) sources.push(`${SRC.workforce}.`);
     if (spendRows.some((r) => r.a.text != null || r.b.text != null)) {
-      sources.push(`${[fA?.fin_source === 'AAR' || fB?.fin_source === 'AAR' ? SRC.aar : null, fA?.fin_source === 'CFR' || fB?.fin_source === 'CFR' ? SRC.cfr : null].filter(Boolean).join('; ')}. Spending is not shown for special schools, nursery schools or implausible values.`);
+      sources.push(`${[fA?.fin_source === 'AAR' || fB?.fin_source === 'AAR' ? SRC.aar : null, fA?.fin_source === 'CFR' || fB?.fin_source === 'CFR' ? SRC.cfr : null].filter(Boolean).join('; ')}. Spending per pupil is left out for special schools, nursery schools and alternative provision, and where the published figure falls outside £3,000 to £30,000 per pupil.`);
     }
   }
 

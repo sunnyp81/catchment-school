@@ -1,7 +1,7 @@
 ---
 // Parent data sections for a school page. Each section is hidden when it has no data and carries a source line.
 import {
-  NP, SRC, ofstedView, admissionsByEntry, admissionsReading, destinationsByStage, cohortLabel, workforceShown, financeShown, sendShown,
+  NP, SRC, ofstedView, admissionsByEntry, admissionsReading, destinationsByStage, cohortLabel, workforceShown, financeShown, sendShown, isSpecialLike,
   longDate, int, pct1, f1, f2, gbp, num,
 } from '../lib/schooldata';
 
@@ -65,6 +65,9 @@ const destReading = (g: any) => {
       {adm.map((g) => (
         <div>
           <h3 class="font-semibold text-gray-900 mb-2">{g.label} entry, last {g.rows.length === 1 ? 'year' : `${g.rows.length} years`} of offer day figures</h3>
+          {admissionsReading(s.name, g.label, g.rows[g.rows.length - 1]) && (
+            <p class="mb-2">{admissionsReading(s.name, g.label, g.rows[g.rows.length - 1])}</p>
+          )}
           <div class="overflow-x-auto" role="region" aria-label={`${g.label} entry figures table`} tabindex="0">
             <table class="w-full table-fixed text-xs sm:text-sm border border-gray-200 break-words">
               <caption class="sr-only">{g.label} entry: first preferences and offers at {s.name} by year</caption>
@@ -82,12 +85,9 @@ const destReading = (g: any) => {
               </tbody>
             </table>
           </div>
-          {admissionsReading(s.name, g.label, g.rows[g.rows.length - 1]) && (
-            <p class="mt-2">{admissionsReading(s.name, g.label, g.rows[g.rows.length - 1])}</p>
-          )}
         </div>
       ))}
-      <p class="text-xs text-gray-500">These are offer day figures, so appeals and waiting lists are not counted and the final intake can differ. Offers are not the same as capacity. DfE does not publish a last distance offered nationally, so ask {s.la} for the distance cut-off. Years are the year of entry.</p>
+      <p class="text-xs text-gray-500">These are offer day figures. Appeals and waiting lists are not counted and the final intake can differ. Offers are not the same as capacity. DfE does not publish a last distance offered nationally. Ask {s.la} for the distance cut-off. Years are the academic year of entry.</p>
       <p class="text-xs text-gray-500">Source: {SRC.admissions}. <a class="text-indigo-700 underline" href="https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27" rel="nofollow noopener">Publication</a> and <a class="text-indigo-700 underline" href="https://explore-education-statistics.service.gov.uk/methodology/secondary-and-primary-school-applications-and-offers-methodology" rel="nofollow noopener">methodology</a>.</p>
     </div>
   </section>
@@ -100,7 +100,7 @@ const destReading = (g: any) => {
       {ofv.cardLater && ofv.card ? (
         <>
           <p><strong class="text-gray-900">Latest inspection: report card, {longDate(ofv.card.date)}.</strong> Report cards began in September 2025. They grade separate areas and do not give an overall grade.</p>
-          {ofv.rating && <p>The last overall grade was <strong>{ofv.ratingLabel}</strong>{ofv.gradedDate ? `, from the inspection on ${longDate(ofv.gradedDate)}` : ''}{ofv.predecessor ? ', awarded to a predecessor school' : ''}.</p>}
+          {ofv.rating && <p>The last overall grade was <strong>{ofv.ratingLabel}</strong>.{ofv.gradedDate ? ` It came from the inspection on ${longDate(ofv.gradedDate)}` : ''}{ofv.predecessor ? ` and was awarded to a predecessor school on this site, for example before academy conversion` : ''}{ofv.gradedDate || ofv.predecessor ? '.' : ''}</p>}
         </>
       ) : (
         <>
@@ -110,7 +110,7 @@ const destReading = (g: any) => {
               <span>Overall effectiveness, inspected {longDate(ofv.gradedDate)}.</span>
             </p>
           )}
-          {ofv.rating && ofv.predecessor && <p>This grade belongs to a predecessor school (a different URN), for example before it became an academy. It is the most recent overall grade recorded for this site.</p>}
+          {ofv.rating && ofv.predecessor && <p>This grade was awarded to a predecessor school on this site (a different URN), for example before academy conversion. It is the most recent overall grade recorded for the site. Ofsted does not name the predecessor in its management information.</p>}
           {ofv.ungraded && <p><strong class="text-gray-900">Latest ungraded inspection, {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}. An ungraded inspection does not issue a new grade. It reports whether the previous grade still holds.</p>}
           {ofv.card && <p><strong class="text-gray-900">Report card, {longDate(ofv.card.date)}.</strong> Report cards began in September 2025 and do not give an overall grade.</p>}
         </>
@@ -189,9 +189,10 @@ const destReading = (g: any) => {
             <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Total spending per pupil, {f.fin_year}</dt><dd class="text-gray-900">{gbp(fin.total)}</dd></div>
             {fin.teaching != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Teaching staff spending per pupil, {f.fin_year}</dt><dd class="text-gray-900">{gbp(fin.teaching)}</dd></div>}
           </dl>
-          <p class="text-xs text-gray-500">Revenue spending only, not capital. {f.fin_source === 'AAR' ? 'This is an academy, so the figure leaves out the trust\'s central spending and covers the September 2024 to August 2025 academy year.' : 'This is a council maintained school, so the figure covers the 2025-26 financial year.'} Council maintained schools and academies are not like for like.{f.fin_basis === 'federation' ? ' The figure is the pooled figure for the federation this school belongs to.' : ''} Spending is not shown for special schools, nursery schools or implausible values. Source: {finSrc}.</p>
+          <p class="text-xs text-gray-500">Revenue spending only, not capital. {f.fin_source === 'AAR' ? 'This is an academy. The figure leaves out the trust\'s central spending and covers the September 2024 to August 2025 academy year.' : 'This is a council maintained school. The figure covers the 2025-26 financial year.'} Council maintained schools and academies are not like for like.{f.fin_basis === 'federation' ? ' The figure is the pooled figure for the federation this school belongs to.' : ''} Source: {finSrc}.</p>
         </>
       )}
+      {wf && !fin && isSpecialLike(s) && <p class="text-xs text-gray-500">Spending per pupil is not shown for special schools, nursery schools or alternative provision. Their funding follows each pupil's needs, so the figure is not comparable with mainstream schools.</p>}
     </div>
   </section>
 )}
