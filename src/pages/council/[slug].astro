@@ -6,6 +6,8 @@ import SchoolCard from '../../components/SchoolCard.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import councilIntros from '../../data/council-intros.json';
 import admissionsUrls from '../../data/admissions-urls.json';
+import { hasArea } from '../../lib/areas';
+import ofstedGrades from '../../data/ofsted-grades.json';
 import OversubTable from '../../components/OversubTable.astro';
 import { OS, HUB, SOURCE_LINE, int, pct, rowsFromCompact, ordinal, trendClause } from '../../lib/oversub';
 
@@ -24,7 +26,7 @@ const pilotAdmissionsUrl = (admissionsUrls as Record<string, string>)[la.slug] ?
 
 const byTown: Record<string, any[]> = {};
 for (const s of laSchools) {
-  const key = s.town || 'Other';
+  const key = s.town || 'Other schools';
   if (!byTown[key]) byTown[key] = [];
   byTown[key].push(s);
 }
@@ -38,8 +40,11 @@ const townCount = Object.keys(byTown).length;
 const oversubCount = laSchools.filter((s: any) => s.capacity && s.pupils && s.pupils >= s.capacity).length;
 const faithCount = laSchools.filter((s: any) => s.religion && s.religion !== 'Does not apply' && s.religion !== 'None').length;
 const selectiveCount = laSchools.filter((s: any) => s.admissionsPolicy === 'Selective').length;
-const ofstedRatedCount = laSchools.filter((s: any) => ['1', '2', '3', '4'].includes(String(s.ofstedRating))).length;
-const ofstedGoodPlusCount = laSchools.filter((s: any) => s.ofstedRating === '1' || s.ofstedRating === '2').length;
+// Ofsted counts from the D1 source (src/data/ofsted-grades.json, built by scripts/gen-ofsted-grades.mjs), not the older schools.json grades.
+const og = (s: any) => (ofstedGrades as Record<string, number[]>)[s.urn] ?? [0, 0];
+const ofstedRatedCount = laSchools.filter((s: any) => og(s)[0] > 0).length;
+const ofstedGoodPlusCount = laSchools.filter((s: any) => og(s)[0] === 1 || og(s)[0] === 2).length;
+const ofstedCardCount = laSchools.filter((s: any) => og(s)[1] === 1).length;
 
 // Unique long-form intro (top 20 LAs); fall back to null for remaining councils
 const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[]; seoTitle?: string; seoDescription?: string }>)[la.slug] ?? null;
@@ -183,7 +188,7 @@ const faqSchema = {
         <span>{faithCount} school{faithCount !== 1 ? 's' : ''} {faithCount !== 1 ? 'apply' : 'applies'} faith-based criteria alongside catchment distance. </span>
       )}
       {ofstedRatedCount > 0 && (
-        <span>Of the {ofstedRatedCount} {la.name} school{ofstedRatedCount !== 1 ? 's' : ''} with a current Ofsted rating, <strong>{ofstedGoodPlusCount}</strong> {ofstedGoodPlusCount !== 1 ? 'are' : 'is'} rated Good or Outstanding.</span>
+        <span>Of the {ofstedRatedCount} {la.name} school{ofstedRatedCount !== 1 ? 's' : ''} with a graded Ofsted inspection, <strong>{ofstedGoodPlusCount}</strong> {ofstedGoodPlusCount !== 1 ? 'were' : 'was'} rated Good or Outstanding at the latest one.{ofstedCardCount > 0 ? ` ${ofstedCardCount} ${ofstedCardCount !== 1 ? 'have' : 'has'} since had an Ofsted report card, which grades separate areas instead.` : ''}</span>
       )}
     </p>
   )}
@@ -270,7 +275,7 @@ const faqSchema = {
       <ul class="flex flex-wrap gap-x-4 gap-y-1.5 text-sm">
         {towns.map(([tName, tSchools]) => (
           <li>
-            <a href={`/area/${tSchools[0].townSlug}/`} class="text-indigo-700 hover:underline">{tName} ({tSchools.length})</a>
+            {hasArea(tSchools[0].townSlug) ? <a href={`/area/${tSchools[0].townSlug}/`} class="text-indigo-700 hover:underline">{tName} ({tSchools.length})</a> : <span class="text-gray-600">{tName} ({tSchools.length})</span>}
           </li>
         ))}
       </ul>
@@ -282,14 +287,14 @@ const faqSchema = {
     <section class="mb-10">
       <div class="flex items-baseline gap-3 mb-4">
         <h2 class="text-xl font-semibold">
-          <a href={`/area/${townSchools[0].townSlug}/`} class="hover:text-indigo-700">{`Schools in ${townName}`}</a>
+          {hasArea(townSchools[0].townSlug) ? <a href={`/area/${townSchools[0].townSlug}/`} class="hover:text-indigo-700">{`Schools in ${townName}`}</a> : (townName === 'Other schools' ? 'Other schools' : `Schools in ${townName}`)}
         </h2>
         <span class="text-sm text-gray-400">{townSchools.length} school{townSchools.length !== 1 ? 's' : ''}</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {townSchools.slice(0, 12).map((s: any) => <SchoolCard {...s} />)}
       </div>
-      {townSchools.length > 12 && (
+      {townSchools.length > 12 && hasArea(townSchools[0].townSlug) && (
         <p class="mt-3 text-sm text-gray-500">
           Showing 12 of {townSchools.length}.{' '}
           <a href={`/area/${townSchools[0].townSlug}/`} class="text-indigo-700 hover:underline">

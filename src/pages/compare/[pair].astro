@@ -130,7 +130,7 @@ const perfRow = (label: string, field: string, fmt: (v: number | null) => string
 const ksSrc = 'DfE KS4 results';
 const alSrc = 'DfE A-level results';
 const rowsOfsted: Row[] = [
-  { label: 'Overall Ofsted grade', src: OFSTED_LABEL, a: cell(ofstedOf(A) ?? 'No graded inspection in our data', ofstedYearOf(A)), b: cell(ofstedOf(B) ?? 'No graded inspection in our data', ofstedYearOf(B)), note: 'Report cards, used from September 2025, give no overall grade. Where a school has one, it is shown under Ofsted detail.' },
+  { label: 'Overall Ofsted grade', src: OFSTED_LABEL, a: cell(ofstedOf(A) ?? 'No graded inspection in our data', ofstedYearOf(A)), b: cell(ofstedOf(B) ?? 'No graded inspection in our data', ofstedYearOf(B)), note: 'Report cards, used from November 2025, give no overall grade. Where a school has one, it is shown under Ofsted detail.' },
 ];
 const locOf = (s: any) => [s.town, s.la].filter((v, i, arr) => v && arr.indexOf(v) === i).join(', ') || null;
 const rowsProfile: Row[] = [

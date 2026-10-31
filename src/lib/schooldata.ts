@@ -203,7 +203,7 @@ export function buildCompareExtras(A: any, B: any, dA: SchoolData, dB: SchoolDat
   if (vA?.predecessor || vB?.predecessor) ofRows.push({ label: 'School the overall grade was awarded to', src: 'Ofsted MI, inspections to 30 September 2026', a: cell(vA ? (vA.predecessor ? 'A predecessor school on this site, for example before academy conversion' : vA.rating ? 'This school' : null) : null), b: cell(vB ? (vB.predecessor ? 'A predecessor school on this site, for example before academy conversion' : vB.rating ? 'This school' : null) : null), note: 'Ofsted does not name the predecessor in its management information.' });
   if (vA?.card || vB?.card) {
     const ofsrc = 'Ofsted report card';
-    ofRows.push({ label: 'Report card inspection date', src: ofsrc, a: cell(vA?.card ? longDate(vA.card.date) : 'No report card yet'), b: cell(vB?.card ? longDate(vB.card.date) : 'No report card yet'), note: 'Report cards began in September 2025 and give grades by area, with no overall grade.' });
+    ofRows.push({ label: 'Report card inspection date', src: ofsrc, a: cell(vA?.card ? longDate(vA.card.date) : 'No report card yet'), b: cell(vB?.card ? longDate(vB.card.date) : 'No report card yet'), note: 'Report cards began in November 2025 and give grades by area, with no overall grade.' });
     for (const [k, label] of CARD_AREAS) {
       const get = (v: any) => v?.card?.areas.find((x: any) => x.key === k)?.text ?? null;
       const ga = get(vA), gb = get(vB);
