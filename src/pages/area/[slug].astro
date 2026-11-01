@@ -187,8 +187,8 @@ const faqSchema = {
           <p>
             Across the {withFill.length} school{withFill.length !== 1 ? 's' : ''} in {town.name} with published capacity data, the average fill rate is <strong>{avgFill}%</strong>.
             {oversubSchools.length > 0
-              ? ` ${oversubSchools.length} of them ${oversubSchools.length === 1 ? 'is' : 'are'} currently at or above their published admission number, and at those schools catchment distance is likely to decide places at the next intake.`
-              : ` None are currently over capacity, but catchment distance still applies in any year a school is oversubscribed.`}
+              ? ` ${oversubSchools.length} of them ${oversubSchools.length === 1 ? 'is' : 'are'} currently at or above their GIAS capacity on pupils on roll. GIAS capacity is not a published admission number.`
+              : ` None have pupils on roll at or above their GIAS capacity.`}
           </p>
         )}
         {faithSchools.length > 0 && (

@@ -212,7 +212,7 @@ const faqSchema = {
   {(oversubCount > 0 || selectiveCount > 0 || faithCount > 0) && (
     <p class="text-gray-600 mb-8 max-w-2xl text-sm">
       {oversubCount > 0 && (
-        <span>Based on the latest published capacity data, <strong>{oversubCount}</strong> of the {laSchools.length} schools in {la.name} {oversubCount === 1 ? 'is' : 'are'} at or above their admission number, so catchment distance is decisive at those schools. </span>
+        <span>Based on the latest published capacity data, <strong>{oversubCount}</strong> of the {laSchools.length} schools in {la.name} {oversubCount === 1 ? 'has' : 'have'} pupils on roll at or above GIAS capacity. GIAS capacity is not a published admission number. </span>
       )}
       {selectiveCount > 0 && (
         <span>{la.name} has {selectiveCount} selective school{selectiveCount !== 1 ? 's' : ''} that admit by entrance test rather than distance. </span>
