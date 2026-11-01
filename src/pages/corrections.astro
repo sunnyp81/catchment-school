@@ -66,7 +66,7 @@ const schema = {
           <input type="hidden" name="_site" value="catchment.school" />
           <input type="hidden" name="subject" value="Correction report (catchment.school)" />
           <input type="hidden" name="redirectTo" value="https://catchment.school/corrections/?sent=1" />
-          <input type="text" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="text" name="honeypot" aria-hidden="true" aria-label="Leave this field empty" style="display:none" tabindex="-1" autocomplete="off" />
 
           <div>
             <label for="c-page" class="block text-sm font-medium text-gray-900 mb-1">Page address</label>
@@ -111,7 +111,8 @@ const schema = {
 
       <section>
         <h2 class="text-xl font-semibold mb-3">Who reads these reports?</h2>
-        <p>The people who run catchment.school. The <a href="/about/" class="underline">About page</a> explains what the site is and where its data comes from.</p>
+        <p>Reports go to the people who run catchment.school.</p>
+        <p>The <a href="/about/" class="underline">About page</a> explains what the site is and where its data comes from.</p>
       </section>
 
     </div>

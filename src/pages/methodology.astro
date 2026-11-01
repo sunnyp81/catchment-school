@@ -9,11 +9,11 @@ const sources: Row[] = [
   {
     name: 'Get Information About Schools (GIAS), all establishments',
     publisher: 'Department for Education (DfE)',
-    release: 'Open establishments. Special educational needs provision fields as at 30 October 2026.',
+    release: 'Open establishments. The extract date of the main school list is not recorded.',
     use: 'School names, addresses, type, phase, age range, capacity, pupils on roll, free school meals percentage, website, location and council. Resourced provision and SEN units.',
     url: 'https://get-information-about-schools.service.gov.uk',
     label: 'GIAS',
-    downloaded: 'Provision fields: 30 October 2026. The date of the main school list extract is not recorded. The list was last regenerated in June 2026.',
+    downloaded: 'School list last regenerated June 2026. Special educational needs provision fields downloaded 30 October 2026.',
   },
   {
     name: 'Management information: state-funded schools inspections and outcomes',
@@ -250,8 +250,9 @@ const schema = {
       </section>
 
       <section>
-        <h2 class="text-xl font-semibold mb-3">Who runs the site and how do I report a mistake?</h2>
-        <p>The <a href="/about/" class="underline">About page</a> says who runs catchment.school, and the <a href="/editorial-policy/" class="underline">editorial policy</a> covers independence and funding. To report an error, use the <a href="/corrections/" class="underline">corrections page</a>.</p>
+        <h2 class="text-xl font-semibold mb-3">How do I report a mistake?</h2>
+        <p>Send the page address and what is wrong, with a link to the official source if you have one. Mistakes the site introduced are fixed. Mistakes in the DfE or Ofsted record have to be fixed at the source.</p>
+        <p>Use the <a href="/corrections/" class="underline">corrections page</a> to report an error. The <a href="/about/" class="underline">About page</a> explains what the site is, and the <a href="/editorial-policy/" class="underline">editorial policy</a> covers independence and funding.</p>
       </section>
 
     </div>
