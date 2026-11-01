@@ -136,7 +136,7 @@ export function compareRankRows(sA: any, sB: any, ranksA: any[], ranksB: any[]):
   return { rows, summary };
 }
 const MAX_COMPARE_ROWS = 7;
-export const RANK_METHOD = 'Each ranking compares only state-funded schools with a published figure for that measure. The number of schools therefore differs between rows. Independent schools, special schools, nursery schools, alternative provision and 16 to 19 providers are not ranked. Each row states whether rank 1 is the highest or the lowest figure. Schools with the same figure share a rank and the next rank is skipped. Council rankings appear only where at least 10 schools in the council have a figure. Rankings describe the published figures and do not explain why schools differ.';
+export const RANK_METHOD = 'Each ranking compares only state-funded schools with a published figure for that measure. The number of schools therefore differs between rows. Independent schools are not ranked. Nor are special schools, nursery schools, alternative provision or 16 to 19 providers. Each row states whether rank 1 is the highest or the lowest figure. Schools with the same figure share a rank and the next rank is skipped. Council rankings appear only where at least 10 schools in the council have a figure. Rankings describe the published figures and do not explain why schools differ.';
 
 /** Copy-ready plain-text citation. `accessed` is passed in so the caller renders it at request time. */
 export function citationText(s: any, rows: RankRow[], hasOfsted: boolean, accessed: string): string {

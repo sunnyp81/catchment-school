@@ -251,12 +251,12 @@ const destReading = (g: any) => {
       <dl class="divide-y border rounded-lg overflow-hidden">
         {send.sup != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Pupils on SEN support</dt><dd class="text-gray-900">{pct1(send.sup)} of pupils</dd></div>}
         {send.ehc != null && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Pupils with an education, health and care plan</dt><dd class="text-gray-900">{pct1(send.ehc)} of pupils</dd></div>}
-        {send.top && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Most common type of need</dt><dd class="text-gray-900 sm:text-right">{send.top.label}{send.top.pct != null ? `, ${send.top.pct.toFixed(0)}% of pupils with SEN` : ''}</dd></div>}
+        {send.top && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Most common type of need</dt><dd class="text-gray-900 sm:text-right">{send.top.label}{send.top.pct != null ? ` (${send.top.pct.toFixed(0)}% of pupils with SEN)` : ''}</dd></div>}
         {send.rp && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Resourced provision</dt><dd class="text-gray-900 sm:text-right">{provLine('On site', send.rp).replace('On site: ', '')}</dd></div>}
         {send.unit && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">SEN unit</dt><dd class="text-gray-900 sm:text-right">{provLine('On site', send.unit).replace('On site: ', '')}</dd></div>}
         {(send.rp || send.unit) && send.needs && <div class="flex flex-wrap justify-between gap-x-4 px-4 py-3"><dt class="font-medium text-gray-600">Needs the provision caters for</dt><dd class="text-gray-900 sm:text-right">{send.needs}</dd></div>}
       </dl>
-      <p class="text-xs text-gray-500">SEN support and EHC plan figures are shares of all pupils on roll in the January 2026 census. A higher or lower figure does not show how good the support is. Provision counts are pupils on roll, not places guaranteed.</p>
+      <p class="text-xs text-gray-500">SEN support and EHC plan figures are shares of all pupils on roll in the January 2026 census. A higher or lower figure does not show how good the support is. Provision counts are pupils on roll. They are not places guaranteed.</p>
       <p class="text-xs text-gray-500">Source: {SRC.send}. Provision: {SRC.provision}.</p>
     </div>
   </section>
