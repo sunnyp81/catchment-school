@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import admissionsUrls from '../../data/admissions-urls.json';
 import { env } from 'cloudflare:workers';
 import { notFoundResponse } from '../../lib/notfound';
-import { loadSchoolData, ofstedView, longDate, buildCompareExtras, SRC } from '../../lib/schooldata';
+import { loadSchoolData, ofstedView, longDate, buildCompareExtras, SRC, compareRankRows, RANK_METHOD } from '../../lib/schooldata';
 import { resolvePair, phaseGroup, isCurated, haversineMiles, deDash } from '../../lib/compare';
 
 const SITE = 'https://catchment.school';
@@ -44,6 +44,7 @@ for (const s of [A, B]) {
   s.ofstedRating = o?.rating ?? null;
   s.ofstedDate = o?.rdate ?? null;
 }
+const rankCmp = compareRankRows(A, B, schoolData[A.urn].ranks, schoolData[B.urn].ranks);
 const extras = buildCompareExtras(A, B, schoolData[A.urn], schoolData[B.urn], gA);
 
 // Index gate: only the curated set is indexable; every other valid pair is noindex,follow with a self canonical.
@@ -457,6 +458,47 @@ const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.t
             </figure>
           ))}
         </div>
+      </section>
+    )}
+
+    {rankCmp.rows.length > 0 && (
+      <section aria-labelledby="rank-h" class="mb-10" id="how-they-rank">
+        <h2 id="rank-h" class="text-xl font-semibold mb-3">How they rank</h2>
+        {rankCmp.summary && <p class="mb-3 text-gray-800">{rankCmp.summary}</p>}
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm border border-gray-200" style="table-layout:fixed">
+            <caption class="sr-only">National and council rankings for {nameA} and {nameB}</caption>
+            <colgroup><col style="width:34%" /><col style="width:33%" /><col style="width:33%" /></colgroup>
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="text-left p-2 sm:p-3 font-medium text-gray-500">Measure</th>
+                <th scope="col" class="text-left p-2 sm:p-3 font-semibold break-words">{nameA}</th>
+                <th scope="col" class="text-left p-2 sm:p-3 font-semibold break-words">{nameB}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rankCmp.rows.map((r) => (
+                <tr class="border-t border-gray-200 align-top">
+                  <th scope="row" class="text-left p-2 sm:p-3 font-medium text-gray-900 break-words">
+                    {r.label.charAt(0).toUpperCase() + r.label.slice(1)}
+                    <span class="block text-xs font-normal text-gray-500">{r.note} Source: {r.source}.{r.caveat ? ` ${r.caveat}` : ''}{r.basisNote ? ` ${r.basisNote}` : ''}</span>
+                  </th>
+                  {[r.a, r.b].map((c) => (
+                    <td class="p-2 sm:p-3 break-words text-gray-800">
+                      {c ? (<>
+                        <span class="block">{c.rank} {c.kind}{c.pool} in England</span>
+                        {c.council && <span class="block">{c.council}</span>}
+                        {c.value && <span class="block text-xs text-gray-600">Figure: {c.value}</span>}
+                        <span class="block text-xs text-gray-500">{c.yearText}</span>
+                      </>) : NP}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-2 text-xs text-gray-500">{RANK_METHOD}</p>
       </section>
     )}
 

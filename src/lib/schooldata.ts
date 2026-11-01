@@ -81,6 +81,61 @@ export function rankRows(s: any, ranks: any[]): RankRow[] {
   }
   return rows;
 }
+export type CompareRankCell = { rank: string; council: string; value: string; yearText: string; pool: string; kind: string };
+export type CompareRankRow = { key: string; label: string; a: CompareRankCell | null; b: CompareRankCell | null; sameBasis: boolean; winner: 'a' | 'b' | null; note: string; caveat: string; source: string; sourceShort: string; basisNote: string };
+const usableRanks = (ranks: any[]) => {
+  const by: Record<string, any> = {};
+  for (const r of ranks ?? []) if (RANK_META[r.metric] && num(r.rank) != null && num(r.of_n) != null && Number(r.of_n) >= 30) by[r.metric] = r;
+  return by;
+};
+const rankCell = (s: any, r: any, m: string): CompareRankCell => {
+  const meta = RANK_META[m];
+  const la = laLabel(String(s.la ?? ''));
+  const hasLa = la && num(r.la_rank) != null && num(r.la_of_n) != null && Number(r.la_of_n) >= 10;
+  const v = num(r.value);
+  return {
+    rank: `${ord(Number(r.rank))} of ${Number(r.of_n).toLocaleString('en-GB')}`,
+    council: hasLa ? `${ord(Number(r.la_rank))} of ${Number(r.la_of_n).toLocaleString('en-GB')} in ${la}` : '',
+    value: v != null ? `${meta.fmt(v)}${meta.value ? ' ' + meta.value : ''}` : '',
+    yearText: meta.yearText(r), pool: POOL_LABEL[r.pool] ?? 'schools',
+    kind: m === 'spend_cfr' ? 'council maintained ' : m === 'spend_aar' ? 'academy ' : '',
+  };
+};
+/** Side-by-side ranking rows for two schools. A winner is named only when both schools are in the same ranking pool for the same measure and data year. Renders nothing useful (empty rows) when either school has no ranks. */
+export function compareRankRows(sA: any, sB: any, ranksA: any[], ranksB: any[]): { rows: CompareRankRow[]; summary: string } {
+  const a = usableRanks(ranksA), b = usableRanks(ranksB);
+  const groups = RANK_ORDER.filter((m) => m !== 'spend_aar'); // spending is one row: each school's own basis
+  const rows: CompareRankRow[] = [];
+  for (const g of groups) {
+    const keys = g === 'spend_cfr' ? ['spend_cfr', 'spend_aar'] : [g];
+    const ma = keys.find((k) => a[k]), mb = keys.find((k) => b[k]);
+    if (!ma || !mb) continue; // only measures both schools have
+    const ra = a[ma], rb = b[mb];
+    const meta = RANK_META[ma];
+    const ca = rankCell(sA, ra, ma), cb = rankCell(sB, rb, mb);
+    const samePool = ma === mb && ra.pool === rb.pool;
+    const sameYear = ca.yearText === cb.yearText;
+    const sameBasis = samePool && sameYear;
+    let winner: 'a' | 'b' | null = null;
+    if (sameBasis && Number(ra.rank) !== Number(rb.rank)) winner = Number(ra.rank) < Number(rb.rank) ? 'a' : 'b';
+    let basisNote = '';
+    if (!samePool) basisNote = ma !== mb ? 'The two schools report spending on different bases, so each is ranked only against its own kind and the ranks are not directly comparable.' : `The schools are ranked in different groups (${ca.pool} and ${cb.pool}), so the ranks are not directly comparable.`;
+    else if (!sameYear) basisNote = 'The two schools have different data years for this measure, so the ranks are not directly comparable.';
+    const caveats = ma !== mb ? 'Figures cover revenue spending and leave out capital spending.' : RANK_META[ma].caveat ?? '';
+    const sources = ma !== mb ? `${SRC[meta.src]}; ${SRC[RANK_META[mb].src]}` : SRC[meta.src];
+    rows.push({ key: g, label: meta.label, a: ca, b: cb, sameBasis, winner, note: `1st means the ${meta.top}.`, caveat: caveats, source: sources, sourceShort: meta.srcShort, basisNote });
+    if (rows.length >= MAX_COMPARE_ROWS) break;
+  }
+  const higher = (w: 'a' | 'b') => rows.filter((r) => r.winner === w).slice(0, 2).map((r) => r.label);
+  const join = (l: string[]) => l.join(' and ');
+  const pa = higher('a'), pb = higher('b');
+  const bits: string[] = [];
+  if (pa.length) bits.push(`${sA.name} ranks higher for ${join(pa)}`);
+  if (pb.length) bits.push(`${sB.name} ranks higher for ${join(pb)}`);
+  const summary = bits.length ? `${bits.join('; ')}. A higher rank describes the published figures and does not explain why the schools differ.` : '';
+  return { rows, summary };
+}
+const MAX_COMPARE_ROWS = 7;
 export const RANK_METHOD = 'Each ranking compares only state-funded schools with a published figure for that measure. The number of schools therefore differs between rows. Independent schools, special schools, nursery schools, alternative provision and 16 to 19 providers are not ranked. Each row states whether rank 1 is the highest or the lowest figure. Schools with the same figure share a rank and the next rank is skipped. Council rankings appear only where at least 10 schools in the council have a figure. Rankings describe the published figures and do not explain why schools differ.';
 
 /** Copy-ready plain-text citation. `accessed` is passed in so the caller renders it at request time. */
