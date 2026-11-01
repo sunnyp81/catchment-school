@@ -234,7 +234,7 @@ const catchmentAnswer = isIndependent
   : isGrammar
   ? `${s.name} is a selective ${schoolOne}${inTown}. This site holds no catchment boundary for it. Entry depends on an admissions test.`
   : ownAuthority
-  ? `${s.name} is ${schoolArticle} ${schoolOne}${inTown}. This site holds no catchment boundary for it. ${policySetter} sets the admissions policy.`
+  ? `${s.name} is ${schoolArticle} ${schoolOne}${inTown}. This site holds no catchment boundary for it.`
   : `${s.name} is ${schoolArticle} ${schoolOne}${inTown}. Not every school has a catchment area. This site holds no boundary for it.`;
 
 const faithClause = isFaith ? ` The school has a ${s.religion} character, so the criteria may include faith.` : '';
@@ -311,7 +311,7 @@ const admissionsAnswer = isIndependent
         ? `${s.name} is not a mainstream school, so the usual council process does not apply.`
         : isGrammar
           ? `${s.name} is listed as selective. Entry depends on an admissions test, and ${s.la} handles applications.`
-          : `${ownAuthority ? `${policySetter} sets the policy for ${s.name}. ` : `${s.la} handles applications to ${s.name}. `}${s.admissionsPolicy === 'Non-selective' ? 'GIAS lists the policy as non-selective. ' : ''}${isFaith ? `The ${s.religion} character may bring faith criteria into the ranking. ` : ''}The policy names the criteria in ranked order.`;
+          : `${ownAuthority ? `${s.name} publishes its own admissions policy. ` : `${s.la} handles applications to ${s.name}. `}${s.admissionsPolicy === 'Non-selective' ? 'GIAS lists the policy as non-selective. ' : ''}${isFaith ? `The ${s.religion} character may bring faith criteria into the ranking. ` : ''}The policy names the criteria in ranked order.`;
 const ageAnswer = s.ageRange
   ? `${s.name} takes pupils aged ${s.ageRange}. GIAS holds the current age range.`
   : '';
