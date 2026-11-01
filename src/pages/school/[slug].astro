@@ -144,7 +144,7 @@ const admissionsCiteVerified = pilotAdmissionsUrl !== null;
 
 // Pilot: data-derived H2 for the capacity/demand section - unique per school.
 const pilotCapacityH2 = fillRate !== null
-  ? `${s.name}: ${s.pupils} pupils on roll, capacity ${s.capacity}`
+  ? `${s.name}: ${s.pupils} pupils on roll against ${s.capacity} places`
   : `${s.name}: admissions capacity`;
 
 // Pilot: FSM context sentence - turns a raw number into a prose signal about the school's community.
@@ -649,7 +649,7 @@ const breadcrumbSchema = {
         <section class="mb-8">
           <h2 class="text-xl font-semibold mb-4">Nearest {schoolMany} by distance</h2>
           <p class="text-sm text-gray-600 mb-4">
-            These are the {schoolMany} closest to {s.name} by straight-line distance, including ones across a town or council boundary. Schools in a different council area name that council. Distance is not the same as being in catchment: always check each school's own admissions policy for its actual boundary.
+            These are the {schoolMany} closest to {s.name} by straight-line distance. That includes schools across a town or council boundary. Schools in a different council area name that council. Distance is not the same as being in catchment. Check each school's own admissions policy for its boundary.
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {nearestByDistance.map((n: any) => (
