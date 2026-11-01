@@ -41,6 +41,7 @@ const admMode = admissionsMode(s);
 const councilAdmits = admMode === 'council';
 const isIndependent = admMode === 'independent';
 const isPlaced = admMode === 'placed';
+const isSixteenPlus = admMode === 'other' && String(s.phase ?? '').trim().toLowerCase() === '16 plus';
 const isPru = /pupil referral|alternative provision/i.test(String(s.type ?? ''));
 const sameKindCol = noun.fromPhase ? 'phase' : 'type';
 const sameKindVal = noun.fromPhase ? s.phase : s.type;
@@ -54,8 +55,8 @@ if (schoolData.ofsted?.rating) {
 }
 
 const nearby = (await env.DB
-  .prepare(`SELECT slug, name, type, postcode FROM schools WHERE town = ? AND ${sameKindCol} = ? AND urn != ? LIMIT 6`)
-  .bind(s.town, sameKindVal, s.urn)
+  .prepare(`SELECT slug, name, type, postcode FROM schools WHERE town = ? AND laSlug = ? AND ${sameKindCol} = ? AND urn != ? LIMIT 6`)
+  .bind(s.town, s.laSlug, sameKindVal, s.urn)
   .all()
 ).results;
 
@@ -91,7 +92,7 @@ if (s.lat && s.lng) {
   const latDelta = 0.15; // ~10 miles north-south
   const lngDelta = Math.min(0.4, 0.15 / Math.cos((s.lat * Math.PI) / 180)); // widen with latitude
   const distCandidates = (await env.DB
-    .prepare(`SELECT slug, name, type, town, lat, lng FROM schools WHERE ${sameKindCol} = ? AND lat BETWEEN ? AND ? AND lng BETWEEN ? AND ? AND urn != ? LIMIT 80`)
+    .prepare(`SELECT slug, name, type, town, la, laSlug, lat, lng FROM schools WHERE ${sameKindCol} = ? AND lat BETWEEN ? AND ? AND lng BETWEEN ? AND ? AND urn != ? LIMIT 80`)
     .bind(sameKindVal, s.lat - latDelta, s.lat + latDelta, s.lng - lngDelta, s.lng + lngDelta, s.urn)
     .all()
   ).results;
@@ -122,7 +123,13 @@ const directionsUrl = s.lat && s.lng ? `https://www.google.com/maps/dir/?api=1&d
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ' ' + s.postcode)}`;
 const councilAdmissionsUrl = `https://www.google.com/search?q=${encodeURIComponent(s.la + ' school admissions catchment area ' + new Date().getFullYear())}`;
 
-const isOversubscribed = s.capacity && s.pupils && s.pupils >= s.capacity;
+// Oversubscription comes only from DfE first preferences against offers. GIAS capacity is not a published admission number.
+const admGroups = admissionsByEntry(schoolData.adm)
+  .map((g) => ({ ...g, latest: g.rows[g.rows.length - 1] }))
+  .filter((g) => g.latest.first_pref != null && g.latest.offers_total != null && Number.isFinite(Number(g.latest.first_pref)) && Number.isFinite(Number(g.latest.offers_total)));
+const dfeRow = admGroups[0]?.latest ?? null;
+const dfeLabel = admGroups[0]?.label ?? '';
+const isOversubscribed = !!dfeRow && Number(dfeRow.first_pref) > Number(dfeRow.offers_total);
 const fillRate = s.capacity && s.pupils ? Math.round((s.pupils / s.capacity) * 100) : null;
 const admissionsYear = new Date().getFullYear() + 1;
 
@@ -137,25 +144,13 @@ const admissionsCiteVerified = pilotAdmissionsUrl !== null;
 
 // Pilot: data-derived H2 for the capacity/demand section - unique per school.
 const pilotCapacityH2 = fillRate !== null
-  ? !councilAdmits
-    ? `${s.name}: ${s.capacity} places, ${fillRate}% filled`
-    : fillRate >= 110
-    ? `${s.name}: heavily oversubscribed at ${fillRate}% capacity`
-    : fillRate >= 100
-      ? `${s.name}: at or above its ${s.capacity} place limit`
-      : fillRate >= 90
-        ? `${s.name}: ${s.capacity} places, ${fillRate}% filled: nearing capacity`
-        : `${s.name}: ${s.capacity} places, ${fillRate}% filled: places available`
+  ? `${s.name}: ${s.pupils} pupils on roll, capacity ${s.capacity}`
   : `${s.name}: admissions capacity`;
 
 // Pilot: FSM context sentence - turns a raw number into a prose signal about the school's community.
 // Two sentences where appropriate (task fix-e): split FSM figure from community context.
 const pilotFsmProse = councilAdmits && s.fsm != null
-  ? s.fsm >= 40
-    ? `${s.fsm}% of pupils at ${s.name} are eligible for free school meals, above the national average of around 24%. This reflects the school's role in a higher-deprivation area of ${s.town}.`
-    : s.fsm >= 20
-      ? `${s.fsm}% of pupils at ${s.name} are eligible for free school meals, broadly in line with the national average. This reflects a mixed catchment population across ${s.la}.`
-      : `${s.fsm}% of pupils are eligible for free school meals, below the national average. The school draws primarily from a lower-deprivation part of ${s.town}.`
+  ? `${s.fsm}% of pupils at ${s.name} are recorded as eligible for free school meals in the GIAS register.`
   : null;
 
 // Pilot: fill-rate narrative paragraph - unique per school because fillRate, capacity, and pupils differ.
@@ -164,16 +159,13 @@ const pilotFsmProse = councilAdmits && s.fsm != null
 // fix-c: "The last-distance figure is likely to remain tight if demand holds at this level."
 // fix-d: "{Council} allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance."
 // fix-i: no em/en dashes in pilot prose
+const rollVsCapacity = fillRate !== null
+  ? `${s.name} has <strong>${s.pupils} pupils on roll</strong> compared with a capacity of <strong>${s.capacity} places</strong> in the GIAS register, which is <strong>${fillRate}%</strong> of capacity. GIAS capacity is not a published admission number, and pupils on roll are not the same as places offered in a given year.`
+  : null;
 const pilotDemandProse = fillRate !== null && !councilAdmits
-  ? `${s.name} has a capacity of <strong>${s.capacity} places</strong>. <strong>${s.pupils} pupils</strong> were enrolled in the most recent data, giving a fill rate of <strong>${fillRate}%</strong>. ${isIndependent ? 'Admissions are handled by the school itself, so ask the school about places and entry.' : isPlaced ? `Places are arranged by placement through ${s.la} rather than by application and catchment area.` : 'Ask the establishment directly about places and how to apply.'}`
+  ? `${rollVsCapacity} ${isIndependent ? 'Admissions are handled by the school itself, so ask the school about places and entry.' : isPlaced ? `Places are arranged by placement through ${s.la} rather than by application and catchment area.` : 'Ask the establishment directly about places and how to apply.'}`
   : fillRate !== null
-  ? `${s.name} has a published admission number of <strong>${s.capacity} places</strong>. <strong>${s.pupils} pupils</strong> were enrolled in the most recent data, giving a fill rate of <strong>${fillRate}%</strong>. ${
-      fillRate >= 100
-        ? `That is at or above the ${s.capacity} places on record. Pupils on roll are not the same as places offered in a given year, so use the offer day figures on this page and ask ${s.la} for the admissions criteria and any distance data.`
-        : fillRate >= 90
-          ? `That is close to the ${s.capacity} places on record. Pupils on roll are not the same as places offered in a given year, so ask ${s.la} for the admissions criteria and any distance data.`
-          : `That leaves ${s.capacity - s.pupils} places below the ${s.capacity} on record. Pupils on roll are not the same as places offered in a given year, so ask ${s.la} for the admissions criteria and any distance data.`
-    }`
+  ? `${rollVsCapacity} ${dfeRow ? `The DfE offer day figures show whether the school was oversubscribed on first preferences. Ask ${s.la} for the admissions criteria and any distance data.` : `This page has no DfE offer day figures for the school, so it cannot say whether the school was oversubscribed. Ask ${s.la} for the admissions criteria and any distance data.`}`
   : null;
 
 const introFacts = [
@@ -230,7 +222,7 @@ const catchmentPara1 = isIndependent
   : isPru
   ? `Places at <strong>${s.name}</strong> are arranged by placement, usually through <strong>${s.la}</strong> or the child's current school, rather than through the main admissions round. There is no catchment area in the mainstream sense.`
   : admMode === 'other'
-  ? `<strong>${s.name}</strong> is not a mainstream school, so the usual council catchment area process does not apply. Contact the establishment directly about how to apply.`
+  ? (isSixteenPlus ? `<strong>${s.name}</strong> is a 16 plus provider, not a school with a council catchment area. The provider sets its own admissions, so contact it directly about courses, entry requirements and how to apply.` : `<strong>${s.name}</strong> is not a mainstream school, so the usual council catchment area process does not apply. Contact the establishment directly about how to apply.`)
   : isGrammar
   ? `Entry to <strong>${s.name}</strong> is selective, and applicants must pass the relevant admissions test. Among qualifying applicants, <strong>${s.la}</strong> may use distance or catchment area as a tiebreaker when the school is oversubscribed. Check the admissions policy for how the selection and distance criteria interact.`
   : isSpecial
@@ -261,7 +253,7 @@ const catchmentAnswer = isIndependent
   : isPru
   ? `${s.name} does not use a catchment area. Places are arranged by placement, usually through ${s.la} or the child's current school, rather than through the main admissions round.`
   : admMode === 'other'
-  ? `${s.name} is not a mainstream school, so the usual council catchment area process does not apply. Contact the establishment directly about how to apply.`
+  ? (isSixteenPlus ? `${s.name} is a 16 plus provider and does not use a council catchment area. The provider sets its own admissions, so contact it directly about courses, entry requirements and how to apply.` : `${s.name} is not a mainstream school, so the usual council catchment area process does not apply. Contact the establishment directly about how to apply.`)
   : isSpecial
   ? `${s.name} is ${schoolArticle} ${schoolOne} in ${locationLine}, and it does not use a standard catchment area. ${s.la} allocates places through each child's Education, Health and Care Plan (EHCP) rather than home-to-school distance, so placement depends on assessed need rather than a geographic boundary.`
   : `${s.name} is ${schoolArticle} ${schoolOne} in ${locationLine}. Where a school has a catchment area, children living inside it are usually ranked higher when the school has more applications than places, ${isGrammar ? `though entry first depends on passing the selective admissions test` : isFaith ? `after looked-after children and, in most years, faith-based criteria` : `after looked-after children and siblings`}. Many councils publish distance data, but not every school uses a catchment area. ${isAcademy || isFaith || /foundation/i.test(String(s.type)) ? `${isFaith ? 'As a faith school' : isAcademy ? 'As an academy' : 'As a foundation school'}, ${s.name} may set its own admissions criteria, so check its published admissions policy. ` : ''}${s.la} can confirm the criteria and any boundary or distance figures for this school.`;
@@ -289,6 +281,9 @@ const description = inCohort ? cohortDescription : councilAdmits
   : `${s.name} in ${locationLine}: how admissions work${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, age range and nearby ${schoolMany}.`;
 
 // FAQ answers for establishments whose admissions are not set by the council (null for ordinary council-admitting schools).
+const oversubAnswer = dfeRow
+  ? `In ${dfeRow.year}, ${s.name} received ${Number(dfeRow.first_pref).toLocaleString('en-GB')} first preferences and made ${Number(dfeRow.offers_total).toLocaleString('en-GB')} offers for ${dfeLabel} entry, so it was ${isOversubscribed ? '' : 'not '}oversubscribed on first preferences (DfE offer day figures; appeals and waiting lists are not counted).`
+  : `${s.name} has ${s.pupils ?? 'an unknown number of'} pupils on roll${s.capacity ? ` compared with a capacity of ${s.capacity} places in the GIAS register` : ''}. This page has no DfE offer day figures for the school, so it cannot say whether the school was oversubscribed. Check the latest admissions data with ${s.la}.`;
 const faqOversubOverride = councilAdmits ? null
   : `${[s.capacity ? `${s.name} has a capacity of ${s.capacity} places` : null, s.pupils ? `${s.capacity ? 'and currently has' : `${s.name} currently has`} ${s.pupils} pupils enrolled` : null].filter(Boolean).join(' ') || `${s.name} has no capacity or roll figure on record here`}. ${isIndependent ? 'Admissions are set by the school, so ask the school about current availability.' : isPlaced ? `Places are arranged by placement through ${s.la}, so ask them about availability.` : 'Ask the establishment directly about current availability.'}`;
 const faqAdmissionsOverride = councilAdmits ? null
@@ -296,7 +291,9 @@ const faqAdmissionsOverride = councilAdmits ? null
     ? `${s.name} is an independent school and sets its own admissions.${isGrammar ? ' Its admissions policy is listed as selective.' : ''} Contact the school for entry requirements and how to apply.`
     : isPlaced
       ? `Places at ${s.name} are arranged by placement through ${s.la}${isPru ? '' : ", based on the child's Education, Health and Care Plan (EHCP)"}, not by the main admissions round or catchment area. Ask ${s.la} how this works.`
-      : `${s.name} is not a mainstream school, so the usual council admissions process does not apply. Contact the establishment directly about how to apply.`;
+      : isSixteenPlus
+        ? `${s.name} is a 16 plus provider and sets its own admissions. Contact the provider directly about courses, entry requirements and how to apply.`
+        : `${s.name} is not a mainstream school, so the usual council admissions process does not apply. Contact the establishment directly about how to apply.`;
 
 const schoolSchema = {
   "@context": "https://schema.org",
@@ -341,11 +338,7 @@ const faqSchema = {
       "name": `Is ${s.name} oversubscribed?`,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": faqOversubOverride ?? (isOversubscribed
-          ? `Yes, ${s.name} currently has ${s.pupils} pupils enrolled against a capacity of ${s.capacity} places. Catchment area proximity is an important admissions criterion.`
-          : fillRate && fillRate >= 90
-            ? `${s.name} is operating close to its capacity of ${s.capacity} places (${fillRate}% full). Catchment boundaries are likely to apply when the school is oversubscribed at the next intake.`
-            : `${s.name} has a capacity of ${s.capacity ?? 'unknown'} places${s.pupils ? ` and currently has ${s.pupils} pupils enrolled` : ''}. Check the latest admissions data with ${s.la} for the current year.`)
+        "text": faqOversubOverride ?? oversubAnswer
       }
     },
     {
@@ -433,7 +426,7 @@ const breadcrumbSchema = {
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
 
-      <h1 class="text-3xl font-bold mb-2">{s.name} Catchment Area</h1>
+      <h1 class="text-3xl font-bold mb-2">{inCohort ? `${s.name} Admissions 2026` : `${s.name} Catchment Area`}</h1>
 
       <AuthorByline type="school" />
 
@@ -458,15 +451,12 @@ const breadcrumbSchema = {
       )}
 
       <p class="text-gray-600 mb-6">
-        {s.name} is {introArticle} {introPhrase} in {locationLine}
-        {introFacts ? `, ${introFacts}` : ''}.
+        {s.name} is {introArticle} {introPhrase} in {locationLine}{introFacts ? `, ${introFacts}` : ''}.
         {!councilAdmits
           ? ` Find admissions guidance and nearby ${schoolMany} below.`
           : isOversubscribed
-          ? ` The school is currently at or above capacity, making catchment area proximity important for admissions.`
-          : s.capacity && fillRate && fillRate >= 90
-            ? ` The school is operating close to capacity, and catchment area boundaries apply when the school is oversubscribed.`
-            : ` Find catchment area guidance, admissions policy details and nearby ${schoolMany} below.`
+          ? ` The DfE offer day figures show more first preferences than offers.`
+          : ` Find catchment area guidance, admissions policy details and nearby ${schoolMany} below.`
         }
       </p>
 
@@ -498,15 +488,15 @@ const breadcrumbSchema = {
           </div>
         )}
         {s.capacity && (
-          <div class={`rounded-lg p-4 text-center ${isOversubscribed ? 'bg-amber-50' : 'bg-indigo-50'}`}>
-            <p class={`text-2xl font-bold ${isOversubscribed ? 'text-amber-600' : 'text-indigo-700'}`}>{s.capacity.toLocaleString()}</p>
+          <div class="rounded-lg p-4 text-center bg-indigo-50">
+            <p class="text-2xl font-bold text-indigo-700">{s.capacity.toLocaleString()}</p>
             <p class="text-xs text-gray-500 mt-1">Capacity</p>
           </div>
         )}
         {fillRate && (
-          <div class={`rounded-lg p-4 text-center ${fillRate >= 100 ? 'bg-red-50' : fillRate >= 90 ? 'bg-amber-50' : 'bg-green-50'}`}>
-            <p class={`text-2xl font-bold ${fillRate >= 100 ? 'text-red-600' : fillRate >= 90 ? 'text-amber-600' : 'text-green-700'}`}>{fillRate}%</p>
-            <p class="text-xs text-gray-500 mt-1">Fill rate</p>
+          <div class="rounded-lg p-4 text-center bg-indigo-50">
+            <p class="text-2xl font-bold text-indigo-700">{fillRate}%</p>
+            <p class="text-xs text-gray-500 mt-1">Pupils on roll as a share of capacity</p>
           </div>
         )}
         {ofstedLabel && (
@@ -525,23 +515,14 @@ const breadcrumbSchema = {
         </div>
         <div class="bg-amber-50 border border-amber-200 rounded-lg p-5">
           <p class="text-sm text-gray-700 mb-3" set:html={catchmentPara1} />
-          {councilAdmits && isOversubscribed && (
+          {councilAdmits && isOversubscribed && dfeRow && (
             <div class="bg-amber-100 border border-amber-300 rounded p-3 mb-3 text-sm text-amber-800">
-              <strong>Currently oversubscribed:</strong> {s.pupils} pupils enrolled against a capacity of {s.capacity} places.
-              Living within the catchment area is especially important for this school.
+              <strong>Oversubscribed on first preferences:</strong> {Number(dfeRow.first_pref).toLocaleString('en-GB')} first preferences for {Number(dfeRow.offers_total).toLocaleString('en-GB')} offers, {dfeLabel} entry, {dfeRow.year} (DfE offer day figures).
               <p class="mt-2">
                 Not getting a place? <a href="/guides/how-to-appeal-a-school-place" class="font-semibold text-amber-900 underline hover:no-underline">Learn how to appeal a school place →</a>
               </p>
               <p class="mt-2">
                 Want the cut-off distance before you apply? <a href="#alerts" class="font-semibold text-amber-900 underline hover:no-underline">Get an alert when {s.la} publishes the {admissionsYear} {s.name} numbers →</a>
-              </p>
-            </div>
-          )}
-          {councilAdmits && !isOversubscribed && fillRate && fillRate >= 90 && (
-            <div class="bg-yellow-50 border border-yellow-200 rounded p-3 mb-3 text-sm text-yellow-800">
-              <strong>Operating near capacity:</strong> {fillRate}% of places are currently filled. Catchment boundaries are likely to apply when the school is oversubscribed at the next intake.
-              <p class="mt-2">
-                <a href="#alerts" class="font-semibold text-yellow-900 underline hover:no-underline">Get an alert if {s.name} goes oversubscribed for {admissionsYear} →</a>
               </p>
             </div>
           )}
@@ -659,13 +640,13 @@ const breadcrumbSchema = {
         <section class="mb-8">
           <h2 class="text-xl font-semibold mb-4">Nearest {schoolMany} by distance</h2>
           <p class="text-sm text-gray-600 mb-4">
-            These are the {schoolMany} closest to {s.name} by straight-line distance, including ones across a town or council boundary. Distance is not the same as being in catchment: always check each school's own admissions policy for its actual boundary.
+            These are the {schoolMany} closest to {s.name} by straight-line distance, including ones across a town or council boundary. Schools in a different council area name that council. Distance is not the same as being in catchment: always check each school's own admissions policy for its actual boundary.
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {nearestByDistance.map((n: any) => (
               <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
-                <p class="text-xs text-gray-500 mt-1">{n.type} · {n.town} · {n.distanceMiles.toFixed(1)} miles away</p>
+                <p class="text-xs text-gray-500 mt-1">{n.type} · {n.town}{n.laSlug && n.laSlug !== s.laSlug ? `, ${n.la}` : ''} · {n.distanceMiles.toFixed(1)} miles away</p>
               </a>
             ))}
           </div>
@@ -744,12 +725,7 @@ const breadcrumbSchema = {
               <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
             </summary>
             <p class="mt-3 text-sm text-gray-700">
-              {faqOversubOverride ?? (isOversubscribed
-                ? `Yes, ${s.name} currently has ${s.pupils} pupils enrolled against a capacity of ${s.capacity} places. Catchment area proximity is an important admissions criterion when applying.`
-                : fillRate && fillRate >= 90
-                  ? `${s.name} is operating close to its capacity of ${s.capacity} places (${fillRate}% full). Catchment boundaries are likely to apply when the school is oversubscribed at the next intake.`
-                  : `${s.name} has a capacity of ${s.capacity ?? 'N/A'} places${s.pupils ? ` and currently has ${s.pupils} pupils enrolled` : ''}. For the most up-to-date data, check with ${s.la}.`)
-              }
+              {faqOversubOverride ?? oversubAnswer}
             </p>
           </details>
           <details class="border rounded-lg p-4 group">
