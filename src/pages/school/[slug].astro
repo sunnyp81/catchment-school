@@ -38,7 +38,8 @@ for (const k of ['ageRange', 'name', 'town', 'la', 'street', 'locality', 'type']
 // Readable establishment wording. GIAS phase is "Not applicable" for independent, special, PRU and Welsh records.
 const noun = schoolNoun(s);
 const admMode = admissionsMode(s);
-const councilAdmits = admMode === 'council';
+const isNursery = String(s.phase ?? '').trim().toLowerCase() === 'nursery';
+const councilAdmits = admMode === 'council' && !isNursery;
 const isIndependent = admMode === 'independent';
 const isPlaced = admMode === 'placed';
 const isSixteenPlus = admMode === 'other' && String(s.phase ?? '').trim().toLowerCase() === '16 plus';
@@ -163,22 +164,18 @@ const rollVsCapacity = fillRate !== null
   ? `${s.name} has <strong>${s.pupils} pupils on roll</strong> against a capacity of <strong>${s.capacity} places</strong> in the GIAS register. That is <strong>${fillRate}%</strong> of capacity. GIAS capacity is not a published admission number. Pupils on roll are not places offered in a given year.`
   : null;
 const pilotDemandProse = fillRate !== null && !councilAdmits
-  ? `${rollVsCapacity} ${isIndependent ? 'The school handles its own admissions.' : isPlaced ? `${s.la} arranges places by placement.` : 'The establishment handles its own admissions.'}`
+  ? `${rollVsCapacity} ${isNursery ? 'Nursery places are not allocated through the council's school admissions round.' : isIndependent ? 'The school handles its own admissions.' : isPlaced ? `${s.la} arranges places by placement.` : 'The establishment handles its own admissions.'}`
   : fillRate !== null
-  ? `${rollVsCapacity} ${dfeRow ? 'The offer day figures above show whether first preferences exceeded offers.' : 'Roll against capacity does not show demand for places.'}`
+  ? `${rollVsCapacity} ${dfeRow ? 'The offer day figures on this page show whether first preferences exceeded offers.' : 'Roll against capacity does not show demand for places.'}`
   : null;
-
-const introFacts = [
-  s.ageRange ? `serving pupils aged ${s.ageRange}` : null,
-  s.pupils ? `with ${s.pupils} pupils` : null,
-  s.capacity ? `and a capacity of ${s.capacity} places` : null,
-].filter(Boolean).join(', ');
 
 // schoolOne / schoolMany: "primary school" / "independent schools" etc, never the raw "Not applicable".
 const schoolOne = noun.one;
 const schoolMany = noun.many;
 const phaseLower = noun.fromPhase ? String(s.phase).toLowerCase() : '';
-const typeDesc = noun.fromPhase ? String(s.type ?? '').toLowerCase().replace('school', '').trim() : '';
+const typeDesc = noun.fromPhase
+  ? String(s.type ?? '').toLowerCase().replace(/\bschools?\b/g, '').replace(new RegExp('\b' + phaseLower.replace(/ /g, '\s+') + '\b'), '').replace(/\d+\s*to\s*\d+/g, '').replace(/\s+/g, ' ').trim()
+  : '';
 const introPhrase = `${typeDesc ? `${typeDesc} ` : ''}${schoolOne}`;
 const introArticle = articleFor(introPhrase);
 const schoolArticle = articleFor(schoolOne);
@@ -223,7 +220,9 @@ const ownAuthority = councilAdmits && !isGrammar && (isTrustSchool || isGovernin
 const policySetter = isTrustSchool ? 'The academy trust' : 'The governing body';
 const inTown = s.town ? ` in ${s.town}` : '';
 
-const catchmentAnswer = isIndependent
+const catchmentAnswer = isNursery
+  ? `${s.name} is a nursery school${inTown}. This site holds no catchment boundary for it.`
+  : isIndependent
   ? `${s.name} has no council catchment area. It is an independent school and sets its own admissions.`
   : isPru
   ? `${s.name} does not use a catchment area. Places are arranged by placement.`
@@ -238,7 +237,9 @@ const catchmentAnswer = isIndependent
   : `${s.name} is ${schoolArticle} ${schoolOne}${inTown}. Not every school has a catchment area. This site holds no boundary for it.`;
 
 const faithClause = isFaith ? ` The school has a ${s.religion} character, so the criteria may include faith.` : '';
-const catchmentPara1 = isIndependent
+const catchmentPara1 = isNursery
+  ? `Nursery places are not allocated through the council's school admissions round.`
+  : isIndependent
   ? `<strong>${s.name}</strong> decides who is offered a place. <strong>${s.la}</strong> does not allocate its places.${isGrammar ? ' Its admissions policy is listed as selective.' : ''}${/special/i.test(String(s.type)) ? ' Where an authority names the school in an Education, Health and Care Plan (EHCP), that authority arranges the placement.' : ''}`
   : isPru
   ? `<strong>${s.la}</strong> or the child's current school usually arranges the placement. It sits outside the main admissions round.`
@@ -252,7 +253,9 @@ const catchmentPara1 = isIndependent
   ? `Applications for <strong>${s.name}</strong> go through <strong>${s.la}</strong>. ${policySetter} writes the oversubscription criteria.${faithClause}`
   : `Applications for <strong>${s.name}</strong> go through <strong>${s.la}</strong>.${faithClause} The policy sets out how places are ranked when applications exceed places.`;
 
-const catchmentPara2 = isIndependent
+const catchmentPara2 = isNursery
+  ? `Ask the school how to apply.`
+  : isIndependent
   ? `Contact the school about entry requirements and how to apply.`
   : isPru
   ? `Ask ${s.la} how placements into alternative provision work.`
@@ -262,7 +265,9 @@ const catchmentPara2 = isIndependent
   ? `The SEND team at ${s.la} can say which schools the council names. The council also publishes a Local Offer for its area.`
   : `Each admissions year has its own policy. Read the one for the year you apply.`;
 
-const catchmentFaq = isIndependent
+const catchmentFaq = isNursery
+  ? `${s.name} has no catchment boundary on this site. Ask the school how to apply for a nursery place.`
+  : isIndependent
   ? `Independent schools have no council catchment area.`
   : isPru || isSpecial || admMode === 'other'
   ? `${s.name} does not use a standard catchment area. ${isPru ? `Ask ${s.la} about placement.` : isSpecial ? `Ask ${s.la} about EHCP placement.` : 'Contact the establishment about applying.'}`
@@ -301,7 +306,9 @@ const oversubAnswer = dfeRow
       : admMode === 'other'
         ? `DfE offer day figures do not cover ${s.name}. Contact the establishment about places.`
         : `This page has no DfE offer day figures for ${s.name}, so it cannot say.`;
-const admissionsAnswer = isIndependent
+const admissionsAnswer = isNursery
+  ? `Nursery places are not allocated through the council's school admissions round. Ask ${s.name} how to apply.`
+  : isIndependent
   ? `${s.name} sets its own entry rules.${isGrammar ? ' GIAS lists its policy as selective.' : ''} Ask the school for its requirements.`
   : isPlaced
     ? `${s.la} arranges places at ${s.name} by placement${isPru ? '' : ", based on the pupil's EHCP"}. Ask ${s.la} how it works.`

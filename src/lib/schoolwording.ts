@@ -45,7 +45,7 @@ export function admissionsMode(s: { phase?: unknown; type?: unknown }): Admissio
   const t = String(s.type ?? '').toLowerCase();
   if (/independent/.test(t)) return 'independent';
   if (/special|pupil referral|alternative provision/.test(t) || String(s.phase ?? '').toLowerCase() === 'special') return 'placed';
-  if (/higher education|secure unit|offshore|miscellaneous|service children/.test(t)) return 'other';
+  if (/higher education|secure unit|offshore|miscellaneous|service children|sixth form|city technology/.test(t)) return 'other';
   if (String(s.phase ?? '').trim().toLowerCase() === '16 plus') return 'other';
   return 'council';
 }
