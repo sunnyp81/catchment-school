@@ -1,0 +1,259 @@
+---
+import Base from '../layouts/Base.astro';
+
+const SITE = 'https://catchment.school';
+const lastUpdated = '31 October 2026';
+
+type Row = { name: string; publisher: string; release: string; use: string; url: string; label: string; downloaded: string };
+const sources: Row[] = [
+  {
+    name: 'Get Information About Schools (GIAS), all establishments',
+    publisher: 'Department for Education (DfE)',
+    release: 'Open establishments. Special educational needs provision fields as at 30 October 2026.',
+    use: 'School names, addresses, type, phase, age range, capacity, pupils on roll, free school meals percentage, website, location and council. Resourced provision and SEN units.',
+    url: 'https://get-information-about-schools.service.gov.uk',
+    label: 'GIAS',
+    downloaded: 'Provision fields: 30 October 2026. The date of the main school list extract is not recorded. The list was last regenerated in June 2026.',
+  },
+  {
+    name: 'Management information: state-funded schools inspections and outcomes',
+    publisher: 'Ofsted',
+    release: 'Latest inspections as at 30 September 2026, plus latest inspections as at 31 December 2025 (used for grades before 2019).',
+    use: 'Latest overall grade, report card area grades, ungraded inspection outcomes and inspection dates.',
+    url: 'https://www.gov.uk/government/statistical-data-sets/monthly-management-information-ofsteds-school-inspections-outcomes',
+    label: 'Ofsted management information',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: 'Primary and secondary school applications and offers',
+    publisher: 'DfE',
+    release: 'Academic year 2026/27 release, published 18 June 2026. School level file dated 29 June 2026. Covers offers for September 2024, 2025 and 2026 entry.',
+    use: 'First preferences, places offered and first preferences per offer for Reception and Year 7. Oversubscribed schools lists.',
+    url: 'https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27',
+    label: 'DfE release page',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: 'Key stage 4 performance',
+    publisher: 'DfE',
+    release: 'Academic years 2022/23 to 2025/26. 2022/23 to 2024/25 are final. 2025/26 is provisional.',
+    use: 'Attainment 8 and Progress 8.',
+    url: 'https://api.education.gov.uk/statistics/v1/data-sets/19e39901-a96c-be76-b9c2-6af54ae076d2/csv?dataSetVersion=2.0.1',
+    label: 'DfE statistics API data set',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: '16 to 19 performance, A level cohort',
+    publisher: 'DfE',
+    release: 'Academic year 2024/25 release, covering 2021/22 to 2024/25 (final).',
+    use: 'Sixth form A level results.',
+    url: 'https://api.education.gov.uk/statistics/v1/data-sets/019c2960-81e3-70c2-8d65-72c3718ae4fd/csv?dataSetVersion=1.0.3',
+    label: 'DfE statistics API data set',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: 'Pupil absence in schools in England',
+    publisher: 'DfE',
+    release: 'Academic year 2024/25, published 26 March 2026.',
+    use: 'Overall absence and persistent absence rates.',
+    url: 'https://content.explore-education-statistics.service.gov.uk/api/data-set-files/889f9166-e3bf-4d3a-afb2-d86e4aecc70a/download',
+    label: 'DfE data set file',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: 'Key stage 4 and 16 to 18 destination measures',
+    publisher: 'DfE',
+    release: 'Data set version 2.0, released 15 October 2026. Leavers from 2021/22 to 2023/24, with destinations measured the following year. The 2023/24 cohort is provisional.',
+    use: 'Share of leavers in education, an apprenticeship or employment.',
+    url: 'https://api.education.gov.uk/statistics/v1/data-sets/019d4f41-22d1-71b2-a1a7-f3b91026815b/csv?dataSetVersion=2.0',
+    label: 'DfE statistics API data set',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: 'School workforce in England',
+    publisher: 'DfE',
+    release: 'Reporting year 2025 (November 2025 school workforce census). Teacher turnover follows teachers in post in November 2024.',
+    use: 'Pupils per teacher, qualified teacher status, vacancies and teachers who left.',
+    url: 'https://content.explore-education-statistics.service.gov.uk/api/data-set-files/d5f1867a-ca93-454d-9361-6c64df108872/download',
+    label: 'DfE data set file',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: 'Schools financial benchmarking: Consistent Financial Reporting (council maintained schools)',
+    publisher: 'DfE',
+    release: 'Financial year 2025-26 (April 2025 to March 2026), final cut produced 26 August 2026.',
+    use: 'Spending per pupil at council maintained schools.',
+    url: 'https://financial-benchmarking-and-insights-tool.education.gov.uk/files/CFR_2025-26_Full_Data_Workbook.xlsx',
+    label: 'DfE workbook',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: 'Schools financial benchmarking: Academies Accounts Return',
+    publisher: 'DfE',
+    release: 'Academy year September 2024 to August 2025 (version 2, updated 22 April 2026).',
+    use: 'Spending per pupil at academies.',
+    url: 'https://financial-benchmarking-and-insights-tool.education.gov.uk/files/AAR_2024-25_download.xlsx',
+    label: 'DfE workbook',
+    downloaded: '30 October 2026',
+  },
+  {
+    name: 'Special educational needs in England',
+    publisher: 'DfE',
+    release: 'Academic year 2025/26 (January 2026 school census).',
+    use: 'Pupils on SEN support, pupils with an education, health and care plan and the most common type of need.',
+    url: 'https://content.explore-education-statistics.service.gov.uk/api/data-set-files/c5490fd8-6cf3-469e-9f60-0b4262134cb5/download',
+    label: 'DfE data set file',
+    downloaded: '30 October 2026',
+  },
+];
+
+const faq = [
+  { q: 'Does catchment.school show catchment boundary maps?', a: 'No. The site holds no boundary maps and no catchment polygons. Councils and academy trusts publish their own admissions policies and boundaries, and the site does not copy them.' },
+  { q: 'How does the postcode search measure distance?', a: 'It measures straight-line distance from the centre of your postcode to each school, for schools within 5 km. It is not the distance any council uses to allocate places.' },
+  { q: 'Where do the school figures come from?', a: 'They come from the Department for Education and Ofsted. Every dataset, release and download date is listed on this page.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${SITE}/methodology/#webpage`,
+      url: `${SITE}/methodology/`,
+      name: 'Data sources and method - catchment.school',
+      description: 'The datasets catchment.school uses, how distance and rankings are calculated, and the limits of the data.',
+      inLanguage: 'en-GB',
+      dateModified: '2026-10-31',
+      isPartOf: { '@type': 'WebSite', name: 'catchment.school', url: SITE },
+      about: { '@type': 'Thing', name: 'Data sources and method for school statistics' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+        { '@type': 'ListItem', position: 2, name: 'Methodology', item: `${SITE}/methodology/` },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    },
+  ],
+};
+---
+<Base
+  title="Data sources and method - catchment.school"
+  description="Every dataset catchment.school uses, with publisher, release and download date. How distance and rankings are calculated, and the limits of the data."
+  canonical="https://catchment.school/methodology/"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Fragment>
+
+  <nav class="text-sm text-gray-500 mb-6 flex gap-2 items-center" aria-label="Breadcrumb">
+    <a href="/" class="hover:underline">Home</a>
+    <span>›</span>
+    <span class="text-gray-700">Methodology</span>
+  </nav>
+
+  <div class="max-w-3xl">
+    <h1 class="text-3xl font-bold mb-2">Data sources and method</h1>
+    <p class="text-sm text-gray-500 mb-6">Last updated: {lastUpdated}</p>
+    <p class="text-gray-700 mb-8">This page lists every dataset on catchment.school, how the site turns it into distances and rankings, and where the data stops being reliable. To report a mistake, use the <a href="/corrections/" class="underline">corrections page</a>.</p>
+
+    <div class="prose prose-gray max-w-none space-y-6">
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Which datasets does catchment.school use?</h2>
+        <p>All school data comes from the Department for Education (DfE) and Ofsted, published under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" class="underline" rel="nofollow noopener" target="_blank">Open Government Licence v3.0</a>. The table gives the release each figure comes from and the date the file was downloaded. School pages repeat the release next to each figure.</p>
+        <div class="overflow-x-auto not-prose" role="region" aria-label="Datasets table" tabindex="0">
+          <table class="w-full min-w-[44rem] text-xs sm:text-sm border border-gray-200 break-words align-top">
+            <caption class="sr-only">Datasets used by catchment.school, with publisher, release, use, source link and download date</caption>
+            <thead class="bg-gray-50 text-left">
+              <tr>
+                <th scope="col" class="p-2 border-b border-gray-200">Dataset and publisher</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Release or period</th>
+                <th scope="col" class="p-2 border-b border-gray-200">What it feeds</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Source</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Downloaded</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              {sources.map((r) => (
+                <tr class="align-top">
+                  <th scope="row" class="p-2 text-left font-medium text-gray-900">{r.name}<span class="block font-normal text-gray-500">{r.publisher}</span></th>
+                  <td class="p-2 text-gray-700">{r.release}</td>
+                  <td class="p-2 text-gray-700">{r.use}</td>
+                  <td class="p-2"><a href={r.url} class="underline text-indigo-700" rel="nofollow noopener" target="_blank">{r.label}</a></td>
+                  <td class="p-2 text-gray-700">{r.downloaded}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>The postcode search also calls the public <a href="https://postcodes.io" class="underline" rel="nofollow noopener" target="_blank">postcodes.io</a> service when a visitor enters a postcode. That lookup converts the postcode to a latitude and longitude and is the only live data call.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">How does catchment.school calculate distance?</h2>
+        <p>The postcode search finds the centre point of your postcode through postcodes.io. It then measures the straight-line (great-circle) distance to every school in the same postcode area and lists the nearest 24 schools within 5 km.</p>
+        <p>School locations come from the easting and northing coordinates in GIAS, converted to latitude and longitude. The conversion is accurate to a few metres. Schools without coordinates in GIAS are left out of the school list.</p>
+        <p>Compare pages measure the straight-line distance in miles between the two schools. The "nearby schools" lists on school pages are matched by town and council, with a few extra links chosen by straight-line distance.</p>
+        <p>None of these figures is a catchment distance. Councils and academy trusts set their own tests, and many measure home to school by walking route or by an address point rather than a postcode centre.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Does catchment.school show catchment boundaries or last distance offered?</h2>
+        <p>No. The site holds no boundary maps and no last distance offered figures, because the DfE does not publish a last distance offered nationally. The admissions authority for each school publishes both. School pages link to the council or school as the place to check.</p>
+        <p>The site shows what the DfE does publish: first preferences, places offered and first preferences per offer on national offer day. A ratio above 1 means more families put the school first than there were places offered. It does not show who was admitted under which criterion. Appeals and waiting lists are not counted.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">How are Ofsted grades shown?</h2>
+        <p>Each school shows its most recent graded overall effectiveness (Outstanding, Good, Requires improvement or Inadequate) by inspection start date, taken from the Ofsted releases listed above. Overall grades for state-funded schools ended in September 2024. Report cards began in November 2025 and give grades by area with no overall grade, so a report card is never converted into an old-style grade.</p>
+        <p>Where an ungraded inspection is newer than the last graded one, the page shows its outcome and date. Ofsted decides all grades. The site does not assess or adjust them.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">How are school rankings calculated?</h2>
+        <p>Each ranking compares a school with other schools that have a published figure for the same measure. The rules are fixed in the build scripts:</p>
+        <ul>
+          <li>Only state-funded schools are ranked. Independent schools, special schools, nursery schools, pupil referral units, alternative provision, hospital schools and 16 to 19 providers are excluded.</li>
+          <li>Schools are ranked within a pool: primary, secondary or all-through, based on age range. Year 7 and Reception first preference rankings use their own pools.</li>
+          <li>Each measure uses the latest year in which at least 1,000 schools have a figure. Provisional Attainment 8 and Progress 8 years are not used to choose that year.</li>
+          <li>A pool needs at least 30 schools to be ranked. A council rank appears only where at least 10 schools in that council have a figure.</li>
+          <li>Attainment 8, Progress 8 and destination rankings need a cohort of at least 10 pupils.</li>
+          <li>Rank 1 is the highest figure, or the lowest for absence and pupils per teacher. Schools with the same figure share a rank and the next rank is skipped.</li>
+          <li>First preferences per offer needs at least 30 places offered. Split-site rows that share a URN are added together. Year 7 rows at all-through schools are dropped, because their Year 7 offers leave out automatic progression from the school's own primary.</li>
+          <li>Spending per pupil is shown only between £3,000 and £30,000. Council maintained schools and academies are ranked separately, because the figures are not like for like.</li>
+        </ul>
+        <p>Oversubscribed schools lists use the same offer threshold of 30 places, and council tables need a minimum number of qualifying schools and at least 100 applications. Rankings describe published figures. They do not explain why schools differ.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">How often is the data updated?</h2>
+        <p>There is no automatic data feed. The source files are downloaded by hand when the DfE or Ofsted publish a new release, then processed by scripts into the files the site is built from. Each figure on a school page states its release and year, and the table above gives the download date. The site does not promise a fixed update schedule.</p>
+        <p>A new Ofsted inspection or a corrected DfE record can appear at the source before it appears here. Check <a href="https://get-information-about-schools.service.gov.uk" class="underline" rel="nofollow noopener" target="_blank">GIAS</a> and <a href="https://reports.ofsted.gov.uk" class="underline" rel="nofollow noopener" target="_blank">Ofsted reports</a> for the current position before you make a decision.</p>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">What are the limits of the data?</h2>
+        <ul>
+          <li>The site is not an official source and is not connected to any school, council or government body.</li>
+          <li>Straight-line distances and nearby lists do not show whether an address is inside a catchment area. Always check the admissions policy for the year of entry.</li>
+          <li>Offer day figures leave out appeals, waiting lists and late changes, so the final intake can differ.</li>
+          <li>Progress 8 is not published for some cohorts. Provisional results can change when the DfE publishes final figures.</li>
+          <li>Small cohorts and small schools produce volatile percentages, so a movement of one teacher or a few pupils can change a figure sharply.</li>
+          <li>Academy spending leaves out the trust's central spending, so it is not like for like with council maintained schools.</li>
+          <li>The school list includes establishments in Wales that GIAS records. The DfE statistics above cover England, so those schools have no performance, absence or spending figures.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">Who runs the site and how do I report a mistake?</h2>
+        <p>The <a href="/about/" class="underline">About page</a> says who runs catchment.school, and the <a href="/editorial-policy/" class="underline">editorial policy</a> covers independence and funding. To report an error, use the <a href="/corrections/" class="underline">corrections page</a>.</p>
+      </section>
+
+    </div>
+  </div>
+</Base>

@@ -261,3 +261,7 @@ const destReading = (g: any) => {
     </div>
   </section>
 )}
+
+{(ranks.length > 0 || adm.length > 0 || showOfsted || dest.length > 0 || wf || fin || send) && (
+  <p class="mb-8 text-xs text-gray-500"><a class="underline" href="/methodology/">Data sources and method</a></p>
+)}
