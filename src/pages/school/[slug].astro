@@ -263,7 +263,7 @@ const catchmentPara2 = isIndependent
   : `Each admissions year has its own policy. Read the one for the year you apply.`;
 
 const catchmentFaq = isIndependent
-  ? `Independent schools have no council catchment area. Ask ${s.name} how it admits pupils.`
+  ? `Independent schools have no council catchment area.`
   : isPru || isSpecial || admMode === 'other'
   ? `${s.name} does not use a standard catchment area. ${isPru ? `Ask ${s.la} about placement.` : isSpecial ? `Ask ${s.la} about EHCP placement.` : 'Contact the establishment about applying.'}`
   : `Read the admissions policy for ${s.name} against your home address. It states whether a boundary or distance rule applies.`;
@@ -295,14 +295,14 @@ const ratioText = dfeRow && dfeRow.first_pref_per_offer != null ? ` That is ${Nu
 const oversubAnswer = dfeRow
   ? `${isOversubscribed ? 'Yes.' : 'No.'} In ${dfeRow.year} ${s.name} received ${Number(dfeRow.first_pref).toLocaleString('en-GB')} first preferences for ${Number(dfeRow.offers_total).toLocaleString('en-GB')} offers at ${dfeLabel} entry.${ratioText}`
   : isIndependent
-    ? `${s.name} sets its own admissions, so DfE publishes no offer day figures for it. Ask the school about places.`
+    ? `DfE publishes no offer day figures for ${s.name}. Ask the school about places.`
     : isPlaced
       ? `Places at ${s.name} are arranged by placement, so there is no first preference round to count.`
       : admMode === 'other'
         ? `DfE offer day figures do not cover ${s.name}. Contact the establishment about places.`
         : `This page has no DfE offer day figures for ${s.name}, so it cannot say.`;
 const admissionsAnswer = isIndependent
-  ? `${s.name} sets its own entry rules.${isGrammar ? ' GIAS lists its policy as selective.' : ''} The school can give its entry requirements.`
+  ? `${s.name} sets its own entry rules.${isGrammar ? ' GIAS lists its policy as selective.' : ''} Ask the school for its requirements.`
   : isPlaced
     ? `${s.la} arranges places at ${s.name} by placement${isPru ? '' : ", based on the pupil's EHCP"}. Ask ${s.la} how it works.`
     : isSixteenPlus
@@ -313,7 +313,7 @@ const admissionsAnswer = isIndependent
           ? `${s.name} is listed as selective. Entry depends on an admissions test, and ${s.la} handles applications.`
           : `${ownAuthority ? `${s.name} publishes its own admissions policy. ` : `${s.la} handles applications to ${s.name}. `}${s.admissionsPolicy === 'Non-selective' ? 'GIAS lists the policy as non-selective. ' : ''}${isFaith ? `The ${s.religion} character may bring faith criteria into the ranking. ` : ''}The policy names the criteria in ranked order.`;
 const ageAnswer = s.ageRange
-  ? `${s.name} takes pupils aged ${s.ageRange}. GIAS holds the current age range.`
+  ? `${s.name} takes pupils aged ${s.ageRange}.`
   : '';
 
 const schoolSchema = {
