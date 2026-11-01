@@ -545,12 +545,8 @@ const breadcrumbSchema = {
           <h2 class="text-xl font-semibold mb-3">{pilotCapacityH2}</h2>
           <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3 text-sm text-gray-700">
             <p set:html={pilotDemandProse} />
-            {/* fix-h: discourse bridge ties FSM to capacity context */}
-            {pilotFsmProse && (
-              <p>
-                The fill-rate figure above reflects overall demand, but the school's intake also varies by community profile.{' '}
-                {pilotFsmProse}
-              </p>
+                        {pilotFsmProse && (
+              <p>{pilotFsmProse}</p>
             )}
             {/* fix-g: postcode tool callout - pilot only */}
             {councilAdmits && (

@@ -34,6 +34,7 @@ function nounFromType(type: unknown): string {
 export function schoolNoun(s: { phase?: unknown; type?: unknown }): { one: string; many: string; fromPhase: boolean } {
   if (hasKnownPhase(s.phase)) {
     const p = String(s.phase).trim().toLowerCase();
+    if (p === '16 plus') return { one: '16 plus provider', many: '16 plus providers', fromPhase: true };
     return { one: `${p} school`, many: `${p} schools`, fromPhase: true };
   }
   const one = nounFromType(s.type);
