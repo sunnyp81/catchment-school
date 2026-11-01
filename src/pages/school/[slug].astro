@@ -183,7 +183,7 @@ const schoolOne = noun.one;
 const schoolMany = noun.many;
 const phaseLower = noun.fromPhase ? String(s.phase).toLowerCase() : '';
 const typeDesc = noun.fromPhase
-  ? String(s.type ?? '').toLowerCase().replace(/\bschools?\b/g, '').replace(new RegExp('\b' + phaseLower.replace(/ /g, '\s+') + '\b'), '').replace(/\d+\s*to\s*\d+/g, '').replace(/\s+/g, ' ').trim()
+  ? String(s.type ?? '').toLowerCase().replace(/\bschools?\b/g, '').replace(new RegExp('\\b' + phaseLower.replace(/ /g, '\\s+') + '\\b'), '').replace(/\d+\s*to\s*\d+/g, '').replace(/\s+/g, ' ').trim()
   : '';
 const introPhrase = `${typeDesc ? `${typeDesc} ` : ''}${schoolOne}`;
 const introArticle = articleFor(introPhrase);
