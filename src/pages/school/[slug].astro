@@ -119,6 +119,15 @@ const comparePartners = comparePartnerUrns.length
     })).sort((x: any, y: any) => (x.miles ?? 99) - (y.miles ?? 99)).slice(0, 3)
   : [];
 
+const COUNTRY_NAME = /^(united kingdom|uk|england|wales|scotland|northern ireland|great britain)$/i;
+const cleanPlace = (v: any) => { const x = String(v ?? '').trim(); return x && !COUNTRY_NAME.test(x) ? x : ''; };
+const placeLine = (town: any, la: any, showLa = false) => {
+  const tn = cleanPlace(town), l = cleanPlace(la);
+  if (tn && l && showLa && tn.toLowerCase() !== l.toLowerCase()) return `${tn}, ${l}`;
+  return tn || l;
+};
+const joinDot = (parts: any[]) => parts.map((x) => String(x ?? '').trim()).filter(Boolean).join(' \u00b7 ');
+const homePlace = cleanPlace(s.town) || cleanPlace(s.la);
 const address = [s.street, s.locality, s.town, s.postcode].filter(Boolean).join(', ');
 const directionsUrl = s.lat && s.lng ? `https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}` : null;
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ' ' + s.postcode)}`;
@@ -204,7 +213,14 @@ const ofstedYear = s.ofstedDate ? s.ofstedDate.split('/').pop() : null;
 const ofstedFaqText = !ofstedLabel ? null
   : ofv?.cardLater && ofv.card
     ? `The latest Ofsted inspection of ${s.name} was a report card on ${longDate(ofv.card.date)}. Report cards grade separate areas and give no overall grade. The last overall grade was ${ofstedLabel}${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv.predecessor ? '. That grade belongs to a predecessor school on this site' : ''}.`
-    : `${s.name} was rated ${ofstedLabel} by Ofsted${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv?.predecessor ? '. That grade belongs to a predecessor school on this site' : ''}.${ofv?.ungraded ? ` The latest ungraded inspection on ${longDate(ofv.ungraded.date)} reported "${ofv.ungraded.outcome}".` : ''}`;
+    : `${s.name} was rated ${ofstedLabel} by Ofsted${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv?.predecessor ? '. That grade belongs to a predecessor school on this site' : ''}.`;
+const indepFacts = isIndependent ? [
+  s.ageRange ? `It takes pupils aged ${s.ageRange}.` : null,
+  s.gender && s.gender !== 'Mixed' && s.gender !== 'Not applicable' ? `It admits ${String(s.gender).toLowerCase()} only.` : null,
+  s.religion && s.religion !== 'Does not apply' && s.religion !== 'None' ? `Its religious character is ${s.religion}.` : null,
+  s.pupils ? `There are ${Number(s.pupils).toLocaleString('en-GB')} pupils on roll.` : null,
+  ofstedLabel ? `The most recent overall Ofsted grade on record is ${ofstedLabel}${ofstedYear ? ` (${ofstedYear})` : ''}${ofv?.predecessor ? ', awarded to a predecessor school on this site' : ''}.` : null,
+].filter(Boolean).join(' ') : '';
 const ofstedReportUrl = ofv?.reportUrl ?? `https://reports.ofsted.gov.uk/search?q=${s.urn}`;
 
 // Catchment guidance - varies by phase, type, and capacity to avoid boilerplate
@@ -263,15 +279,15 @@ const catchmentPara2 = isNursery
   ? `The school record on Get Information About Schools lists current details.`
   : isSpecial
   ? `The SEND team at ${s.la} can say which schools the council names. The council also publishes a Local Offer for its area.`
-  : `Each admissions year has its own policy. Read the one for the year you apply.`;
+  : `Policies change between admissions years, so read the one for the year you apply.`;
 
 const catchmentFaq = isNursery
   ? `${s.name} has no catchment boundary on this site. Ask the school how to apply for a nursery place.`
   : isIndependent
-  ? `Independent schools have no council catchment area.`
+  ? `No. Your home address does not decide entry to ${s.name}.${s.website ? ' The school website is linked on this page.' : ''}`
   : isPru || isSpecial || admMode === 'other'
   ? `${s.name} does not use a standard catchment area. ${isPru ? `Ask ${s.la} about placement.` : isSpecial ? `Ask ${s.la} about EHCP placement.` : 'Contact the establishment about applying.'}`
-  : `Read the admissions policy for ${s.name} against your home address. It states whether a boundary or distance rule applies.`;
+  : `The admissions policy for ${s.name} states whether a boundary or distance rule applies and which address it measures from.`;
 
 // 20-page title and data-lead test (src/data/title-test-cohort.json). Cohort pages need a 2026-27 DfE row to switch; all others keep the standard title.
 const cohortAdm = (titleTest.slugs as string[]).includes(String(slug))
@@ -291,12 +307,12 @@ const cohortDescription = inCohort
   : '';
 
 const title = inCohort ? cohortTitle : `${s.name} Catchment Area 2026: Map & Boundary`;
-const description = inCohort ? cohortDescription : councilAdmits
+const description = inCohort ? cohortDescription : admMode === 'council'
   ? `${s.name} catchment area boundary in ${locationLine}. Check if your address is in catchment${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, admissions policy and nearby ${schoolMany}.`
   : `${s.name} in ${locationLine}: how admissions work${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, age range and nearby ${schoolMany}.`;
 
 // FAQ answers for establishments whose admissions are not set by the council (null for ordinary council-admitting schools).
-const ratioText = dfeRow && dfeRow.first_pref_per_offer != null ? ` That is ${Number(dfeRow.first_pref_per_offer).toFixed(2)} first preferences per offer.` : '';
+const ratioText = '';
 const oversubAnswer = dfeRow
   ? `${isOversubscribed ? 'Yes.' : 'No.'} In ${dfeRow.year} ${s.name} received ${Number(dfeRow.first_pref).toLocaleString('en-GB')} first preferences for ${Number(dfeRow.offers_total).toLocaleString('en-GB')} offers at ${dfeLabel} entry.${ratioText}`
   : isIndependent
@@ -311,16 +327,16 @@ const admissionsAnswer = isNursery
   : isIndependent
   ? `${s.name} sets its own entry rules.${isGrammar ? ' GIAS lists its policy as selective.' : ''} Ask the school for its requirements.`
   : isPlaced
-    ? `${s.la} arranges places at ${s.name} by placement${isPru ? '' : ", based on the pupil's EHCP"}. Ask ${s.la} how it works.`
+    ? `Parents do not apply through the main admissions round for ${s.name}. Ask ${s.la} how a placement request is made.`
     : isSixteenPlus
       ? `${s.name} sets its own admissions. The provider lists its courses and entry requirements.`
       : admMode === 'other'
         ? `${s.name} is not a mainstream school, so the usual council process does not apply.`
         : isGrammar
-          ? `${s.name} is listed as selective. Entry depends on an admissions test, and ${s.la} handles applications.`
-          : `${ownAuthority ? `${s.name} publishes its own admissions policy. ` : `${s.la} handles applications to ${s.name}. `}${s.admissionsPolicy === 'Non-selective' ? 'GIAS lists the policy as non-selective. ' : ''}${isFaith ? `The ${s.religion} character may bring faith criteria into the ranking. ` : ''}The policy names the criteria in ranked order.`;
+          ? `GIAS lists the admissions policy of ${s.name} as selective. Ask the school for its test dates and how it ranks applicants who qualify.`
+          : `${s.admissionsPolicy === 'Non-selective' ? `GIAS lists the admissions policy of ${s.name} as non-selective. ` : ''}The School Admissions Code puts looked-after and previously looked-after children first. The policy names the remaining criteria in ranked order.`;
 const ageAnswer = s.ageRange
-  ? `${s.name} takes pupils aged ${s.ageRange}.`
+  ? `${s.name} takes pupils aged ${s.ageRange}${noun.fromPhase ? `, and GIAS lists its phase as ${String(s.phase).toLowerCase()}` : ''}.${s.gender && s.gender !== 'Mixed' && s.gender !== 'Not applicable' ? ` It admits ${String(s.gender).toLowerCase()} only.` : ''}`
   : '';
 
 const schoolSchema = {
@@ -482,6 +498,8 @@ const breadcrumbSchema = {
         }
       </p>
 
+      {indepFacts && <p class="text-gray-600 mb-6">{indepFacts}</p>}
+
       {topBingSchools.includes(slug) && (s.phase === 'Primary' || s.phase === 'Secondary') && (
         <div class="border border-indigo-200 rounded-lg p-4 mb-6 bg-indigo-50 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
           <p class="text-sm text-gray-700"><strong class="text-indigo-900">Need a tutor in {s.town}?</strong> Find {phaseLower} tutors for maths, English, science and more.</p>
@@ -524,7 +542,8 @@ const breadcrumbSchema = {
         {ofstedLabel && (
           <div class={`rounded-lg p-4 text-center border ${ofstedColor}`}>
             <p class="text-sm font-bold leading-tight">{ofstedLabel}</p>
-            <p class="text-xs mt-1 opacity-70">Ofsted{ofstedYear ? ` ${ofstedYear}` : ''}</p>
+            <p class="text-xs mt-1 opacity-70">{ofv?.predecessor || ofv?.cardLater ? 'Last overall grade' : 'Ofsted'}{ofstedYear ? `, ${ofstedYear}` : ''}</p>
+            {ofv?.predecessor && <p class="text-xs mt-1 opacity-70">Awarded to a predecessor school on this site</p>}
           </div>
         )}
       </div>
@@ -620,15 +639,15 @@ const breadcrumbSchema = {
 
       {nearby.length > 0 && (
         <section class="mb-8">
-          <h2 class="text-xl font-semibold mb-4">Other {titleCase(schoolMany)} in {s.town}</h2>
+          <h2 class="text-xl font-semibold mb-4">Other {titleCase(schoolMany)} in {homePlace}</h2>
           <p class="text-sm text-gray-600 mb-4">
-            If {s.name} is oversubscribed, these {schoolMany} in {s.town} are the next closest alternatives.
+            These {schoolMany} in {homePlace} are the closest alternatives.
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {nearby.map((n: any) => (
               <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
-                <p class="text-xs text-gray-500 mt-1">{n.type} · {n.postcode}</p>
+                <p class="text-xs text-gray-500 mt-1">{joinDot([n.type, n.postcode])}</p>
               </a>
             ))}
           </div>
@@ -645,7 +664,7 @@ const breadcrumbSchema = {
             {sameFaithNearby.map((n: any) => (
               <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
-                <p class="text-xs text-gray-500 mt-1">{n.type} · {n.town}</p>
+                <p class="text-xs text-gray-500 mt-1">{joinDot([n.type, placeLine(n.town, s.la)])}</p>
               </a>
             ))}
           </div>
@@ -662,7 +681,7 @@ const breadcrumbSchema = {
             {nearestByDistance.map((n: any) => (
               <a href={`/school/${n.slug}/`} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{n.name} Catchment Area</p>
-                <p class="text-xs text-gray-500 mt-1">{n.type} · {n.town}{n.laSlug && n.laSlug !== s.laSlug ? `, ${n.la}` : ''} · {n.distanceMiles.toFixed(1)} miles away</p>
+                <p class="text-xs text-gray-500 mt-1">{joinDot([n.type, placeLine(n.town, n.la, !!n.laSlug && n.laSlug !== s.laSlug), `${n.distanceMiles.toFixed(1)} miles away`])}</p>
               </a>
             ))}
           </div>
@@ -679,7 +698,7 @@ const breadcrumbSchema = {
             {comparePartners.map((p: any) => (
               <a href={p.href} class="block border rounded-lg p-4 hover:border-indigo-400 transition-colors">
                 <p class="font-medium text-indigo-700 text-sm hover:underline">{s.name} vs {p.name}</p>
-                <p class="text-xs text-gray-500 mt-1">{p.town}{p.miles != null ? ` · ${p.miles.toFixed(1)} miles away` : ''}</p>
+                <p class="text-xs text-gray-500 mt-1">{joinDot([placeLine(p.town, s.la), p.miles != null ? `${p.miles.toFixed(1)} miles away` : ''])}</p>
               </a>
             ))}
           </div>
@@ -813,7 +832,8 @@ const breadcrumbSchema = {
         <div class={`border rounded-lg p-5 ${ofstedColor}`}>
           <h3 class="font-semibold mb-1">Ofsted Rating</h3>
           <p class="text-lg font-bold mb-1">{ofstedLabel}</p>
-          {ofstedYear && <p class="text-xs opacity-70 mb-1">Graded {ofstedYear}</p>}
+          {ofstedYear && <p class="text-xs opacity-70 mb-1">Most recent overall grade, {ofstedYear}</p>}
+          {ofv?.predecessor && <p class="text-xs opacity-70 mb-1">Awarded to a predecessor school on this site</p>}
           {ofv?.latestDate && ofv.latestDate !== s.ofstedDate && <p class="text-xs opacity-70 mb-1">Latest inspection {longDate(ofv.latestDate)}</p>}
           <a href={ofstedReportUrl}
             target="_blank" rel="nofollow noopener"

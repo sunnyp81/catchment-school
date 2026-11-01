@@ -273,17 +273,17 @@ export function sendShown(f: any | null) {
 
 // Source lines (all dates are from the *-sources.json files).
 export const SRC = {
-  admissions: 'DfE, Primary and secondary school applications and offers, academic year 2026/27 release (published 18 June 2026), school level file, downloaded 30 October 2026',
-  destinations: 'DfE, Key stage 4 and 16 to 18 destination measures, data set version 2.0 (released 15 October 2026), downloaded 30 October 2026',
-  workforce: 'DfE, School workforce in England, reporting year 2025 (November 2025 school workforce census), downloaded 30 October 2026',
-  cfr: 'DfE Schools financial benchmarking, Consistent Financial Reporting for council maintained schools, financial year 2025-26',
-  aar: 'DfE Schools financial benchmarking, Academies Accounts Return, academy year September 2024 to August 2025',
-  send: 'DfE, Special educational needs in England, academic year 2025/26 (January 2026 school census)',
-  ks4: 'DfE, Key stage 4 performance (school-level performance tables data, provisional for 2025/26), downloaded 30 October 2026',
-  ks4final: 'DfE, Key stage 4 performance, academic year 2025/26 release (school-level data set version 2.0.1; 2023/24 and 2024/25 figures are final), downloaded 30 October 2026',
-  absence: 'DfE, Pupil absence in schools in England, academic year 2024/25 (published 26 March 2026), downloaded 30 October 2026',
+  admissions: 'DfE, Primary and secondary school applications and offers. Academic year 2026/27 release. Published 18 June 2026. School level file. Downloaded 30 October 2026',
+  destinations: 'DfE, Key stage 4 and 16 to 18 destination measures. Data set version 2.0. Released 15 October 2026. Downloaded 30 October 2026',
+  workforce: 'DfE, School workforce in England. Reporting year 2025 (November 2025 school workforce census). Downloaded 30 October 2026',
+  cfr: 'DfE Schools financial benchmarking. Consistent Financial Reporting for council maintained schools. Financial year 2025-26',
+  aar: 'DfE Schools financial benchmarking. Academies Accounts Return. Academy year September 2024 to August 2025',
+  send: 'DfE, Special educational needs in England. Academic year 2025/26 (January 2026 school census)',
+  ks4: 'DfE, Key stage 4 performance. School-level performance tables data. Provisional for 2025/26. Downloaded 30 October 2026',
+  ks4final: 'DfE, Key stage 4 performance. Academic year 2025/26 release. School-level data set version 2.0.1. The 2023/24 and 2024/25 figures are final. Downloaded 30 October 2026',
+  absence: 'DfE, Pupil absence in schools in England. Academic year 2024/25. Published 26 March 2026. Downloaded 30 October 2026',
   provision: 'Get Information About Schools, as at 30 October 2026',
-  ofsted: 'Ofsted Management Information, state-funded schools inspections and outcomes, latest inspections to 30 September 2026 (grades before 2019 from the 31 December 2025 release)',
+  ofsted: 'Ofsted Management Information, state-funded schools inspections and outcomes. Latest inspections to 30 September 2026. Grades before 2019 come from the 31 December 2025 release',
 };
 
 // ================= Compare page =================
