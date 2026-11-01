@@ -5,7 +5,7 @@ export const NP = 'Not published';
 export const OS: any = data;
 export const HUB = '/oversubscribed-schools/';
 export const CSV_URL = '/downloads/oversubscribed-schools-2026.csv';
-export const SOURCE_LINE = 'Source: Department for Education, Primary and secondary school applications and offers, academic year 2026/27, published 18 June 2026. Offer day figures: Year 7 on 2 March 2026 and Reception on 16 April 2026.';
+export { SOURCE_LINE } from './oversub-source';
 export const OGL = 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/';
 
 export const int = (n: number | null | undefined) => (n == null ? NP : n.toLocaleString('en-GB'));

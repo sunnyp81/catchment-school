@@ -1,0 +1,1 @@
+export const SOURCE_LINE = 'Source: Department for Education, Primary and secondary school applications and offers, academic year 2026/27, published 18 June 2026. Offer day figures: Year 7 on 2 March 2026 and Reception on 16 April 2026.';

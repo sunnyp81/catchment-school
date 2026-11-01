@@ -10,8 +10,10 @@ import { env } from 'cloudflare:workers';
 import { notFoundResponse } from '../../lib/notfound';
 import { curatedPartners, haversineMiles as cmpMiles } from '../../lib/compare';
 import { hasArea } from '../../lib/areas';
-import { loadSchoolData, ofstedView, longDate } from '../../lib/schooldata';
+import { loadSchoolData, ofstedView, longDate, admissionsByEntry } from '../../lib/schooldata';
 import { schoolNoun, admissionsMode, articleFor, titleCase } from '../../lib/schoolwording';
+import titleTest from '../../data/title-test-cohort.json';
+import { SOURCE_LINE } from '../../lib/oversub-source';
 
 const { slug } = Astro.params;
 
@@ -166,13 +168,11 @@ const pilotDemandProse = fillRate !== null && !councilAdmits
   ? `${s.name} has a capacity of <strong>${s.capacity} places</strong>. <strong>${s.pupils} pupils</strong> were enrolled in the most recent data, giving a fill rate of <strong>${fillRate}%</strong>. ${isIndependent ? 'Admissions are handled by the school itself, so ask the school about places and entry.' : isPlaced ? `Places are arranged by placement through ${s.la} rather than by application and catchment area.` : 'Ask the establishment directly about places and how to apply.'}`
   : fillRate !== null
   ? `${s.name} has a published admission number of <strong>${s.capacity} places</strong>. <strong>${s.pupils} pupils</strong> were enrolled in the most recent data, giving a fill rate of <strong>${fillRate}%</strong>. ${
-      fillRate >= 110
-        ? `At ${fillRate}% capacity, the school is heavily oversubscribed. ${s.la} allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance. Living within the catchment area is a strong but not guaranteed advantage, as the <em>last distance offered</em> shrinks each year as applications rise.`
-        : fillRate >= 100
-          ? `The school is at or above its published limit of ${s.capacity} places. ${s.la} allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance. The last-distance figure is likely to remain tight if demand holds at this level.`
-          : fillRate >= 90
-            ? `The school is operating close to its limit. In years where applications exceed ${s.capacity}, ${s.la}'s admissions team applies distance-based tiebreakers. Families within the school's historical catchment boundary are well placed, but a boundary check with the council is recommended before applying.`
-            : `At ${fillRate}% full, the school currently has headroom below its ${s.capacity} place limit. Catchment distance criteria still apply when the school is oversubscribed, but at current demand levels, places have been available for applicants outside the immediate catchment area.`
+      fillRate >= 100
+        ? `That is at or above the ${s.capacity} places on record. Pupils on roll are not the same as places offered in a given year, so use the offer day figures on this page and ask ${s.la} for the admissions criteria and any distance data.`
+        : fillRate >= 90
+          ? `That is close to the ${s.capacity} places on record. Pupils on roll are not the same as places offered in a given year, so ask ${s.la} for the admissions criteria and any distance data.`
+          : `That leaves ${s.capacity - s.pupils} places below the ${s.capacity} on record. Pupils on roll are not the same as places offered in a given year, so ask ${s.la} for the admissions criteria and any distance data.`
     }`
   : null;
 
@@ -241,7 +241,7 @@ const catchmentPara1 = isIndependent
   ? `As an academy, <strong>${s.name}</strong> sets its own admissions criteria, agreed with <strong>${s.la}</strong>. The catchment area boundary is defined in the school's annual admissions policy, which may differ from the LA's general school admissions arrangements.`
   : s.phase === 'Secondary'
   ? `Secondary school places at <strong>${s.name}</strong> are allocated by <strong>${s.la}</strong> using ranked oversubscription criteria. Catchment area residence is typically among the highest priorities after looked-after children and siblings, and the boundary is reviewed each year.`
-  : `The catchment area for <strong>${s.name}</strong> is set by <strong>${s.la}</strong> and reviewed annually. Children living within the catchment boundary receive priority consideration when applications exceed the number of available places.`;
+  : `Where <strong>${s.name}</strong> uses a catchment area, it is set out in the admissions policy published by <strong>${s.la}</strong>. Not every school uses one, so check the policy for how places are ranked when applications exceed the number of available places.`;
 
 const catchmentPara2 = isIndependent
   ? `Contact the school directly about how to apply, entry requirements and any assessment dates.`
@@ -253,7 +253,7 @@ const catchmentPara2 = isIndependent
   ? `The full admissions policy, including test registration dates, qualifying scores, and any distance criteria, is published by ${s.la} before each admissions cycle. Verify your child's eligibility and your home address directly with the council.`
   : isSpecial
   ? `For more information on how ${s.la} assesses EHCP placements and which schools are named, contact the council's SEND team directly. The council must publish its Local Offer explaining available provision.`
-  : `The official admissions policy, including the catchment boundary map, is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application, as boundaries can change year to year.`;
+  : `The official admissions policy, including any catchment area or distance details, is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application.`;
 
 // Extractable definitional answer (AEO/GEO): self-contained, data-derived, cite-ready.
 const catchmentAnswer = isIndependent
@@ -264,10 +264,27 @@ const catchmentAnswer = isIndependent
   ? `${s.name} is not a mainstream school, so the usual council catchment area process does not apply. Contact the establishment directly about how to apply.`
   : isSpecial
   ? `${s.name} is ${schoolArticle} ${schoolOne} in ${locationLine}, and it does not use a standard catchment area. ${s.la} allocates places through each child's Education, Health and Care Plan (EHCP) rather than home-to-school distance, so placement depends on assessed need rather than a geographic boundary.`
-  : `The catchment area for ${s.name} is the geographic zone ${s.la} uses to prioritise admissions when this ${schoolOne} receives more applications than it has places. Children living inside the boundary are ranked higher under the oversubscription criteria, ${isGrammar ? `though entry first depends on passing the selective admissions test` : isFaith ? `after looked-after children and, in most years, faith-based criteria` : `after looked-after children and siblings`}. ${s.la} publishes the exact boundary and the last distance offered before each admissions cycle, and the boundary can change year to year.`;
+  : `${s.name} is ${schoolArticle} ${schoolOne} in ${locationLine}. Where a school has a catchment area, children living inside it are usually ranked higher when the school has more applications than places, ${isGrammar ? `though entry first depends on passing the selective admissions test` : isFaith ? `after looked-after children and, in most years, faith-based criteria` : `after looked-after children and siblings`}. Many councils publish distance data, but not every school uses a catchment area. ${isAcademy || isFaith || /foundation/i.test(String(s.type)) ? `${isFaith ? 'As a faith school' : isAcademy ? 'As an academy' : 'As a foundation school'}, ${s.name} may set its own admissions criteria, so check its published admissions policy. ` : ''}${s.la} can confirm the criteria and any boundary or distance figures for this school.`;
 
-const title = `${s.name} Catchment Area 2026: Map & Boundary`;
-const description = councilAdmits
+// 20-page title and data-lead test (src/data/title-test-cohort.json). Cohort pages need a 2026-27 DfE row to switch; all others keep the standard title.
+const cohortAdm = (titleTest.slugs as string[]).includes(String(slug))
+  ? admissionsByEntry(schoolData.adm).map((g) => ({ ...g, latest: g.rows[g.rows.length - 1] })).filter((g) => g.latest.year === '2026-27' && g.latest.first_pref != null && g.latest.offers_total != null)
+  : [];
+const inCohort = cohortAdm.length > 0;
+const cohortFirst = cohortAdm[0]?.latest;
+const cohortTitle = (() => {
+  for (const tail of [': Places, Offers and First Preferences', ': Places and Offers', '']) {
+    const t = `${s.name} Admissions 2026${tail}`;
+    if (t.length <= 65) return t;
+  }
+  return `${s.name} Admissions 2026`;
+})();
+const cohortDescription = inCohort
+  ? `${s.name}: ${cohortFirst.first_pref.toLocaleString('en-GB')} first preferences and ${cohortFirst.offers_total.toLocaleString('en-GB')} offers for ${cohortAdm[0].label} entry in ${cohortFirst.year} (DfE offer day figures), plus places, Ofsted and nearby ${schoolMany} in ${locationLine}.`
+  : '';
+
+const title = inCohort ? cohortTitle : `${s.name} Catchment Area 2026: Map & Boundary`;
+const description = inCohort ? cohortDescription : councilAdmits
   ? `${s.name} catchment area boundary in ${locationLine}. Check if your address is in catchment${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, admissions policy and nearby ${schoolMany}.`
   : `${s.name} in ${locationLine}: how admissions work${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, age range and nearby ${schoolMany}.`;
 
@@ -386,6 +403,7 @@ const breadcrumbSchema = {
 ---
 <Base title={title} description={description}>
   <Fragment slot="head">
+    {isIndependent && <meta name="googlebot" content="noindex" />}
     <script type="application/ld+json" set:html={JSON.stringify(schoolSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -418,6 +436,26 @@ const breadcrumbSchema = {
       <h1 class="text-3xl font-bold mb-2">{s.name} Catchment Area</h1>
 
       <AuthorByline type="school" />
+
+      {inCohort && (
+        <section class="bg-white border border-gray-200 rounded-lg p-4 mb-6" id="dfe-offers" aria-label={`${s.name} applications and offers`}>
+          <h2 class="text-base font-semibold text-gray-900 mb-3">{s.name}: first preferences and offers</h2>
+          <div class="space-y-3">
+            {cohortAdm.map((g) => (
+              <div>
+                <p class="text-xs font-medium text-gray-500 mb-1">{g.label} entry, {g.latest.year}</p>
+                <dl class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+                  <div><dt class="text-xs text-gray-500">First preferences</dt><dd class="text-lg font-bold text-indigo-700">{g.latest.first_pref.toLocaleString('en-GB')}</dd></div>
+                  <div><dt class="text-xs text-gray-500">Offers made</dt><dd class="text-lg font-bold text-indigo-700">{g.latest.offers_total.toLocaleString('en-GB')}</dd></div>
+                  {g.latest.first_pref_per_offer != null && <div><dt class="text-xs text-gray-500">First preferences per offer</dt><dd class="text-lg font-bold text-indigo-700">{Number(g.latest.first_pref_per_offer).toFixed(2)}</dd></div>}
+                  {g.latest.pct_first_pref_offered != null && <div><dt class="text-xs text-gray-500">First preferences offered a place</dt><dd class="text-lg font-bold text-indigo-700">{Number(g.latest.pct_first_pref_offered).toFixed(1)}%</dd></div>}
+                </dl>
+              </div>
+            ))}
+          </div>
+          <p class="text-xs text-gray-500 mt-3">{SOURCE_LINE} Offer day figures only: appeals and waiting lists are not counted. DfE does not publish a last distance offered nationally, so ask {s.la} for the distance cut-off.</p>
+        </section>
+      )}
 
       <p class="text-gray-600 mb-6">
         {s.name} is {introArticle} {introPhrase} in {locationLine}
@@ -825,9 +863,9 @@ const breadcrumbSchema = {
 
       <!-- Email capture -->
       <div id="alerts" class="border-2 border-indigo-200 rounded-lg p-5 bg-indigo-50 scroll-mt-24">
-        <h3 class="font-semibold mb-1 text-indigo-900">Catchment alerts for {s.name}</h3>
+        <h3 class="font-semibold mb-1 text-indigo-900">Admissions updates for {s.name}</h3>
         <p class="text-sm text-gray-600 mb-3">
-          Be first to get the {admissionsYear} last-distance-admitted figure and any catchment-boundary change for {s.name}, the moment {s.la} publishes. One email per update, no spam.
+          Get an email with admissions dates and new admissions data for {s.name}. One email per update, no spam.
         </p>
         <form
           action="https://emailit-worker.sunnypat81.workers.dev/"
@@ -857,7 +895,7 @@ const breadcrumbSchema = {
             Notify me →
           </button>
         </form>
-        <p id="subscribed-msg" class="hidden text-sm text-green-700 font-medium mt-2">You're on the list. We'll email you when {s.la} updates the {s.name} numbers.</p>
+        <p id="subscribed-msg" class="hidden text-sm text-green-700 font-medium mt-2">You're on the list. We'll email you admissions dates and new data for {s.name}.</p>
       </div>
 
       <!-- Find homes near this school -->
@@ -899,11 +937,6 @@ const breadcrumbSchema = {
           </a>
         </div>
       )}
-
-      <!-- Ad slot: uncomment when AdSense is approved -->
-      <!-- <div class="border rounded-lg p-5 bg-gray-50 text-center text-xs text-gray-400 min-h-[100px] flex items-center justify-center">
-        <ins class="adsbygoogle" data-ad-client="ca-pub-XXXX" data-ad-slot="XXXX"></ins>
-      </div> -->
     </aside>
   </div>
   <script is:inline>
