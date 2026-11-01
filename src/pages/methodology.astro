@@ -107,6 +107,15 @@ const sources: Row[] = [
   },
 ];
 
+const groups = [
+  { id: 'ds-core', h: 'Which datasets list schools, inspections and admissions?', cap: 'School list, inspection and admissions datasets used by catchment.school', rows: sources.slice(0, 3),
+    intro: 'These three datasets supply the school list, the latest Ofsted grades and the offer day figures.' },
+  { id: 'ds-results', h: 'Which datasets supply results, absence and destinations?', cap: 'Results, absence and destination datasets used by catchment.school', rows: sources.slice(3, 7),
+    intro: 'These four datasets supply Attainment 8, Progress 8, A level results, absence and what leavers do next.' },
+  { id: 'ds-resources', h: 'Which datasets supply staffing, spending and special educational needs?', cap: 'Workforce, spending and special educational needs datasets used by catchment.school', rows: sources.slice(7),
+    intro: 'These four datasets supply teacher figures, spending per pupil and special educational needs.' },
+];
+
 const faq = [
   { q: 'Does catchment.school show catchment boundary maps?', a: 'No. The site holds no boundary maps and no catchment polygons. Councils and academy trusts publish their own admissions policies and boundaries, and the site does not copy them.' },
   { q: 'How does the postcode search measure distance?', a: 'It measures straight-line distance from the centre of your postcode to each school, for schools within 5 km. It is not the distance any council uses to allocate places.' },
@@ -164,11 +173,12 @@ const schema = {
     <div class="prose prose-gray max-w-none space-y-6">
 
       <section>
-        <h2 class="text-xl font-semibold mb-3">Which datasets does catchment.school use?</h2>
-        <p>All school data comes from the Department for Education (DfE) and Ofsted, published under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" class="underline" rel="nofollow noopener" target="_blank">Open Government Licence v3.0</a>. The table gives the release each figure comes from and the date the file was downloaded. School pages repeat the release next to each figure.</p>
-        <div class="overflow-x-auto not-prose" role="region" aria-label="Datasets table" tabindex="0">
+        <h2 class="text-xl font-semibold mb-3">Which datasets list schools, inspections and admissions?</h2>
+        <p>All school data comes from the Department for Education (DfE) and Ofsted, published under the Open Government Licence v3.0. The tables give the release each figure comes from and the date the file was downloaded. School pages repeat the release next to each figure.</p>
+        <p>{groups[0].intro}</p>
+        <div class="overflow-x-auto not-prose" role="region" aria-label={groups[0].cap} tabindex="0">
           <table class="w-full min-w-[44rem] text-xs sm:text-sm border border-gray-200 break-words align-top">
-            <caption class="sr-only">Datasets used by catchment.school, with publisher, release, use, source link and download date</caption>
+            <caption class="sr-only">{groups[0].cap}</caption>
             <thead class="bg-gray-50 text-left">
               <tr>
                 <th scope="col" class="p-2 border-b border-gray-200">Dataset and publisher</th>
@@ -179,7 +189,7 @@ const schema = {
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-              {sources.map((r) => (
+              {groups[0].rows.map((r) => (
                 <tr class="align-top">
                   <th scope="row" class="p-2 text-left font-medium text-gray-900">{r.name}<span class="block font-normal text-gray-500">{r.publisher}</span></th>
                   <td class="p-2 text-gray-700">{r.release}</td>
@@ -191,7 +201,69 @@ const schema = {
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">{groups[1].h}</h2>
+        <p>{groups[1].intro}</p>
+        <div class="overflow-x-auto not-prose" role="region" aria-label={groups[1].cap} tabindex="0">
+          <table class="w-full min-w-[44rem] text-xs sm:text-sm border border-gray-200 break-words align-top">
+            <caption class="sr-only">{groups[1].cap}</caption>
+            <thead class="bg-gray-50 text-left">
+              <tr>
+                <th scope="col" class="p-2 border-b border-gray-200">Dataset and publisher</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Release or period</th>
+                <th scope="col" class="p-2 border-b border-gray-200">What it feeds</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Source</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Downloaded</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              {groups[1].rows.map((r) => (
+                <tr class="align-top">
+                  <th scope="row" class="p-2 text-left font-medium text-gray-900">{r.name}<span class="block font-normal text-gray-500">{r.publisher}</span></th>
+                  <td class="p-2 text-gray-700">{r.release}</td>
+                  <td class="p-2 text-gray-700">{r.use}</td>
+                  <td class="p-2"><a href={r.url} class="underline text-indigo-700" rel="nofollow noopener" target="_blank">{r.label}</a></td>
+                  <td class="p-2 text-gray-700">{r.downloaded}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-3">{groups[2].h}</h2>
+        <p>{groups[2].intro}</p>
+        <div class="overflow-x-auto not-prose" role="region" aria-label={groups[2].cap} tabindex="0">
+          <table class="w-full min-w-[44rem] text-xs sm:text-sm border border-gray-200 break-words align-top">
+            <caption class="sr-only">{groups[2].cap}</caption>
+            <thead class="bg-gray-50 text-left">
+              <tr>
+                <th scope="col" class="p-2 border-b border-gray-200">Dataset and publisher</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Release or period</th>
+                <th scope="col" class="p-2 border-b border-gray-200">What it feeds</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Source</th>
+                <th scope="col" class="p-2 border-b border-gray-200">Downloaded</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              {groups[2].rows.map((r) => (
+                <tr class="align-top">
+                  <th scope="row" class="p-2 text-left font-medium text-gray-900">{r.name}<span class="block font-normal text-gray-500">{r.publisher}</span></th>
+                  <td class="p-2 text-gray-700">{r.release}</td>
+                  <td class="p-2 text-gray-700">{r.use}</td>
+                  <td class="p-2"><a href={r.url} class="underline text-indigo-700" rel="nofollow noopener" target="_blank">{r.label}</a></td>
+                  <td class="p-2 text-gray-700">{r.downloaded}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>The licence terms are in the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" class="underline" rel="nofollow noopener" target="_blank">Open Government Licence v3.0</a>.</p>
         <p>The postcode search also calls the public <a href="https://postcodes.io" class="underline" rel="nofollow noopener" target="_blank">postcodes.io</a> service when a visitor enters a postcode. That lookup converts the postcode to a latitude and longitude and is the only live data call.</p>
+
       </section>
 
       <section>
@@ -232,7 +304,7 @@ const schema = {
 
       <section>
         <h2 class="text-xl font-semibold mb-3">How often is the data updated?</h2>
-        <p>There is no automatic data feed. The source files are downloaded by hand when the DfE or Ofsted publish a new release, then processed by scripts into the files the site is built from. Each figure on a school page states its release and year, and the table above gives the download date. The site does not promise a fixed update schedule.</p>
+        <p>There is no automatic data feed. The source files are downloaded by hand when the DfE or Ofsted publish a new release, then processed by scripts into the files the site is built from. Each figure on a school page states its release and year, and the tables above give the download date. The site does not promise a fixed update schedule.</p>
         <p>A new Ofsted inspection or a corrected DfE record can appear at the source before it appears here. Check <a href="https://get-information-about-schools.service.gov.uk" class="underline" rel="nofollow noopener" target="_blank">GIAS</a> and <a href="https://reports.ofsted.gov.uk" class="underline" rel="nofollow noopener" target="_blank">Ofsted reports</a> for the current position before you make a decision.</p>
       </section>
 

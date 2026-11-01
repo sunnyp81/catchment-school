@@ -52,7 +52,7 @@ const dataset = {
       <h2 id="ans-h" class="sr-only">The short answer</h2>
       <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 shadow-sm space-y-3 text-gray-800">
         <p>{rows[0].name} had the most first choices per offer of any secondary school in England for Year 7 entry in September 2026. It had {int(rows[0].fp)} first choices for {int(rows[0].offers)} offers, or {f2(rows[0].fppo)}, according to Department for Education offer day figures.</p>
-        <p>{selN} of the top {rows.length} are selective schools and {faithN} more are faith schools. High demand shows how many families put a school first. It does not measure teaching or results.</p>
+        <p>High demand shows how many families put a school first. It does not measure teaching or results.</p>
         <p class="text-xs text-gray-600">{SOURCE_LINE} Schools with fewer than {M.minOffers} offers and all-through schools are left out. <a class="text-indigo-700 underline" href={`${HUB}#method`}>Method and limits</a>.</p>
       </div>
     </section>
@@ -62,6 +62,16 @@ const dataset = {
       <p class="text-gray-800 mb-3">First choices per offer is the number of times a school was put first divided by the offers it made. A figure of 2.00 means two first choices for every offer. The median secondary school with at least {M.minOffers} offers had {f2(S.median)} in 2026, so the schools below sit well above a typical school. The last two columns show the same figure for the two earlier years.</p>
       <OversubTable rows={rows} caption={`Top ${rows.length} secondary schools by first choices per offer, Year 7 entry 2026-27`} showCouncil={true} showSeries={true} />
       <p class="text-xs text-gray-600 mt-2">Source: DfE school-level file, 2026/27 release (dated 29 June 2026), offer day figures for September 2026, 2025 and 2024 entry. First-choice families offered is offers to first-choice applicants divided by first choices. Under 30 offers means too few to compare. Selective and faith labels come from DfE's admissions policy and religious character fields. First choices include families from other council areas. Offer day only: waiting lists and appeals are not counted.</p>
+    </section>
+
+    <section class="mb-10" aria-labelledby="type-h">
+      <h2 id="type-h" class="text-xl font-semibold mb-3">Are the top secondary schools selective or faith schools?</h2>
+      <p class="text-gray-800">{selN} of the top {rows.length} are selective schools and {faithN} more are faith schools. High demand shows how many families put a school first. It does not measure teaching or results.</p>
+    </section>
+
+    <section class="mb-10" aria-labelledby="read-h">
+      <h2 id="read-h" class="text-xl font-semibold mb-3">How should I read this table?</h2>
+      <p class="text-gray-800">"Not published" means the DfE file has no figure for that school in that year. "Under 30 offers" means the school made too few offers that year to compare. Read each row across: the 2026 figure first, then the two earlier years.</p>
     </section>
 
     <section class="mb-6" aria-labelledby="more-h">

@@ -38,8 +38,6 @@ const dataset = {
   variableMeasured: ['First preferences', 'Offers made', 'First preferences per offer', 'Share of first-choice families offered a place'],
   distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE}${CSV_URL}` }],
 };
-const itemList = { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Secondary schools with the most first choices per offer, 2026 entry', numberOfItems: top5s.length,
-  itemListElement: top5s.map((r: any, i: number) => ({ '@type': 'ListItem', position: i + 1, name: r.name, ...(r.slug ? { url: `${SITE}/school/${r.slug}/` } : {}) })) };
 
 const faqs = [
   { q: 'What does oversubscribed mean for a school?', a: 'A school is oversubscribed when more families put it first than it has places. DfE measures this as first preferences per offer. A figure above 1 means more first choices than offers. A figure of 2 means two first choices for every offer.' },
@@ -58,7 +56,6 @@ const move = (a: number, b: number) => (b > a ? `rose from ${pct(a)} to ${pct(b)
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
     <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
-    <script type="application/ld+json" set:html={JSON.stringify(itemList)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
@@ -130,11 +127,7 @@ const move = (a: number, b: number) => (b > a ? `rose from ${pct(a)} to ${pct(b)
     <section aria-labelledby="top-h" class="mb-10">
       <h2 id="top-h" class="text-xl font-semibold mb-3">Which schools had the most first choices per offer?</h2>
       <p class="text-gray-800 mb-3">{top5s[0].name}{top5s[0].name.includes(top5s[0].council) ? '' : ` in ${top5s[0].council}`} had the most first choices per offer of any secondary school in 2026, at {f2(top5s[0].fppo)}, and {top5p[0].name}{top5p[0].name.includes(top5p[0].council) ? '' : ` in ${top5p[0].council}`} led the primary list at {f2(top5p[0].fppo)}. High demand is not the same as quality. It reflects how many families put the school first and how many places it had.</p>
-      <h3 class="font-semibold text-gray-900 mb-2">Secondary, Year 7 entry</h3>
-      <div class="mb-6"><OversubTable rows={top5s} caption="Five secondary schools with the most first choices per offer, 2026 entry" showCouncil={true} /></div>
-      <h3 class="font-semibold text-gray-900 mb-2">Primary, Reception entry</h3>
-      <OversubTable rows={top5p} caption="Five primary schools with the most first choices per offer, 2026 entry" showCouncil={true} />
-      <p class="text-sm mt-3">Source: DfE school-level file, 2026/27 release, offer day figures for September 2026 entry.</p>
+      <p class="text-gray-800">The full ranked lists are the <a class="text-indigo-700 underline" href="/oversubscribed-schools/secondary/">top {OS.top.secondary.length} secondary schools</a> and the <a class="text-indigo-700 underline" href="/oversubscribed-schools/primary/">top {OS.top.primary.length} primary schools</a>. Source: DfE school-level file, 2026/27 release, offer day figures for September 2026 entry.</p>
     </section>
 
     <section aria-labelledby="lists-h" class="mb-10">
@@ -214,6 +207,10 @@ const move = (a: number, b: number) => (b > a ? `rose from ${pct(a)} to ${pct(b)
       <h2 id="index-h" class="text-xl font-semibold mb-3">Where can I find oversubscription figures for my council?</h2>
       <p class="text-gray-800 mb-3">Each council page has its share of applicants who missed their first preference, three years of trend and a table of its schools. Year 7 sections need at least {M.minSchools['7']} schools with data and Reception sections at least {M.minSchools.R}. {secCouncils} councils have a Year 7 section and {priCouncils} have a Reception section.</p>
       <p class="text-gray-800 mb-3">To compare councils on Ofsted ratings, GCSE results, absence and special educational needs as well, see <a class="text-indigo-700 underline" href="/school-statistics-by-council/">school statistics by council</a>.</p>
+    </section>
+
+    <section aria-labelledby="index-list-h" class="mb-6">
+      <h2 id="index-list-h" class="text-xl font-semibold mb-3">Which councils have an oversubscription section?</h2>
       <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-1.5 text-sm">
         {index.map((c) => (
           <li><a class="text-indigo-700 underline" href={`/council/${c.slug}/#oversubscription`}>{c.name}</a></li>
