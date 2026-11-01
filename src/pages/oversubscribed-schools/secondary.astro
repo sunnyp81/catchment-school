@@ -58,9 +58,15 @@ const dataset = {
     </section>
 
     <section class="mb-10" aria-labelledby="list-h">
-      <h2 id="list-h" class="text-xl font-semibold mb-3">Which {rows.length} secondary schools had the most first choices per offer in 2026?</h2>
+      <h2 id="list-h" class="text-xl font-semibold mb-3">Which 50 secondary schools had the most first choices per offer in 2026?</h2>
       <p class="text-gray-800 mb-3">First choices per offer is the number of times a school was put first divided by the offers it made. A figure of 2.00 means two first choices for every offer. The median secondary school with at least {M.minOffers} offers had {f2(S.median)} in 2026, so the schools below sit well above a typical school. The last two columns show the same figure for the two earlier years.</p>
-      <OversubTable rows={rows} caption={`Top ${rows.length} secondary schools by first choices per offer, Year 7 entry 2026-27`} showCouncil={true} showSeries={true} />
+      <OversubTable rows={rows.slice(0, 50)} caption={`Top 50 secondary schools by first choices per offer, Year 7 entry 2026-27`} showCouncil={true} showSeries={true} />
+    </section>
+
+    <section class="mb-10" aria-labelledby="list2-h">
+      <h2 id="list2-h" class="text-xl font-semibold mb-3">Which secondary schools ranked 51 to {rows.length} for first choices per offer in 2026?</h2>
+      <p class="text-gray-800 mb-3">These schools follow the first 50 in the same order, from {f2(rows[50].fppo)} first choices per offer at number 51 to {f2(rows[rows.length - 1].fppo)} at number {rows.length}.</p>
+      <OversubTable rows={rows.slice(50)} startRank={51} caption={`Secondary schools ranked 51 to ${rows.length} by first choices per offer, Year 7 entry 2026-27`} showCouncil={true} showSeries={true} />
       <p class="text-xs text-gray-600 mt-2">Source: DfE school-level file, 2026/27 release (dated 29 June 2026), offer day figures for September 2026, 2025 and 2024 entry. First-choice families offered is offers to first-choice applicants divided by first choices. Under 30 offers means too few to compare. Selective and faith labels come from DfE's admissions policy and religious character fields. First choices include families from other council areas. Offer day only: waiting lists and appeals are not counted.</p>
     </section>
 
