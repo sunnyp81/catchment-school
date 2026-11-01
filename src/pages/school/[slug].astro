@@ -172,7 +172,7 @@ const pilotFsmProse = councilAdmits && s.fsm != null
 const pilotDemandProse = fillRate !== null
   ? (councilAdmits
     ? 'GIAS capacity is not a published admission number. Pupils on roll are not places offered in a given year.'
-    : 'Pupils on roll are not places offered in a given year.')
+    : isIndependent ? null : 'Pupils on roll are not places offered in a given year.')
   : null;
 
 // schoolOne / schoolMany: "primary school" / "independent schools" etc, never the raw "Not applicable".
@@ -318,7 +318,7 @@ const ratioText = '';
 const oversubAnswer = dfeRow
   ? `${isOversubscribed ? 'Yes.' : 'No.'} First preferences ${isOversubscribed ? 'exceeded' : 'did not exceed'} offers at ${dfeLabel} entry in ${dfeRow.year}. The admissions section above has the figures.`
   : isIndependent
-    ? `DfE publishes no offer day figures for ${s.name}. Ask the school about places.`
+    ? `Not applicable. DfE publishes no offer day figures for independent schools. Ask ${s.name} about places.`
     : isPlaced
       ? `Places at ${s.name} are arranged by placement, so there is no first preference round to count.`
       : admMode === 'other'
@@ -327,7 +327,7 @@ const oversubAnswer = dfeRow
 const admissionsAnswer = isNursery
   ? `See the catchment section above. Ask ${s.name} how to apply for a nursery place.`
   : isIndependent
-  ? `The catchment section above says who decides.${isGrammar ? ' GIAS lists the policy as selective.' : ''} Ask the school for its entry requirements.`
+  ? `${s.name} sets its own entry requirements.${isGrammar ? ' GIAS lists the policy as selective.' : ''} Ask the school for them.`
   : isPlaced
     ? `There is no main round application for ${s.name}. Ask ${s.la} how a placement request is made.`
     : isSixteenPlus
@@ -545,7 +545,7 @@ const breadcrumbSchema = {
       </div>
 
       <section id="catchment-area" class="mb-8">
-        <h2 class="text-xl font-semibold mb-3">{s.name} Catchment Area Information</h2>
+        <h2 class="text-xl font-semibold mb-3">{isIndependent ? `Admissions at ${s.name}` : `${s.name} Catchment Area Information`}</h2>
         <div class="bg-white border-l-4 border-indigo-500 rounded-r-lg p-5 mb-4 shadow-sm">
           <p class="text-sm font-semibold text-gray-500 mb-1">What is the catchment area for {s.name}?</p>
           <p class="text-base text-gray-800 leading-relaxed">{catchmentAnswer}</p>
@@ -559,7 +559,7 @@ const breadcrumbSchema = {
                 Not getting a place? <a href="/guides/how-to-appeal-a-school-place" class="font-semibold text-amber-900 underline hover:no-underline">Learn how to appeal a school place →</a>
               </p>
               <p class="mt-2">
-                Want the cut-off distance before you apply? <a href="#alerts" class="font-semibold text-amber-900 underline hover:no-underline">Get an alert when {s.la} publishes the {admissionsYear} {s.name} numbers →</a>
+                <a href="#alerts" class="font-semibold text-amber-900 underline hover:no-underline">Get an alert when {s.la} publishes the {admissionsYear} {s.name} numbers →</a>
               </p>
             </div>
           )}
