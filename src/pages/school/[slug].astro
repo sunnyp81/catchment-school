@@ -173,7 +173,7 @@ const rollVsCapacity = fillRate !== null
   ? `${s.name} has <strong>${s.pupils} pupils on roll</strong> against a capacity of <strong>${s.capacity} places</strong> in the GIAS register. That is <strong>${fillRate}%</strong> of capacity. GIAS capacity is not a published admission number. Pupils on roll are not places offered in a given year.`
   : null;
 const pilotDemandProse = fillRate !== null && !councilAdmits
-  ? `${rollVsCapacity} ${isNursery ? 'Nursery places are not allocated through the council's school admissions round.' : isIndependent ? 'The school handles its own admissions.' : isPlaced ? `${s.la} arranges places by placement.` : 'The establishment handles its own admissions.'}`
+  ? `${rollVsCapacity} ${isNursery ? "Nursery places are not allocated through the council's school admissions round." : isIndependent ? 'The school handles its own admissions.' : isPlaced ? `${s.la} arranges places by placement.` : 'The establishment handles its own admissions.'}`
   : fillRate !== null
   ? `${rollVsCapacity} ${dfeRow ? 'The offer day figures on this page show whether first preferences exceeded offers.' : 'Roll against capacity does not show demand for places.'}`
   : null;
