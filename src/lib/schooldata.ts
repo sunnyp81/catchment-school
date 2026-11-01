@@ -47,8 +47,8 @@ const RANK_META: Record<string, RankMeta> = {
   dest_ks4: { label: 'Year 11 leavers in a sustained destination', top: 'highest share in a sustained destination', src: 'destinations', srcShort: 'DfE key stage 4 destination measures', yearText: (r) => withProv(r.year, 'leavers'), fmt: (v) => `${v.toFixed(1)}%`, value: 'of leavers' },
   dest_1618: { label: 'sixth form leavers in a sustained destination', top: 'highest share in a sustained destination', src: 'destinations', srcShort: 'DfE 16 to 18 destination measures', yearText: (r) => withProv(r.year, 'leavers'), fmt: (v) => `${v.toFixed(1)}%`, value: 'of leavers' },
   ptr: { label: 'pupils per teacher', top: 'fewest pupils per teacher', src: 'workforce', srcShort: 'DfE school workforce in England', yearText: () => 'November 2025 census', fmt: (v) => v.toFixed(1), value: 'pupils per teacher' },
-  spend_cfr: { label: 'total spending per pupil', top: 'highest spending per pupil', src: 'cfr', srcShort: 'DfE schools financial benchmarking, council maintained schools', yearText: (r) => `${r.year} financial year`, fmt: (v) => `£${Math.round(v).toLocaleString('en-GB')}`, value: 'per pupil', caveat: `${SPEND_CAVEAT} Figures cover revenue spending and leave out capital spending.` },
-  spend_aar: { label: 'total spending per pupil', top: 'highest spending per pupil', src: 'aar', srcShort: 'DfE schools financial benchmarking, academies', yearText: (r) => `${r.year} academy year`, fmt: (v) => `£${Math.round(v).toLocaleString('en-GB')}`, value: 'per pupil', caveat: `${SPEND_CAVEAT} Figures cover revenue spending and leave out capital spending and the trust's central spending.` },
+  spend_cfr: { label: 'total spending per pupil', top: 'highest spending per pupil', src: 'cfr', srcShort: 'DfE schools financial benchmarking for council maintained schools', yearText: (r) => `${r.year} financial year`, fmt: (v) => `£${Math.round(v).toLocaleString('en-GB')}`, value: 'per pupil', caveat: `${SPEND_CAVEAT} Figures cover revenue spending and leave out capital spending.` },
+  spend_aar: { label: 'total spending per pupil', top: 'highest spending per pupil', src: 'aar', srcShort: 'DfE schools financial benchmarking for academies', yearText: (r) => `${r.year} academy year`, fmt: (v) => `£${Math.round(v).toLocaleString('en-GB')}`, value: 'per pupil', caveat: `${SPEND_CAVEAT} Figures cover revenue spending and leave out capital spending and the trust's central spending.` },
 };
 // Display order; only the first MAX_RANK_ROWS present are shown. Persistent absence goes last so it appears only when there is room.
 const RANK_ORDER = ['fppo_y7', 'fppo_r', 'p8', 'a8', 'abs_overall', 'dest_ks4', 'dest_1618', 'ptr', 'spend_cfr', 'spend_aar', 'abs_persistent'];
@@ -136,7 +136,7 @@ export function compareRankRows(sA: any, sB: any, ranksA: any[], ranksB: any[]):
   return { rows, summary };
 }
 const MAX_COMPARE_ROWS = 7;
-export const RANK_METHOD = 'Each ranking compares only state-funded schools with a published figure for that measure. The number of schools therefore differs between rows. Independent schools are not ranked. Nor are special schools, nursery schools, alternative provision or 16 to 19 providers. Each row states whether rank 1 is the highest or the lowest figure. Schools with the same figure share a rank and the next rank is skipped. Council rankings appear only where at least 10 schools in the council have a figure. Rankings describe the published figures and do not explain why schools differ.';
+export const RANK_METHOD = 'Each ranking compares state-funded schools with a published figure for that measure. The number of schools differs between rows. Independent schools are not ranked. Special schools, nursery schools, alternative provision and 16 to 19 providers are not ranked. Each row says whether rank 1 is the highest or the lowest figure. Schools with the same figure share a rank. Council rankings need at least 10 schools with a figure. Rankings describe the published figures. They do not explain why schools differ.';
 
 /** Copy-ready plain-text citation. `accessed` is passed in so the caller renders it at request time. */
 export function citationText(s: any, rows: RankRow[], hasOfsted: boolean, accessed: string): string {
@@ -273,17 +273,17 @@ export function sendShown(f: any | null) {
 
 // Source lines (all dates are from the *-sources.json files).
 export const SRC = {
-  admissions: 'DfE, Primary and secondary school applications and offers. Academic year 2026/27 release. Published 18 June 2026. School level file. Downloaded 30 October 2026',
-  destinations: 'DfE, Key stage 4 and 16 to 18 destination measures. Data set version 2.0. Released 15 October 2026. Downloaded 30 October 2026',
-  workforce: 'DfE, School workforce in England. Reporting year 2025 (November 2025 school workforce census). Downloaded 30 October 2026',
-  cfr: 'DfE Schools financial benchmarking. Consistent Financial Reporting for council maintained schools. Financial year 2025-26',
-  aar: 'DfE Schools financial benchmarking. Academies Accounts Return. Academy year September 2024 to August 2025',
-  send: 'DfE, Special educational needs in England. Academic year 2025/26 (January 2026 school census)',
-  ks4: 'DfE, Key stage 4 performance. School-level performance tables data. Provisional for 2025/26. Downloaded 30 October 2026',
-  ks4final: 'DfE, Key stage 4 performance. Academic year 2025/26 release. School-level data set version 2.0.1. The 2023/24 and 2024/25 figures are final. Downloaded 30 October 2026',
-  absence: 'DfE, Pupil absence in schools in England. Academic year 2024/25. Published 26 March 2026. Downloaded 30 October 2026',
-  provision: 'Get Information About Schools, as at 30 October 2026',
-  ofsted: 'Ofsted Management Information, state-funded schools inspections and outcomes. Latest inspections to 30 September 2026. Grades before 2019 come from the 31 December 2025 release',
+  admissions: 'DfE school applications and offers. 2026/27 release published 18 June 2026. School level file. Downloaded 30 October 2026',
+  destinations: 'DfE key stage 4 and 16 to 18 destination measures. Data set version 2.0 released 15 October 2026. Downloaded 30 October 2026',
+  workforce: 'DfE school workforce in England. November 2025 census. Downloaded 30 October 2026',
+  cfr: 'DfE schools financial benchmarking. Consistent Financial Reporting for council maintained schools. Financial year 2025-26',
+  aar: 'DfE schools financial benchmarking. Academies Accounts Return. Academy year September 2024 to August 2025',
+  send: 'DfE special educational needs in England. 2025/26 release from the January 2026 school census',
+  ks4: 'DfE key stage 4 performance. School-level performance tables data. Provisional for 2025/26. Downloaded 30 October 2026',
+  ks4final: 'DfE key stage 4 performance. 2025/26 release. Data set version 2.0.1. The 2023/24 and 2024/25 figures are final. Downloaded 30 October 2026',
+  absence: 'DfE pupil absence in schools in England. Academic year 2024/25 published 26 March 2026. Downloaded 30 October 2026',
+  provision: 'Get Information About Schools as at 30 October 2026',
+  ofsted: 'Ofsted Management Information. Inspections to 30 September 2026. Grades before 2019 come from the 31 December 2025 release',
 };
 
 // ================= Compare page =================

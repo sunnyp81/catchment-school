@@ -74,7 +74,7 @@ const destReading = (g: any) => {
         {ranks.map((r) => (
           <li>
             <p class="text-gray-900">{r.sentence}{r.valueText && <> The school's figure is {r.valueText}.</>}</p>
-            <p class="text-xs text-gray-500">{r.note}{r.caveat ? ` ${r.caveat}` : ''} Data year: {r.yearText}. Source: {r.source}.</p>
+            <p class="text-xs text-gray-500">{r.note}{r.caveat ? ` ${r.caveat}` : ''} Data year: {r.yearText}. Source: {r.sourceShort}.</p>
           </li>
         ))}
       </ul>
@@ -133,7 +133,7 @@ const destReading = (g: any) => {
           </div>
         </div>
       ))}
-      <p class="text-xs text-gray-500">These are offer day figures. Appeals and waiting lists are not counted and the final intake can differ. Offers are not the same as capacity. DfE does not publish a last distance offered nationally. Ask {s.la} for the distance cut-off. Years are the academic year of entry.</p>
+      <p class="text-xs text-gray-500">These are offer day figures. Appeals and waiting lists are not counted. The final intake can differ. Offers are not capacity. DfE publishes no last distance offered. Ask {s.la} for the distance cut-off. Years are the academic year of entry.</p>
       <p class="text-xs text-gray-500">Source: {SRC.admissions}. <a class="text-indigo-700 underline" href="https://explore-education-statistics.service.gov.uk/find-statistics/primary-and-secondary-school-applications-and-offers/2026-27" rel="nofollow noopener">Publication</a> and <a class="text-indigo-700 underline" href="https://explore-education-statistics.service.gov.uk/methodology/secondary-and-primary-school-applications-and-offers-methodology" rel="nofollow noopener">methodology</a>.</p>
       {osShowLink && <p class="text-xs text-gray-600">Compare these figures with the <a class="text-indigo-700 underline" href="/oversubscribed-schools/">most oversubscribed schools in England</a>{osCouncilLink && <> and <a class="text-indigo-700 underline" href={`/council/${s.laSlug}/#oversubscription`}>oversubscription in {s.la}</a></>}.</p>}
     </div>
@@ -146,23 +146,23 @@ const destReading = (g: any) => {
     <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3 text-sm text-gray-700">
       {ofv.cardLater && ofv.card ? (
         <>
-          <p><strong class="text-gray-900">Latest inspection: report card, {longDate(ofv.card.date)}.</strong> Report cards began in November 2025. They grade separate areas and do not give an overall grade.</p>
-          {ofv.rating && <p>The last overall grade was <strong>{ofv.ratingLabel}</strong>.{ofv.gradedDate ? ` It came from the inspection on ${longDate(ofv.gradedDate)}` : ''}{ofv.predecessor ? ` and was awarded to a predecessor school on this site` : ''}{ofv.gradedDate || ofv.predecessor ? '.' : ''}</p>}
+          <p><strong class="text-gray-900">Latest inspection: a report card on {longDate(ofv.card.date)}.</strong> Report cards began in November 2025. They grade areas and give no overall grade.</p>
+          {ofv.rating && <p>The last overall grade was <strong>{ofv.ratingLabel}</strong>.{ofv.gradedDate ? ` It came from the inspection on ${longDate(ofv.gradedDate)}.` : ''}{ofv.predecessor ? ' It was awarded to a predecessor school on this site.' : ''}</p>}
         </>
       ) : (
         <>
           {ofv.rating && (
             <p class="flex flex-wrap items-center gap-2">
               <span class={`inline-block rounded border px-2 py-0.5 font-semibold ${ofstedColors[ofv.rating]}`}>{ofv.ratingLabel}</span>
-              <span>Overall effectiveness: inspected {longDate(ofv.gradedDate)}.</span>
+              <span>Overall effectiveness from the inspection on {longDate(ofv.gradedDate)}.</span>
             </p>
           )}
-          {ofv.rating && ofv.predecessor && <p>This grade was awarded to a predecessor school on this site (a different URN). It is the most recent overall grade recorded for the site. Ofsted does not name the predecessor in its management information.</p>}
-          {ofv.ungraded && <p><strong class="text-gray-900">Latest ungraded inspection on {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}. An ungraded inspection does not issue a new grade. It reports whether the previous grade still holds.</p>}
-          {ofv.card && <p><strong class="text-gray-900">Report card, {longDate(ofv.card.date)}.</strong> Report cards began in November 2025 and do not give an overall grade.</p>}
+          {ofv.rating && ofv.predecessor && <p>This grade was awarded to a predecessor school on this site. It is the latest overall grade recorded for the site. Ofsted does not name the predecessor.</p>}
+          {ofv.ungraded && <p><strong class="text-gray-900">Latest ungraded inspection on {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}. An ungraded inspection issues no new grade. It reports whether the old grade still holds.</p>}
+          {ofv.card && <p><strong class="text-gray-900">Report card on {longDate(ofv.card.date)}.</strong> Report cards began in November 2025. They give no overall grade.</p>}
         </>
       )}
-      {ofv.cardLater && ofv.ungraded && ofv.ungradedAfterCard && <p><strong class="text-gray-900">Ungraded inspection, {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}.</p>}
+      {ofv.cardLater && ofv.ungraded && ofv.ungradedAfterCard && <p><strong class="text-gray-900">Ungraded inspection on {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}.</p>}
       {ofv.card && (
         <dl class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {ofv.card.areas.map((a: any) => (
