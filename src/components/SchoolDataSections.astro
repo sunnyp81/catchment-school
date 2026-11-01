@@ -147,18 +147,18 @@ const destReading = (g: any) => {
       {ofv.cardLater && ofv.card ? (
         <>
           <p><strong class="text-gray-900">Latest inspection: report card, {longDate(ofv.card.date)}.</strong> Report cards began in November 2025. They grade separate areas and do not give an overall grade.</p>
-          {ofv.rating && <p>The last overall grade was <strong>{ofv.ratingLabel}</strong>.{ofv.gradedDate ? ` It came from the inspection on ${longDate(ofv.gradedDate)}` : ''}{ofv.predecessor ? ` and was awarded to a predecessor school on this site, for example before academy conversion` : ''}{ofv.gradedDate || ofv.predecessor ? '.' : ''}</p>}
+          {ofv.rating && <p>The last overall grade was <strong>{ofv.ratingLabel}</strong>.{ofv.gradedDate ? ` It came from the inspection on ${longDate(ofv.gradedDate)}` : ''}{ofv.predecessor ? ` and was awarded to a predecessor school on this site` : ''}{ofv.gradedDate || ofv.predecessor ? '.' : ''}</p>}
         </>
       ) : (
         <>
           {ofv.rating && (
             <p class="flex flex-wrap items-center gap-2">
               <span class={`inline-block rounded border px-2 py-0.5 font-semibold ${ofstedColors[ofv.rating]}`}>{ofv.ratingLabel}</span>
-              <span>Overall effectiveness, inspected {longDate(ofv.gradedDate)}.</span>
+              <span>Overall effectiveness: inspected {longDate(ofv.gradedDate)}.</span>
             </p>
           )}
-          {ofv.rating && ofv.predecessor && <p>This grade was awarded to a predecessor school on this site (a different URN), for example before academy conversion. It is the most recent overall grade recorded for the site. Ofsted does not name the predecessor in its management information.</p>}
-          {ofv.ungraded && <p><strong class="text-gray-900">Latest ungraded inspection, {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}. An ungraded inspection does not issue a new grade. It reports whether the previous grade still holds.</p>}
+          {ofv.rating && ofv.predecessor && <p>This grade was awarded to a predecessor school on this site (a different URN). It is the most recent overall grade recorded for the site. Ofsted does not name the predecessor in its management information.</p>}
+          {ofv.ungraded && <p><strong class="text-gray-900">Latest ungraded inspection on {longDate(ofv.ungraded.date)}:</strong> {ofv.ungraded.outcome}. An ungraded inspection does not issue a new grade. It reports whether the previous grade still holds.</p>}
           {ofv.card && <p><strong class="text-gray-900">Report card, {longDate(ofv.card.date)}.</strong> Report cards began in November 2025 and do not give an overall grade.</p>}
         </>
       )}

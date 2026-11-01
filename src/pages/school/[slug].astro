@@ -160,12 +160,12 @@ const pilotFsmProse = councilAdmits && s.fsm != null
 // fix-d: "{Council} allocates places using ranked criteria: looked-after children first, then siblings, then catchment distance."
 // fix-i: no em/en dashes in pilot prose
 const rollVsCapacity = fillRate !== null
-  ? `${s.name} has <strong>${s.pupils} pupils on roll</strong> compared with a capacity of <strong>${s.capacity} places</strong> in the GIAS register, which is <strong>${fillRate}%</strong> of capacity. GIAS capacity is not a published admission number, and pupils on roll are not the same as places offered in a given year.`
+  ? `${s.name} has <strong>${s.pupils} pupils on roll</strong> against a capacity of <strong>${s.capacity} places</strong> in the GIAS register. That is <strong>${fillRate}%</strong> of capacity. GIAS capacity is not a published admission number. Pupils on roll are not places offered in a given year.`
   : null;
 const pilotDemandProse = fillRate !== null && !councilAdmits
-  ? `${rollVsCapacity} ${isIndependent ? 'Admissions are handled by the school itself, so ask the school about places and entry.' : isPlaced ? `Places are arranged by placement through ${s.la} rather than by application and catchment area.` : 'Ask the establishment directly about places and how to apply.'}`
+  ? `${rollVsCapacity} ${isIndependent ? 'The school handles its own admissions.' : isPlaced ? `${s.la} arranges places by placement.` : 'The establishment handles its own admissions.'}`
   : fillRate !== null
-  ? `${rollVsCapacity} ${dfeRow ? `The DfE offer day figures show whether the school was oversubscribed on first preferences. Ask ${s.la} for the admissions criteria and any distance data.` : `This page has no DfE offer day figures for the school, so it cannot say whether the school was oversubscribed. Ask ${s.la} for the admissions criteria and any distance data.`}`
+  ? `${rollVsCapacity} ${dfeRow ? 'The offer day figures above show whether first preferences exceeded offers.' : 'Roll against capacity does not show demand for places.'}`
   : null;
 
 const introFacts = [
@@ -206,8 +206,8 @@ const ofstedYear = s.ofstedDate ? s.ofstedDate.split('/').pop() : null;
 // One Ofsted answer for the visible FAQ and the FAQ schema. Leads with a report card when it is newer than the overall grade.
 const ofstedFaqText = !ofstedLabel ? null
   : ofv?.cardLater && ofv.card
-    ? `The latest Ofsted inspection of ${s.name} was a report card on ${longDate(ofv.card.date)}. Report cards grade separate areas and give no overall grade. The last overall grade was ${ofstedLabel}${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv.predecessor ? ', awarded to a predecessor school on this site' : ''}.`
-    : `${s.name} was rated ${ofstedLabel} by Ofsted${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv?.predecessor ? '. That grade was awarded to a predecessor school on this site, for example before academy conversion' : ''}.${ofv?.ungraded ? ` The latest ungraded inspection, on ${longDate(ofv.ungraded.date)}, reported "${ofv.ungraded.outcome}".` : ''}`;
+    ? `The latest Ofsted inspection of ${s.name} was a report card on ${longDate(ofv.card.date)}. Report cards grade separate areas and give no overall grade. The last overall grade was ${ofstedLabel}${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv.predecessor ? '. That grade belongs to a predecessor school on this site' : ''}.`
+    : `${s.name} was rated ${ofstedLabel} by Ofsted${ofstedYear ? ` in ${ofstedYear}` : ''}${ofv?.predecessor ? '. That grade belongs to a predecessor school on this site' : ''}.${ofv?.ungraded ? ` The latest ungraded inspection on ${longDate(ofv.ungraded.date)} reported "${ofv.ungraded.outcome}".` : ''}`;
 const ofstedReportUrl = ofv?.reportUrl ?? `https://reports.ofsted.gov.uk/search?q=${s.urn}`;
 
 // Catchment guidance - varies by phase, type, and capacity to avoid boilerplate
@@ -216,49 +216,57 @@ const isFaith = s.religion && s.religion !== 'Does not apply' && s.religion !== 
 const isAcademy = s.type?.toLowerCase().includes('academy');
 const isSpecial = isPlaced && !isPru;
 
-const selectiveNote = isGrammar ? ` The school's admissions policy is listed as selective, so entry may depend on an entrance assessment.` : '';
-const catchmentPara1 = isIndependent
-  ? `<strong>${s.name}</strong> is an independent school, so ${s.la} does not set its admissions and there is no council catchment area. The school decides who is offered a place.${selectiveNote}${/special/i.test(String(s.type)) ? ` Where a local authority names the school in a child's Education, Health and Care Plan (EHCP), placement is arranged through that authority.` : ''}`
+// Who sets the admissions policy for a council-mode school. Academies and free schools answer to their trust; foundation and voluntary aided schools to their governing body.
+const isTrustSchool = /academy|free school|studio|university technical|city technology/i.test(String(s.type ?? ''));
+const isGoverningBodySchool = /foundation|voluntary aided/i.test(String(s.type ?? ''));
+const ownAuthority = councilAdmits && !isGrammar && (isTrustSchool || isGoverningBodySchool);
+const policySetter = isTrustSchool ? 'The academy trust' : 'The governing body';
+const inTown = s.town ? ` in ${s.town}` : '';
+
+const catchmentAnswer = isIndependent
+  ? `${s.name} has no council catchment area. It is an independent school and sets its own admissions.`
   : isPru
-  ? `Places at <strong>${s.name}</strong> are arranged by placement, usually through <strong>${s.la}</strong> or the child's current school, rather than through the main admissions round. There is no catchment area in the mainstream sense.`
+  ? `${s.name} does not use a catchment area. Places are arranged by placement.`
   : admMode === 'other'
-  ? (isSixteenPlus ? `<strong>${s.name}</strong> is a 16 plus provider, not a school with a council catchment area. The provider sets its own admissions, so contact it directly about courses, entry requirements and how to apply.` : `<strong>${s.name}</strong> is not a mainstream school, so the usual council catchment area process does not apply. Contact the establishment directly about how to apply.`)
-  : isGrammar
-  ? `Entry to <strong>${s.name}</strong> is selective, and applicants must pass the relevant admissions test. Among qualifying applicants, <strong>${s.la}</strong> may use distance or catchment area as a tiebreaker when the school is oversubscribed. Check the admissions policy for how the selection and distance criteria interact.`
+  ? (isSixteenPlus ? `${s.name} is a 16 plus provider and has no council catchment area.` : `${s.name} is not a mainstream school and has no council catchment area.`)
   : isSpecial
-  ? `Admission to <strong>${s.name}</strong> follows a different process from mainstream schools. <strong>${s.la}</strong> assesses each child's Education, Health and Care Plan (EHCP) to determine appropriate placement. Catchment area does not apply in the same way as mainstream admissions.`
-  : isFaith
-  ? `Admission to <strong>${s.name}</strong> is managed by <strong>${s.la}</strong> and typically includes both faith criteria and catchment area proximity. The weighting given to each criterion depends on the school's published oversubscription policy, which is reviewed annually.`
-  : isAcademy
-  ? `As an academy, <strong>${s.name}</strong> sets its own admissions criteria, agreed with <strong>${s.la}</strong>. The catchment area boundary is defined in the school's annual admissions policy, which may differ from the LA's general school admissions arrangements.`
-  : s.phase === 'Secondary'
-  ? `Secondary school places at <strong>${s.name}</strong> are allocated by <strong>${s.la}</strong> using ranked oversubscription criteria. Catchment area residence is typically among the highest priorities after looked-after children and siblings, and the boundary is reviewed each year.`
-  : `Where <strong>${s.name}</strong> uses a catchment area, it is set out in the admissions policy published by <strong>${s.la}</strong>. Not every school uses one, so check the policy for how places are ranked when applications exceed the number of available places.`;
+  ? `${s.name} is ${schoolArticle} ${schoolOne}${inTown}. It has no standard catchment area.`
+  : isGrammar
+  ? `${s.name} is a selective ${schoolOne}${inTown}. This site holds no catchment boundary for it. Entry depends on an admissions test.`
+  : ownAuthority
+  ? `${s.name} is ${schoolArticle} ${schoolOne}${inTown}. This site holds no catchment boundary for it. ${policySetter} sets the admissions policy.`
+  : `${s.name} is ${schoolArticle} ${schoolOne}${inTown}. Not every school has a catchment area. This site holds no boundary for it.`;
+
+const faithClause = isFaith ? ` The school has a ${s.religion} character, so the criteria may include faith.` : '';
+const catchmentPara1 = isIndependent
+  ? `<strong>${s.name}</strong> decides who is offered a place. <strong>${s.la}</strong> does not allocate its places.${isGrammar ? ' Its admissions policy is listed as selective.' : ''}${/special/i.test(String(s.type)) ? ' Where an authority names the school in an Education, Health and Care Plan (EHCP), that authority arranges the placement.' : ''}`
+  : isPru
+  ? `<strong>${s.la}</strong> or the child's current school usually arranges the placement. It sits outside the main admissions round.`
+  : admMode === 'other'
+  ? (isSixteenPlus ? `The provider sets its own admissions for <strong>${s.name}</strong>. It lists its courses and entry requirements.` : `<strong>${s.name}</strong> handles admissions itself. The usual council process does not apply.`)
+  : isSpecial
+  ? `<strong>${s.la}</strong> reviews each child's Education, Health and Care Plan (EHCP) to decide the placement. Assessed need decides the place. Home-to-school distance does not.`
+  : isGrammar
+  ? `Applicants to <strong>${s.name}</strong> sit the admissions test first. The policy may then use distance to rank those who qualify. Applications still go through <strong>${s.la}</strong>.`
+  : ownAuthority
+  ? `Applications for <strong>${s.name}</strong> go through <strong>${s.la}</strong>. ${policySetter} writes the oversubscription criteria.${faithClause}`
+  : `Applications for <strong>${s.name}</strong> go through <strong>${s.la}</strong>.${faithClause} The policy sets out how places are ranked when applications exceed places.`;
 
 const catchmentPara2 = isIndependent
-  ? `Contact the school directly about how to apply, entry requirements and any assessment dates.`
+  ? `Contact the school about entry requirements and how to apply.`
   : isPru
-  ? `Ask ${s.la} how placements into alternative provision work and which provision is available.`
+  ? `Ask ${s.la} how placements into alternative provision work.`
   : admMode === 'other'
-  ? `Check the establishment's own website or the DfE Get Information About Schools record for current details.`
-  : isGrammar
-  ? `The full admissions policy, including test registration dates, qualifying scores, and any distance criteria, is published by ${s.la} before each admissions cycle. Verify your child's eligibility and your home address directly with the council.`
+  ? `The school record on Get Information About Schools lists current details.`
   : isSpecial
-  ? `For more information on how ${s.la} assesses EHCP placements and which schools are named, contact the council's SEND team directly. The council must publish its Local Offer explaining available provision.`
-  : `The official admissions policy, including any catchment area or distance details, is published by ${s.la} before each admissions cycle. Always verify your address with the council before submitting an application.`;
+  ? `The SEND team at ${s.la} can say which schools the council names. The council also publishes a Local Offer for its area.`
+  : `Each admissions year has its own policy. Read the one for the year you apply.`;
 
-const catchmentFaq = `The catchment area information for ${s.name} is in the catchment area section above.`;
-
-// Extractable definitional answer (AEO/GEO): self-contained, data-derived, cite-ready.
-const catchmentAnswer = isIndependent
-  ? `${s.name} does not have a council catchment area. It is an independent school, so ${s.la} does not set its admissions: the school decides who is offered a place. Contact the school for its entry requirements and how to apply.`
-  : isPru
-  ? `${s.name} does not use a catchment area. Places are arranged by placement, usually through ${s.la} or the child's current school, rather than through the main admissions round.`
-  : admMode === 'other'
-  ? (isSixteenPlus ? `${s.name} is a 16 plus provider and does not use a council catchment area. The provider sets its own admissions, so contact it directly about courses, entry requirements and how to apply.` : `${s.name} is not a mainstream school, so the usual council catchment area process does not apply. Contact the establishment directly about how to apply.`)
-  : isSpecial
-  ? `${s.name} is ${schoolArticle} ${schoolOne} in ${locationLine}, and it does not use a standard catchment area. ${s.la} allocates places through each child's Education, Health and Care Plan (EHCP) rather than home-to-school distance, so placement depends on assessed need rather than a geographic boundary.`
-  : `${s.name} is ${schoolArticle} ${schoolOne} in ${locationLine}. Not every school has a catchment area, and this site holds no catchment boundary for ${s.name}. ${isAcademy || isFaith || /foundation/i.test(String(s.type)) ? `${isFaith ? 'As a faith school' : isAcademy ? 'As an academy' : 'As a foundation school'}, ${s.name} may set its own admissions criteria, so check its published admissions policy. ` : ''}${s.la} can confirm the criteria and any boundary or distance figures for this school.`;
+const catchmentFaq = isIndependent
+  ? `Independent schools have no council catchment area. Ask ${s.name} how it admits pupils.`
+  : isPru || isSpecial || admMode === 'other'
+  ? `${s.name} does not use a standard catchment area. ${isPru ? `Ask ${s.la} about placement.` : isSpecial ? `Ask ${s.la} about EHCP placement.` : 'Contact the establishment about applying.'}`
+  : `Read the admissions policy for ${s.name} against your home address. It states whether a boundary or distance rule applies.`;
 
 // 20-page title and data-lead test (src/data/title-test-cohort.json). Cohort pages need a 2026-27 DfE row to switch; all others keep the standard title.
 const cohortAdm = (titleTest.slugs as string[]).includes(String(slug))
@@ -283,19 +291,30 @@ const description = inCohort ? cohortDescription : councilAdmits
   : `${s.name} in ${locationLine}: how admissions work${ofstedLabel ? `, Ofsted: ${ofstedLabel}` : ''}, age range and nearby ${schoolMany}.`;
 
 // FAQ answers for establishments whose admissions are not set by the council (null for ordinary council-admitting schools).
+const ratioText = dfeRow && dfeRow.first_pref_per_offer != null ? ` That is ${Number(dfeRow.first_pref_per_offer).toFixed(2)} first preferences per offer.` : '';
 const oversubAnswer = dfeRow
-  ? `In ${dfeRow.year}, ${s.name} received ${Number(dfeRow.first_pref).toLocaleString('en-GB')} first preferences and made ${Number(dfeRow.offers_total).toLocaleString('en-GB')} offers for ${dfeLabel} entry, so it was ${isOversubscribed ? '' : 'not '}oversubscribed on first preferences (DfE offer day figures; appeals and waiting lists are not counted).`
-  : `${s.name} has ${s.pupils ?? 'an unknown number of'} pupils on roll${s.capacity ? ` compared with a capacity of ${s.capacity} places in the GIAS register` : ''}. This page has no DfE offer day figures for the school, so it cannot say whether the school was oversubscribed. Check the latest admissions data with ${s.la}.`;
-const faqOversubOverride = councilAdmits ? null
-  : `${[s.capacity ? `${s.name} has a capacity of ${s.capacity} places` : null, s.pupils ? `${s.capacity ? 'and currently has' : `${s.name} currently has`} ${s.pupils} pupils enrolled` : null].filter(Boolean).join(' ') || `${s.name} has no capacity or roll figure on record here`}. ${isIndependent ? 'Admissions are set by the school, so ask the school about current availability.' : isPlaced ? `Places are arranged by placement through ${s.la}, so ask them about availability.` : 'Ask the establishment directly about current availability.'}`;
-const faqAdmissionsOverride = councilAdmits ? null
+  ? `${isOversubscribed ? 'Yes.' : 'No.'} In ${dfeRow.year} ${s.name} received ${Number(dfeRow.first_pref).toLocaleString('en-GB')} first preferences for ${Number(dfeRow.offers_total).toLocaleString('en-GB')} offers at ${dfeLabel} entry.${ratioText}`
   : isIndependent
-    ? `${s.name} is an independent school and sets its own admissions.${isGrammar ? ' Its admissions policy is listed as selective.' : ''} Contact the school for entry requirements and how to apply.`
+    ? `${s.name} sets its own admissions, so DfE publishes no offer day figures for it. Ask the school about places.`
     : isPlaced
-      ? `Places at ${s.name} are arranged by placement through ${s.la}${isPru ? '' : ", based on the child's Education, Health and Care Plan (EHCP)"}, not by the main admissions round or catchment area. Ask ${s.la} how this works.`
-      : isSixteenPlus
-        ? `${s.name} is a 16 plus provider and sets its own admissions. Contact the provider directly about courses, entry requirements and how to apply.`
-        : `${s.name} is not a mainstream school, so the usual council admissions process does not apply. Contact the establishment directly about how to apply.`;
+      ? `Places at ${s.name} are arranged by placement, so there is no first preference round to count.`
+      : admMode === 'other'
+        ? `DfE offer day figures do not cover ${s.name}. Contact the establishment about places.`
+        : `This page has no DfE offer day figures for ${s.name}, so it cannot say.`;
+const admissionsAnswer = isIndependent
+  ? `${s.name} sets its own entry rules.${isGrammar ? ' GIAS lists its policy as selective.' : ''} The school can give its entry requirements.`
+  : isPlaced
+    ? `${s.la} arranges places at ${s.name} by placement${isPru ? '' : ", based on the pupil's EHCP"}. Ask ${s.la} how it works.`
+    : isSixteenPlus
+      ? `${s.name} sets its own admissions. The provider lists its courses and entry requirements.`
+      : admMode === 'other'
+        ? `${s.name} is not a mainstream school, so the usual council process does not apply.`
+        : isGrammar
+          ? `${s.name} is listed as selective. Entry depends on an admissions test, and ${s.la} handles applications.`
+          : `${ownAuthority ? `${policySetter} sets the policy for ${s.name}. ` : `${s.la} handles applications to ${s.name}. `}${s.admissionsPolicy === 'Non-selective' ? 'GIAS lists the policy as non-selective. ' : ''}${isFaith ? `The ${s.religion} character may bring faith criteria into the ranking. ` : ''}The policy names the criteria in ranked order.`;
+const ageAnswer = s.ageRange
+  ? `${s.name} takes pupils aged ${s.ageRange}. GIAS holds the current age range.`
+  : '';
 
 const schoolSchema = {
   "@context": "https://schema.org",
@@ -340,7 +359,7 @@ const faqSchema = {
       "name": `Is ${s.name} oversubscribed?`,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": faqOversubOverride ?? oversubAnswer
+        "text": oversubAnswer
       }
     },
     {
@@ -348,29 +367,23 @@ const faqSchema = {
       "name": `What is the admissions policy for ${s.name}?`,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": faqAdmissionsOverride ?? (isGrammar
-          ? `${s.name} is a selective school: admission requires passing the relevant admissions test. ${s.la} publishes the full policy including test dates, qualifying scores and any distance tiebreaker each year.`
-          : isFaith
-            ? `${s.name} uses both faith criteria and catchment area proximity in its admissions policy. The weighting varies each year and is published by ${s.la} before each admissions cycle.`
-            : `Admission to ${s.name} is managed by ${s.la}. When oversubscribed, places go to looked-after children first, then siblings, then to the criteria in the admissions policy that ${s.la} or the school publishes. Always verify the current policy with the council before applying.`)
+        "text": admissionsAnswer
       }
     },
-    {
+    ...(s.ageRange ? [{
       "@type": "Question",
       "name": `What age range does ${s.name} cover?`,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": s.ageRange
-          ? `${s.name} is ${schoolArticle} ${schoolOne} serving pupils aged ${s.ageRange} in ${locationLine}.`
-          : `${s.name} is ${schoolArticle} ${schoolOne} in ${locationLine}. Check the school's website or the DfE GIAS service for the current age range.`
+        "text": ageAnswer
       }
-    },
+    }] : []),
     ...(ofstedLabel ? [{
       "@type": "Question",
       "name": `What is the Ofsted rating for ${s.name}?`,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": `${ofstedFaqText} Full inspection reports are available on the Ofsted website at reports.ofsted.gov.uk.`
+        "text": `${ofstedFaqText} Full inspection reports are available at reports.ofsted.gov.uk.`
       }
     }] : []),
   ]
@@ -453,7 +466,7 @@ const breadcrumbSchema = {
       )}
 
       <p class="text-gray-600 mb-6">
-        {s.name} is {introArticle} {introPhrase} in {locationLine}{introFacts ? `, ${introFacts}` : ''}.
+        {s.name} is {introArticle} {introPhrase}{inTown}.{townLaSame ? '' : ` Its council is ${s.la}.`}
         {!councilAdmits
           ? ''
           : isOversubscribed
@@ -721,7 +734,7 @@ const breadcrumbSchema = {
               <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
             </summary>
             <p class="mt-3 text-sm text-gray-700">
-              {faqOversubOverride ?? oversubAnswer}
+              {oversubAnswer}
             </p>
           </details>
           <details class="border rounded-lg p-4 group">
@@ -730,12 +743,7 @@ const breadcrumbSchema = {
               <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
             </summary>
             <p class="mt-3 text-sm text-gray-700">
-              {faqAdmissionsOverride ?? (isGrammar
-                ? `${s.name} is a selective school: admission requires passing the relevant admissions test. ${s.la} publishes the full policy each year, including test dates, qualifying scores, and any distance tiebreaker.`
-                : isFaith
-                  ? `${s.name} uses both faith criteria and catchment area proximity in its admissions policy. The weighting is reviewed annually and published by ${s.la} before each admissions cycle.`
-                  : `Admission to ${s.name} is managed by ${s.la}. When oversubscribed, places go to looked-after children first, then siblings, then to the criteria in the admissions policy that ${s.la} or the school publishes. Always verify the current policy with the council before applying.`)
-              }
+              {admissionsAnswer}
             </p>
           </details>
           {s.ageRange && (
@@ -745,7 +753,7 @@ const breadcrumbSchema = {
                 <span class="text-gray-400 group-open:rotate-180 transition-transform">▾</span>
               </summary>
               <p class="mt-3 text-sm text-gray-700">
-                {s.name} is {schoolArticle} {schoolOne} in {locationLine}, serving pupils aged {s.ageRange}. For the latest information, visit the school's website or the DfE Get Information About Schools service.
+                {ageAnswer}
               </p>
             </details>
           )}
