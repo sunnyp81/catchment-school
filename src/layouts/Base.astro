@@ -20,7 +20,7 @@ const siteSchema = {
   "@type": "WebSite",
   "name": "catchment.school",
   "url": "https://catchment.school",
-  "description": "Find school catchment areas, admissions guidance and school profiles for every school in England and Wales.",
+  "description": "Find school catchment areas, admissions guidance and school profiles for schools in England, with basic listings for schools in Wales.",
   "potentialAction": {
     "@type": "SearchAction",
     "target": { "@type": "EntryPoint", "urlTemplate": "https://catchment.school/postcode?pc={search_term_string}" },
@@ -34,7 +34,7 @@ const orgSchema = {
   "name": "catchment.school",
   "url": "https://catchment.school",
   "logo": "https://catchment.school/favicon.svg",
-  "description": "Free school catchment area checker for England & Wales. Data from DfE GIAS under the Open Government Licence.",
+  "description": "Free school catchment area checker. Schools in England and Wales are listed from DfE GIAS; admissions, Ofsted and results figures cover England. under the Open Government Licence.",
   "areaServed": "GB",
   "knowsAbout": ["School catchment areas", "School admissions", "Primary schools", "Secondary schools", "Ofsted ratings"],
   "founder": {
@@ -146,7 +146,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 
   <div class="topbar">
     <div class="topbar-inner">
-      <span>A free, independent guide for parents - <em>updated each admissions cycle.</em></span>
+      <span>A free, independent guide for parents - <em>built on DfE and Ofsted data.</em></span>
       <span>{totalSchools.toLocaleString('en-GB')} schools · England &amp; Wales</span>
     </div>
   </div>
@@ -185,7 +185,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
   <section class="newsletter-bar">
     <div class="container" style="max-width:680px;text-align:center;padding:48px 20px;">
       <h2 style="font-size:22px;font-weight:700;margin:0 0 8px;color:#16202B;">Get admissions updates by email</h2>
-      <p style="font-size:15px;color:#5a6672;margin:0 0 20px;line-height:1.5;">Join parents who get catchment boundary changes and key admissions dates - free, once per term.</p>
+      <p style="font-size:15px;color:#5a6672;margin:0 0 20px;line-height:1.5;">Join parents who get key admissions dates and new admissions data - free, once per term.</p>
       <form
         action="https://emailit-worker.sunnypat81.workers.dev/"
         method="POST"

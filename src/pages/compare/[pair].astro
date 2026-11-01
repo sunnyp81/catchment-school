@@ -6,6 +6,7 @@ import admissionsUrls from '../../data/admissions-urls.json';
 import { env } from 'cloudflare:workers';
 import { notFoundResponse } from '../../lib/notfound';
 import { loadSchoolData, ofstedView, longDate, buildCompareExtras, SRC, compareRankRows, RANK_METHOD } from '../../lib/schooldata';
+import { schoolNoun } from '../../lib/schoolwording';
 import { resolvePair, phaseGroup, isCurated, haversineMiles, deDash } from '../../lib/compare';
 
 const SITE = 'https://catchment.school';
@@ -134,9 +135,11 @@ const rowsOfsted: Row[] = [
   { label: 'Overall Ofsted grade', src: OFSTED_LABEL, a: cell(ofstedOf(A) ?? 'No graded inspection in our data', ofstedYearOf(A)), b: cell(ofstedOf(B) ?? 'No graded inspection in our data', ofstedYearOf(B)), note: 'Report cards, used from November 2025, give no overall grade. Where a school has one, it is shown under Ofsted detail.' },
 ];
 const locOf = (s: any) => [s.town, s.la].filter((v, i, arr) => v && arr.indexOf(v) === i).join(', ') || null;
+// GIAS phase is "Not applicable" for some establishments: show the age range alone rather than that raw value.
+const phaseAge = (s: any) => [schoolNoun(s).fromPhase ? s.phase : null, s.ageRange ? `ages ${s.ageRange}` : null].filter(Boolean).join(', ') || null;
 const rowsProfile: Row[] = [
   { label: 'Type', src: GIAS_LABEL, a: cell(A.type), b: cell(B.type) },
-  { label: 'Phase and age range', src: GIAS_LABEL, a: cell(`${A.phase}${A.ageRange ? `, ages ${A.ageRange}` : ''}`), b: cell(`${B.phase}${B.ageRange ? `, ages ${B.ageRange}` : ''}`) },
+  { label: 'Phase and age range', src: GIAS_LABEL, a: cell(phaseAge(A)), b: cell(phaseAge(B)) },
   { label: 'Location', src: GIAS_LABEL, a: cell(locOf(A)), b: cell(locOf(B)) },
   { label: 'Pupils on roll', src: GIAS_LABEL, a: cell(withInt(num(A.pupils))), b: cell(withInt(num(B.pupils))) },
 ];

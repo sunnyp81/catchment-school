@@ -3,9 +3,13 @@ import Base from '../../layouts/Base.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import CouncilRankTable from '../../components/CouncilRankTable.astro';
 import { SITE, HUB, OGL, int } from '../../lib/oversub';
+import cardStats from '../../data/ofsted-card-stats.json';
 import { CS, STATS_URL, STATS_CSV, NODATA, fmt, fmtPct, sortedBy, councilEntries } from '../../lib/councilstats';
 
 const M = CS.meta, N = CS.national, MM = M.metrics;
+// National report card count comes from Ofsted's own file (same figure as /ofsted-report-card-statistics/). The council table counts only cards at schools found in the school register used here.
+const rcNational = (cardStats as any).cards.total as number;
+const rcGap = rcNational - N.reportCards;
 const canonical = `${SITE}${STATS_URL}`;
 const title = 'School Statistics by Council in England 2026';
 const description = `Compare ${M.councils} English councils on Ofsted ratings, GCSE results, absence, SEND, pupils per teacher and first-choice offers. DfE data and a free CSV.`;
@@ -134,7 +138,7 @@ const cite = `catchment.school (${new Date(M.generated).getFullYear()}). School 
 
     <section aria-labelledby="ofsted-h" class="mb-10">
       <h2 id="ofsted-h" class="text-xl font-semibold mb-3">Which councils have the most schools rated Good or Outstanding?</h2>
-      <p class="text-gray-800 mb-3">{at100Sentence} {goLo.name} was lowest at {fmtPct(goLo.v)}. Across England {fmtPct(N.goodOutstanding)} of the {int(N.gradedSchools)} state-funded schools with a graded inspection were rated Good or Outstanding at their latest graded inspection. Ofsted has started to use report cards instead of single overall grades. {int(N.reportCards)} schools had a report card. {rcMax.name} had the most with {rcMax.reportCards}.</p>
+      <p class="text-gray-800 mb-3">{at100Sentence} {goLo.name} was lowest at {fmtPct(goLo.v)}. Across England {fmtPct(N.goodOutstanding)} of the {int(N.gradedSchools)} state-funded schools with a graded inspection were rated Good or Outstanding at their latest graded inspection. Ofsted has started to use report cards instead of single overall grades. {int(rcNational)} state-funded schools had a report card as at 30 September 2026, and the table below counts {int(N.reportCards)} of them: {int(rcGap)} are at schools that are not in the school register used here, mostly schools opened or converted since it was built, or non-maintained special schools. {rcMax.name} had the most with {rcMax.reportCards}.</p>
       <div class="grid md:grid-cols-2 gap-6">
         <CouncilRankTable rows={high('goodOutstanding').map((r: any) => ({ ...r, x: CS.councils[r.slug].gradedSchools }))} limit={10} caption="Ten highest share of schools Good or Outstanding" valueHeader="Good or Outstanding" unit="%" extraHeader="Graded schools" extraDp={0} />
         <CouncilRankTable rows={low('goodOutstanding').map((r: any) => ({ ...r, x: CS.councils[r.slug].gradedSchools }))} limit={10} caption="Ten lowest share of schools Good or Outstanding" valueHeader="Good or Outstanding" unit="%" extraHeader="Graded schools" extraDp={0} />
