@@ -196,10 +196,11 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
         <input type="hidden" name="_site" value="catchment.school" />
         <input type="hidden" name="subject" value="Newsletter signup (catchment.school)" />
         <input type="hidden" name="redirectTo" value="https://catchment.school/?subscribed=1" />
-        <input type="text" name="honeypot" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="text" name="honeypot" aria-hidden="true" aria-label="Leave this field empty" style="display:none" tabindex="-1" autocomplete="off" />
         <input
           type="email"
           name="email"
+          aria-label="Your email address"
           placeholder="Your email address"
           required
           style="flex:1;min-width:0;padding:12px 16px;border:1px solid #d1d5db;border-radius:8px;font-size:15px;outline:none;"
@@ -230,7 +231,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
           <p>Free school catchment area checker for England &amp; Wales. School data sourced from the Department for Education under the Open Government Licence. Not affiliated with any school, local authority or government body.</p>
         </div>
         <div>
-          <h4>Browse</h4>
+          <h3>Browse</h3>
           <ul>
             <li><a href="/council">Schools by council</a></li>
             <li><a href="/area">Schools by town</a></li>
@@ -238,7 +239,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
           </ul>
         </div>
         <div>
-          <h4>Guides</h4>
+          <h3>Guides</h3>
           <ul>
             <li><a href="/guides/how-school-catchment-areas-work">How catchment works</a></li>
             <li><a href="/guides/primary-school-catchment">Primary admissions</a></li>
@@ -247,7 +248,7 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
           </ul>
         </div>
         <div>
-          <h4>About</h4>
+          <h3>About</h3>
           <ul>
             <li><a href="/about/">About</a></li>
             <li><a href="/methodology/">Methodology</a></li>

@@ -727,7 +727,7 @@ footer {
   padding-bottom: 48px;
   border-bottom: 1px solid var(--rule);
 }
-.footer-top h4 {
+.footer-top h3 {
   font-family: var(--serif);
   font-style: italic;
   font-weight: 500;

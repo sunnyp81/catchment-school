@@ -10,9 +10,9 @@ import { schoolNoun } from '../../lib/schoolwording';
 import { resolvePair, phaseGroup, isCurated, haversineMiles, deDash } from '../../lib/compare';
 
 const SITE = 'https://catchment.school';
-// schools.json comes from the March 2026 GIAS pull (the date the school pages' byline and Base trust bar state); no exact day is recorded.
-const GIAS_LABEL = 'GIAS (DfE), March 2026 extract';
-const GIAS_FROM = 'the GIAS (DfE) March 2026 extract';
+// The extract date of the school list is not recorded. Per the methodology page, the list was last regenerated in June 2026.
+const GIAS_LABEL = 'GIAS (DfE), school list regenerated June 2026';
+const GIAS_FROM = 'the GIAS (DfE) school list, regenerated June 2026';
 const OFSTED_LABEL = 'Ofsted MI, inspections to 30 September 2026';
 
 const notFound = () => notFoundResponse(Astro.url);
@@ -180,7 +180,7 @@ for (const r of rowsPerf) {
 }
 const rowsIntake: Row[] = [
   { label: 'Pupils eligible for free school meals', src: GIAS_LABEL, a: cell(A.fsm != null ? `${A.fsm}%` : null), b: cell(B.fsm != null ? `${B.fsm}%` : null) },
-  { label: 'Published capacity (places)', src: GIAS_LABEL, a: cell(withInt(num(A.capacity))), b: cell(withInt(num(B.capacity))) },
+  { label: 'Capacity (places, GIAS)', src: GIAS_LABEL, a: cell(withInt(num(A.capacity))), b: cell(withInt(num(B.capacity))) },
   { label: 'Pupils on roll as % of capacity', src: `${GIAS_LABEL}, pupils divided by capacity`, a: cell(fillA != null ? `${fillA}%` : null), b: cell(fillB != null ? `${fillB}%` : null) },
   { label: 'Admissions policy', src: GIAS_LABEL, a: cell(policyOf(A)), b: cell(policyOf(B)) },
   { label: 'Religious character', src: GIAS_LABEL, a: cell(faithOf(A) ?? 'None recorded'), b: cell(faithOf(B) ?? 'None recorded') },
@@ -509,7 +509,7 @@ const hasSixthForm = [A, B].some((s) => s.phase === 'All through' || /1[5-9]$/.t
       <h2 id="adm-h" class="text-xl font-semibold mb-3">Admissions: how the two schools differ</h2>
       <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 mb-4 text-sm text-gray-800 space-y-2">
         {distText && <p><strong>Distance between the schools:</strong> {distText} in a straight line between the two school sites. The coordinates come from {GIAS_FROM}. This is not a walking or driving distance and it does not show which school your address is in catchment for.</p>}
-        <p><strong>How full they are:</strong> pupils on roll divided by published capacity from {GIAS_FROM}. Both figures cover every year group{hasSixthForm ? ' (including any sixth form)' : ''}. Treat the percentage as a rough guide to demand rather than the size of the Year 7 intake.</p>
+        <p><strong>How full they are:</strong> pupils on roll divided by the GIAS capacity from {GIAS_FROM}. Both figures cover every year group{hasSixthForm ? ' (including any sixth form)' : ''}. Treat the percentage as a rough guide to demand rather than the size of the Year 7 intake.</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {[A, B].map((s) => {
