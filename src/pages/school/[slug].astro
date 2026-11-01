@@ -180,7 +180,7 @@ const schoolOne = noun.one;
 const schoolMany = noun.many;
 const phaseLower = noun.fromPhase ? String(s.phase).toLowerCase() : '';
 const typeDesc = noun.fromPhase
-  ? String(s.type ?? '').toLowerCase().replace(/\bschools?\b/g, '').replace(new RegExp('\\b' + phaseLower.replace(/ /g, '\\s+') + '\\b'), '').replace(/\d+\s*to\s*\d+/g, '').replace(/\s+/g, ' ').trim()
+  ? String(s.type ?? '').toLowerCase().replace(/\bschools?\b/g, '').replace(new RegExp('\\b' + phaseLower.replace(/ /g, '\\s+') + '\\b'), '').replace(/\d+\s*(to|-)\s*\d+/g, '').replace(/\s+/g, ' ').trim()
   : '';
 const introPhrase = `${typeDesc ? `${typeDesc} ` : ''}${schoolOne}`;
 const introArticle = articleFor(introPhrase);
@@ -336,7 +336,7 @@ const admissionsAnswer = isNursery
         ? `The usual council process does not apply. Contact the establishment about places.`
         : isGrammar
           ? `GIAS lists the admissions policy of ${s.name} as selective. Ask the school for its test dates and how it ranks applicants who qualify.`
-          : `${s.admissionsPolicy === 'Non-selective' ? `GIAS lists the admissions policy of ${s.name} as non-selective. ` : ''}The School Admissions Code puts looked-after and previously looked-after children first. The policy names the remaining criteria in ranked order.`;
+          : `${s.admissionsPolicy === 'Non-selective' ? `GIAS lists the admissions policy of ${s.name} as non-selective. ` : ''}The School Admissions Code requires looked-after and previously looked-after children to be given highest priority. Faith schools may first give that priority to children of the faith. The policy names the remaining criteria in ranked order.`;
 const ageAnswer = s.ageRange
   ? `${s.name} takes pupils aged ${s.ageRange}${noun.fromPhase ? `, and GIAS lists its phase as ${String(s.phase).toLowerCase()}` : ''}.${s.gender && s.gender !== 'Mixed' && s.gender !== 'Not applicable' ? ` It admits ${String(s.gender).toLowerCase()} only.` : ''}`
   : '';
