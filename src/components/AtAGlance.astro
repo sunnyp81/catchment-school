@@ -12,9 +12,9 @@ const { heading, points, facts = [], source } = Astro.props;
   {facts.length > 0 && (
     <dl class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
       {facts.map(([label, value]) => (
-        <div class="bg-indigo-50 rounded-lg p-3">
-          <dd class="text-xl font-bold text-indigo-700">{value}</dd>
+        <div class="bg-indigo-50 rounded-lg p-3 flex flex-col-reverse">
           <dt class="text-xs text-gray-700">{label}</dt>
+          <dd class="text-xl font-bold text-indigo-700">{value}</dd>
         </div>
       ))}
     </dl>
