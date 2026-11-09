@@ -6,7 +6,7 @@ import SchoolCard from '../../components/SchoolCard.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import councilIntros from '../../data/council-intros.json';
 import admissionsUrls from '../../data/admissions-urls.json';
-import { hasArea } from '../../lib/areas';
+import { hasArea, groupCouncilTowns, STATE_TYPES } from '../../lib/areas';
 import ofstedGrades from '../../data/ofsted-grades.json';
 import OversubTable from '../../components/OversubTable.astro';
 import { OS, HUB, SOURCE_LINE, int, pct, rowsFromCompact, ordinal, trendClause } from '../../lib/oversub';
@@ -26,17 +26,14 @@ const { la } = Astro.props;
 const laSchools = (schools as any[]).filter((s: any) => s.laSlug === la.slug);
 const pilotAdmissionsUrl = (admissionsUrls as Record<string, string>)[la.slug] ?? null;
 
-const byTown: Record<string, any[]> = {};
-for (const s of laSchools) {
-  const key = s.town || 'Other schools';
-  if (!byTown[key]) byTown[key] = [];
-  byTown[key].push(s);
-}
-const towns = Object.entries(byTown).sort((a, b) => b[1].length - a[1].length);
+// Legacy raw-label grouping, kept only for the meta description (titles and meta are frozen during the title test).
+const legacyTownCount = new Set(laSchools.map((s: any) => s.town || 'Other schools')).size;
+// Canonical grouping: merges miscased duplicates and moves foreign postal towns into "Other schools".
+const towns = groupCouncilTowns(laSchools);
 
 const primaries = laSchools.filter((s: any) => s.phase === 'Primary').length;
 const secondaries = laSchools.filter((s: any) => s.phase === 'Secondary').length;
-const townCount = Object.keys(byTown).length;
+const townCount = towns.filter((g) => g.name !== 'Other schools').length;
 
 // Data-derived demand signals - computed from schools.json, unique per council.
 const oversubCount = laSchools.filter((s: any) => s.capacity && s.pupils && s.pupils >= s.capacity).length;
@@ -44,9 +41,11 @@ const faithCount = laSchools.filter((s: any) => s.religion && s.religion !== 'Do
 const selectiveCount = laSchools.filter((s: any) => s.admissionsPolicy === 'Selective').length;
 // Ofsted counts from the D1 source (src/data/ofsted-grades.json, built by scripts/gen-ofsted-grades.mjs), not the older schools.json grades.
 const og = (s: any) => (ofstedGrades as Record<string, number[]>)[s.urn] ?? [0, 0];
-const ofstedRatedCount = laSchools.filter((s: any) => og(s)[0] > 0).length;
-const ofstedGoodPlusCount = laSchools.filter((s: any) => og(s)[0] === 1 || og(s)[0] === 2).length;
-const ofstedCardCount = laSchools.filter((s: any) => og(s)[1] === 1).length;
+// State-funded schools only, the same basis as the statistics snapshot below, so the two graded-school counts agree.
+const stateSchools = laSchools.filter((s: any) => STATE_TYPES.has(s.type));
+const ofstedRatedCount = stateSchools.filter((s: any) => og(s)[0] > 0).length;
+const ofstedGoodPlusCount = stateSchools.filter((s: any) => og(s)[0] === 1 || og(s)[0] === 2).length;
+const ofstedCardCount = stateSchools.filter((s: any) => og(s)[1] === 1).length;
 
 // Council statistics snapshot: figures and ranks from src/data/council-stats.json (scripts/gen-council-stats.mjs).
 const cs: any = (CS.councils as Record<string, any>)[la.slug] ?? null;
@@ -67,7 +66,7 @@ const snapshot = cs ? snapDefs.filter(([k]) => cs[k].v != null).map(([k, label, 
 const uniqueIntro = (councilIntros as Record<string, { paragraphs: string[]; seoTitle?: string; seoDescription?: string }>)[la.slug] ?? null;
 
 const title = uniqueIntro?.seoTitle ?? `${la.name} School Catchment Areas 2026: Full Map`;
-const description = uniqueIntro?.seoDescription ?? `${la.name} school catchment areas for all ${primaries} primary and ${secondaries} secondary schools across ${townCount} areas. Maps, Ofsted ratings and admissions policies for 2026.`;
+const description = uniqueIntro?.seoDescription ?? `${la.name} school catchment areas for all ${primaries} primary and ${secondaries} secondary schools across ${legacyTownCount} areas. Maps, Ofsted ratings and admissions policies for 2026.`;
 
 // Oversubscription section: only for phases that meet the hub thresholds (Year 7: 8+ schools, Reception: 10+).
 const osC: any = (OS.councils as Record<string, any>)[la.slug] ?? null;
@@ -114,7 +113,7 @@ const breadcrumbSchema = {
 };
 
 // Top town names for the "areas" FAQ answer
-const topTownNames = towns.slice(0, 5).map(([name]: [string, any[]]) => name).join(', ');
+const topTownNames = towns.filter((g) => g.name !== 'Other schools').slice(0, 5).map((g) => g.name).join(', ');
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -222,7 +221,7 @@ const faqSchema = {
         <span>{faithCount} school{faithCount !== 1 ? 's' : ''} {faithCount !== 1 ? 'apply' : 'applies'} faith-based criteria alongside catchment distance. </span>
       )}
       {ofstedRatedCount > 0 && (
-        <span>Of the {ofstedRatedCount} {la.name} school{ofstedRatedCount !== 1 ? 's' : ''} with an overall Ofsted grade, <strong>{ofstedGoodPlusCount}</strong> {ofstedGoodPlusCount !== 1 ? 'were' : 'was'} rated Good or Outstanding at their most recent one.{ofstedCardCount > 0 ? ` ${ofstedCardCount} ${ofstedCardCount !== 1 ? 'have' : 'has'} since had an Ofsted report card, which grades separate areas instead.` : ''}</span>
+        <span>Of the {ofstedRatedCount} state-funded {la.name} school{ofstedRatedCount !== 1 ? 's' : ''} with an overall Ofsted grade, <strong>{ofstedGoodPlusCount}</strong> {ofstedGoodPlusCount !== 1 ? 'were' : 'was'} rated Good or Outstanding at their most recent one.{ofstedCardCount > 0 ? ` ${ofstedCardCount} ${ofstedCardCount !== 1 ? 'have' : 'has'} since had an Ofsted report card, which grades separate areas instead.` : ''}</span>
       )}
     </p>
   )}
@@ -300,16 +299,16 @@ const faqSchema = {
   )}
 
   <!-- Area quick-nav - links council authority to all its area pages -->
-  {towns.length > 1 && (
+  {townCount > 1 && (
     <nav class="mb-8 p-4 border border-indigo-100 bg-indigo-50/40 rounded-lg" aria-label="Areas in this council">
       <p class="font-medium text-gray-700 mb-2">Areas in {la.name}</p>
       <p class="text-sm text-gray-600 mb-3">
         {la.name} administers school catchment areas across {townCount} area{townCount !== 1 ? 's' : ''}. Select an area to see all schools and catchment boundary guidance.
       </p>
       <ul class="flex flex-wrap gap-x-4 gap-y-1.5 text-sm">
-        {towns.map(([tName, tSchools]) => (
+        {towns.map((g) => (
           <li>
-            {hasArea(tSchools[0].townSlug) ? <a href={`/area/${tSchools[0].townSlug}/`} class="text-indigo-700 hover:underline">{tName} ({tSchools.length})</a> : <span class="text-gray-600">{tName} ({tSchools.length})</span>}
+            {g.slug && hasArea(g.slug) ? <a href={`/area/${g.slug}/`} class="text-indigo-700 hover:underline">{g.name} ({g.schools.length})</a> : <span class="text-gray-600">{g.name} ({g.schools.length})</span>}
           </li>
         ))}
       </ul>
@@ -317,22 +316,22 @@ const faqSchema = {
   )}
 
   <!-- Schools by town - H2 includes location -->
-  {towns.map(([townName, townSchools]) => (
+  {towns.map((g) => (
     <section class="mb-10">
       <div class="flex items-baseline gap-3 mb-4">
         <h2 class="text-xl font-semibold">
-          {hasArea(townSchools[0].townSlug) ? <a href={`/area/${townSchools[0].townSlug}/`} class="hover:text-indigo-700">{`Schools in ${townName}`}</a> : (townName === 'Other schools' ? 'Other schools' : `Schools in ${townName}`)}
+          {g.slug && hasArea(g.slug) ? <a href={`/area/${g.slug}/`} class="hover:text-indigo-700">{`Schools in ${g.name}`}</a> : (g.name === 'Other schools' ? 'Other schools' : `Schools in ${g.name}`)}
         </h2>
-        <span class="text-sm text-gray-400">{townSchools.length} school{townSchools.length !== 1 ? 's' : ''}</span>
+        <span class="text-sm text-gray-400">{g.schools.length} school{g.schools.length !== 1 ? 's' : ''}</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {townSchools.slice(0, 12).map((s: any) => <SchoolCard {...s} />)}
+        {g.schools.slice(0, 12).map((s: any) => <SchoolCard {...s} />)}
       </div>
-      {townSchools.length > 12 && hasArea(townSchools[0].townSlug) && (
+      {g.schools.length > 12 && g.slug && hasArea(g.slug) && (
         <p class="mt-3 text-sm text-gray-500">
-          Showing 12 of {townSchools.length}.{' '}
-          <a href={`/area/${townSchools[0].townSlug}/`} class="text-indigo-700 hover:underline">
-            View all schools in {townName} →
+          Showing 12 of {g.schools.length}.{' '}
+          <a href={`/area/${g.slug}/`} class="text-indigo-700 hover:underline">
+            View all schools in {g.name} →
           </a>
         </p>
       )}
