@@ -1,5 +1,6 @@
 ---
 import ParentGuides from '../../components/ParentGuides.astro';
+import AtAGlance from '../../components/AtAGlance.astro';
 import Base from '../../layouts/Base.astro';
 import schools from '../../data/schools.json';
 import towns from '../../data/towns.json';
@@ -50,11 +51,25 @@ const hasDemandData = oversubSchools.length > 0 || faithSchools.length > 0 || av
 const isThin = areaSchools.length < 10 || (areaSchools.length < 15 && !hasDemandData);
 const robotsDirective = isThin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
 
+const glancePoints: string[] = [
+  `${town.name} has ${areaSchools.length} school${areaSchools.length !== 1 ? 's' : ''}${town.la ? ` in ${town.la}` : ''}${primaries.length + secondaries.length > 0 ? `: ${primaries.length} primary and ${secondaries.length} secondary${others.length > 0 ? ` plus ${others.length} other` : ''}` : ''}.`,
+  `${town.la || 'The local authority'} publishes the admissions policy for community and voluntary-controlled schools. Academies and voluntary-aided schools set their own criteria.`,
+];
+if (withFill.length > 0) glancePoints.push(`${oversubSchools.length} of ${withFill.length} schools with capacity data have pupils on roll at or above GIAS capacity. The average fill rate is ${avgFill}%.`);
+if (ofstedRated.length > 0) glancePoints.push(`${ofstedGoodPlus} of ${ofstedRated.length} graded schools were rated Good or Outstanding at their latest Ofsted grade.`);
+if (faithSchools.length > 0) glancePoints.push(`${faithSchools.length} school${faithSchools.length !== 1 ? 's have' : ' has'} a religious character, so faith criteria sit alongside distance.`);
+const glanceFacts: [string, string][] = [['Schools', String(areaSchools.length)]];
+if (primaries.length + secondaries.length > 0) glanceFacts.push(['Primary', String(primaries.length)], ['Secondary', String(secondaries.length)]);
+if (withFill.length > 0) glanceFacts.push(['At or over capacity', String(oversubSchools.length)]);
+else if (ofstedRated.length > 0) glanceFacts.push(['Good or Outstanding', `${ofstedGoodPlus} of ${ofstedRated.length}`]);
 // Data-derived H2 for the primary-schools section - varies per entity via oversubscription count.
 const primaryAtCapacity = oversubSchools.filter((s: any) => s.phase === 'Primary').length;
 const primaryH2 = primaryAtCapacity > 0
   ? `Primary schools in ${town.name}: ${primaryAtCapacity} of ${primaries.length} at or over capacity`
   : `Primary Schools in ${town.name} (${primaries.length})`;
+
+const primaryLead = `${town.name} has ${primaries.length} primary school${primaries.length !== 1 ? 's' : ''}${primaryAtCapacity > 0 ? `, and ${primaryAtCapacity} ${primaryAtCapacity !== 1 ? 'have' : 'has'} pupils on roll at or above GIAS capacity` : ''}.`;
+const secondaryLead = `${town.name} has ${secondaries.length} secondary school${secondaries.length !== 1 ? 's' : ''}.`;
 
 const areaOverride = (areaIntros as Record<string, { seoTitle?: string; seoDescription?: string; paragraphs?: string[] }>)[town.slug] ?? null;
 const title = areaOverride?.seoTitle ?? `${town.name} Catchment Area Schools 2026: Map & List`;
@@ -147,6 +162,8 @@ const faqSchema = {
 
   <AuthorByline type="hub" />
 
+  <AtAGlance heading={`${town.name} schools at a glance`} facts={glanceFacts} points={glancePoints} source="Counts and capacity: DfE Get Information About Schools register. Ofsted: latest overall grades held by this site. GIAS capacity is not a published admission number." />
+
   <!-- Filter + search bar -->
   <div class="flex flex-wrap gap-3 mb-4">
     <input id="school-search" type="text" placeholder="Search schools..." class="border rounded-lg px-3 py-2 text-sm w-full sm:w-64 focus:outline-none focus:border-indigo-500" />
@@ -212,7 +229,8 @@ const faqSchema = {
 
   {primaries.length > 0 && (
     <section class="mb-10">
-      <h2 class="text-xl font-semibold mb-4">{primaryH2}</h2>
+      <h2 class="text-xl font-semibold mb-2">{primaryH2}</h2>
+      <p class="text-sm text-gray-700 mb-4">{primaryLead}</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {primaries.map((s: any) => <SchoolCard {...s} />)}
       </div>
@@ -221,7 +239,8 @@ const faqSchema = {
 
   {secondaries.length > 0 && (
     <section class="mb-10">
-      <h2 class="text-xl font-semibold mb-4">Secondary Schools in {town.name} ({secondaries.length})</h2>
+      <h2 class="text-xl font-semibold mb-2">Secondary Schools in {town.name} ({secondaries.length})</h2>
+      <p class="text-sm text-gray-700 mb-4">{secondaryLead}</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {secondaries.map((s: any) => <SchoolCard {...s} />)}
       </div>

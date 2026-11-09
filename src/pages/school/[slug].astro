@@ -3,6 +3,7 @@ export const prerender = false;
 
 import Base from '../../layouts/Base.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
+import AtAGlance from '../../components/AtAGlance.astro';
 import SchoolDataSections from '../../components/SchoolDataSections.astro';
 import admissionsUrls from '../../data/admissions-urls.json';
 import topBingSchools from '../../data/top-bing-schools.json';
@@ -341,6 +342,12 @@ const ageAnswer = s.ageRange
   ? `${s.name} takes pupils aged ${s.ageRange}${noun.fromPhase ? `, and GIAS lists its phase as ${String(s.phase).toLowerCase()}` : ''}.${s.gender && s.gender !== 'Mixed' && s.gender !== 'Not applicable' ? ` It admits ${String(s.gender).toLowerCase()} only.` : ''}`
   : '';
 
+const glancePoints: string[] = [catchmentAnswer];
+if (councilAdmits && dfeRow) glancePoints.push(`${dfeLabel} entry in ${dfeRow.year}: ${Number(dfeRow.first_pref).toLocaleString('en-GB')} first preferences for ${Number(dfeRow.offers_total).toLocaleString('en-GB')} offers.`);
+if (s.pupils && s.capacity) glancePoints.push(`${Number(s.pupils).toLocaleString('en-GB')} pupils on roll against a GIAS capacity of ${Number(s.capacity).toLocaleString('en-GB')}. GIAS capacity is not a published admission number.`);
+if (ofstedLabel) glancePoints.push(`Last overall Ofsted grade: ${ofstedLabel}${ofstedYear ? ` (${ofstedYear})` : ''}.`);
+if (s.ageRange) glancePoints.push(`Age range: ${s.ageRange}.`);
+
 const schoolSchema = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
@@ -489,6 +496,8 @@ const breadcrumbSchema = {
           <p class="text-xs text-gray-500 mt-3">{SOURCE_LINE} Appeals and waiting lists are not counted.</p>
         </section>
       )}
+
+      {glancePoints.length >= 3 && <AtAGlance heading={`${s.name} at a glance`} points={glancePoints.slice(0, 5)} source="Source: DfE Get Information About Schools register and Ofsted." />}
 
       <p class="text-gray-600 mb-6">
         {s.name} is {introArticle} {introPhrase}{inTown}.{townLaSame ? '' : ` Its council is ${s.la}.`}

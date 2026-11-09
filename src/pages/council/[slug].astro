@@ -11,6 +11,7 @@ import ofstedGrades from '../../data/ofsted-grades.json';
 import OversubTable from '../../components/OversubTable.astro';
 import { OS, HUB, SOURCE_LINE, int, pct, rowsFromCompact, ordinal, trendClause } from '../../lib/oversub';
 import ParentGuides from '../../components/ParentGuides.astro';
+import AtAGlance from '../../components/AtAGlance.astro';
 import { CS, STATS_URL, rankText } from '../../lib/councilstats';
 
 export async function getStaticPaths() {
@@ -77,6 +78,15 @@ const osPhases = [
   osPri && { key: 'primary', label: 'Reception', who: 'primary', d: osPri, nat: osNat.primary.notOffered, rows: rowsFromCompact(osPri.rows) },
 ].filter(Boolean) as any[];
 const osYears = ['2024-25', '2025-26', '2026-27'];
+
+const glancePoints: string[] = [
+  `${la.name} has ${laSchools.length} open schools${primaries + secondaries > 0 ? `: ${primaries} primary and ${secondaries} secondary` : ''}${townCount > 0 ? `, across ${townCount} area${townCount !== 1 ? 's' : ''}` : ''}.`,
+  `${la.name} council publishes the admissions policy for community and voluntary-controlled schools. Academies and voluntary-aided schools set their own criteria.`,
+];
+for (const ph of osPhases) glancePoints.push(`${pct(ph.d.notOffered['2026-27'])} of ${ph.label} applicants were not offered their first preference for September 2026, against ${pct(ph.nat['2026-27'].notOfferedPct)} across England.`);
+if (ofstedRatedCount > 0) glancePoints.push(`${ofstedGoodPlusCount} of ${ofstedRatedCount} graded state-funded schools were rated Good or Outstanding at their latest Ofsted grade.`);
+const glanceFacts: [string, string][] = (primaries + secondaries > 0 ? [['Schools', String(laSchools.length)], ['Primary', String(primaries)], ['Secondary', String(secondaries)], ['Areas', String(townCount)]] : [['Schools', String(laSchools.length)], ['Areas', String(townCount)]]);
+const glanceLinks = glancePoints.slice(0, 5);
 
 const itemListSchema = osPhases.length ? {
   "@context": "https://schema.org",
@@ -173,6 +183,8 @@ const faqSchema = {
 
   <AuthorByline type="hub" />
 
+  <AtAGlance heading={`${la.name} school admissions at a glance`} facts={glanceFacts} points={glanceLinks} source="Counts: DfE Get Information About Schools register. Offers: DfE 2026/27 release. Ofsted: latest overall grades held by this site." />
+
   <!-- Intro paragraph - unique per LA using real counts -->
   {uniqueIntro ? (
     <div class="max-w-2xl mb-2 space-y-3 text-gray-700">
@@ -185,12 +197,6 @@ const faqSchema = {
       Catchment area boundaries and admissions policies for all schools in {la.name} are reviewed annually.
     </p>
   )}
-  <div class="flex gap-6 text-gray-500 mb-4 text-sm">
-    <span>{laSchools.length} total</span>
-    <span>{primaries} primary</span>
-    <span>{secondaries} secondary</span>
-    <span>{townCount} area{townCount !== 1 ? 's' : ''}</span>
-  </div>
 
   {snapshot.length >= 3 && (
     <section class="mb-8 max-w-3xl" aria-labelledby="numbers-h">
