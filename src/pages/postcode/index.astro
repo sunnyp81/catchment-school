@@ -1,5 +1,24 @@
 ---
 import Base from '../../layouts/Base.astro';
+import oxGeo from '../../../public/data/geo/ox.json';
+
+// Worked example, computed at build time from the same geo file the live search reads. No API calls.
+type GeoSchool = { s: string; n: string; p: string; t: string; w: string; c: string; a: number; o: number };
+const exGeo: GeoSchool[] = oxGeo as GeoSchool[];
+const exOrigin = exGeo.find((x) => x.s === 'queensway-school-122996')!;
+const km = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+};
+const exWithin = exGeo
+  .filter((x) => x.s !== exOrigin.s && x.p === 'Primary' && !/independent/i.test(x.t))
+  .map((x) => ({ ...x, dist: km(exOrigin.a, exOrigin.o, x.a, x.o) }))
+  .filter((x) => x.dist <= 5)
+  .sort((a, b) => a.dist - b.dist);
+const exRows = exWithin.slice(0, 6);
 ---
 <Base
   title="Schools near your postcode | catchment.school"
@@ -34,6 +53,19 @@ import Base from '../../layouts/Base.astro';
   <div id="error" class="hidden text-red-600 bg-red-50 border border-red-200 rounded-lg p-5">
     <p>Could not find schools for this postcode. Please check and try again. <a href="/" class="underline">Back to search.</a></p>
   </div>
+
+  <section class="mt-12 max-w-3xl" aria-labelledby="near-me-h">
+    <h2 id="near-me-h" class="text-2xl font-semibold mb-3">Primary school catchment near me</h2>
+    <p class="text-gray-800 mb-3">The search measures the straight line from the centre of your postcode to each school, then lists the nearest schools within 5 km. It shows which schools are nearby. It is not the distance a council uses to allocate places, and it does not show whether you would be offered a place. Each council and school sets its own admissions rules, so check the school's published admissions policy. See the <a href="/methodology" class="text-indigo-700 hover:underline">methodology</a> for sources.</p>
+    <h3 class="text-lg font-semibold mb-2">Worked example</h3>
+    <p class="text-gray-800 mb-3">Starting from {exOrigin.n} ({exOrigin.c}), {exWithin.length} other state-funded primary schools in the OX postcode area are within 5 km. The six nearest, measured in a straight line:</p>
+    <ol class="list-decimal pl-5 space-y-1 text-gray-800 mb-3">
+      {exRows.map((r) => (
+        <li><a href={`/school/${r.s}`} class="text-indigo-700 hover:underline">{r.n}</a> ({r.w}): {r.dist.toFixed(1)} km</li>
+      ))}
+    </ol>
+    <p class="text-xs text-gray-600">Nearest within 5 km, not a catchment or admission eligibility. Starting point: the school's own coordinates from Get Information About Schools (DfE), used here in place of a postcode centre. Schools listed from the same site data as the search above (school list regenerated June 2026). Independent schools and non-primary schools are left out of this example.</p>
+  </section>
 
   <div class="mt-10 max-w-md border border-indigo-200 rounded-lg p-5 bg-indigo-50">
     <h3 class="font-semibold mb-2 text-indigo-900">Applying to a school nearby?</h3>
