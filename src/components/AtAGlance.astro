@@ -1,0 +1,26 @@
+---
+interface Props {
+  heading: string;
+  points: string[];
+  facts?: [string, string][];
+  source?: string;
+}
+const { heading, points, facts = [], source } = Astro.props;
+---
+<section class="mb-8 max-w-3xl bg-white border border-indigo-200 rounded-lg p-5" aria-labelledby="glance-h">
+  <h2 id="glance-h" class="text-lg font-semibold text-gray-900 mb-3">{heading}</h2>
+  {facts.length > 0 && (
+    <dl class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+      {facts.map(([label, value]) => (
+        <div class="bg-indigo-50 rounded-lg p-3">
+          <dd class="text-xl font-bold text-indigo-700">{value}</dd>
+          <dt class="text-xs text-gray-700">{label}</dt>
+        </div>
+      ))}
+    </dl>
+  )}
+  <ol class="list-decimal pl-5 space-y-1.5 text-sm text-gray-800">
+    {points.map((p) => <li>{p}</li>)}
+  </ol>
+  {source && <p class="text-xs text-gray-600 mt-3">{source}</p>}
+</section>
