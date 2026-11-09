@@ -1,4 +1,5 @@
 ---
+import ParentGuides from '../../components/ParentGuides.astro';
 import Base from '../../layouts/Base.astro';
 import schools from '../../data/schools.json';
 import towns from '../../data/towns.json';
@@ -317,4 +318,5 @@ const faqSchema = {
       </a>
     </div>
   </div>
+  <ParentGuides place={town.name} />
 </Base>

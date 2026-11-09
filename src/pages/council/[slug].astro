@@ -10,6 +10,7 @@ import { hasArea } from '../../lib/areas';
 import ofstedGrades from '../../data/ofsted-grades.json';
 import OversubTable from '../../components/OversubTable.astro';
 import { OS, HUB, SOURCE_LINE, int, pct, rowsFromCompact, ordinal, trendClause } from '../../lib/oversub';
+import ParentGuides from '../../components/ParentGuides.astro';
 import { CS, STATS_URL, rankText } from '../../lib/councilstats';
 
 export async function getStaticPaths() {
@@ -337,4 +338,5 @@ const faqSchema = {
       )}
     </section>
   ))}
+  <ParentGuides place={la.name} />
 </Base>

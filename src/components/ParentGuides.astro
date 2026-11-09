@@ -1,0 +1,24 @@
+---
+interface Props { place: string; }
+const { place } = Astro.props;
+const links = [
+  ['/guides/school-admissions-timeline/', 'Application deadlines and offer days', 'Closing dates, National Offer Day and what to do if you miss one.'],
+  ['/guides/how-school-catchment-areas-work/', 'How catchment areas work', 'How schools rank applications and how distance is measured.'],
+  ['/guides/school-waiting-lists/', 'Waiting lists', 'How positions are set and why they move.'],
+  ['/guides/how-to-appeal-a-school-place/', 'Appealing a refused place', 'Deadlines, grounds and what happens at a hearing.'],
+  ['/guides/ofsted-ratings-explained/', 'Ofsted ratings explained', 'Old grades and the new report cards.'],
+  ['/guides/in-year-admissions/', 'Applying mid-year', 'Moving to ' + place + ' outside the normal round.'],
+];
+---
+<section class="mt-10 mb-8 max-w-4xl" aria-labelledby="pg-h">
+  <h2 id="pg-h" class="text-lg font-semibold mb-1">Applying for a school in {place}</h2>
+  <p class="text-sm text-gray-600 mb-4">Plain-English guides to the England-wide admissions rules. Your council sets its own forms and local dates.</p>
+  <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+    {links.map(([href, label, note]) => (
+      <li class="border rounded-lg p-3">
+        <a href={href} class="text-indigo-700 font-medium hover:underline">{label}</a>
+        <span class="block text-gray-600 mt-0.5">{note}</span>
+      </li>
+    ))}
+  </ul>
+</section>
