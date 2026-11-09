@@ -7,6 +7,7 @@ import SchoolCard from '../../components/SchoolCard.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 import areaIntros from '../../data/area-intros.json';
 import ofstedGrades from '../../data/ofsted-grades.json';
+import { siblingAreas as getSiblingAreas } from '../../lib/areas';
 
 export async function getStaticPaths() {
   return (towns as any[]).map((t: any) => ({
@@ -21,11 +22,8 @@ const primaries = areaSchools.filter((s: any) => s.phase === 'Primary');
 const secondaries = areaSchools.filter((s: any) => s.phase === 'Secondary');
 const others = areaSchools.filter((s: any) => s.phase !== 'Primary' && s.phase !== 'Secondary');
 
-// Sibling areas - other towns in the same council, sorted by school count descending
-const siblingAreas = (towns as any[])
-  .filter((t: any) => t.laSlug === town.laSlug && t.slug !== town.slug)
-  .sort((a: any, b: any) => b.count - a.count)
-  .slice(0, 12);
+// Sibling areas: other areas of the same council, excluding postal towns whose schools mostly belong to another council.
+const siblingAreas = getSiblingAreas(schools as any[], town.laSlug, town.slug);
 
 // Thin-page guard: noindex aggregates with fewer than 10 schools.
 // Jun 11 audit: pages with < 5 schools were already noindexed; pages with 5-9 schools
@@ -53,9 +51,10 @@ const isThin = areaSchools.length < 10 || (areaSchools.length < 15 && !hasDemand
 const robotsDirective = isThin ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1';
 
 // Data-derived H2 for the primary-schools section - varies per entity via oversubscription count.
-const primaryH2 = oversubSchools.some((s: any) => s.phase === 'Primary')
-  ? `Primary schools in ${town.name}: ${oversubSchools.filter((s: any) => s.phase === 'Primary').length} oversubscribed`
-  : `Primary Schools in ${town.name}`;
+const primaryAtCapacity = oversubSchools.filter((s: any) => s.phase === 'Primary').length;
+const primaryH2 = primaryAtCapacity > 0
+  ? `Primary schools in ${town.name}: ${primaryAtCapacity} of ${primaries.length} at or over capacity`
+  : `Primary Schools in ${town.name} (${primaries.length})`;
 
 const areaOverride = (areaIntros as Record<string, { seoTitle?: string; seoDescription?: string; paragraphs?: string[] }>)[town.slug] ?? null;
 const title = areaOverride?.seoTitle ?? `${town.name} Catchment Area Schools 2026: Map & List`;
@@ -213,7 +212,7 @@ const faqSchema = {
 
   {primaries.length > 0 && (
     <section class="mb-10">
-      <h2 class="text-xl font-semibold mb-4">{primaryH2} ({primaries.length})</h2>
+      <h2 class="text-xl font-semibold mb-4">{primaryH2}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {primaries.map((s: any) => <SchoolCard {...s} />)}
       </div>
